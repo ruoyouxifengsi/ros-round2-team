@@ -10,11 +10,10 @@
 
 ## 获取仓库与安装
 
-私有仓库需要先由仓库所有者邀请你的 GitHub 账号并接受邀请。agent 不会自动获得你的账号权限；不要把 token 写进代码或聊天。
+本仓库已公开，队友和 agent 无需登录即可读取与克隆。直接推送仍需仓库写入权限；没有写入权限时可 fork 后提交 PR。不要把 token 写进代码或聊天。
 
 ```bash
-gh auth login
-gh repo clone ruoyouxifengsi/ros-round2-team
+git clone https://github.com/ruoyouxifengsi/ros-round2-team.git
 cd ros-round2-team
 git switch -c feature/vision-integration
 ```
@@ -106,6 +105,6 @@ python3 round2_baseline/scripts/verify_assets.py
 
 ## 协作约定与材料
 
-`main` 保留可复现控制基线，图像工作在 `feature/vision-integration` 分支，通过 PR 合并。模型获准前不切换默认版本；不要提交 token、模型权重、大型 rosbag 或个人环境目录。第三方官方模型与规则保留原来源和许可，不因控制包声明 MIT 就视为全部素材都可公开再分发；本仓库按队内私有协作用途提供。
+`main` 保留可复现控制基线，图像工作在 `feature/vision-integration` 分支，通过 PR 合并。模型获准前不切换默认版本；不要提交 token、模型权重、大型 rosbag 或个人环境目录。第三方官方模型与规则保留原来源和许可，不因控制包声明 MIT 就视为全部素材都可公开再分发；本仓库按所有者要求公开供协作使用；公开可读不等于授予第三方素材额外许可。
 
 官方材料在 `第二次分站赛下发/`；车模及计时器在其 `src/`。`round2_baseline/操作记录.md` 是原开发机历史操作记录，其中 D 盘路径、工作空间名及完整证据目录不一定存在于本仓库，队友以本 README 的相对路径和 `round2_team_ws` 为准。
