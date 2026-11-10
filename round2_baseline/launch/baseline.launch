@@ -1,0 +1,9 @@
+<launch>
+  <arg name="gui" default="true"/>
+  <arg name="timer" default="true"/>
+  <include file="$(find round2_baseline)/launch/simulation.launch">
+    <arg name="gui" value="$(arg gui)"/>
+  </include>
+  <include file="$(find round2_baseline)/launch/control.launch"/>
+  <include if="$(arg timer)" file="$(find ucar_accumtimer)/launch/AccumTimer.launch"/>
+</launch>

@@ -1,0 +1,13 @@
+material goods
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture goods.png
+      }
+    }
+  }
+}

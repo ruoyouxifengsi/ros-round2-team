@@ -1,0 +1,8 @@
+<launch>
+  <arg name="gui" default="false"/>
+  <env name="GAZEBO_MODEL_PATH" value="$(find car3):$(find car3)/models:$(optenv HOME)/.gazebo/models"/>
+  <include file="$(find car3)/launch/gazebo.launch">
+    <arg name="world" value="round2"/>
+    <arg name="gui" value="$(arg gui)"/>
+  </include>
+</launch>

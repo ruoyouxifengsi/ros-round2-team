@@ -1,0 +1,22 @@
+[
+  {
+    "version": "acceptance_seed42_v2",
+    "passed": true,
+    "max_tilt": 3.1776684985900383,
+    "trips": 11,
+    "wall": 497.3938273149979,
+    "sim_seconds": 166.805,
+    "qr": true,
+    "finish": true
+  },
+  {
+    "version": "low_com_seed42",
+    "passed": true,
+    "max_tilt": 0.26857921815644004,
+    "trips": 0,
+    "wall": 506.4037370300066,
+    "sim_seconds": 151.40000000000003,
+    "qr": true,
+    "finish": true
+  }
+]

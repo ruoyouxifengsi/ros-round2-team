@@ -1,0 +1,35 @@
+{
+  "official_assets": {
+    "car3/urdf/car3.urdf": {
+      "original": "a51c1ce3200850ff4bb83916352dcf3def308ed26df86cd7acabc4b18fb6bf57",
+      "deployed": "a51c1ce3200850ff4bb83916352dcf3def308ed26df86cd7acabc4b18fb6bf57",
+      "unchanged": true
+    },
+    "car3/world/round2.world": {
+      "original": "76d67410d119977a485e46a3320c6f18a12a72fe116155da30848a2e717edc78",
+      "deployed": "76d67410d119977a485e46a3320c6f18a12a72fe116155da30848a2e717edc78",
+      "unchanged": true
+    },
+    "car3/scripts/random_cones.py": {
+      "original": "488a33379744fc0b491d32c0749aa5fbacfd121ae3f9fae58136c538c0d6522b",
+      "deployed": "488a33379744fc0b491d32c0749aa5fbacfd121ae3f9fae58136c538c0d6522b",
+      "unchanged": true
+    },
+    "car3/scripts/random_place.py": {
+      "original": "6838f3ff77641d4bd739cd4e3769eefad00812c48efc8d91872104ca89aa4990",
+      "deployed": "6838f3ff77641d4bd739cd4e3769eefad00812c48efc8d91872104ca89aa4990",
+      "unchanged": true
+    },
+    "ucar_accumtimer/scripts/AccumTimer.py": {
+      "original": "7824d55b166aa2d8b5ac0fd14d07eb3a3d2a7f170453485ae2b3d80f089cdd13",
+      "deployed": "7824d55b166aa2d8b5ac0fd14d07eb3a3d2a7f170453485ae2b3d80f089cdd13",
+      "unchanged": true
+    },
+    "ucar_accumtimer/config/AccumTimer.yaml": {
+      "original": "878f14ab5ff5cbad0a8f20bfacd00dff181391f78cfcf7958da45f8a5155e8cc",
+      "deployed": "878f14ab5ff5cbad0a8f20bfacd00dff181391f78cfcf7958da45f8a5155e8cc",
+      "unchanged": true
+    }
+  },
+  "all_collision_mesh_hull_contained": true
+}

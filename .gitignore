@@ -1,0 +1,10 @@
+**/__pycache__/
+*.pyc
+build/
+devel/
+logs/
+*.bag
+.env
+.venv/
+round2_baseline/evidence/local_*/
+**/Result.md

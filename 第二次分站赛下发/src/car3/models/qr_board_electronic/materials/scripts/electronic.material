@@ -1,0 +1,13 @@
+material electronic
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture electronic.png
+      }
+    }
+  }
+}

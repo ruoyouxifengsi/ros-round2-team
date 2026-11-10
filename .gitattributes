@@ -1,0 +1,7 @@
+*.sh text eol=lf
+*.py text eol=lf
+*.launch text eol=lf
+*.yaml text eol=lf
+*.STL binary
+*.pdf binary
+*.png binary

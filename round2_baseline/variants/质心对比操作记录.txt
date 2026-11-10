@@ -1,0 +1,44 @@
+质心对比实验（2026-11-10）
+
+两份车模：original.urdf 为官方原版；low_com.urdf 为降低质心版。
+XML 结构对比确认：唯一参数变化为 base_link/inertial/origin 的 z 从 0.045754 改为 0.02。
+质量、惯性矩阵、外观、碰撞形状、导航参数及保护阈值均未修改。
+控制代码共用；两次运行各自保存了完整 Python 源码及配置快照，不会覆盖旧实验。
+原版快照：../evidence/acceptance_seed42_v2/source 与 config、launch。
+修改版快照：../evidence/low_com_seed42/source 与 config、launch。
+官方 car3 包文件未修改，默认启动仍使用原版。
+
+对比条件：WSL Ubuntu-20.04，官方场景和发车计时器，五桶种子42，同一路线，无人接管。
+原版使用前次通过记录作为对照；修改版本次新跑一次。不是多次统计实验。
+
+结果                         原版             降低质心版
+控制验收                     通过             通过
+目标完成                     18/18            18/18
+QR及终点完整车身入区          通过             通过
+姿态保护触发                 11次             0次
+最大综合倾角                 3.1777度         0.2686度
+实际时间（含发车等待）        497.39秒         506.40秒
+仿真时间（首个MOVING至完成）  166.805秒        151.400秒
+
+结论：本布局下稳定性明显改善，最大倾角约下降91.5%，没有触发姿态保护。
+仿真行驶时间约减少9.2%，实际时间反而增加约9秒，故不能宣称实际比赛耗时改善。
+仿真运行速度受电脑负载影响，两种时间不得混用；总赛时仍包含准备和后续图像任务。
+两版都没有完成图像识别、播报或相机观察姿态联调。本实验不证明任意布局均通过，也不是无碰撞证明。
+降低质心版标记为实验版本，参赛许可待组委会确认。
+
+复现（在WSL终端执行；每次更换一个尚不存在的输出目录）：
+source ~/round2_baseline_ws/devel/setup.bash
+cd /mnt/d/ros智能车/round2_baseline
+
+原版：
+python3 scripts/run_trial.py evidence/original_repeat42 --cones --seed 42 --timer
+
+降低质心版：
+python3 scripts/run_trial.py evidence/low_com_repeat42 --cones --seed 42 --timer --low-com
+
+验收（将路径替换成对应输出目录）：
+python3 scripts/analyze_trial.py evidence/low_com_repeat42
+
+--low-com 在本次输出目录内生成独立模型和启动文件，只在该次运行中加载。
+不带此选项就运行官方原版。两版使用相同的控制代码；无须改回官方文件。
+结果数据见 ../evidence/com_comparison.json 及两次实验的 analysis.json。

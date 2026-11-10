@@ -1,0 +1,45 @@
+<launch>
+    <arg name="world" default="round2"/>
+    <arg name="gui" default="true"/>
+    <arg name="debug" default="false"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find car3)/world/$(arg world).world"/>
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+  </include>
+
+  <param name="robot_description" textfile="$(find car3)/urdf/car3.urdf" />
+
+  <!-- round1map 在包根目录, model://round1map 从这里解析 -->
+  <env name="GAZEBO_MODEL_PATH" value="$(find car3):$(optenv GAZEBO_MODEL_PATH)" />
+
+  <node name="spawn_model" pkg="gazebo_ros" type="spawn_model"
+        args="-param robot_description -urdf -model car3 -x -0.75 -y 1.75 -z 0.01 -Y 1.57079632679" output="screen" />
+
+  <!-- 导航/RViz 暂不启用: gazebo_nav.launch 会拉起整个导航栈 + rviz(required) -->
+
+  <rosparam file="$(find car3)/config/car3_control.yaml" command="load"/>
+
+  <node name="controller_spawner" pkg="controller_manager" type="spawner"
+      args="joint_state_controller arm_controller gripper_controller"
+      output="screen" />
+
+  <node name="gripper_mimic" pkg="car3" type="gripper_mimic.py" output="screen" />
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+    <remap from="joint_states" to="joint_states_full" />
+    <param name="publish_frequency" value="50.0" />
+  </node>
+
+  <node name="fake_joint_calibration" pkg="rostopic" type="rostopic"
+        args="pub /calibrated std_msgs/Bool true" />
+
+  <!-- 机械臂初始化: 预设位姿库 + 控制服务 ,
+       启动后自动归位到 init (收起位姿), 之后可发 /arm_control/move_to_pose 切位姿 -->
+  <rosparam file="$(find car3)/config/poses.yaml" command="load" ns="arm_control_server"/>
+  <node pkg="car3" type="arm_control_server.py"
+        name="arm_control_server" output="screen">
+    <param name="init_pose" value="init"/>
+  </node>
+</launch>

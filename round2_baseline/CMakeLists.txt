@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.0.2)
+project(round2_baseline)
+find_package(catkin REQUIRED)
+catkin_package()
+catkin_install_python(PROGRAMS scripts/control.py scripts/attitude_guard.py DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

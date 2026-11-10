@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <model name="qr_board_electronic">
+    <static>true</static>
+    <link name="link">
+      <pose>0 0 0.15 1.5708 0 0</pose>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.3 0.3 0.005</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>materials/scripts/electronic.material</uri>
+            <name>electronic</name>
+          </script>
+        </material>
+      </visual>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.3 0.3 0.005</size>
+          </box>
+        </geometry>
+        <max_contacts>10</max_contacts>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <bounce/>
+          <friction>
+            <torsional>
+              <ode/>
+            </torsional>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <self_collide>0</self_collide>
+      <enable_wind>0</enable_wind>
+      <kinematic>0</kinematic>
+    </link>
+  </model>
+</sdf>
