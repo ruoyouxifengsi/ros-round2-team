@@ -100,6 +100,8 @@ python3 round2_baseline/scripts/test_docking.py
 python3 round2_baseline/scripts/verify_assets.py
 ```
 
+本次协作包已在新的 `round2_team_ws` 中编译通过，姿态保护、直线停车几何自检及官方文件校验通过。尚未在一台全新电脑安装 ROS 后从零验证；整轮通过数据来自此前本机实验。保存的 source_hashes 是当时实验的源码摘要，安装脚本等已为移植调整，不代表当前整个仓库与历史快照逐字节一致。
+
 图像完成后的验收应包含：真实相机识别与播报、任务传递、取消与超时、两处停车等待、收臂后安全行驶、不同桶布局、官方 Draw 全程以及完整比赛总时间。不要用现有 `control_baseline_pass` 证明图像也完成。
 
 ## 协作约定与材料
