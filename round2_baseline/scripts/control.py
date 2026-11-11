@@ -156,7 +156,7 @@ class Control:
                 planner.update_configuration(settings)
                 self.report('MOVING',name)
                 if name in ('qr_exit','finish'):
-                    self.straight_move(x,y,yaw,run_deadline,-1 if name=='qr_exit' else 1,.03 if name=='qr_exit' else .015)
+                    self.straight_move(x,y,yaw,run_deadline,-1 if name=='qr_exit' else 1,.03 if name=='qr_exit' else .025)
                     if not self.stopped():raise RuntimeError('Straight docking did not stop')
                     self.report('ARRIVED',name)
                     continue
@@ -168,7 +168,7 @@ class Control:
                 g.target_pose.pose.orientation.z = math.sin(yaw/2)
                 g.target_pose.pose.orientation.w = math.cos(yaw/2)
                 self.client.send_goal(g)
-                deadline = time.monotonic()+90
+                deadline = time.monotonic()+(150 if name=='cone_exit' else 90)
                 progress_at=time.monotonic()
                 previous=self.odom.pose.pose
                 while not self.client.wait_for_result(rospy.Duration(0.2)):

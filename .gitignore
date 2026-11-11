@@ -7,4 +7,5 @@ logs/
 .env
 .venv/
 round2_baseline/evidence/local_*/
+round2_baseline/evidence/local_*.json
 **/Result.md

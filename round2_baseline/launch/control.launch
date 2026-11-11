@@ -1,4 +1,5 @@
 <launch>
+  <node pkg="round2_baseline" type="cone_obstacles.py" name="cone_obstacles" output="screen"/>
   <node pkg="move_base" type="move_base" name="move_base" output="screen" clear_params="true">
     <remap from="cmd_vel" to="nav_cmd_vel"/>
     <rosparam file="$(find round2_baseline)/config/navigation.yaml"/>
@@ -11,6 +12,6 @@
   </node>
   <node pkg="round2_baseline" type="control.py" name="round2_control" output="screen">
     <rosparam param="docking_settings" file="$(find round2_baseline)/config/docking.yaml"/>
-    <rosparam param="route">[[bend1,-0.70,2.67,0.0],[bend2,0.25,2.7,-1.57],[bend3,0.25,1.75,0.0],[bend4,1.25,1.75,-1.57],[bend5_approach,1.25,0.75,-1.57],[bend5,1.10,0.75,-3.14],[bend6,0.75,0.75,1.57],[bend7,0.75,1.25,3.14],[bend8,-0.25,1.25,-1.57],[qr_approach,-0.25,0.25,0.0],[qr,0.20,0.25,0.0],[qr_exit,-0.25,0.25,0.0],[cone_entry,-0.25,0.25,1.57],[cone_exit,-1.75,2.05,1.57],[blocks,-1.75,2.25,1.57],[return,-0.70,1.20,0.0],[finish_approach,-0.25,1.25,1.57],[finish,-0.25,2.20,1.57]]</rosparam>
+    <rosparam param="route">[[bend1,-0.70,2.67,0.0],[bend2,0.25,2.7,-1.57],[bend3,0.25,1.75,0.0],[bend4,1.25,1.75,-1.57],[bend5_approach,1.25,0.75,-1.57],[bend5,1.10,0.75,-3.14],[bend6,0.75,0.75,1.57],[bend7,0.75,1.25,3.14],[bend8,-0.25,1.25,-1.57],[qr_approach,-0.25,0.25,0.0],[qr,0.20,0.25,0.0],[qr_exit,-0.25,0.25,0.0],[cone_entry,-0.25,0.35,1.57],[cone_exit,-1.75,2.20,1.57],[blocks,-1.75,2.25,1.57],[return,-0.70,1.20,0.0],[finish_approach,-0.25,1.25,1.57],[finish,-0.25,2.20,1.57]]</rosparam>
   </node>
 </launch>

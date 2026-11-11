@@ -1,0 +1,34 @@
+{
+  "1": {
+    "control.py": true,
+    "cone_obstacles.py": true,
+    "attitude_guard.py": true,
+    "navigation.yaml": true,
+    "docking.yaml": true,
+    "route": true
+  },
+  "2": {
+    "control.py": true,
+    "cone_obstacles.py": true,
+    "attitude_guard.py": true,
+    "navigation.yaml": true,
+    "docking.yaml": true,
+    "route": true
+  },
+  "3": {
+    "control.py": true,
+    "cone_obstacles.py": true,
+    "attitude_guard.py": true,
+    "navigation.yaml": true,
+    "docking.yaml": true,
+    "route": true
+  },
+  "42": {
+    "control.py": true,
+    "cone_obstacles.py": true,
+    "attitude_guard.py": true,
+    "navigation.yaml": true,
+    "docking.yaml": true,
+    "route": true
+  }
+}

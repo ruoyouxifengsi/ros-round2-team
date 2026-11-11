@@ -2,11 +2,17 @@
 
 这是供队内协作的 ROS Noetic 项目。控制部分已在 WSL Ubuntu 20.04 跑通连续弯道、QR 停靠、五桶区域、物块停靠和终点停车。**图像识别、语音播报、相机观察姿态尚未完成**；请不要把 `CONTROL_ROUTE_DONE` 当成完整比赛完赛。
 
+## 2026-11-11 更新
+
+低质心已获用户确认合规。修复了现场新布局暴露的入口转身、锥桶底座漏检、出口目标净空和终点收敛问题。最终相同代码下，官方种子 **1、2、3、42 四次整轮控制验收全部通过**，均未发现可测锥桶位移，姿态保护均为0次；实际耗时约475–541秒。四种布局各一次，不代表任意布局保证；图像和准备时间尚未计入。
+
+详见 [最新操作记录](round2_baseline/操作记录.md) 与 [结果汇总](round2_baseline/evidence/multilayout_20261111/summary.json)。改动前完整版本保留在标签 `baseline-before-multilayout`，原版车模不变。新增 `cone_obstacles.py` 基于激光与官方允许格点补足底座；**不要将开发专用 `audit_cones.py` 或 `--audit-cones` 带入比赛**，其Gazebo位移记录只用于开发复核，不向导航提供数据。
+
 ## 先给 agent 的任务
 
 把仓库克隆到 Ubuntu 20.04 / WSL 后，可直接向 agent 提交以下任务：
 
-> 先阅读 README.md、第二次分站赛下发中的规则与仿真教程、round2_baseline/scripts/control.py 和 launch/control.launch。先复现原版控制 baseline，再在新分支实现现场 QR 识别、任务保存、对应物块识别和规定格式播报。识别必须使用本地模型及当前相机图像。将控制程序的两个 IMAGE_SKIPPED 占位替换为有超时、可取消、等待完成的图像任务调用；不得仅订阅状态后让小车继续行驶。默认使用原版车模，保留姿态保护及原有验收。不要修改官方计时器、布景程序、碰撞模型或读取 Gazebo 真值。低质心版只用于实验，参赛许可尚待确认。先报告现有接口和实施方案，再实现并测试；没有实测的结果明确标注。
+> 先阅读 README.md、第二次分站赛下发中的规则与仿真教程、round2_baseline/scripts/control.py 和 launch/control.launch。先复现原版控制 baseline，再在新分支实现现场 QR 识别、任务保存、对应物块识别和规定格式播报。识别必须使用本地模型及当前相机图像。将控制程序的两个 IMAGE_SKIPPED 占位替换为有超时、可取消、等待完成的图像任务调用；不得仅订阅状态后让小车继续行驶。默认使用原版车模，保留姿态保护及原有验收。不要修改官方计时器、布景程序、碰撞模型或读取 Gazebo 真值。用户已于2026-11-11确认低质心符合规则；新增底座补偿适用于第二轮官方格点布桶。先报告现有接口和实施方案，再实现并测试；没有实测的结果明确标注。
 
 ## 获取仓库与安装
 
@@ -36,7 +42,7 @@ source ~/round2_team_ws/devel/setup.bash
 
 控制代码共用，两份车模分别在 `round2_baseline/variants/original.urdf` 和 `low_com.urdf`。唯一动力学参数差异是 `base_link/inertial/origin` 的 z：`0.045754 → 0.02`；重量、惯性矩阵、碰撞和外观均未改变。
 
-默认启动与默认测试均为官方原版。练习脚本加 `--low-com` 会在本次输出目录生成低质心模型并单独加载，不覆盖官方文件。低质心版目前**未获第二轮参赛许可确认**。不要通过修改导航 footprint 冒充车模尺寸变小。
+默认启动与默认测试均为官方原版。练习脚本加 `--low-com` 会在本次输出目录生成低质心模型并单独加载，不覆盖官方文件。用户已于2026-11-11确认低质心版符合第二轮规则。不要通过修改导航 footprint 冒充车模尺寸变小。
 
 ```bash
 # 在仓库根目录，先关闭自己此前启动的同项目仿真
@@ -77,11 +83,11 @@ python3 round2_baseline/scripts/analyze_trial.py round2_baseline/evidence/local_
 4. 在两个占位处阻塞后续导航，但持续响应取消、保护和超时；不能仅订阅 IMAGE_SKIPPED，因为当前程序报告后会立即离开。
 5. 失败路径必须明确：按赛事规则可继续后续任务，但不能伪造识别成功。增加任务状态后同步修改 `report()` 中写死的 `control_only=True` 和验收脚本，保留控制与完整比赛两种判定。
 6. 当前机械臂收起；观察姿态可能改变车身轮廓、重心和雷达遮挡。驶离前恢复并确认收臂，展开姿态不能直接沿用收臂 footprint 假设。
-7. 当前控制总超时 540 秒、阶段 90 秒，无进展保护 28 秒；加入识别后重新预算。规则总计时 10 分钟含准备，不能简单延长超时就当合规。ROS 仿真时间与墙钟时间也要分开。
+7. 当前控制总超时 540 秒、穿桶阶段 150 秒，其余导航阶段通常 90 秒，无进展保护 28 秒；加入识别后重新预算。规则总计时 10 分钟含准备，不能简单延长超时就当合规。ROS 仿真时间与墙钟时间也要分开。
 
 识别只能使用现场传感器与本地模型；禁止预设答案、云端代答，禁止导航/识别读取官方提供代码之外的 Gazebo 真值。控制用 `/odom`、激光及 TF；不要因为计时器或布景程序能读取真值而给识别模块同样权限。本轮无需抓取物块。
 
-## 结果与测试
+## 历史单布局结果与基础测试
 
 | 已保存结果（同种子42，各一次） | 原版 | 低质心 |
 |---|---:|---:|
@@ -96,6 +102,7 @@ python3 round2_baseline/scripts/analyze_trial.py round2_baseline/evidence/local_
 ```bash
 python3 round2_baseline/scripts/attitude_guard.py --self-test
 python3 round2_baseline/scripts/test_docking.py
+python3 round2_baseline/scripts/test_cone_obstacles.py
 python3 round2_baseline/scripts/verify_assets.py
 ```
 
@@ -105,6 +112,6 @@ python3 round2_baseline/scripts/verify_assets.py
 
 ## 协作约定与材料
 
-`main` 保留可复现控制基线，图像工作在 `feature/vision-integration` 分支，通过 PR 合并。模型获准前不切换默认版本；不要提交 token、模型权重、大型 rosbag 或个人环境目录。第三方官方模型与规则保留原来源和许可，不因控制包声明 MIT 就视为全部素材都可公开再分发；本仓库按所有者要求公开供协作使用；公开可读不等于授予第三方素材额外许可。
+`main` 保留可复现控制基线，图像工作在 `feature/vision-integration` 分支，通过 PR 合并。默认仍保留原版入口，低质心测试显式加 `--low-com`；不要提交 token、模型权重、大型 rosbag 或个人环境目录。第三方官方模型与规则保留原来源和许可，不因控制包声明 MIT 就视为全部素材都可公开再分发；本仓库按所有者要求公开供协作使用；公开可读不等于授予第三方素材额外许可。
 
 官方材料在 `第二次分站赛下发/`；车模及计时器在其 `src/`。`round2_baseline/操作记录.md` 是原开发机历史操作记录，其中 D 盘路径、工作空间名及完整证据目录不一定存在于本仓库，队友以本 README 的相对路径和 `round2_team_ws` 为准。

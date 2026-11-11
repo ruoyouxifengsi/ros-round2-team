@@ -25,6 +25,7 @@ p.add_argument('--cones',action='store_true')
 p.add_argument('--seed',type=int)
 p.add_argument('--timer',action='store_true')
 p.add_argument('--low-com',action='store_true',help='Experimental base_link COM z=0.02; official assets remain unchanged')
+p.add_argument('--audit-cones',action='store_true',help='Development-only displacement observer; forbidden in competition')
 p.add_argument('--debug-pose',nargs=3,type=float)
 p.add_argument('--debug-goal',nargs=3,type=float)
 p.add_argument('--debug-distance',type=float)
@@ -50,7 +51,7 @@ def launch(command,name):
     f=(out/(name+'.log')).open('w');files.append(f)
     proc=subprocess.Popen(command,stdout=f,stderr=subprocess.STDOUT,start_new_session=True)
     processes.append(proc);return proc
-result={'passed':False,'trigger':'development service','events':[]}
+result={'passed':False,'trigger':'development service','events':[], 'seed':args.seed, 'development_audit':args.audit_cones}
 try:
     simulation=package/'launch/simulation.launch'
     if args.low_com:
@@ -68,10 +69,10 @@ try:
         tree.find('.//arg[@name="gui"]').set('default','false')
         os.environ['GAZEBO_MODEL_PATH']=str(car)+':'+str(car/'models')+':'+str(Path.home()/'.gazebo/models')
         simulation=out/'low_com_simulation.launch.txt';tree.write(simulation)
-        result['model_variant']='EXPERIMENTAL low COM 0.02; competition permission pending'
+        result['model_variant']='low COM 0.02; user confirmed permitted 2026-11-11'
     if args.debug_pose:
         import rospkg
-        car=Path(rospkg.RosPack().get_path('car3'));tree=ET.parse(car/'launch/gazebo.launch')
+        car=Path(rospkg.RosPack().get_path('car3'));tree=ET.parse(simulation if args.low_com else car/'launch/gazebo.launch')
         x,y,yaw=args.debug_pose
         tree.find('.//node[@name="spawn_model"]').set('args',f'-param robot_description -urdf -model car3 -x {x} -y {y} -z 0.01 -Y {yaw}')
         tree.find('.//arg[@name="gui"]').set('default','false')
@@ -104,6 +105,9 @@ try:
         with (out/(script+'.log')).open('w') as f:
             subprocess.run(['rosrun','car3',script],env=env,stdout=f,stderr=subprocess.STDOUT,check=True,timeout=45)
     time.sleep(3)
+    if args.audit_cones:
+        launch(['python3',str(package/'scripts/audit_cones.py'),str(out/'cone_audit.json')],'cone_audit')
+        time.sleep(2)
     status={};poses=[]
     def state(msg):
         value=json.loads(msg.data)

@@ -1,0 +1,112 @@
+{
+  "runs": [
+    {
+      "run": "local_multi_v5_s1",
+      "seed": 1,
+      "control_pass": true,
+      "arrivals": 18,
+      "last_stage": "finish",
+      "final_status": {
+        "state": "CONTROL_ROUTE_DONE",
+        "detail": "Not a complete competition finish; wheel placement requires verification",
+        "stamp": 666.993,
+        "control_only": true
+      },
+      "last_position": [
+        -0.22831423797958386,
+        2.187561915082054
+      ],
+      "wall_seconds": 541.4309779089999,
+      "sim_seconds": 164.29100000000005,
+      "max_tilt_deg": 0.2553147442844777,
+      "guard_trips": 0,
+      "cone_audit_complete": true,
+      "cones_moved_over_5mm": [],
+      "max_cone_displacement_m": 1.3033618607551037e-11,
+      "error": null,
+      "clean_pass": true
+    },
+    {
+      "run": "local_multi_v5_s2",
+      "seed": 2,
+      "control_pass": true,
+      "arrivals": 18,
+      "last_stage": "finish",
+      "final_status": {
+        "state": "CONTROL_ROUTE_DONE",
+        "detail": "Not a complete competition finish; wheel placement requires verification",
+        "stamp": 654.246,
+        "control_only": true
+      },
+      "last_position": [
+        -0.24145862197578752,
+        2.176906317875543
+      ],
+      "wall_seconds": 498.39901177200045,
+      "sim_seconds": 151.469,
+      "max_tilt_deg": 0.2992353624674397,
+      "guard_trips": 0,
+      "cone_audit_complete": true,
+      "cones_moved_over_5mm": [],
+      "max_cone_displacement_m": 3.1903785674207e-11,
+      "error": null,
+      "clean_pass": true
+    },
+    {
+      "run": "local_multi_v5_s3",
+      "seed": 3,
+      "control_pass": true,
+      "arrivals": 18,
+      "last_stage": "finish",
+      "final_status": {
+        "state": "CONTROL_ROUTE_DONE",
+        "detail": "Not a complete competition finish; wheel placement requires verification",
+        "stamp": 646.668,
+        "control_only": true
+      },
+      "last_position": [
+        -0.24005375114041633,
+        2.177270024587209
+      ],
+      "wall_seconds": 475.37787344500066,
+      "sim_seconds": 144.04500000000002,
+      "max_tilt_deg": 0.28168678116291396,
+      "guard_trips": 0,
+      "cone_audit_complete": true,
+      "cones_moved_over_5mm": [],
+      "max_cone_displacement_m": 2.8725661334751606e-11,
+      "error": null,
+      "clean_pass": true
+    },
+    {
+      "run": "local_multi_v5_s42",
+      "seed": 42,
+      "control_pass": true,
+      "arrivals": 18,
+      "last_stage": "finish",
+      "final_status": {
+        "state": "CONTROL_ROUTE_DONE",
+        "detail": "Not a complete competition finish; wheel placement requires verification",
+        "stamp": 650.093,
+        "control_only": true
+      },
+      "last_position": [
+        -0.2421797258500195,
+        2.176400122122874
+      ],
+      "wall_seconds": 491.38886632899994,
+      "sim_seconds": 147.462,
+      "max_tilt_deg": 0.2625909280285849,
+      "guard_trips": 0,
+      "cone_audit_complete": true,
+      "cones_moved_over_5mm": [],
+      "max_cone_displacement_m": 3.32538817857737e-11,
+      "error": null,
+      "clean_pass": true
+    }
+  ],
+  "control_passes": 4,
+  "clean_passes": 4,
+  "total": 4,
+  "note": "5mm displacement screening is not a zero-contact certificate or official scoring threshold"
+}

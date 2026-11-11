@@ -1,0 +1,296 @@
+{
+  "passed": true,
+  "trigger": "unchanged official Draw widget",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 498.026,
+      "control_only": true,
+      "wall": 11139.539222021
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend1",
+      "stamp": 502.631,
+      "control_only": true,
+      "wall": 11142.207638703
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend1",
+      "stamp": 514.786,
+      "control_only": true,
+      "wall": 11182.195998556
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend2",
+      "stamp": 514.794,
+      "control_only": true,
+      "wall": 11182.223702009
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend2",
+      "stamp": 520.936,
+      "control_only": true,
+      "wall": 11202.763164452
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend3",
+      "stamp": 520.945,
+      "control_only": true,
+      "wall": 11202.792595053
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend3",
+      "stamp": 526.539,
+      "control_only": true,
+      "wall": 11221.441567306
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend4",
+      "stamp": 526.547,
+      "control_only": true,
+      "wall": 11221.46948552
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend4",
+      "stamp": 533.198,
+      "control_only": true,
+      "wall": 11243.519913926
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5_approach",
+      "stamp": 533.206,
+      "control_only": true,
+      "wall": 11243.549487663
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend5_approach",
+      "stamp": 539.702,
+      "control_only": true,
+      "wall": 11265.163549809
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5",
+      "stamp": 539.71,
+      "control_only": true,
+      "wall": 11265.191483038
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend5",
+      "stamp": 544.062,
+      "control_only": true,
+      "wall": 11279.648638956
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend6",
+      "stamp": 544.07,
+      "control_only": true,
+      "wall": 11279.676046957
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend6",
+      "stamp": 547.621,
+      "control_only": true,
+      "wall": 11291.40727997
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend7",
+      "stamp": 547.63,
+      "control_only": true,
+      "wall": 11291.436660793
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend7",
+      "stamp": 552.296,
+      "control_only": true,
+      "wall": 11306.97135253
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend8",
+      "stamp": 552.307,
+      "control_only": true,
+      "wall": 11307.01119486
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend8",
+      "stamp": 565.36,
+      "control_only": true,
+      "wall": 11350.51995366
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_approach",
+      "stamp": 565.368,
+      "control_only": true,
+      "wall": 11350.548126727
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr_approach",
+      "stamp": 581.035,
+      "control_only": true,
+      "wall": 11402.304813383
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr",
+      "stamp": 581.044,
+      "control_only": true,
+      "wall": 11402.334492137
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr",
+      "stamp": 586.394,
+      "control_only": true,
+      "wall": 11419.888070731
+    },
+    {
+      "state": "IMAGE_SKIPPED",
+      "detail": "qr",
+      "stamp": 586.395,
+      "control_only": true,
+      "wall": 11419.889489719
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_exit",
+      "stamp": 586.403,
+      "control_only": true,
+      "wall": 11419.918704147
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr_exit",
+      "stamp": 593.759,
+      "control_only": true,
+      "wall": 11444.308551618
+    },
+    {
+      "state": "MOVING",
+      "detail": "cone_entry",
+      "stamp": 593.767,
+      "control_only": true,
+      "wall": 11444.338024271
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "cone_entry",
+      "stamp": 606.022,
+      "control_only": true,
+      "wall": 11484.697154606
+    },
+    {
+      "state": "MOVING",
+      "detail": "cone_exit",
+      "stamp": 606.03,
+      "control_only": true,
+      "wall": 11484.725391967
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "cone_exit",
+      "stamp": 617.799,
+      "control_only": true,
+      "wall": 11523.69913784
+    },
+    {
+      "state": "MOVING",
+      "detail": "blocks",
+      "stamp": 617.807,
+      "control_only": true,
+      "wall": 11523.728286359
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "blocks",
+      "stamp": 618.159,
+      "control_only": true,
+      "wall": 11524.895015844
+    },
+    {
+      "state": "IMAGE_SKIPPED",
+      "detail": "blocks",
+      "stamp": 618.159,
+      "control_only": true,
+      "wall": 11524.896994919
+    },
+    {
+      "state": "MOVING",
+      "detail": "return",
+      "stamp": 618.167,
+      "control_only": true,
+      "wall": 11524.922393454
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "return",
+      "stamp": 632.073,
+      "control_only": true,
+      "wall": 11571.057079233
+    },
+    {
+      "state": "MOVING",
+      "detail": "finish_approach",
+      "stamp": 632.081,
+      "control_only": true,
+      "wall": 11571.090020285
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "finish_approach",
+      "stamp": 635.432,
+      "control_only": true,
+      "wall": 11582.351066752
+    },
+    {
+      "state": "MOVING",
+      "detail": "finish",
+      "stamp": 635.441,
+      "control_only": true,
+      "wall": 11582.378900676
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "finish",
+      "stamp": 650.092,
+      "control_only": true,
+      "wall": 11630.512698685
+    },
+    {
+      "state": "CONTROL_ROUTE_DONE",
+      "detail": "Not a complete competition finish; wheel placement requires verification",
+      "stamp": 650.093,
+      "control_only": true,
+      "wall": 11630.514269025
+    }
+  ],
+  "seed": 42,
+  "development_audit": true,
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "elapsed_wall": 491.38886632899994,
+  "final_status": {
+    "state": "CONTROL_ROUTE_DONE",
+    "detail": "Not a complete competition finish; wheel placement requires verification",
+    "stamp": 650.093,
+    "control_only": true
+  }
+}

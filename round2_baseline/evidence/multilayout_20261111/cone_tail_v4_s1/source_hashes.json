@@ -1,0 +1,18 @@
+{
+  "scripts/analyze_trial.py": "a6a12c517a0407a572affd842d76b341619ef9af13e81dee28d63f24314a0371",
+  "scripts/attitude_guard.py": "d5f4ef8bc00785b04b8cbba5d339e4562d0a74c9a5640d7e8d7e2224d9175d23",
+  "scripts/audit_cones.py": "592513ef525ef6a3d98801e4969120d299a8a1db91473ca73e0dd6fdb24240ca",
+  "scripts/capture.py": "3bdd0e3abc53a7b117f104dfba4ebde9aa5398cc2b5c89580cd288dce6726142",
+  "scripts/check_snapshot_footprint.py": "74f0cd45f9344f958f9dbe90884f1b73f4849b447808fc7afe25e283b44b71ec",
+  "scripts/cone_obstacles.py": "c108be39bbcd364ae5bcd1d0e31ba0c7f0345420b6f45bdb321c4eaa0978c9dd",
+  "scripts/control.py": "2aa6eb405f99aa618fac33fc1844499645e0d24bbd3411ea302ec950315d2030",
+  "scripts/measure_footprint.py": "12b4c0193601352d35b760deb98545b384a4d47f97c1d709bfeb57a7487b0962",
+  "scripts/plot_snapshot.py": "626139f13bbce913ff340a60085d0f21786cbfe9b8b0284292a1f2e66340c95e",
+  "scripts/plot_trial.py": "74b05711cedeecf40fcc1762d67dd0ad8dd75abfef9c71bdcdd4b7262c6dc584",
+  "scripts/replay_clearance.py": "57fd5a9d419f7852ebada726eda4f8c7ad13f9677992bb2021756a783f13e12e",
+  "scripts/run_trial.py": "c6f30177c15f3eb12c9e08e992645a016a959573ebc1d2097b8b8e9a1501e64d",
+  "scripts/summarize_trials.py": "fb6aa0937d16fecde584d66aa02822beb07af9c6fc70c7894bcd676dba8e165c",
+  "scripts/test_docking.py": "084c9f36537c02a0f48f0ca6b511f95bc5422fc64f602fbc3fa561c79a497991",
+  "scripts/timer_trial.py": "6d0503a077acaed11c66d78cd8fccfa0e103d16aa53a457f6cefe402719407ea",
+  "scripts/verify_assets.py": "759b41f652b76390ffa694b279c5f40cd1b68f67562938d2bc6967bf5bc07f67"
+}

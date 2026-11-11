@@ -1,0 +1,212 @@
+{
+  "passed": false,
+  "trigger": "unchanged official Draw widget",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 497.628,
+      "control_only": true,
+      "wall": 8088.597956843
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend1",
+      "stamp": 502.391,
+      "control_only": true,
+      "wall": 8091.184140725
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend1",
+      "stamp": 510.7,
+      "control_only": true,
+      "wall": 8117.180770696
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend2",
+      "stamp": 510.708,
+      "control_only": true,
+      "wall": 8117.206755962
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend2",
+      "stamp": 516.567,
+      "control_only": true,
+      "wall": 8135.857616036
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend3",
+      "stamp": 516.574,
+      "control_only": true,
+      "wall": 8135.884571579
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend3",
+      "stamp": 523.174,
+      "control_only": true,
+      "wall": 8156.884373548
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend4",
+      "stamp": 523.182,
+      "control_only": true,
+      "wall": 8156.909276459
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend4",
+      "stamp": 529.555,
+      "control_only": true,
+      "wall": 8177.382517675
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5_approach",
+      "stamp": 529.562,
+      "control_only": true,
+      "wall": 8177.409273162
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend5_approach",
+      "stamp": 536.097,
+      "control_only": true,
+      "wall": 8198.376689624
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5",
+      "stamp": 536.105,
+      "control_only": true,
+      "wall": 8198.404540085
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend5",
+      "stamp": 540.407,
+      "control_only": true,
+      "wall": 8212.272309079
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend6",
+      "stamp": 540.415,
+      "control_only": true,
+      "wall": 8212.30035873
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend6",
+      "stamp": 543.963,
+      "control_only": true,
+      "wall": 8224.020131842
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend7",
+      "stamp": 543.971,
+      "control_only": true,
+      "wall": 8224.047440881
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend7",
+      "stamp": 548.624,
+      "control_only": true,
+      "wall": 8239.483470443
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend8",
+      "stamp": 548.632,
+      "control_only": true,
+      "wall": 8239.510821668
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend8",
+      "stamp": 562.575,
+      "control_only": true,
+      "wall": 8286.024633495
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_approach",
+      "stamp": 562.583,
+      "control_only": true,
+      "wall": 8286.055567401
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr_approach",
+      "stamp": 569.685,
+      "control_only": true,
+      "wall": 8309.411804995
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr",
+      "stamp": 569.693,
+      "control_only": true,
+      "wall": 8309.440472219
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr",
+      "stamp": 575.146,
+      "control_only": true,
+      "wall": 8327.517795217
+    },
+    {
+      "state": "IMAGE_SKIPPED",
+      "detail": "qr",
+      "stamp": 575.146,
+      "control_only": true,
+      "wall": 8327.518953307
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_exit",
+      "stamp": 575.154,
+      "control_only": true,
+      "wall": 8327.546129132
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr_exit",
+      "stamp": 582.39,
+      "control_only": true,
+      "wall": 8351.843409991
+    },
+    {
+      "state": "MOVING",
+      "detail": "cone_entry",
+      "stamp": 582.398,
+      "control_only": true,
+      "wall": 8351.873930982
+    },
+    {
+      "state": "FAILED",
+      "detail": "No measured movement for 28 seconds: cone_entry",
+      "stamp": 590.953,
+      "control_only": true,
+      "wall": 8380.517553536
+    }
+  ],
+  "seed": 1,
+  "development_audit": true,
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "elapsed_wall": 292.2416868300006,
+  "final_status": {
+    "state": "FAILED",
+    "detail": "No measured movement for 28 seconds: cone_entry",
+    "stamp": 590.953,
+    "control_only": true
+  }
+}

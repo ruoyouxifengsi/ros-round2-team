@@ -1,0 +1,66 @@
+{
+  "passed": false,
+  "trigger": "debug control service",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 497.586,
+      "control_only": true,
+      "wall": 8549.52998729
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_exit",
+      "stamp": 501.04,
+      "control_only": true,
+      "wall": 8549.573752655
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr_exit",
+      "stamp": 501.198,
+      "control_only": true,
+      "wall": 8550.076642616
+    },
+    {
+      "state": "MOVING",
+      "detail": "cone_entry",
+      "stamp": 501.205,
+      "control_only": true,
+      "wall": 8550.100712409
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "cone_entry",
+      "stamp": 505.635,
+      "control_only": true,
+      "wall": 8563.6848868
+    },
+    {
+      "state": "MOVING",
+      "detail": "cone_exit",
+      "stamp": 505.642,
+      "control_only": true,
+      "wall": 8563.709424433
+    },
+    {
+      "state": "FAILED",
+      "detail": "Cancelled, stale odometry or stage timeout: cone_exit",
+      "stamp": 535.46,
+      "control_only": true,
+      "wall": 8654.61228242
+    }
+  ],
+  "seed": 1,
+  "development_audit": true,
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+  "elapsed_wall": 106.07725816699894,
+  "final_status": {
+    "state": "FAILED",
+    "detail": "Cancelled, stale odometry or stage timeout: cone_exit",
+    "stamp": 535.46,
+    "control_only": true
+  }
+}

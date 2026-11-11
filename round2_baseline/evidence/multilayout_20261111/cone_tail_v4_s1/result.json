@@ -1,0 +1,129 @@
+{
+  "passed": false,
+  "trigger": "debug control service",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 497.751,
+      "control_only": true,
+      "wall": 9175.16628375
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_exit",
+      "stamp": 500.823,
+      "control_only": true,
+      "wall": 9175.214205364
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr_exit",
+      "stamp": 500.969,
+      "control_only": true,
+      "wall": 9175.717585409
+    },
+    {
+      "state": "MOVING",
+      "detail": "cone_entry",
+      "stamp": 500.977,
+      "control_only": true,
+      "wall": 9175.743087764
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "cone_entry",
+      "stamp": 505.427,
+      "control_only": true,
+      "wall": 9190.479659439
+    },
+    {
+      "state": "MOVING",
+      "detail": "cone_exit",
+      "stamp": 505.435,
+      "control_only": true,
+      "wall": 9190.505830555
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "cone_exit",
+      "stamp": 520.287,
+      "control_only": true,
+      "wall": 9237.912049968
+    },
+    {
+      "state": "MOVING",
+      "detail": "blocks",
+      "stamp": 520.294,
+      "control_only": true,
+      "wall": 9237.936512339
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "blocks",
+      "stamp": 520.751,
+      "control_only": true,
+      "wall": 9239.383862745
+    },
+    {
+      "state": "IMAGE_SKIPPED",
+      "detail": "blocks",
+      "stamp": 520.752,
+      "control_only": true,
+      "wall": 9239.384941849
+    },
+    {
+      "state": "MOVING",
+      "detail": "return",
+      "stamp": 520.759,
+      "control_only": true,
+      "wall": 9239.407918522
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "return",
+      "stamp": 544.638,
+      "control_only": true,
+      "wall": 9314.137827226
+    },
+    {
+      "state": "MOVING",
+      "detail": "finish_approach",
+      "stamp": 544.645,
+      "control_only": true,
+      "wall": 9314.163737224
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "finish_approach",
+      "stamp": 548.206,
+      "control_only": true,
+      "wall": 9325.173774869
+    },
+    {
+      "state": "MOVING",
+      "detail": "finish",
+      "stamp": 548.213,
+      "control_only": true,
+      "wall": 9325.196440803
+    },
+    {
+      "state": "FAILED",
+      "detail": "Straight docking made no progress",
+      "stamp": 576.335,
+      "control_only": true,
+      "wall": 9411.535595818
+    }
+  ],
+  "seed": 1,
+  "development_audit": true,
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+  "elapsed_wall": 237.1782759050002,
+  "final_status": {
+    "state": "FAILED",
+    "detail": "Straight docking made no progress",
+    "stamp": 576.335,
+    "control_only": true
+  }
+}
