@@ -26,6 +26,7 @@ p.add_argument('--seed',type=int)
 p.add_argument('--timer',action='store_true')
 p.add_argument('--low-com',action='store_true',help='Experimental base_link COM z=0.02; official assets remain unchanged')
 p.add_argument('--audit-cones',action='store_true',help='Development-only displacement observer; forbidden in competition')
+p.add_argument('--speed-profile',choices=['stable','fast'],default='stable')
 p.add_argument('--debug-pose',nargs=3,type=float)
 p.add_argument('--debug-goal',nargs=3,type=float)
 p.add_argument('--debug-distance',type=float)
@@ -51,7 +52,7 @@ def launch(command,name):
     f=(out/(name+'.log')).open('w');files.append(f)
     proc=subprocess.Popen(command,stdout=f,stderr=subprocess.STDOUT,start_new_session=True)
     processes.append(proc);return proc
-result={'passed':False,'trigger':'development service','events':[], 'seed':args.seed, 'development_audit':args.audit_cones}
+result={'passed':False,'trigger':'development service','events':[], 'seed':args.seed, 'development_audit':args.audit_cones, 'speed_profile':args.speed_profile}
 try:
     simulation=package/'launch/simulation.launch'
     if args.low_com:
@@ -90,7 +91,7 @@ try:
     rospy.init_node('trial_observer',anonymous=True)
     rospy.wait_for_message('/odom',Odometry,timeout=90)
     rospy.wait_for_message('/scan',LaserScan,timeout=30)
-    launch(['roslaunch',str(package/'launch/control.launch')],'control')
+    launch(['roslaunch',str(package/'launch/control.launch'),'speed_profile:='+args.speed_profile],'control')
     rospy.wait_for_service('/nav_start',timeout=60)
     ready_deadline=time.monotonic()+30
     if not args.debug_pose:

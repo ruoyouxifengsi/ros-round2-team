@@ -1,0 +1,67 @@
+{
+  "runs": [
+    {
+      "seed": 1,
+      "stable": {
+        "wall": 541.4309779089999,
+        "sim": 164.29100000000005,
+        "passed": true
+      },
+      "fast": {
+        "wall": 417.33575184099936,
+        "sim": 124.82800000000003,
+        "passed": true
+      },
+      "wall_reduction_pct": 22.91986072670885,
+      "sim_reduction_pct": 24.020183698437535
+    },
+    {
+      "seed": 2,
+      "stable": {
+        "wall": 498.39901177200045,
+        "sim": 151.469,
+        "passed": true
+      },
+      "fast": {
+        "wall": 402.324152666999,
+        "sim": 121.31800000000004,
+        "passed": true
+      },
+      "wall_reduction_pct": 19.276695345646523,
+      "sim_reduction_pct": 19.90572328331207
+    },
+    {
+      "seed": 3,
+      "stable": {
+        "wall": 475.37787344500066,
+        "sim": 144.04500000000002,
+        "passed": true
+      },
+      "fast": {
+        "wall": 461.37883745199906,
+        "sim": 139.16700000000003,
+        "passed": true
+      },
+      "wall_reduction_pct": 2.944822797820279,
+      "sim_reduction_pct": 3.386441736957191
+    },
+    {
+      "seed": 42,
+      "stable": {
+        "wall": 491.38886632899994,
+        "sim": 147.462,
+        "passed": true
+      },
+      "fast": {
+        "wall": 428.34923396500017,
+        "sim": 128.89700000000005,
+        "passed": true
+      },
+      "wall_reduction_pct": 12.828868678883087,
+      "sim_reduction_pct": 12.589684122011057
+    }
+  ],
+  "aggregate_wall_reduction_pct": 14.811583671360129,
+  "aggregate_sim_reduction_pct": 15.323902006860223,
+  "note": "One trial per seed/profile; not a statistical performance guarantee"
+}

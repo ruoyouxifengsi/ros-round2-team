@@ -38,13 +38,15 @@ class YawFeedback:
 
 
 class Guard:
-    def __init__(self, max_speed=.12, linear_accel=.2, hold_tilt_deg=1.0, angular_feedback=False):
+    def __init__(self, max_speed=.12, linear_accel=.2, hold_tilt_deg=1.0, angular_feedback=False, curvature_accel=0.):
         if not all(math.isfinite(v) and v > 0 for v in (max_speed,linear_accel)):
             raise ValueError('velocity and acceleration limits must be positive and finite')
         if (isinstance(hold_tilt_deg,bool) or not isinstance(hold_tilt_deg,(int,float)) or
                 not math.isfinite(hold_tilt_deg) or not .3 < hold_tilt_deg < 8.):
             raise ValueError('hold_tilt_deg must be finite and strictly between 0.3 and 8 degrees')
         self.max_speed, self.linear_accel = max_speed, linear_accel
+        if not math.isfinite(curvature_accel) or curvature_accel<0:raise ValueError('invalid curvature acceleration')
+        self.curvature_accel = curvature_accel
         self.hold_tilt_deg = float(hold_tilt_deg)
         self.mode, self.reason = 'BLOCKED', 'waiting for odometry'
         self.odom = self.cmd = self.level_since = self.last_clock = None
@@ -146,6 +148,10 @@ class Guard:
         if magnitude > self.max_speed:
             target[0] *= self.max_speed/magnitude
             target[1] *= self.max_speed/magnitude
+        normal_accel=math.hypot(*target[:2])*abs(target[2])
+        if self.curvature_accel and normal_accel>self.curvature_accel:
+            factor=math.sqrt(self.curvature_accel/normal_accel)
+            target=[value*factor for value in target]
         delta = [target[i]-self.velocity[i] for i in range(2)]
         norm = math.hypot(*delta)
         scale = min(1., self.linear_accel*dt/norm) if norm else 1.
@@ -283,7 +289,7 @@ def main():
     from std_msgs.msg import String
     rospy.init_node('attitude_guard')
     guard = Guard(rospy.get_param('~max_linear_speed',.12),rospy.get_param('~linear_acceleration',.2),
-                  rospy.get_param('~hold_tilt_deg',1.0),rospy.get_param('~angular_feedback',False))
+                  rospy.get_param('~hold_tilt_deg',1.0),rospy.get_param('~angular_feedback',False),rospy.get_param('~curvature_accel',0.))
     lock = threading.RLock()
     history, scans = deque(maxlen=300), deque(maxlen=100)
     stats = {'scan_passed': 0, 'scan_dropped': 0}

@@ -48,13 +48,14 @@ def footprint_clear(grid, x, y, yaw, polygon, padding):
     return True
 
 
-def straight_velocity(px,py,angle,x,y,yaw,direction):
+def straight_velocity(px,py,angle,x,y,yaw,direction,fast=False):
     dx,dy=x-px,y-py
     cross=(py-y)*math.cos(yaw)-(px-x)*math.sin(yaw)
     target=yaw-direction*max(-.12,min(.12,2.*cross))
     error=math.atan2(math.sin(target-angle),math.cos(target-angle))
     remaining=direction*(dx*math.cos(yaw)+dy*math.sin(yaw))
-    v=direction*min(.08,.8*max(0.,remaining)) if abs(error)<.25 else 0.
+    speed=min(.18,1.2*max(0.,remaining),math.sqrt(.5*max(0.,remaining))) if fast else min(.08,.8*max(0.,remaining))
+    v=direction*speed if abs(error)<.25 else 0.
     return v,max(-.15,min(.15,1.5*error)),remaining
 
 
@@ -63,6 +64,7 @@ class Control:
         self.client = actionlib.SimpleActionClient('/move_base', MoveBaseAction)
         self.lock = threading.Lock()
         self.running = False
+        self.fast = rospy.get_param('~speed_profile','stable')=='fast'
         self.cancelled = threading.Event()
         self.odom = None
         self.received = 0
@@ -221,7 +223,7 @@ class Control:
                 if now-progress_at>28:raise RuntimeError('Straight docking made no progress')
                 heading_error=math.atan2(math.sin(angle-yaw),math.cos(angle-yaw))
                 if abs(heading_error)>.3:raise RuntimeError('Straight docking heading left the corridor')
-                v,omega,remaining=straight_velocity(p.x,p.y,angle,x,y,yaw,direction)
+                v,omega,remaining=straight_velocity(p.x,p.y,angle,x,y,yaw,direction,self.fast)
                 if remaining<=0:raise RuntimeError('Straight docking passed target without alignment')
                 safe=True;px,py,pa=p.x,p.y,angle
                 cross_squared=max(0.,distance*distance-remaining*remaining)
