@@ -34,6 +34,8 @@ p.add_argument('--audit-cones',action='store_true',help='Development-only displa
 p.add_argument('--speed-profile',choices=['stable','fast','sprint'],default='stable')
 p.add_argument('--continuous-bends',action='store_true')
 p.add_argument('--bend-path',action='store_true')
+p.add_argument('--route-flow',action='store_true')
+p.add_argument('--debug-from-stage',help='Development-only tail from a named route stage')
 p.add_argument('--efficient-approach',action='store_true')
 p.add_argument('--attitude-protection',action='store_true',help='Restore tilt stops and curvature speed limiting; disabled by default')
 p.add_argument('--build-fixed-map',action='store_true',help='Sensor survey of a separate fixed-only scene; not a race run')
@@ -79,6 +81,7 @@ def launch(command,name,env=None):
 result={'passed':False,'trigger':'development service','events':[], 'seed':args.seed, 'development_audit':args.audit_cones, 'speed_profile':args.speed_profile,'timeout_clock':args.timeout_clock,'simulation_engine':'official ode'}
 result['continuous_bends']=args.continuous_bends
 result['bend_path']=args.bend_path
+result['route_flow']=args.route_flow
 result['efficient_approach']=args.efficient_approach
 result['attitude_protection']=args.attitude_protection
 result['navigation_mode']='premapped_amcl' if args.map_file else 'rolling_odom'
@@ -166,6 +169,7 @@ try:
     control_args=['roslaunch',str(package/'launch/control.launch'),'speed_profile:='+args.speed_profile,'timeout_clock:='+args.timeout_clock,'continuous_bends:='+str(args.continuous_bends).lower()]
     control_args.append('efficient_approach:='+str(args.efficient_approach).lower())
     control_args.append('bend_path:='+str(args.bend_path).lower())
+    control_args.append('route_flow:='+str(args.route_flow).lower())
     control_args.append('attitude_protection:='+str(args.attitude_protection).lower())
     if args.map_file:control_args.append('map_file:='+str(args.map_file.resolve()))
     if args.travel_clearance is not None:
@@ -238,11 +242,18 @@ try:
         route=route[:next(i+1 for i,row in enumerate(route) if row[0]==args.debug_prefix_until)]
         rospy.set_param('/round2_control/route',route)
         result['scope']='DEBUG ROUTE PREFIX, NOT A COMPETITION RUN'
+    if args.debug_from_stage:
+        if not args.debug_control:raise RuntimeError('Named tail requires a debug control spawn')
+        route=rospy.get_param('/round2_control/route')
+        route=route[next(i for i,row in enumerate(route) if row[0]==args.debug_from_stage):]
+        rospy.set_param('/round2_control/route',route)
     if args.debug_control:
         if not args.debug_pose:raise RuntimeError('Debug control requires a debug spawn')
         rospy.set_param('/round2_control/start_position',args.debug_pose[:2])
         route=[[args.debug_stage]+args.debug_goal]
-        if args.debug_tail:
+        if args.debug_from_stage:
+            route=rospy.get_param('/round2_control/route')
+        elif args.debug_tail:
             route=rospy.get_param('/round2_control/route')
             route=route[next(i for i,row in enumerate(route) if row[0]=='qr_exit'):]
         rospy.set_param('/round2_control/route',route)
@@ -296,6 +307,7 @@ try:
     result['elapsed_wall']=time.monotonic()-start
     result['elapsed_sim']=rospy.get_time()-sim_start
     result['final_status']=dict(status)
+    result['executed_route']=rospy.get_param('/round2_control/executed_route',rospy.get_param('/round2_control/route'))
     rospy.ServiceProxy('/nav_start',SetBool)(False)
     time.sleep(2)
     (out/'poses.json').write_text(json.dumps(poses))

@@ -1,0 +1,808 @@
+{
+  "scope": "Full control route, simulation seconds; no mapping, images, speech or official race score",
+  "comparison": "Only seed 42 has a new paired baseline. Three final layouts are not a universal success-rate estimate.",
+  "baseline": {
+    "trial": "local_route_opt_baseline42",
+    "accepted": true,
+    "seed": 42,
+    "speed_profile": "sprint",
+    "continuous": true,
+    "efficient_approach": true,
+    "entry_turn": {
+      "seconds": 6.025999999999954,
+      "rotation_deg": 84.908612304812
+    },
+    "moving_sim_seconds": 56.76599999999996,
+    "stopped_sim_seconds": 3.263999999999953,
+    "max_tilt_deg": 0.49571976679160773,
+    "guard_trips": 0,
+    "retries": 4,
+    "contact_coverage": true,
+    "contact_summary": {
+      "type": "summary",
+      "messages": 57865,
+      "all_contacts": 693487,
+      "cone_contact_events": 0,
+      "wall_contact_events": 0,
+      "sim": 564.393
+    },
+    "moved_cones": [],
+    "mandatory_stops": true,
+    "stages": [
+      {
+        "stage": "bend1",
+        "wall": 4.683000790999358,
+        "sim": 1.2420000000000186,
+        "retries": 0,
+        "retry_positions": []
+      },
+      {
+        "stage": "bend2",
+        "wall": 6.021635256998707,
+        "sim": 1.600999999999999,
+        "retries": 0,
+        "retry_positions": []
+      },
+      {
+        "stage": "bend3",
+        "wall": 5.536476458000834,
+        "sim": 1.4589999999999463,
+        "retries": 0,
+        "retry_positions": []
+      },
+      {
+        "stage": "bend4",
+        "wall": 5.663141140001244,
+        "sim": 1.497000000000071,
+        "retries": 0,
+        "retry_positions": []
+      },
+      {
+        "stage": "bend5_approach",
+        "wall": 5.589726939999309,
+        "sim": 1.4589999999999463,
+        "retries": 0,
+        "retry_positions": []
+      },
+      {
+        "stage": "bend5",
+        "wall": 0.7445721809999668,
+        "sim": 0.17200000000002547,
+        "retries": 0,
+        "retry_positions": []
+      },
+      {
+        "stage": "bend6",
+        "wall": 2.952412512999217,
+        "sim": 0.7839999999999918,
+        "retries": 0,
+        "retry_positions": []
+      },
+      {
+        "stage": "bend7",
+        "wall": 4.0325040179995995,
+        "sim": 1.08299999999997,
+        "retries": 0,
+        "retry_positions": []
+      },
+      {
+        "stage": "bend8",
+        "wall": 19.457806214999437,
+        "sim": 4.969000000000051,
+        "retries": 0,
+        "retry_positions": []
+      },
+      {
+        "stage": "qr_approach",
+        "wall": 24.099443364999388,
+        "sim": 5.63900000000001,
+        "retries": 0,
+        "retry_positions": []
+      },
+      {
+        "stage": "qr",
+        "wall": 13.740161996000097,
+        "sim": 3.1369999999999436,
+        "retries": 0,
+        "retry_positions": []
+      },
+      {
+        "stage": "qr_exit",
+        "wall": 14.090052490000744,
+        "sim": 3.0179999999999154,
+        "retries": 0,
+        "retry_positions": []
+      },
+      {
+        "stage": "cone_entry",
+        "wall": 29.785422077000476,
+        "sim": 6.025999999999954,
+        "retries": 0,
+        "retry_positions": []
+      },
+      {
+        "stage": "cone_exit",
+        "wall": 37.583033268998406,
+        "sim": 6.668999999999983,
+        "retries": 2,
+        "retry_positions": [
+          [
+            -0.9466675525614618,
+            0.7002943834655005
+          ],
+          [
+            -1.2454822445122196,
+            1.2460727156893736
+          ]
+        ]
+      },
+      {
+        "stage": "blocks",
+        "wall": 1.2505249830010143,
+        "sim": 0.33199999999999363,
+        "retries": 0,
+        "retry_positions": []
+      },
+      {
+        "stage": "return",
+        "wall": 50.80513047400018,
+        "sim": 9.683999999999969,
+        "retries": 2,
+        "retry_positions": [
+          [
+            -1.364518926967958,
+            1.2808006241555925
+          ],
+          [
+            -1.293423973015184,
+            1.0604440849629988
+          ]
+        ]
+      },
+      {
+        "stage": "finish_approach",
+        "wall": 16.488607081999362,
+        "sim": 3.1350000000001046,
+        "retries": 0,
+        "retry_positions": []
+      },
+      {
+        "stage": "finish",
+        "wall": 25.87875996999901,
+        "sim": 4.7719999999999345,
+        "retries": 0,
+        "retry_positions": []
+      }
+    ],
+    "final_status": {
+      "state": "CONTROL_ROUTE_DONE",
+      "detail": "Not a complete competition finish; wheel placement requires verification",
+      "stamp": 563.891,
+      "control_only": true
+    },
+    "cleanup": {
+      "owned_processes": 19,
+      "remaining": []
+    },
+    "scope": "UNTIMED CONTROL ONLY; images omitted; not official race acceptance"
+  },
+  "final": [
+    {
+      "trial": "seed_42",
+      "accepted": true,
+      "seed": 42,
+      "speed_profile": "sprint",
+      "continuous": true,
+      "efficient_approach": true,
+      "entry_turn": {
+        "seconds": 3.116999999999962,
+        "rotation_deg": 85.49590383200302
+      },
+      "moving_sim_seconds": 44.52800000000008,
+      "stopped_sim_seconds": 4.283999999999764,
+      "max_tilt_deg": 0.1975064127084209,
+      "guard_trips": 0,
+      "retries": 3,
+      "contact_coverage": true,
+      "contact_summary": {
+        "type": "summary",
+        "messages": 45205,
+        "all_contacts": 540321,
+        "cone_contact_events": 0,
+        "wall_contact_events": 0,
+        "sim": 550.467
+      },
+      "moved_cones": [],
+      "mandatory_stops": true,
+      "stages": [
+        {
+          "stage": "bend1",
+          "wall": 6.932487205998768,
+          "sim": 1.2460000000000377,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend2",
+          "wall": 11.64597707700159,
+          "sim": 1.7679999999999723,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend3",
+          "wall": 10.463096822997613,
+          "sim": 1.4639999999999986,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend4",
+          "wall": 8.812331288998394,
+          "sim": 1.4909999999999854,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend5_approach",
+          "wall": 10.668654575998517,
+          "sim": 1.7339999999999804,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend5",
+          "wall": 1.5948934060033935,
+          "sim": 0.16999999999995907,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend6",
+          "wall": 4.433634935001464,
+          "sim": 0.7830000000000155,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend7",
+          "wall": 5.179392124002334,
+          "sim": 0.9219999999999118,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend8",
+          "wall": 33.464439812996716,
+          "sim": 4.958000000000084,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "qr_approach",
+          "wall": 21.066975099998672,
+          "sim": 3.30499999999995,
+          "retries": 1,
+          "retry_positions": [
+            [
+              -0.4436196353440389,
+              1.0213006247898098
+            ]
+          ]
+        },
+        {
+          "stage": "qr",
+          "wall": 7.0567304250034795,
+          "sim": 1.1200000000000045,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "qr_exit",
+          "wall": 14.836483887000213,
+          "sim": 2.3310000000000173,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "cone_entry",
+          "wall": 18.569884960001218,
+          "sim": 3.116999999999962,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "cone_exit",
+          "wall": 32.09658183200008,
+          "sim": 5.135999999999967,
+          "retries": 1,
+          "retry_positions": [
+            [
+              -1.289236484840374,
+              1.3100152984287274
+            ]
+          ]
+        },
+        {
+          "stage": "blocks",
+          "wall": 9.706910691998928,
+          "sim": 1.5249999999999773,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "return",
+          "wall": 57.10772450799777,
+          "sim": 9.149999999999977,
+          "retries": 1,
+          "retry_positions": [
+            [
+              -1.573862578133176,
+              2.0732967381732617
+            ]
+          ]
+        },
+        {
+          "stage": "finish_approach",
+          "wall": 12.977653647998523,
+          "sim": 1.899000000000001,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "finish",
+          "wall": 14.251542196998344,
+          "sim": 2.2140000000000555,
+          "retries": 0,
+          "retry_positions": []
+        }
+      ],
+      "final_status": {
+        "state": "CONTROL_ROUTE_DONE",
+        "detail": "CONTROL ONLY: image recognition and its processing time omitted",
+        "stamp": 550.166,
+        "control_only": true
+      },
+      "cleanup": {
+        "owned_processes": 19,
+        "remaining": []
+      },
+      "scope": "UNTIMED CONTROL ONLY; images omitted; not official race acceptance",
+      "route_flow": true,
+      "max_lateral_command": 0.0,
+      "wall_contacts": 0,
+      "task_pose_checks": {
+        "qr": true,
+        "blocks": true,
+        "finish": true
+      }
+    },
+    {
+      "trial": "seed_1",
+      "accepted": true,
+      "seed": 1,
+      "speed_profile": "sprint",
+      "continuous": true,
+      "efficient_approach": true,
+      "entry_turn": {
+        "seconds": 1.5590000000000828,
+        "rotation_deg": 84.56143230813558
+      },
+      "moving_sim_seconds": 44.48500000000007,
+      "stopped_sim_seconds": 2.6869999999997844,
+      "max_tilt_deg": 0.3152652548417875,
+      "guard_trips": 0,
+      "retries": 1,
+      "contact_coverage": true,
+      "contact_summary": {
+        "type": "summary",
+        "messages": 45488,
+        "all_contacts": 543578,
+        "cone_contact_events": 0,
+        "wall_contact_events": 0,
+        "sim": 550.596
+      },
+      "moved_cones": [],
+      "mandatory_stops": true,
+      "stages": [
+        {
+          "stage": "bend1",
+          "wall": 8.61076081200008,
+          "sim": 1.2550000000000523,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend2",
+          "wall": 10.901693334999436,
+          "sim": 1.5299999999999727,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend3",
+          "wall": 10.626937261000421,
+          "sim": 1.4930000000000518,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend4",
+          "wall": 10.361827738999636,
+          "sim": 1.4610000000000127,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend5_approach",
+          "wall": 10.790196784000727,
+          "sim": 1.5299999999999727,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend5",
+          "wall": 0.6673271340005158,
+          "sim": 0.16899999999998272,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend6",
+          "wall": 4.937763088000793,
+          "sim": 0.7819999999999254,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend7",
+          "wall": 5.585632208998504,
+          "sim": 0.9200000000000728,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend8",
+          "wall": 34.19112975700045,
+          "sim": 5.19500000000005,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "qr_approach",
+          "wall": 10.790879555001084,
+          "sim": 1.6049999999999045,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "qr",
+          "wall": 11.402700425000148,
+          "sim": 1.9069999999999254,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "qr_exit",
+          "wall": 16.207030633000613,
+          "sim": 2.469000000000051,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "cone_entry",
+          "wall": 10.917903002999083,
+          "sim": 1.5590000000000828,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "cone_exit",
+          "wall": 47.69595402599953,
+          "sim": 7.675000000000068,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "blocks",
+          "wall": 3.6513024239993683,
+          "sim": 0.4739999999999327,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "return",
+          "wall": 64.4634348010004,
+          "sim": 9.824999999999932,
+          "retries": 1,
+          "retry_positions": [
+            [
+              -0.7032251839615715,
+              0.41592860557159855
+            ]
+          ]
+        },
+        {
+          "stage": "finish_approach",
+          "wall": 14.033706438000081,
+          "sim": 2.1860000000000355,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "finish",
+          "wall": 14.041289056000096,
+          "sim": 2.3210000000000264,
+          "retries": 0,
+          "retry_positions": []
+        }
+      ],
+      "final_status": {
+        "state": "CONTROL_ROUTE_DONE",
+        "detail": "CONTROL ONLY: image recognition and its processing time omitted",
+        "stamp": 550.128,
+        "control_only": true
+      },
+      "cleanup": {
+        "owned_processes": 19,
+        "remaining": []
+      },
+      "scope": "UNTIMED CONTROL ONLY; images omitted; not official race acceptance",
+      "route_flow": true,
+      "max_lateral_command": 0.0,
+      "wall_contacts": 0,
+      "task_pose_checks": {
+        "qr": true,
+        "blocks": true,
+        "finish": true
+      }
+    },
+    {
+      "trial": "seed_2",
+      "accepted": true,
+      "seed": 2,
+      "speed_profile": "sprint",
+      "continuous": true,
+      "efficient_approach": true,
+      "entry_turn": {
+        "seconds": 1.497000000000071,
+        "rotation_deg": 88.64337497124589
+      },
+      "moving_sim_seconds": 42.45999999999998,
+      "stopped_sim_seconds": 3.2989999999998645,
+      "max_tilt_deg": 0.1763169870562964,
+      "guard_trips": 0,
+      "retries": 2,
+      "contact_coverage": true,
+      "contact_summary": {
+        "type": "summary",
+        "messages": 43110,
+        "all_contacts": 514574,
+        "cone_contact_events": 0,
+        "wall_contact_events": 0,
+        "sim": 548.9
+      },
+      "moved_cones": [],
+      "mandatory_stops": true,
+      "stages": [
+        {
+          "stage": "bend1",
+          "wall": 5.933670684999015,
+          "sim": 1.2539999999999623,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend2",
+          "wall": 8.92277310999998,
+          "sim": 1.5640000000000214,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend3",
+          "wall": 7.603208362001169,
+          "sim": 1.461999999999989,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend4",
+          "wall": 8.6995406620008,
+          "sim": 1.4930000000000518,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend5_approach",
+          "wall": 8.7892311960004,
+          "sim": 1.4979999999999905,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend5",
+          "wall": 1.5773024909995002,
+          "sim": 0.16600000000005366,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend6",
+          "wall": 3.896095186000821,
+          "sim": 0.7479999999999336,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend7",
+          "wall": 5.5805203130003065,
+          "sim": 0.9540000000000646,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "bend8",
+          "wall": 31.413499737000166,
+          "sim": 5.092999999999961,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "qr_approach",
+          "wall": 10.138192217000324,
+          "sim": 1.6359999999999673,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "qr",
+          "wall": 15.218365203998474,
+          "sim": 2.516999999999939,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "qr_exit",
+          "wall": 15.50002270100049,
+          "sim": 2.58400000000006,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "cone_entry",
+          "wall": 9.502927432000433,
+          "sim": 1.497000000000071,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "cone_exit",
+          "wall": 36.1367572729996,
+          "sim": 6.357999999999947,
+          "retries": 1,
+          "retry_positions": [
+            [
+              -0.9617246880613617,
+              0.7586270320009894
+            ]
+          ]
+        },
+        {
+          "stage": "blocks",
+          "wall": 2.7269886690010026,
+          "sim": 0.47500000000002274,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "return",
+          "wall": 56.04867111800013,
+          "sim": 8.771000000000072,
+          "retries": 1,
+          "retry_positions": [
+            [
+              -1.2614871309938653,
+              1.120064898653514
+            ]
+          ]
+        },
+        {
+          "stage": "finish_approach",
+          "wall": 11.553981789000318,
+          "sim": 1.808999999999969,
+          "retries": 0,
+          "retry_positions": []
+        },
+        {
+          "stage": "finish",
+          "wall": 12.655886688000464,
+          "sim": 2.341000000000008,
+          "retries": 0,
+          "retry_positions": []
+        }
+      ],
+      "final_status": {
+        "state": "CONTROL_ROUTE_DONE",
+        "detail": "CONTROL ONLY: image recognition and its processing time omitted",
+        "stamp": 548.572,
+        "control_only": true
+      },
+      "cleanup": {
+        "owned_processes": 19,
+        "remaining": []
+      },
+      "scope": "UNTIMED CONTROL ONLY; images omitted; not official race acceptance",
+      "route_flow": true,
+      "max_lateral_command": 0.0,
+      "wall_contacts": 0,
+      "task_pose_checks": {
+        "qr": true,
+        "blocks": true,
+        "finish": true
+      }
+    }
+  ],
+  "passed": 3,
+  "attempts": 3,
+  "fastest": 42.45999999999998,
+  "mean": 43.82433333333338,
+  "seed_42_reduction_percent": 21.55867949124457,
+  "stages": {
+    "baseline_seed_42": {
+      "bend1": 14.301,
+      "qr_approach": 8.789,
+      "qr_exit": 3.024,
+      "cone_entry": 6.035,
+      "cone_exit": 7.014,
+      "return": 12.831,
+      "finish": 4.772
+    },
+    "seed_42": {
+      "bend1": 14.601,
+      "qr_approach": 4.426,
+      "qr_exit": 2.373,
+      "cone_entry": 3.201,
+      "cone_exit": 6.663,
+      "return": 11.05,
+      "finish": 2.214
+    },
+    "seed_1": {
+      "bend1": 14.403,
+      "qr_approach": 3.514,
+      "qr_exit": 2.48,
+      "cone_entry": 1.605,
+      "cone_exit": 8.151,
+      "return": 12.011,
+      "finish": 2.321
+    },
+    "seed_2": {
+      "bend1": 14.302,
+      "qr_approach": 4.154,
+      "qr_exit": 2.645,
+      "cone_entry": 1.603,
+      "cone_exit": 6.834,
+      "return": 10.581,
+      "finish": 2.341
+    }
+  },
+  "checks": {
+    "final_sources_identical": true,
+    "final_configuration_identical": true,
+    "physics_equal_to_baseline": true,
+    "low_com_model_equal_to_baseline": true,
+    "seed_42_cones_within_0_1_mm_of_baseline": true,
+    "seed_42_max_cone_position_difference_m": 9.022928942007182e-06
+  },
+  "rejected": {
+    "qr_fixed_path": "local_route_flow_qr_entry_v1",
+    "return_wall_contact": "local_route_flow_full_v1_seed42",
+    "return_gate_too_strict": "local_route_flow_return_v2",
+    "static_parameter_misuse": "local_route_flow_candidate_v2/seed_42",
+    "qr_handoff_stall": "local_route_flow_candidate_v3/seed_42",
+    "staging_precision_oscillation": "local_route_flow_candidate_v4/seed_42",
+    "qr_gate_too_strict": "local_route_flow_candidate_v5/seed_1",
+    "qr_teb_terminal_stall": "local_route_flow_candidate_v6/seed_2"
+  },
+  "archive": "Raw costmap snapshots omitted; retained trace, poses, contacts, configuration and source snapshots allow acceptance reanalysis."
+}

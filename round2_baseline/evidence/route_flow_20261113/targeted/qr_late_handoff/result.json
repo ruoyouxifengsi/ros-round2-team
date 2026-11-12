@@ -1,0 +1,138 @@
+{
+  "passed": true,
+  "trigger": "debug control service",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 502.521,
+      "control_only": true,
+      "wall": 15494.316872459
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_approach",
+      "stamp": 504.647,
+      "control_only": true,
+      "wall": 15494.380205578
+    },
+    {
+      "state": "PASSED",
+      "detail": "qr_approach",
+      "stamp": 506.452,
+      "control_only": true,
+      "wall": 15505.072872749
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr",
+      "stamp": 506.452,
+      "control_only": true,
+      "wall": 15505.074766242
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr",
+      "stamp": 508.284,
+      "control_only": true,
+      "wall": 15516.834646647
+    },
+    {
+      "state": "IMAGE_SKIPPED",
+      "detail": "qr",
+      "stamp": 508.284,
+      "control_only": true,
+      "wall": 15516.836207576
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_exit",
+      "stamp": 508.285,
+      "control_only": true,
+      "wall": 15516.837143718
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr_exit",
+      "stamp": 511.695,
+      "control_only": true,
+      "wall": 15537.630680545
+    },
+    {
+      "state": "MOVING",
+      "detail": "cone_entry",
+      "stamp": 511.777,
+      "control_only": true,
+      "wall": 15538.734593997
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "cone_entry",
+      "stamp": 513.366,
+      "control_only": true,
+      "wall": 15549.04963613
+    },
+    {
+      "state": "CONTROL_ROUTE_DONE",
+      "detail": "CONTROL ONLY: image recognition and its processing time omitted",
+      "stamp": 513.372,
+      "control_only": true,
+      "wall": 15549.321864439
+    }
+  ],
+  "seed": 2,
+  "development_audit": true,
+  "speed_profile": "sprint",
+  "timeout_clock": "sim",
+  "simulation_engine": "official ode",
+  "continuous_bends": true,
+  "bend_path": false,
+  "route_flow": true,
+  "efficient_approach": true,
+  "attitude_protection": false,
+  "navigation_mode": "rolling_odom",
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "scope": "DEBUG ROUTE PREFIX, NOT A COMPETITION RUN",
+  "startup_seconds": 7.5547359889988,
+  "contact_observer_sha256": "cbc2e9a409ad5c4c82d359392a6ae72a65aaa4aa4c31618951f9d14f6045a242",
+  "guard_max_trips": 0,
+  "guard_last_mode": "RUN",
+  "elapsed_wall": 55.06144960900019,
+  "elapsed_sim": 8.741000000000042,
+  "final_status": {
+    "state": "CONTROL_ROUTE_DONE",
+    "detail": "CONTROL ONLY: image recognition and its processing time omitted",
+    "stamp": 513.372,
+    "control_only": true
+  },
+  "executed_route": [
+    [
+      "qr_approach",
+      -0.25,
+      0.25,
+      0.0
+    ],
+    [
+      "qr",
+      0.2,
+      0.25,
+      0.0
+    ],
+    [
+      "qr_exit",
+      -0.37,
+      0.25,
+      0.0
+    ],
+    [
+      "cone_entry",
+      -0.25,
+      0.37,
+      1.57
+    ]
+  ],
+  "cleanup": {
+    "owned_processes": 19,
+    "remaining": []
+  }
+}

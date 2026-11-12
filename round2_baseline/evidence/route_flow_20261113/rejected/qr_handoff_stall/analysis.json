@@ -1,0 +1,213 @@
+{
+  "control_done": false,
+  "ordered_stages_pass": false,
+  "expected_stages": [
+    "bend1",
+    "bend2",
+    "bend3",
+    "bend4",
+    "bend5_approach",
+    "bend5",
+    "bend6",
+    "bend7",
+    "bend8",
+    "qr_approach",
+    "qr",
+    "qr_exit",
+    "cone_entry",
+    "cone_exit",
+    "blocks",
+    "return",
+    "finish_approach",
+    "finish"
+  ],
+  "arrivals": {
+    "bend1": {
+      "event": "PASSED",
+      "pose": [
+        -0.70226774266545,
+        2.5794699627319084,
+        1.3304597266188989
+      ],
+      "body_bounds": [
+        -0.8676739619364005,
+        -0.536980033024689,
+        2.3898373276846923,
+        2.7875316551780616
+      ],
+      "stopped": false,
+      "sample_stamp": 506.276,
+      "sample_age_sim": 0.0049999999999954525,
+      "sample_age_wall": 0.021755719999418943
+    },
+    "bend2": {
+      "event": "PASSED",
+      "pose": [
+        0.15049943432232782,
+        2.7000881700280557,
+        -0.40621390395146734
+      ],
+      "body_bounds": [
+        -0.04723640929939152,
+        0.36115860895379986,
+        2.51983393695359,
+        2.880539134761016
+      ],
+      "stopped": false,
+      "sample_stamp": 507.806,
+      "sample_age_sim": 0.0010000000000331966,
+      "sample_age_wall": 0.005948685999101144
+    },
+    "bend3": {
+      "event": "PASSED",
+      "pose": [
+        0.2699321823373438,
+        1.8457832612987526,
+        -1.135579864401061
+      ],
+      "body_bounds": [
+        0.08737161292462248,
+        0.45205443579269955,
+        1.6350142047403902,
+        2.0444041090514773
+      ],
+      "stopped": false,
+      "sample_stamp": 509.268,
+      "sample_age_sim": 0.0020000000000095497,
+      "sample_age_wall": 0.009134862000792054
+    },
+    "bend4": {
+      "event": "PASSED",
+      "pose": [
+        1.1607481922970826,
+        1.7309731372098416,
+        -0.47220618522979974
+      ],
+      "body_bounds": [
+        0.9612904864992444,
+        1.3708313871873323,
+        1.5461220986930653,
+        1.9160506408660456
+      ],
+      "stopped": false,
+      "sample_stamp": 510.764,
+      "sample_age_sim": 0.0049999999999954525,
+      "sample_age_wall": 0.020865503000095487
+    },
+    "bend5_approach": {
+      "event": "PASSED",
+      "pose": [
+        1.2255150397615973,
+        0.8373011242875058,
+        -2.0484652741642417
+      ],
+      "body_bounds": [
+        1.040319298226671,
+        1.4109396652990709,
+        0.6273066583884516,
+        1.0368625253583992
+      ],
+      "stopped": false,
+      "sample_stamp": 512.26,
+      "sample_age_sim": 0.0030000000000427463,
+      "sample_age_wall": 0.01379863399961323
+    },
+    "bend5": {
+      "event": "PASSED",
+      "pose": [
+        1.1884502351565105,
+        0.787424796883005,
+        -2.4258418287949013
+      ],
+      "body_bounds": [
+        0.9879558979103723,
+        1.3867644500617442,
+        0.5930799723759835,
+        0.9824518087137782
+      ],
+      "stopped": false,
+      "sample_stamp": 512.43,
+      "sample_age_sim": 0.00100000000009004,
+      "sample_age_wall": 0.006001891000778414
+    },
+    "bend6": {
+      "event": "PASSED",
+      "pose": [
+        0.8389876587050966,
+        0.7709428562090507,
+        2.6331738681372965
+      ],
+      "body_bounds": [
+        0.6296094784406187,
+        1.0390215715106035,
+        0.5836678117407782,
+        0.9579755304176204
+      ],
+      "stopped": false,
+      "sample_stamp": 513.177,
+      "sample_age_sim": 0.006999999999948159,
+      "sample_age_wall": 0.02503462499953457
+    },
+    "bend7": {
+      "event": "PASSED",
+      "pose": [
+        0.7231153267479146,
+        1.1625038360487763,
+        2.0280299121409566
+      ],
+      "body_bounds": [
+        0.5394992152214573,
+        0.9071904019920995,
+        0.9633381078480497,
+        1.37305997500788
+      ],
+      "stopped": false,
+      "sample_stamp": 514.129,
+      "sample_age_sim": 0.0019999999999527063,
+      "sample_age_wall": 0.005700253999748384
+    },
+    "bend8": {
+      "event": "ARRIVED",
+      "pose": [
+        -0.23035177079507718,
+        1.2532581539338432,
+        -1.6889866684041894
+      ],
+      "body_bounds": [
+        -0.3816898209834459,
+        -0.07895501548046077,
+        1.0507707593339404,
+        1.4335777042216262
+      ],
+      "stopped": true,
+      "sample_stamp": 518.924,
+      "sample_age_sim": 0.0030000000000427463,
+      "sample_age_wall": 0.15708993400039617
+    },
+    "qr_approach": {
+      "event": "PASSED",
+      "pose": [
+        -0.32577515549886976,
+        0.2962300223298506,
+        -0.3438343264709634
+      ],
+      "body_bounds": [
+        -0.5210918014720699,
+        -0.11541469035616023,
+        0.12104278025866047,
+        0.47158510069283077
+      ],
+      "stopped": false,
+      "sample_stamp": 522.222,
+      "sample_age_sim": 0.004000000000019099,
+      "sample_age_wall": 0.01800028500110784
+    }
+  },
+  "elapsed_wall": 194.20665031300086,
+  "max_tilt_deg": 0.07508636797699973,
+  "scope": "Odometry and official URDF geometry; not Gazebo truth or a collision-free certificate",
+  "official_start": false,
+  "random_scene_prepared": true,
+  "within_10_min_after_trigger": true,
+  "control_baseline_pass": false
+}

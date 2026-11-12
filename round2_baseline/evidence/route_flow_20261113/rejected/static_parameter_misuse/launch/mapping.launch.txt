@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="slam_toolbox" type="async_slam_toolbox_node" name="slam_toolbox" output="screen" required="true">
+    <rosparam file="$(find round2_baseline)/config/slam_toolbox.yaml"/>
+  </node>
+</launch>

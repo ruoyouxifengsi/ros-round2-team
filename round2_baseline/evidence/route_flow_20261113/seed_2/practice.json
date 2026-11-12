@@ -1,0 +1,185 @@
+{
+  "trial": "seed_2",
+  "accepted": true,
+  "seed": 2,
+  "speed_profile": "sprint",
+  "continuous": true,
+  "efficient_approach": true,
+  "entry_turn": {
+    "seconds": 1.497000000000071,
+    "rotation_deg": 88.64337497124589
+  },
+  "moving_sim_seconds": 42.45999999999998,
+  "stopped_sim_seconds": 3.2989999999998645,
+  "max_tilt_deg": 0.1763169870562964,
+  "guard_trips": 0,
+  "retries": 2,
+  "contact_coverage": true,
+  "contact_summary": {
+    "type": "summary",
+    "messages": 43110,
+    "all_contacts": 514574,
+    "cone_contact_events": 0,
+    "wall_contact_events": 0,
+    "sim": 548.9
+  },
+  "moved_cones": [],
+  "mandatory_stops": true,
+  "stages": [
+    {
+      "stage": "bend1",
+      "wall": 5.933670684999015,
+      "sim": 1.2539999999999623,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend2",
+      "wall": 8.92277310999998,
+      "sim": 1.5640000000000214,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend3",
+      "wall": 7.603208362001169,
+      "sim": 1.461999999999989,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend4",
+      "wall": 8.6995406620008,
+      "sim": 1.4930000000000518,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5_approach",
+      "wall": 8.7892311960004,
+      "sim": 1.4979999999999905,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5",
+      "wall": 1.5773024909995002,
+      "sim": 0.16600000000005366,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend6",
+      "wall": 3.896095186000821,
+      "sim": 0.7479999999999336,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend7",
+      "wall": 5.5805203130003065,
+      "sim": 0.9540000000000646,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend8",
+      "wall": 31.413499737000166,
+      "sim": 5.092999999999961,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr_approach",
+      "wall": 10.138192217000324,
+      "sim": 1.6359999999999673,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr",
+      "wall": 15.218365203998474,
+      "sim": 2.516999999999939,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr_exit",
+      "wall": 15.50002270100049,
+      "sim": 2.58400000000006,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "cone_entry",
+      "wall": 9.502927432000433,
+      "sim": 1.497000000000071,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "cone_exit",
+      "wall": 36.1367572729996,
+      "sim": 6.357999999999947,
+      "retries": 1,
+      "retry_positions": [
+        [
+          -0.9617246880613617,
+          0.7586270320009894
+        ]
+      ]
+    },
+    {
+      "stage": "blocks",
+      "wall": 2.7269886690010026,
+      "sim": 0.47500000000002274,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "return",
+      "wall": 56.04867111800013,
+      "sim": 8.771000000000072,
+      "retries": 1,
+      "retry_positions": [
+        [
+          -1.2614871309938653,
+          1.120064898653514
+        ]
+      ]
+    },
+    {
+      "stage": "finish_approach",
+      "wall": 11.553981789000318,
+      "sim": 1.808999999999969,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "finish",
+      "wall": 12.655886688000464,
+      "sim": 2.341000000000008,
+      "retries": 0,
+      "retry_positions": []
+    }
+  ],
+  "final_status": {
+    "state": "CONTROL_ROUTE_DONE",
+    "detail": "CONTROL ONLY: image recognition and its processing time omitted",
+    "stamp": 548.572,
+    "control_only": true
+  },
+  "cleanup": {
+    "owned_processes": 19,
+    "remaining": []
+  },
+  "scope": "UNTIMED CONTROL ONLY; images omitted; not official race acceptance",
+  "route_flow": true,
+  "max_lateral_command": 0.0,
+  "wall_contacts": 0,
+  "task_pose_checks": {
+    "qr": true,
+    "blocks": true,
+    "finish": true
+  }
+}

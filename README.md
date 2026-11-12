@@ -1,5 +1,37 @@
 # 第二轮 ROS 智能车：控制 baseline 与图像协作入口
 
+## 2026-11-13 整轮连续控制：前进转向，取消横移
+
+当前新方案使用 **`route_flow:=true` / `--route-flow`**，分支仍为 `official/fast-control`。固定弯道采用连续路径跟踪，随机桶区使用非横移 TEB 规划，精确停靠按剩余距离减速。二维码、物品与终点仍在原任务位置停稳；中间过渡点不再逐点精确停车。官方引擎、碰撞模型及物理参数不变，低质心沿用已获准版本。
+
+新模式中的横向速度指令始终为零。下面历史版本提及的横移入口仅作回退保留；**不要省略 `route_flow` 而误用旧入口**。修改前完整代码在 `route-flow-before-v1` 标签，默认启动行为与 `main` 均保留。
+
+最终固定同一代码和参数，官方随机布局 **2、1、42 各运行一次，3/3 通过**：
+
+| 官方种子 | 完整控制用时（仿真秒） | 碰桶 / 碰墙 | 最大倾角 | 规划重试 |
+|---|---:|---:|---:|---:|
+| 2 | **42.460** | 0 / 0 | 0.176° | 2 |
+| 1 | 44.485 | 0 / 0 | 0.315° | 1 |
+| 42 | 44.528 | 0 / 0 | 0.198° | 3 |
+
+平均 **43.824 秒**。同布局 42 的改前对照已包含上一轮连续弯道优化：**56.766 → 44.528 秒，减少 21.6%**。三轮均通过任务停靠、车身入框、零横移指令和桶位移检查，没有侧翻。物理配置与低质心模型和对照版一致；同布局桶位的差异小于 0.1 毫米。开发中失败的候选单独归档，不能计入通过率。[分段对照与完整证据](round2_baseline/evidence/route_flow_20261113/summary.json)。这是三个样本的实际验证，不代表所有布局都通过或已经达到理论最优。
+
+WSL 仓库根目录自动测试（每次更换输出目录）：
+
+```bash
+bash round2_baseline/scripts/setup_wsl.sh
+source ~/round2_team_ws/devel/setup.bash
+python3 round2_baseline/scripts/run_trial.py \
+  round2_baseline/evidence/local_route_flow_mytest_01 \
+  --low-com --cones --seed 42 --speed-profile sprint \
+  --continuous-bends --efficient-approach --route-flow \
+  --timeout-clock sim --gui --seconds 350
+```
+
+`--route-flow` 已包含连续弯道；搭配的 `--efficient-approach` 只复用纠偏和检查设置，新模式不会进入旧横移控制。测试不使用预建图；随机桶由现场激光感知。完整流程、手动计时与回退见 [操作记录首节](round2_baseline/操作记录.md#整轮连续控制取消横移方案2026-11-13)。
+
+**图像队友注意：当前仍为控制测试。** 两个图像任务会报告 `ARRIVED` 和 `IMAGE_SKIPPED` 后继续，尚未等待识别结果。请在 `scripts/route_flow.py` 的二维码、物品停稳分支接入识别服务和完成等待，再继续行驶。不要只在外部订阅到位消息就认为控制器会等待。所有新旧控制耗时均不能代替加入识别、播报后的官方比赛计时。
+
 ## 2026-11-12 弯道连续路径提速（可选）
 
 新增 `bend_path:=true` / `--bend-path`：弯道使用连续圆弧参考路径、受曲率/加减速度约束的 Pure Pursuit 跟踪和实时激光车身扫掠检查，车头随路线转向，横移指令为零。参考 Nav2 Regulated Pure Pursuit 思路，适配当前 ROS 1；并非直接安装 Nav2，也不宣称实现了完整 DWPP。其余路段继续使用现有控制逻辑。默认关闭该选项，原 TEB 弯道协调方式仍可直接使用。
@@ -22,7 +54,7 @@
 
 完整安装、建图、导航、手动计时和结果见 [操作记录](round2_baseline/操作记录.md) 的“先建图再导航”部分。固定地图来自实测激光，没有从 world 文件生成墙体栅格，也没有手工擦墙、改像素或调整地图原点。
 
-## 2026-11-12 当前交付：入口与停靠提速，三个布局通过
+## 2026-11-12 历史交付：入口与停靠提速，三个布局通过
 
 继续使用 `official/fast-control`，新增 **`--efficient-approach`**，与 `sprint + continuous-bends + low-com` 组合使用：
 

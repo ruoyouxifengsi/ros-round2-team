@@ -1,0 +1,62 @@
+"""Untimed development acceptance. Never an official race score."""
+import json
+import math
+from pathlib import Path
+import subprocess
+import sys
+import bisect
+from check_entry_turn import entry_turn
+
+folder=Path(sys.argv[1]);scripts=Path(__file__).parent
+for script in ('analyze_trial.py','trial_health.py'):
+    subprocess.run([sys.executable,str(scripts/script),str(folder)],stdout=subprocess.DEVNULL,check=True)
+read=lambda name:json.loads((folder/name).read_text())
+r=read('result.json');a=read('analysis.json');h=read('health.json');poses=read('poses.json')
+audit=read('cone_audit.json')
+contacts=[json.loads(line) for line in (folder/'contacts.jsonl').read_text().splitlines()] if (folder/'contacts.jsonl').exists() else []
+summaries=[v for v in contacts if v['type']=='summary']
+events=[e for e in r['events'] if e['state'] in ('MOVING','CONTROL_ROUTE_DONE','FAILED')]
+start=next(e['stamp'] for e in events if e['state']=='MOVING');end=events[-1]['stamp']
+live=[s for s in summaries if s['messages']>0]
+coverage=bool(live and live[0]['sim']<=start and live[-1]['sim']>=end)
+required=[n for n in a['expected_stages'] if not (r.get('continuous_bends',False) and n.startswith('bend'))]
+if r.get('route_flow'):required=['qr','blocks','finish']
+stops=all(a['arrivals'].get(n,{}).get('stopped') for n in required)
+turn=entry_turn(r,poses) if r.get('efficient_approach') and r['passed'] else None
+ok=bool(r['passed'] and a['ordered_stages_pass'] and a['arrivals'].get('qr',{}).get('body_in_region') and
+        a['arrivals'].get('finish',{}).get('body_in_region') and stops and coverage and
+        summaries[-1]['cone_contact_events']==0 and len(audit['baseline'])==5 and not audit['moved_over_5mm'] and
+        r.get('guard_max_trips')==0 and a['max_tilt_deg']<3 and not r.get('scope') and
+        not r.get('cleanup',{}).get('remaining',[1]) and not (folder/'interventions.json').exists() and
+        (not r.get('efficient_approach') or (turn and turn['rotation_deg']<180)))
+if r.get('route_flow'):
+    trace=[json.loads(line) for line in (folder/'snapshots/trace.jsonl').read_text().splitlines()]
+    lateral=max((abs(p.get('nav_cmd',[0.,0.,0.])[1]) for p in trace if start<=p['t']<=end),default=float('inf'))
+    ok=ok and summaries[-1].get('wall_contact_events',-1)==0 and lateral<1e-6
+samples=[p for p in poses if start<=p['t']<=end]
+stopped_sim=sum(max(0.,b['t']-p['t']) for p,b in zip(samples,samples[1:]) if math.hypot(*p['v'][:2])<.02 and abs(p['v'][2])<.05)
+row=dict(trial=folder.name,accepted=ok,seed=r['seed'],speed_profile=r['speed_profile'],continuous=r.get('continuous_bends',False),
+    efficient_approach=r.get('efficient_approach',False),entry_turn=turn,
+    moving_sim_seconds=end-start,stopped_sim_seconds=stopped_sim,max_tilt_deg=a['max_tilt_deg'],guard_trips=r.get('guard_max_trips'),
+    retries=h['total_retries'],contact_coverage=coverage,contact_summary=summaries[-1] if summaries else None,
+    moved_cones=audit['moved_over_5mm'],mandatory_stops=stops,stages=h['stages'],
+    final_status=r.get('final_status'),cleanup=r.get('cleanup'),scope='UNTIMED CONTROL ONLY; images omitted; not official race acceptance')
+if r.get('route_flow'):row.update(route_flow=True,max_lateral_command=lateral,wall_contacts=summaries[-1].get('wall_contact_events'))
+if r.get('navigation_mode')=='premapped_amcl':
+    localized=read('localized_poses.json');stamps=[p['t'] for p in poses];errors=[]
+    for pose in localized:
+        i=bisect.bisect_left(stamps,pose['t'])
+        if i<len(poses) and abs(poses[i]['t']-pose['t'])<.002:
+            errors.append(math.hypot(pose['x']-poses[i]['x'],pose['y']-poses[i]['y']))
+    errors.sort()
+    localization_ok=bool(len(errors)>100 and localized[0]['t']<=start+.5 and localized[-1]['t']>=end-.2 and
+        all(p['frame']=='map' and all(math.isfinite(v) for v in (p['x'],p['y'],*p['rpy'])) for p in localized))
+    row['localization']=dict(coverage_pass=localization_ok,samples=len(localized),matched_odom_samples=len(errors),
+        position_difference_p95_m=errors[int(.95*(len(errors)-1))] if errors else None,
+        position_difference_max_m=max(errors) if errors else None,
+        interpretation='Difference from official odometry, not an independent ground-truth accuracy measurement')
+    row['navigation_mode']='premapped_amcl';row['prior_map_sha256']=r['prior_map_sha256']
+    row['costmap_holds']=(folder/'control.log').read_text(errors='replace').count('Costmap stale: holding zero velocity until fresh data')
+    ok=ok and localization_ok;row['accepted']=ok
+(folder/'practice.json').write_text(json.dumps(row,indent=2));print(json.dumps(row,indent=2))
+raise SystemExit(0 if ok else 1)

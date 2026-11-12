@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+"""Check real launch configuration and reject prohibited/deceptive CLI modes."""
+from pathlib import Path
+import subprocess
+import sys
+import yaml
+import xml.etree.ElementTree as ET
+
+for timer,expected in [('false','sim'),('true','wall')]:
+    params=yaml.safe_load(subprocess.check_output(['roslaunch','--dump-params','round2_baseline','baseline.launch',
+        'timer:='+timer,'speed_profile:=fast','timeout_clock:=sim']))
+    assert params['/round2_control/timeout_clock']==expected
+    assert params['/move_base/TebLocalPlannerROS/max_vel_x']==.4
+    assert params['/attitude_guard/linear_acceleration']==.5
+    print('PASS: timer='+timer+', control timeout clock='+expected)
+params=yaml.safe_load(subprocess.check_output(['roslaunch','--dump-params','round2_baseline','baseline.launch',
+    'timer:=false','speed_profile:=sprint','continuous_bends:=true','efficient_approach:=true']))
+assert params['/round2_control/continuous_bends'] is True
+assert params['/round2_control/efficient_approach'] is True
+assert params['/move_base/TebLocalPlannerROS/max_vel_x']==.5
+assert params['/move_base/TebLocalPlannerROS/acc_lim_x']==.65
+assert params['/attitude_guard/linear_acceleration']==.65
+assert params['/attitude_guard/attitude_protection'] is False
+restored=yaml.safe_load(subprocess.check_output(['roslaunch','--dump-params','round2_baseline','baseline.launch','attitude_protection:=true']))
+assert restored['/attitude_guard/attitude_protection'] is True
+print('PASS: attitude protection defaults off and can be restored explicitly')
+print('PASS: continuous sprint launch forwards consistent planner and guard limits')
+tracking=yaml.safe_load(subprocess.check_output(['roslaunch','--dump-params','round2_baseline','baseline.launch',
+    'timer:=false','speed_profile:=sprint','bend_path:=true']))
+assert tracking['/round2_control/bend_path'] is True
+assert tracking['/round2_control/bend_settings/max_speed']==1.
+assert tracking['/attitude_guard/bend_settings/output_yaw_rate']==2.8
+assert tracking['/attitude_guard/max_linear_speed']==.55
+assert tracking['/move_base/local_costmap/resolution']==.025
+assert '/attitude_guard/bend_settings/output_speed' not in params
+print('PASS: optional bend tracking forwards scoped bounds; original guard/map limits remain the default')
+flow=yaml.safe_load(subprocess.check_output(['roslaunch','--dump-params','round2_baseline','baseline.launch',
+    'timer:=false','speed_profile:=sprint','route_flow:=true']))
+assert flow['/round2_control/route_flow'] and flow['/attitude_guard/route_flow']
+assert flow['/round2_control/flow_settings/navigation/max_vel_y']==0.
+assert flow['/attitude_guard/bend_settings/output_speed']==1.05
+assert params['/round2_control/route_flow'] is False
+print('PASS: route-flow bounds enabled explicitly; lateral planning disabled; old mode preserved')
+original=ET.fromstring(params['/robot_description'])
+manual=yaml.safe_load(subprocess.check_output(['roslaunch','--dump-params','round2_baseline','baseline.launch',
+    'timer:=true','low_com:=true','speed_profile:=sprint','continuous_bends:=true','efficient_approach:=true']))
+lowered=ET.fromstring(manual['/robot_description'])
+origin=original.find('./link[@name="base_link"]/inertial/origin')
+assert origin.get('xyz')=='0 0 0.045754'
+origin.set('xyz','0 0 0.02')
+def structure(node):return (node.tag,dict(node.attrib),(node.text or '').strip(),[structure(c) for c in node])
+assert structure(original)==structure(lowered),'Manual low-COM model differs beyond the approved origin'
+assert manual['/round2_control/timeout_clock']=='wall'
+assert manual['/round2_control/efficient_approach'] and manual['/round2_control/continuous_bends']
+nodes=subprocess.check_output(['roslaunch','--nodes','round2_baseline','baseline.launch','timer:=true','low_com:=true']).decode().splitlines()
+assert '/accum_timer' in nodes
+assert not any('trial' in n for n in nodes),nodes
+print('PASS: manual timer entry uses approved low COM only; original stays default; no automatic trial driver')
+script=Path(__file__).with_name('run_trial.py')
+for flags in [ ['--timer','--timeout-clock','sim'], ['--experimental-collision-library','unused.so'],
+               ['--contact-observer','/tmp/round2_observer_not_built'] ]:
+    result=subprocess.run([sys.executable,str(script),'/tmp/round2_rejected_options',*flags],capture_output=True,text=True)
+    assert result.returncode==2,result.stderr
+    print('PASS: rejected '+ ' '.join(flags))

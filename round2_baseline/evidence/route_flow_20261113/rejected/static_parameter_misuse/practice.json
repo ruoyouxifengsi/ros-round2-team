@@ -1,0 +1,109 @@
+{
+  "trial": "seed_42",
+  "accepted": false,
+  "seed": 42,
+  "speed_profile": "sprint",
+  "continuous": true,
+  "efficient_approach": true,
+  "entry_turn": null,
+  "moving_sim_seconds": 14.198000000000036,
+  "stopped_sim_seconds": 0.612999999999829,
+  "max_tilt_deg": 0.09801568637891565,
+  "guard_trips": 0,
+  "retries": 0,
+  "contact_coverage": true,
+  "contact_summary": {
+    "type": "summary",
+    "messages": 15030,
+    "all_contacts": 179545,
+    "cone_contact_events": 0,
+    "wall_contact_events": 0,
+    "sim": 520.51
+  },
+  "moved_cones": [],
+  "mandatory_stops": false,
+  "stages": [
+    {
+      "stage": "bend1",
+      "wall": 6.1207897439999215,
+      "sim": 1.2559999999999718,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend2",
+      "wall": 6.372124769999573,
+      "sim": 1.5629999999999882,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend3",
+      "wall": 6.968002345998684,
+      "sim": 1.4610000000000127,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend4",
+      "wall": 7.012828269000238,
+      "sim": 1.4990000000000236,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5_approach",
+      "wall": 6.9495338540000375,
+      "sim": 1.4950000000000045,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5",
+      "wall": 1.5978096119997645,
+      "sim": 0.16499999999996362,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend6",
+      "wall": 3.227129609998883,
+      "sim": 0.7509999999999764,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend7",
+      "wall": 3.9709662470013427,
+      "sim": 0.9519999999999982,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend8",
+      "wall": 24.39735987000131,
+      "sim": 4.891000000000076,
+      "retries": 0,
+      "retry_positions": []
+    }
+  ],
+  "final_status": {
+    "state": "FAILED",
+    "detail": "don't know parameter: min_resolution_collision_check_angular",
+    "stamp": 520.07,
+    "control_only": true
+  },
+  "cleanup": {
+    "owned_processes": 19,
+    "remaining": []
+  },
+  "scope": "UNTIMED CONTROL ONLY; images omitted; not official race acceptance",
+  "route_flow": true,
+  "max_lateral_command": 0.0,
+  "wall_contacts": 0,
+  "task_pose_checks": {
+    "qr": false,
+    "blocks": false,
+    "finish": false
+  }
+}

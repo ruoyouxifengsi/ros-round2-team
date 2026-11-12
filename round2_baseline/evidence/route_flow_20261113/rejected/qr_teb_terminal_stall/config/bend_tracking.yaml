@@ -1,0 +1,6 @@
+max_speed: 1.00
+acceleration: 1.40
+max_yaw_rate: 2.40
+output_speed: 1.05
+output_acceleration: 1.60
+output_yaw_rate: 2.80

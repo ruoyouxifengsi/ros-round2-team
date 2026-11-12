@@ -1,0 +1,305 @@
+{
+  "passed": false,
+  "trigger": "development service",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 502.414,
+      "control_only": true,
+      "wall": 15126.909386231
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend1",
+      "stamp": 505.272,
+      "control_only": true,
+      "wall": 15127.596555977
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend1",
+      "stamp": 506.519,
+      "control_only": true,
+      "wall": 15134.60751522
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend2",
+      "stamp": 506.519,
+      "control_only": true,
+      "wall": 15134.608893853
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend2",
+      "stamp": 508.086,
+      "control_only": true,
+      "wall": 15145.433043515
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend3",
+      "stamp": 508.086,
+      "control_only": true,
+      "wall": 15145.434724681
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend3",
+      "stamp": 509.545,
+      "control_only": true,
+      "wall": 15155.867946626
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend4",
+      "stamp": 509.545,
+      "control_only": true,
+      "wall": 15155.869268394
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend4",
+      "stamp": 511.039,
+      "control_only": true,
+      "wall": 15166.350007579
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5_approach",
+      "stamp": 511.04,
+      "control_only": true,
+      "wall": 15166.361427384
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5_approach",
+      "stamp": 512.538,
+      "control_only": true,
+      "wall": 15176.058027477
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5",
+      "stamp": 512.539,
+      "control_only": true,
+      "wall": 15176.059870218
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5",
+      "stamp": 512.708,
+      "control_only": true,
+      "wall": 15176.857013369
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend6",
+      "stamp": 512.708,
+      "control_only": true,
+      "wall": 15176.858734386
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend6",
+      "stamp": 513.49,
+      "control_only": true,
+      "wall": 15181.84232177
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend7",
+      "stamp": 513.491,
+      "control_only": true,
+      "wall": 15181.843588026
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend7",
+      "stamp": 514.409,
+      "control_only": true,
+      "wall": 15188.309234506
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend8",
+      "stamp": 514.41,
+      "control_only": true,
+      "wall": 15188.311091626
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend8",
+      "stamp": 519.407,
+      "control_only": true,
+      "wall": 15219.105152306
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_approach",
+      "stamp": 519.473,
+      "control_only": true,
+      "wall": 15219.476420307
+    },
+    {
+      "state": "PASSED",
+      "detail": "qr_approach",
+      "stamp": 521.072,
+      "control_only": true,
+      "wall": 15230.988500987
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr",
+      "stamp": 521.072,
+      "control_only": true,
+      "wall": 15230.989796037
+    },
+    {
+      "state": "FAILED",
+      "detail": "Route navigation made no progress: qr",
+      "stamp": 550.516,
+      "control_only": true,
+      "wall": 15416.320330068
+    }
+  ],
+  "seed": 2,
+  "development_audit": true,
+  "speed_profile": "sprint",
+  "timeout_clock": "sim",
+  "simulation_engine": "official ode",
+  "continuous_bends": true,
+  "bend_path": false,
+  "route_flow": true,
+  "efficient_approach": true,
+  "attitude_protection": false,
+  "navigation_mode": "rolling_odom",
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "startup_seconds": 7.189081237998835,
+  "contact_observer_sha256": "cbc2e9a409ad5c4c82d359392a6ae72a65aaa4aa4c31618951f9d14f6045a242",
+  "guard_max_trips": 0,
+  "guard_last_mode": "RUN",
+  "elapsed_wall": 290.386846333,
+  "elapsed_sim": 45.52600000000007,
+  "final_status": {
+    "state": "FAILED",
+    "detail": "Route navigation made no progress: qr",
+    "stamp": 550.516,
+    "control_only": true
+  },
+  "executed_route": [
+    [
+      "bend1",
+      -0.7,
+      2.67,
+      0.0
+    ],
+    [
+      "bend2",
+      0.25,
+      2.7,
+      -1.57
+    ],
+    [
+      "bend3",
+      0.25,
+      1.75,
+      0.0
+    ],
+    [
+      "bend4",
+      1.25,
+      1.75,
+      -1.57
+    ],
+    [
+      "bend5_approach",
+      1.25,
+      0.75,
+      -1.57
+    ],
+    [
+      "bend5",
+      1.1,
+      0.75,
+      -3.14
+    ],
+    [
+      "bend6",
+      0.75,
+      0.75,
+      1.57
+    ],
+    [
+      "bend7",
+      0.75,
+      1.25,
+      3.14
+    ],
+    [
+      "bend8",
+      -0.25,
+      1.25,
+      -1.57
+    ],
+    [
+      "qr_approach",
+      -0.25,
+      0.25,
+      0.0
+    ],
+    [
+      "qr",
+      0.2,
+      0.25,
+      0.0
+    ],
+    [
+      "qr_exit",
+      -0.37,
+      0.25,
+      0.0
+    ],
+    [
+      "cone_entry",
+      -0.25,
+      0.37,
+      1.57
+    ],
+    [
+      "cone_exit",
+      -1.75,
+      2.2,
+      1.57
+    ],
+    [
+      "blocks",
+      -1.75,
+      2.25,
+      1.57
+    ],
+    [
+      "return",
+      -0.7,
+      1.2,
+      0.0
+    ],
+    [
+      "finish_approach",
+      -0.25,
+      1.25,
+      1.57
+    ],
+    [
+      "finish",
+      -0.25,
+      2.2,
+      1.57
+    ]
+  ],
+  "cleanup": {
+    "owned_processes": 19,
+    "remaining": []
+  }
+}

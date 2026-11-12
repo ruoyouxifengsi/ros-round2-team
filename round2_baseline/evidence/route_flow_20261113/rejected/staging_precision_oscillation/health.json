@@ -1,0 +1,141 @@
+{
+  "total_retries": 2,
+  "stages": [
+    {
+      "stage": "bend1",
+      "wall": 8.779512298000554,
+      "sim": 1.247000000000014,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend2",
+      "wall": 9.709318508999786,
+      "sim": 1.5289999999999964,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend3",
+      "wall": 10.499853695999263,
+      "sim": 1.4599999999999795,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend4",
+      "wall": 9.593980057001318,
+      "sim": 1.4650000000000318,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5_approach",
+      "wall": 9.74163878499894,
+      "sim": 1.4949999999999477,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5",
+      "wall": 1.3504210609989968,
+      "sim": 0.16700000000003,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend6",
+      "wall": 5.113344660998337,
+      "sim": 0.7810000000000628,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend7",
+      "wall": 6.577029332000166,
+      "sim": 0.9519999999999982,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend8",
+      "wall": 34.76400584899966,
+      "sim": 5.3559999999999945,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr_approach",
+      "wall": 19.38765901499937,
+      "sim": 3.298999999999978,
+      "retries": 1,
+      "retry_positions": [
+        [
+          -0.5078388538990044,
+          0.9370171798636948
+        ]
+      ]
+    },
+    {
+      "stage": "qr",
+      "wall": 8.76399299699915,
+      "sim": 1.3289999999999509,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr_exit",
+      "wall": 13.392857804001324,
+      "sim": 2.240000000000009,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "cone_entry",
+      "wall": 19.575067499999932,
+      "sim": 3.0190000000000055,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "cone_exit",
+      "wall": 41.20636048100096,
+      "sim": 6.358999999999924,
+      "retries": 1,
+      "retry_positions": [
+        [
+          -1.3547647350562475,
+          1.552540405598881
+        ]
+      ]
+    },
+    {
+      "stage": "blocks",
+      "wall": 2.4832379150011548,
+      "sim": 0.4029999999999063,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "return",
+      "wall": 55.34652022299997,
+      "sim": 9.010999999999967,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "finish_approach",
+      "wall": null,
+      "sim": null,
+      "retries": 0,
+      "retry_positions": []
+    }
+  ],
+  "final_status": {
+    "state": "FAILED",
+    "detail": "Route navigation cancelled, stale or timed out: finish_approach",
+    "stamp": 559.944,
+    "control_only": true
+  },
+  "guard_trips": 0
+}

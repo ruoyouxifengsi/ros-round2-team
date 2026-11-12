@@ -1,0 +1,1 @@
+{"reason":"Observed QR terminal stall: position (0.1691,0.2486), yaw -0.0311; TEB command vx about 0.00679 m/s while measured translation approximately zero. The controller automatically failed its progress watchdog. A subsequent cancellation request found the service already unavailable. This run is not accepted."}

@@ -1,0 +1,123 @@
+{
+  "trial": "seed_2",
+  "accepted": false,
+  "seed": 2,
+  "speed_profile": "sprint",
+  "continuous": true,
+  "efficient_approach": true,
+  "entry_turn": null,
+  "moving_sim_seconds": 45.24399999999997,
+  "stopped_sim_seconds": 28.627000000000066,
+  "max_tilt_deg": 0.09228410454573892,
+  "guard_trips": 0,
+  "retries": 0,
+  "contact_coverage": true,
+  "contact_summary": {
+    "type": "summary",
+    "messages": 46092,
+    "all_contacts": 551327,
+    "cone_contact_events": 0,
+    "wall_contact_events": 0,
+    "sim": 551.072
+  },
+  "moved_cones": [],
+  "mandatory_stops": false,
+  "stages": [
+    {
+      "stage": "bend1",
+      "wall": 7.010959242999888,
+      "sim": 1.247000000000014,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend2",
+      "wall": 10.824149662001219,
+      "sim": 1.5670000000000073,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend3",
+      "wall": 10.433221945000696,
+      "sim": 1.4590000000000032,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend4",
+      "wall": 10.480739184999038,
+      "sim": 1.4939999999999714,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5_approach",
+      "wall": 9.696600093000598,
+      "sim": 1.4979999999999905,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5",
+      "wall": 0.7971431509995455,
+      "sim": 0.16899999999998272,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend6",
+      "wall": 4.983587384000202,
+      "sim": 0.7820000000000391,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend7",
+      "wall": 6.465646479999123,
+      "sim": 0.9180000000000064,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend8",
+      "wall": 30.794060680000257,
+      "sim": 4.997000000000071,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr_approach",
+      "wall": 11.51208067999869,
+      "sim": 1.5990000000000464,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr",
+      "wall": null,
+      "sim": null,
+      "retries": 0,
+      "retry_positions": []
+    }
+  ],
+  "final_status": {
+    "state": "FAILED",
+    "detail": "Route navigation made no progress: qr",
+    "stamp": 550.516,
+    "control_only": true
+  },
+  "cleanup": {
+    "owned_processes": 19,
+    "remaining": []
+  },
+  "scope": "UNTIMED CONTROL ONLY; images omitted; not official race acceptance",
+  "route_flow": true,
+  "max_lateral_command": 0.0,
+  "wall_contacts": 0,
+  "task_pose_checks": {
+    "qr": false,
+    "blocks": false,
+    "finish": false
+  }
+}

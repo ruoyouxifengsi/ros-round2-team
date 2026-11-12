@@ -1,0 +1,94 @@
+{
+  "total_retries": 1,
+  "stages": [
+    {
+      "stage": "bend1",
+      "wall": 5.9206710109992855,
+      "sim": 1.2450000000000045,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend2",
+      "wall": 9.66609713499929,
+      "sim": 1.525000000000034,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend3",
+      "wall": 8.522962208000536,
+      "sim": 1.4629999999999654,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend4",
+      "wall": 9.834719243001018,
+      "sim": 1.4990000000000236,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5_approach",
+      "wall": 8.695271350999974,
+      "sim": 1.4940000000000282,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5",
+      "wall": 0.6674858280002809,
+      "sim": 0.16800000000000637,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend6",
+      "wall": 5.721530245000395,
+      "sim": 0.7529999999999291,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend7",
+      "wall": 5.952272623000681,
+      "sim": 0.9470000000000027,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend8",
+      "wall": 29.903306411000813,
+      "sim": 4.796000000000049,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr_approach",
+      "wall": 15.550145085000622,
+      "sim": 3.288000000000011,
+      "retries": 1,
+      "retry_positions": [
+        [
+          -0.5581955093748076,
+          0.8438651186836759
+        ]
+      ]
+    },
+    {
+      "stage": "qr",
+      "wall": null,
+      "sim": null,
+      "retries": 0,
+      "retry_positions": []
+    }
+  ],
+  "final_status": {
+    "state": "FAILED",
+    "detail": "Straight docking cancelled, stale odometry or timeout",
+    "stamp": 537.042,
+    "control_only": true
+  },
+  "guard_trips": 0
+}

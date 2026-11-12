@@ -1,0 +1,185 @@
+{
+  "trial": "local_route_opt_baseline42",
+  "accepted": true,
+  "seed": 42,
+  "speed_profile": "sprint",
+  "continuous": true,
+  "efficient_approach": true,
+  "entry_turn": {
+    "seconds": 6.025999999999954,
+    "rotation_deg": 84.908612304812
+  },
+  "moving_sim_seconds": 56.76599999999996,
+  "stopped_sim_seconds": 3.263999999999953,
+  "max_tilt_deg": 0.49571976679160773,
+  "guard_trips": 0,
+  "retries": 4,
+  "contact_coverage": true,
+  "contact_summary": {
+    "type": "summary",
+    "messages": 57865,
+    "all_contacts": 693487,
+    "cone_contact_events": 0,
+    "wall_contact_events": 0,
+    "sim": 564.393
+  },
+  "moved_cones": [],
+  "mandatory_stops": true,
+  "stages": [
+    {
+      "stage": "bend1",
+      "wall": 4.683000790999358,
+      "sim": 1.2420000000000186,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend2",
+      "wall": 6.021635256998707,
+      "sim": 1.600999999999999,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend3",
+      "wall": 5.536476458000834,
+      "sim": 1.4589999999999463,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend4",
+      "wall": 5.663141140001244,
+      "sim": 1.497000000000071,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5_approach",
+      "wall": 5.589726939999309,
+      "sim": 1.4589999999999463,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5",
+      "wall": 0.7445721809999668,
+      "sim": 0.17200000000002547,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend6",
+      "wall": 2.952412512999217,
+      "sim": 0.7839999999999918,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend7",
+      "wall": 4.0325040179995995,
+      "sim": 1.08299999999997,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend8",
+      "wall": 19.457806214999437,
+      "sim": 4.969000000000051,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr_approach",
+      "wall": 24.099443364999388,
+      "sim": 5.63900000000001,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr",
+      "wall": 13.740161996000097,
+      "sim": 3.1369999999999436,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr_exit",
+      "wall": 14.090052490000744,
+      "sim": 3.0179999999999154,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "cone_entry",
+      "wall": 29.785422077000476,
+      "sim": 6.025999999999954,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "cone_exit",
+      "wall": 37.583033268998406,
+      "sim": 6.668999999999983,
+      "retries": 2,
+      "retry_positions": [
+        [
+          -0.9466675525614618,
+          0.7002943834655005
+        ],
+        [
+          -1.2454822445122196,
+          1.2460727156893736
+        ]
+      ]
+    },
+    {
+      "stage": "blocks",
+      "wall": 1.2505249830010143,
+      "sim": 0.33199999999999363,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "return",
+      "wall": 50.80513047400018,
+      "sim": 9.683999999999969,
+      "retries": 2,
+      "retry_positions": [
+        [
+          -1.364518926967958,
+          1.2808006241555925
+        ],
+        [
+          -1.293423973015184,
+          1.0604440849629988
+        ]
+      ]
+    },
+    {
+      "stage": "finish_approach",
+      "wall": 16.488607081999362,
+      "sim": 3.1350000000001046,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "finish",
+      "wall": 25.87875996999901,
+      "sim": 4.7719999999999345,
+      "retries": 0,
+      "retry_positions": []
+    }
+  ],
+  "final_status": {
+    "state": "CONTROL_ROUTE_DONE",
+    "detail": "Not a complete competition finish; wheel placement requires verification",
+    "stamp": 563.891,
+    "control_only": true
+  },
+  "cleanup": {
+    "owned_processes": 19,
+    "remaining": []
+  },
+  "scope": "UNTIMED CONTROL ONLY; images omitted; not official race acceptance"
+}

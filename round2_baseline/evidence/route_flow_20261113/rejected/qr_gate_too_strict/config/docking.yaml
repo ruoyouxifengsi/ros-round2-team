@@ -1,0 +1,7 @@
+max_vel_x: 0.10
+max_vel_x_backwards: 0.08
+max_vel_y: 0.0
+weight_kinematics_nh: 1000.0
+weight_kinematics_forward_drive: 0.0
+xy_goal_tolerance: 0.01
+yaw_goal_tolerance: 0.08

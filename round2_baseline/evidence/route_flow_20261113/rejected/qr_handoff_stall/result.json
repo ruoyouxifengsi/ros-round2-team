@@ -1,0 +1,305 @@
+{
+  "passed": false,
+  "trigger": "development service",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 502.229,
+      "control_only": true,
+      "wall": 13400.581094741
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend1",
+      "stamp": 505.036,
+      "control_only": true,
+      "wall": 13401.654748859
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend1",
+      "stamp": 506.281,
+      "control_only": true,
+      "wall": 13407.57541987
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend2",
+      "stamp": 506.282,
+      "control_only": true,
+      "wall": 13407.577122082
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend2",
+      "stamp": 507.807,
+      "control_only": true,
+      "wall": 13417.243219217
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend3",
+      "stamp": 507.807,
+      "control_only": true,
+      "wall": 13417.244410149
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend3",
+      "stamp": 509.27,
+      "control_only": true,
+      "wall": 13425.767372357
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend4",
+      "stamp": 509.27,
+      "control_only": true,
+      "wall": 13425.768960062
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend4",
+      "stamp": 510.769,
+      "control_only": true,
+      "wall": 13435.603679305
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5_approach",
+      "stamp": 510.769,
+      "control_only": true,
+      "wall": 13435.615338587
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5_approach",
+      "stamp": 512.263,
+      "control_only": true,
+      "wall": 13444.310609938
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5",
+      "stamp": 512.263,
+      "control_only": true,
+      "wall": 13444.312051309
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5",
+      "stamp": 512.431,
+      "control_only": true,
+      "wall": 13444.979537137
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend6",
+      "stamp": 512.431,
+      "control_only": true,
+      "wall": 13444.981098158
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend6",
+      "stamp": 513.184,
+      "control_only": true,
+      "wall": 13450.702628403
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend7",
+      "stamp": 513.184,
+      "control_only": true,
+      "wall": 13450.703874537
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend7",
+      "stamp": 514.131,
+      "control_only": true,
+      "wall": 13456.65614716
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend8",
+      "stamp": 514.131,
+      "control_only": true,
+      "wall": 13456.657706498
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend8",
+      "stamp": 518.927,
+      "control_only": true,
+      "wall": 13486.561012909
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_approach",
+      "stamp": 518.938,
+      "control_only": true,
+      "wall": 13487.219357201
+    },
+    {
+      "state": "PASSED",
+      "detail": "qr_approach",
+      "stamp": 522.226,
+      "control_only": true,
+      "wall": 13502.769502286
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr",
+      "stamp": 522.226,
+      "control_only": true,
+      "wall": 13502.770838493
+    },
+    {
+      "state": "FAILED",
+      "detail": "Straight docking cancelled, stale odometry or timeout",
+      "stamp": 537.042,
+      "control_only": true,
+      "wall": 13593.930023822
+    }
+  ],
+  "seed": 42,
+  "development_audit": true,
+  "speed_profile": "sprint",
+  "timeout_clock": "sim",
+  "simulation_engine": "official ode",
+  "continuous_bends": true,
+  "bend_path": false,
+  "route_flow": true,
+  "efficient_approach": true,
+  "attitude_protection": false,
+  "navigation_mode": "rolling_odom",
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "startup_seconds": 7.223132703000374,
+  "contact_observer_sha256": "cbc2e9a409ad5c4c82d359392a6ae72a65aaa4aa4c31618951f9d14f6045a242",
+  "guard_max_trips": 0,
+  "guard_last_mode": "RUN",
+  "elapsed_wall": 194.20665031300086,
+  "elapsed_sim": 32.25699999999995,
+  "final_status": {
+    "state": "FAILED",
+    "detail": "Straight docking cancelled, stale odometry or timeout",
+    "stamp": 537.042,
+    "control_only": true
+  },
+  "executed_route": [
+    [
+      "bend1",
+      -0.7,
+      2.67,
+      0.0
+    ],
+    [
+      "bend2",
+      0.25,
+      2.7,
+      -1.57
+    ],
+    [
+      "bend3",
+      0.25,
+      1.75,
+      0.0
+    ],
+    [
+      "bend4",
+      1.25,
+      1.75,
+      -1.57
+    ],
+    [
+      "bend5_approach",
+      1.25,
+      0.75,
+      -1.57
+    ],
+    [
+      "bend5",
+      1.1,
+      0.75,
+      -3.14
+    ],
+    [
+      "bend6",
+      0.75,
+      0.75,
+      1.57
+    ],
+    [
+      "bend7",
+      0.75,
+      1.25,
+      3.14
+    ],
+    [
+      "bend8",
+      -0.25,
+      1.25,
+      -1.57
+    ],
+    [
+      "qr_approach",
+      -0.25,
+      0.25,
+      0.0
+    ],
+    [
+      "qr",
+      0.2,
+      0.25,
+      0.0
+    ],
+    [
+      "qr_exit",
+      -0.37,
+      0.25,
+      0.0
+    ],
+    [
+      "cone_entry",
+      -0.25,
+      0.37,
+      1.57
+    ],
+    [
+      "cone_exit",
+      -1.75,
+      2.2,
+      1.57
+    ],
+    [
+      "blocks",
+      -1.75,
+      2.25,
+      1.57
+    ],
+    [
+      "return",
+      -0.7,
+      1.2,
+      0.0
+    ],
+    [
+      "finish_approach",
+      -0.25,
+      1.25,
+      1.57
+    ],
+    [
+      "finish",
+      -0.25,
+      2.2,
+      1.57
+    ]
+  ],
+  "cleanup": {
+    "owned_processes": 19,
+    "remaining": []
+  }
+}

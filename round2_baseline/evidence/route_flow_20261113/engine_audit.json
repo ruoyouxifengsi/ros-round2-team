@@ -1,0 +1,18 @@
+{
+  "processes": [
+    {
+      "pid": 783,
+      "preload": [],
+      "libraries": {
+        "/usr/lib/x86_64-linux-gnu/libgazebo_physics.so.11.15.1": "92efa2659bf2cf1370f25dcf9e0d1661353da85dece4a40f3f3abe312736c40f",
+        "/usr/lib/x86_64-linux-gnu/libode.so.8.0.0": "ae7075bd5d523ef1f4af9a2b25f36b9a119de8728c55572e4cbf05cf3ad3841e"
+      }
+    }
+  ],
+  "package_verification": {
+    "command": "dpkg -V libgazebo11 libode8",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+}

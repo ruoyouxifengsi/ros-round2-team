@@ -62,8 +62,8 @@ class Guard:
         self.normal_limits=(self.max_speed,self.linear_accel,self.max_yaw_rate,
                             self.yaw_feedback.maximum if self.yaw_feedback else None)
 
-    def route_limits(self,state,bend_settings):
-        active=state.get('state') in ('MOVING','PASSED') and state.get('detail','').startswith('bend')
+    def route_limits(self,state,bend_settings,whole_route=False):
+        active=state.get('state') in ('MOVING','PASSED') and (whole_route or state.get('detail','').startswith('bend'))
         if bend_settings and active:
             values=[bend_settings[k] for k in ('output_speed','output_acceleration','output_yaw_rate')]
             if not all(math.isfinite(v) and v>0 for v in values):raise ValueError('Invalid bend output limits')
@@ -333,10 +333,11 @@ def main():
                   rospy.get_param('~attitude_protection',True))
     lock = threading.RLock()
     bend_settings=rospy.get_param('~bend_settings',{})
+    whole_route=rospy.get_param('~route_flow',False)
     def route_state(message):
         state=json.loads(message.data)
         with lock:
-            guard.route_limits(state,bend_settings)
+            guard.route_limits(state,bend_settings,whole_route)
     rospy.Subscriber('/baseline/status',String,route_state,queue_size=10)
     history, scans = deque(maxlen=300), deque(maxlen=100)
     stats = {'scan_passed': 0, 'scan_dropped': 0}

@@ -1,0 +1,76 @@
+{
+  "passed": false,
+  "trigger": "debug control service",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 503.132,
+      "control_only": true,
+      "wall": 13095.828416064
+    },
+    {
+      "state": "MOVING",
+      "detail": "return",
+      "stamp": 506.865,
+      "control_only": true,
+      "wall": 13095.865349056
+    },
+    {
+      "state": "FAILED",
+      "detail": "Route goal failed: finish_approach",
+      "stamp": 518.29,
+      "control_only": true,
+      "wall": 13139.611579543
+    }
+  ],
+  "seed": 42,
+  "development_audit": true,
+  "speed_profile": "sprint",
+  "timeout_clock": "sim",
+  "simulation_engine": "official ode",
+  "continuous_bends": true,
+  "bend_path": false,
+  "route_flow": true,
+  "efficient_approach": true,
+  "attitude_protection": false,
+  "navigation_mode": "rolling_odom",
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+  "startup_seconds": 6.49066392199893,
+  "contact_observer_sha256": "cbc2e9a409ad5c4c82d359392a6ae72a65aaa4aa4c31618951f9d14f6045a242",
+  "guard_max_trips": 0,
+  "guard_last_mode": "RUN",
+  "elapsed_wall": 44.044183165000504,
+  "elapsed_sim": 11.502999999999986,
+  "final_status": {
+    "state": "FAILED",
+    "detail": "Route goal failed: finish_approach",
+    "stamp": 518.29,
+    "control_only": true
+  },
+  "executed_route": [
+    [
+      "return",
+      -0.5,
+      0.8,
+      0.0
+    ],
+    [
+      "finish_approach",
+      -0.25,
+      1.25,
+      1.57
+    ],
+    [
+      "finish",
+      -0.25,
+      2.2,
+      1.57
+    ]
+  ],
+  "cleanup": {
+    "owned_processes": 19,
+    "remaining": []
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "passed": false,
+  "trigger": "debug control service",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 502.526,
+      "control_only": true,
+      "wall": 11739.960088724
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_approach",
+      "stamp": 506.404,
+      "control_only": true,
+      "wall": 11740.385166809
+    },
+    {
+      "state": "FAILED",
+      "detail": "Continuous bend path made no measured progress",
+      "stamp": 512.531,
+      "control_only": true,
+      "wall": 11765.567383412
+    }
+  ],
+  "seed": 42,
+  "development_audit": true,
+  "speed_profile": "sprint",
+  "timeout_clock": "sim",
+  "simulation_engine": "official ode",
+  "continuous_bends": true,
+  "bend_path": false,
+  "route_flow": true,
+  "efficient_approach": true,
+  "attitude_protection": false,
+  "navigation_mode": "rolling_odom",
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "scope": "DEBUG ROUTE PREFIX, NOT A COMPETITION RUN",
+  "startup_seconds": 6.60573320200092,
+  "contact_observer_sha256": "cbc2e9a409ad5c4c82d359392a6ae72a65aaa4aa4c31618951f9d14f6045a242",
+  "guard_max_trips": 0,
+  "guard_last_mode": "RUN",
+  "elapsed_wall": 26.030866323999362,
+  "elapsed_sim": 6.342999999999961,
+  "final_status": {
+    "state": "FAILED",
+    "detail": "Continuous bend path made no measured progress",
+    "stamp": 512.531,
+    "control_only": true
+  },
+  "executed_route": [
+    [
+      "qr_approach",
+      -0.25,
+      0.25,
+      0.0
+    ],
+    [
+      "qr",
+      0.2,
+      0.25,
+      0.0
+    ],
+    [
+      "qr_exit",
+      -0.45,
+      0.25,
+      0.0
+    ],
+    [
+      "cone_entry",
+      -0.25,
+      0.45,
+      1.57
+    ]
+  ],
+  "cleanup": {
+    "owned_processes": 19,
+    "remaining": []
+  }
+}

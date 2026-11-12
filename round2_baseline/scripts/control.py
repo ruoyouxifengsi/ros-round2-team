@@ -48,9 +48,9 @@ def footprint_clear(grid, x, y, yaw, polygon, padding):
     return True
 
 
-def short_turn_command(grid,x,y,angle,target,polygon,padding,angular_limit=.5):
+def short_turn_command(grid,x,y,angle,target,polygon,padding,angular_limit=.5,tolerance=.12):
     error=math.atan2(math.sin(target-angle),math.cos(target-angle))
-    if abs(error)<.12:return 0.
+    if abs(error)<tolerance:return 0.
     steps=max(1,math.ceil(abs(error)/.04))
     if not all(footprint_clear(grid,x,y,angle+error*i/steps,polygon,padding) for i in range(steps+1)):
         return None
@@ -66,7 +66,7 @@ def entry_velocity(px,py,angle,x,y,heading):
     return vx,vy,max(-.3,min(.3,1.6*error)),distance
 
 
-def straight_velocity(px,py,angle,x,y,yaw,direction,fast=False,efficient=False):
+def straight_velocity(px,py,angle,x,y,yaw,direction,fast=False,efficient=False,flow=False):
     dx,dy=x-px,y-py
     cross=(py-y)*math.cos(yaw)-(px-x)*math.sin(yaw)
     target=yaw-direction*max(-.12,min(.12,(4. if efficient and fast else 2.)*cross))
@@ -75,8 +75,9 @@ def straight_velocity(px,py,angle,x,y,yaw,direction,fast=False,efficient=False):
     speed=min(.18,1.2*max(0.,remaining),math.sqrt(.5*max(0.,remaining))) if fast else min(.08,.8*max(0.,remaining))
     if efficient and fast:
         speed=min(.28 if direction>0 else .22,1.5*max(0.,remaining),math.sqrt(.5*max(0.,remaining)))
+    if flow:speed=min(.75 if direction>0 else .45,2.5*max(0.,remaining),math.sqrt(1.6*max(0.,remaining)))
     v=direction*speed if abs(error)<(.15 if efficient and fast else .25) else 0.
-    angular_limit=.4 if efficient and fast else .15
+    angular_limit=.8 if flow else (.4 if efficient and fast else .15)
     return v,max(-angular_limit,min(angular_limit,(3. if efficient and fast else 1.5)*error)),remaining
 
 
@@ -177,6 +178,14 @@ class Control:
             travel = {k:rospy.get_param('/move_base/TebLocalPlannerROS/'+k) for k in docking}
             run_deadline = self.budget_time()+rospy.get_param('~run_timeout', 540.0)
             route=rospy.get_param('~route')
+            if rospy.get_param('~route_flow',False):
+                import sys
+                from pathlib import Path
+                if str(Path(__file__).parent) not in sys.path:sys.path.insert(0,str(Path(__file__).parent))
+                from route_flow import run_flow
+                run_flow(self,planner,route,run_deadline)
+                self.report('CONTROL_ROUTE_DONE','CONTROL ONLY: image recognition and its processing time omitted')
+                return
             if rospy.get_param('~bend_path',False):
                 bends=[]
                 for point in route:
@@ -276,14 +285,14 @@ class Control:
             with self.lock:
                 self.running = False
 
-    def follow_bends(self,route,run_deadline):
+    def follow_bends(self,route,run_deadline,path_override=None,position_tolerance=.023,yaw_tolerance=.12):
         import sys
         from pathlib import Path
         if str(Path(__file__).parent) not in sys.path:sys.path.insert(0,str(Path(__file__).parent))
         from bend_path import rounded_path
         p=self.odom.pose.pose.position
         vertices=[(p.x,p.y)]+[(x,2.72 if name in ('bend1','bend2') else y) for name,x,y,_ in route]
-        path=rounded_path(vertices)
+        path=path_override if path_override is not None else rounded_path(vertices)
         from bend_path import path_command, braking_clear, validate_settings
         tuning=rospy.get_param('~bend_settings')
         validate_settings(tuning)
@@ -313,7 +322,7 @@ class Control:
                 if index<len(route)-1 and math.hypot(position.x-route[index][1],position.y-route[index][2])<.10:
                     self.report('PASSED',route[index][0]);index+=1
                     self.report('MOVING',route[index][0])
-                if math.hypot(position.x-x,position.y-y)<.023:break
+                if math.hypot(position.x-x,position.y-y)<position_tolerance:break
                 angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
                 vx,omega,progress=path_command(path,progress,position.x,position.y,angle,
                     tuning['max_speed'],tuning['acceleration'],tuning['max_yaw_rate'])
@@ -328,7 +337,7 @@ class Control:
             self.velocity.publish(Twist())
             if index!=len(route)-1 or not self.stopped():
                 raise RuntimeError('Continuous bend path failed or missed a waypoint: '+route[index][0])
-            self.rotate_short(yaw,run_deadline,tuning['max_yaw_rate'])
+            self.rotate_short(yaw,run_deadline,tuning['max_yaw_rate'],yaw_tolerance)
             if not self.stopped():raise RuntimeError('Bend exit rotation did not stop')
             self.report('ARRIVED',route[-1][0])
         finally:
@@ -389,7 +398,7 @@ class Control:
         finally:
             self.velocity.publish(Twist())
 
-    def rotate_short(self,target,run_deadline,angular_limit=.5):
+    def rotate_short(self,target,run_deadline,angular_limit=.5,tolerance=.12):
         self.client.cancel_all_goals()
         if not self.stopped():raise RuntimeError('Entry rotation requires a stopped vehicle')
         polygon=rospy.get_param('/move_base/local_costmap/footprint')
@@ -404,7 +413,7 @@ class Control:
                 grid=self.fresh_costmap(deadline)
                 pose=self.odom.pose.pose;q=pose.orientation
                 angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
-                omega=short_turn_command(grid,pose.position.x,pose.position.y,angle,target,polygon,padding,angular_limit)
+                omega=short_turn_command(grid,pose.position.x,pose.position.y,angle,target,polygon,padding,angular_limit,tolerance)
                 if omega is None:raise RuntimeError('Shortest entry rotation intersects occupied or unknown space')
                 if omega==0:return
                 msg=Twist();msg.angular.z=omega;self.velocity.publish(msg)
@@ -434,7 +443,7 @@ class Control:
                 if now-progress_at>28:raise RuntimeError('Straight docking made no progress')
                 heading_error=math.atan2(math.sin(angle-yaw),math.cos(angle-yaw))
                 if abs(heading_error)>.3:raise RuntimeError('Straight docking heading left the corridor')
-                v,omega,remaining=straight_velocity(p.x,p.y,angle,x,y,yaw,direction,self.fast,self.efficient)
+                v,omega,remaining=straight_velocity(p.x,p.y,angle,x,y,yaw,direction,self.fast,self.efficient,rospy.get_param('~route_flow',False))
                 if remaining<=0:raise RuntimeError('Straight docking passed target without alignment')
                 safe=True;px,py,pa=p.x,p.y,angle
                 cross_squared=max(0.,distance*distance-remaining*remaining)

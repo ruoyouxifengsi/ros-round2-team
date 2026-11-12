@@ -1,0 +1,95 @@
+{
+  "total_retries": 3,
+  "stages": [
+    {
+      "stage": "bend1",
+      "wall": 7.905814705000012,
+      "sim": 1.2439999999999714,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend2",
+      "wall": 10.869024854999225,
+      "sim": 1.5980000000000132,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend3",
+      "wall": 10.332210644999577,
+      "sim": 1.4329999999999927,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend4",
+      "wall": 10.495282566000242,
+      "sim": 1.4950000000000045,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5_approach",
+      "wall": 9.718585057000382,
+      "sim": 1.4909999999999854,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5",
+      "wall": 0.6643549170003098,
+      "sim": 0.16999999999995907,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend6",
+      "wall": 4.9165338370003155,
+      "sim": 0.7540000000000191,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend7",
+      "wall": 6.523898448000182,
+      "sim": 0.9490000000000691,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend8",
+      "wall": 33.97440751900103,
+      "sim": 5.0919999999999845,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr_approach",
+      "wall": null,
+      "sim": null,
+      "retries": 3,
+      "retry_positions": [
+        [
+          -0.20066837465115286,
+          0.5060780662517409
+        ],
+        [
+          -0.1716514246138646,
+          0.40835952110348583
+        ],
+        [
+          -0.1418167568843221,
+          0.33349882648217677
+        ]
+      ]
+    }
+  ],
+  "final_status": {
+    "state": "FAILED",
+    "detail": "Route goal failed: qr",
+    "stamp": 523.673,
+    "control_only": true
+  },
+  "guard_trips": 0
+}

@@ -6,6 +6,7 @@
   <arg name="timeout_clock" default="wall"/>
   <arg name="continuous_bends" default="false"/>
   <arg name="bend_path" default="false"/>
+  <arg name="route_flow" default="false"/>
   <arg name="efficient_approach" default="false"/>
   <arg name="map_file" default=""/>
   <arg name="attitude_protection" default="false"/>
@@ -17,6 +18,7 @@
     <arg name="speed_profile" value="$(arg speed_profile)"/>
     <arg name="continuous_bends" value="$(arg continuous_bends)"/>
     <arg name="bend_path" value="$(arg bend_path)"/>
+    <arg name="route_flow" value="$(arg route_flow)"/>
     <arg name="efficient_approach" value="$(arg efficient_approach)"/>
     <arg name="map_file" value="$(arg map_file)"/>
     <arg name="attitude_protection" value="$(arg attitude_protection)"/>

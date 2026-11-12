@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.0.2)
+project(round2_baseline)
+find_package(catkin REQUIRED)
+catkin_package()
+install(FILES scripts/bend_path.py scripts/route_flow.py DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+catkin_install_python(PROGRAMS scripts/control.py scripts/attitude_guard.py scripts/cone_obstacles.py scripts/localized_odometry.py DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

@@ -1,0 +1,30 @@
+TebLocalPlannerROS:
+  map_frame: map
+global_costmap:
+  global_frame: map
+  rolling_window: false
+  static_map: true
+  track_unknown_space: true
+  plugins:
+    - {name: static_layer, type: 'costmap_2d::StaticLayer'}
+    - {name: obstacle_layer, type: 'costmap_2d::ObstacleLayer'}
+    - {name: cone_layer, type: 'costmap_2d::ObstacleLayer'}
+    - {name: inflation_layer, type: 'costmap_2d::InflationLayer'}
+  static_layer:
+    map_topic: /map
+    subscribe_to_updates: false
+    track_unknown_space: true
+local_costmap:
+  global_frame: map
+  rolling_window: true
+  plugins:
+    - {name: static_layer, type: 'costmap_2d::StaticLayer'}
+    - {name: obstacle_layer, type: 'costmap_2d::ObstacleLayer'}
+    - {name: cone_layer, type: 'costmap_2d::ObstacleLayer'}
+    - {name: inflation_layer, type: 'costmap_2d::InflationLayer'}
+  static_layer:
+    map_topic: /map
+    subscribe_to_updates: false
+    track_unknown_space: true
+NavfnROS:
+  allow_unknown: false

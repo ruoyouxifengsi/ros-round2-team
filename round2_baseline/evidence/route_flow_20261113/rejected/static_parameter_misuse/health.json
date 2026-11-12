@@ -1,0 +1,75 @@
+{
+  "total_retries": 0,
+  "stages": [
+    {
+      "stage": "bend1",
+      "wall": 6.1207897439999215,
+      "sim": 1.2559999999999718,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend2",
+      "wall": 6.372124769999573,
+      "sim": 1.5629999999999882,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend3",
+      "wall": 6.968002345998684,
+      "sim": 1.4610000000000127,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend4",
+      "wall": 7.012828269000238,
+      "sim": 1.4990000000000236,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5_approach",
+      "wall": 6.9495338540000375,
+      "sim": 1.4950000000000045,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5",
+      "wall": 1.5978096119997645,
+      "sim": 0.16499999999996362,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend6",
+      "wall": 3.227129609998883,
+      "sim": 0.7509999999999764,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend7",
+      "wall": 3.9709662470013427,
+      "sim": 0.9519999999999982,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend8",
+      "wall": 24.39735987000131,
+      "sim": 4.891000000000076,
+      "retries": 0,
+      "retry_positions": []
+    }
+  ],
+  "final_status": {
+    "state": "FAILED",
+    "detail": "don't know parameter: min_resolution_collision_check_angular",
+    "stamp": 520.07,
+    "control_only": true
+  },
+  "guard_trips": 0
+}

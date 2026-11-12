@@ -1,0 +1,100 @@
+"""Task-preserving sequencing: continuous tracking, reverse staging, forward entry and TEB avoidance."""
+import math
+import time
+import rospy
+from move_base_msgs.msg import MoveBaseGoal
+from geometry_msgs.msg import Twist
+
+def entry_curve(start,end,heading):
+    x,y=start;tx,ty,target_yaw=end
+    handle=.55*min(abs(tx-x),abs(ty-y))
+    controls=[(x,y),(x+handle*math.cos(heading),y+handle*math.sin(heading)),
+              (tx-handle*math.cos(target_yaw),ty-handle*math.sin(target_yaw)),(tx,ty)]
+    path=[]
+    for i in range(31):
+        t=i/30.;u=1-t
+        p=[u**3*controls[0][j]+3*u*u*t*controls[1][j]+3*u*t*t*controls[2][j]+t**3*controls[3][j] for j in (0,1)]
+        d=[3*u*u*(controls[1][j]-controls[0][j])+6*u*t*(controls[2][j]-controls[1][j])+3*t*t*(controls[3][j]-controls[2][j]) for j in (0,1)]
+        path.append(p+[math.atan2(d[1],d[0])])
+    return path
+
+def navigate(control,planner,route,deadline,settings,pass_last=False,announce=True):
+    values=dict(settings,free_goal_vel=pass_last)
+    if pass_last:values['yaw_goal_tolerance']=math.pi
+    planner.update_configuration(values)
+    name,x,y,yaw=route[-1]
+    goal=MoveBaseGoal();goal.target_pose.header.frame_id=control.navigation_frame
+    goal.target_pose.header.stamp=rospy.Time.now()
+    goal.target_pose.pose.position.x=x;goal.target_pose.pose.position.y=y
+    goal.target_pose.pose.orientation.z=math.sin(yaw/2);goal.target_pose.pose.orientation.w=math.cos(yaw/2)
+    if announce:control.report('MOVING',route[0][0])
+    control.client.send_goal(goal)
+    index=0;last_progress=control.budget_time();previous=control.odom.pose.pose;approach=False
+    while not rospy.is_shutdown():
+        pose=control.odom.pose.pose;p=pose.position
+        if control.cancelled.is_set() or time.monotonic()-control.received>2 or control.budget_time()>deadline:
+            raise RuntimeError('Route navigation cancelled, stale or timed out: '+name)
+        moved=math.hypot(p.x-previous.position.x,p.y-previous.position.y)>.01
+        a,b=previous.orientation,pose.orientation
+        turned=abs(a.x*b.x+a.y*b.y+a.z*b.z+a.w*b.w)<math.cos(.02/2)
+        if moved or turned:previous=pose;last_progress=control.budget_time()
+        if control.budget_time()-last_progress>28:raise RuntimeError('Route navigation made no progress: '+name)
+        if name=='qr' and not approach and math.hypot(p.x-x,p.y-y)<.15:
+            planner.update_configuration(dict(max_vel_x=.20,min_obstacle_dist=.02));approach=True
+        reached_via=p.x>-.70 if route[index][0]=='return' else math.hypot(p.x-route[index][1],p.y-route[index][2])<.10
+        if index<len(route)-1 and reached_via:
+            control.report('PASSED',route[index][0]);index+=1;control.report('MOVING',route[index][0])
+        if pass_last and index==len(route)-1 and math.hypot(p.x-x,p.y-y)<.10:
+            control.report('PASSED',name);return
+        state=control.client.get_state()
+        if state in (2,3,4,5,8,9):
+            if state!=3 or index!=len(route)-1 or not control.stopped():raise RuntimeError('Route goal failed: '+name)
+            control.report('ARRIVED',name);return
+        time.sleep(.02)
+    raise RuntimeError('Shutdown during route navigation')
+
+def run_flow(control,planner,route,deadline):
+    cfg=rospy.get_param('~flow_settings')
+    route=[[name,*cfg['staging'].get(name,[x,y,yaw])] for name,x,y,yaw in route]
+    rospy.set_param('~executed_route',route)
+    prefix=[]
+    for point in route:
+        if point[0].startswith('bend'):prefix.append(point)
+        else:break
+    if prefix:
+        control.follow_bends(prefix,deadline)
+        route=route[len(prefix):]
+    i=0
+    while i<len(route):
+        name,x,y,yaw=route[i]
+        if name=='qr_approach' and i+1<len(route) and route[i+1][0]=='qr':
+            values=dict(cfg['navigation'],xy_goal_tolerance=.01,yaw_goal_tolerance=.08,min_obstacle_dist=.06)
+            navigate(control,planner,route[i:i+2],deadline,values)
+            control.report('IMAGE_SKIPPED','qr');i+=1
+        elif name in ('qr_exit','finish'):
+            control.report('MOVING',name)
+            control.straight_move(x,y,yaw,deadline,-1 if name=='qr_exit' else 1,.012 if name=='qr_exit' else .025)
+            if not control.stopped():raise RuntimeError('Task straight motion failed to stop: '+name)
+            control.report('ARRIVED',name)
+        elif name=='cone_entry':
+            p=control.odom.pose.pose;q=p.orientation
+            heading=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
+            curve=entry_curve((p.position.x,p.position.y),(x,y,yaw),heading)
+            control.follow_bends([route[i]],deadline,path_override=curve,position_tolerance=.015,yaw_tolerance=.08)
+        elif name=='cone_exit' and i+1<len(route) and route[i+1][0]=='blocks':
+            navigate(control,planner,route[i:i+2],deadline,cfg['navigation'])
+            control.report('IMAGE_SKIPPED','blocks');i+=1
+        elif name=='return' and i+1<len(route) and route[i+1][0]=='finish_approach':
+            control.report('MOVING',name)
+            pose=control.odom.pose.pose;q=pose.orientation
+            heading=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
+            control.straight_move(pose.position.x-.08*math.cos(heading),pose.position.y-.08*math.sin(heading),heading,deadline,-1,.008)
+            if not control.stopped():raise RuntimeError('Recognition-area departure did not stop')
+            control.rotate_short(-math.pi/2,deadline,2.4,.12)
+            if not control.stopped():raise RuntimeError('Recognition-area departure turn did not stop')
+            navigate(control,planner,route[i:i+2],deadline,cfg['navigation'],announce=False);i+=1
+        else:
+            navigate(control,planner,[route[i]],deadline,cfg['navigation'],pass_last=name=='return' and i+1<len(route))
+            if name=='blocks':control.report('IMAGE_SKIPPED','blocks')
+        i+=1
+    control.velocity.publish(Twist())

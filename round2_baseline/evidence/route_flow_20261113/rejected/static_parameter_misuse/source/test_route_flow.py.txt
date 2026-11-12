@@ -1,0 +1,49 @@
+"""Exercise the actual coordinator: task stops stay, virtual points pass, no lateral entry."""
+import math
+from types import SimpleNamespace as N
+from unittest.mock import patch
+import yaml
+from pathlib import Path
+import route_flow as m
+from bend_path import path_command
+
+cfg=yaml.safe_load((Path(__file__).parents[1]/'config/route_flow.yaml').read_text())
+pose=lambda x,y,a:N(position=N(x=x,y=y),orientation=N(x=0.,y=0.,z=math.sin(a/2),w=math.cos(a/2)))
+assert m.ready_to_dock(pose(-.05,.25,0.),(.2,.25,0.))
+assert not m.ready_to_dock(pose(-.15,.25,0.),(.2,.25,0.))
+assert not m.ready_to_dock(pose(.05,.27,0.),(.2,.25,0.))
+assert not m.ready_to_dock(pose(.05,.25,.2),(.2,.25,0.))
+assert not m.ready_to_dock(pose(.21,.25,0.),(.2,.25,0.))
+curve=m.entry_curve((-.44,.25),(-.25,.45,1.57),0.)
+assert curve[0][:2]==[-.44,.25] and curve[-1][:2]==[-.25,.45]
+assert abs(curve[0][2])<1e-9 and abs(curve[-1][2]-1.57)<1e-9
+x,y,yaw=-.44,.25,0.;index=0
+for _ in range(1500):
+    v,w,index=path_command(curve,index,x,y,yaw,.4,.8,1.2)
+    x+=v*math.cos(yaw)*.01;y+=v*math.sin(yaw)*.01;yaw+=w*.01
+    if math.hypot(x+.25,y-.45)<.015:break
+assert math.hypot(x+.25,y-.45)<.015
+events=[];calls=[]
+c=N(report=lambda *e:events.append(e),
+    follow_bends=lambda route,*a,**kw:calls.append(('reference',[p[0] for p in route],kw)),
+    straight_move=lambda *a:calls.append(('straight',a)),stopped=lambda:True,
+    rotate_short=lambda *a:calls.append(('turn',a)),
+    odom=N(pose=N(pose=N(position=N(x=-.44,y=.25),orientation=N(x=0.,y=0.,z=0.,w=1.)))),
+    velocity=N(publish=lambda _:None))
+route=[['bend8',-.25,1.25,-1.57],['qr_approach',-.25,.25,0.],['qr',.2,.25,0.],
+       ['qr_exit',-.25,.25,0.],['cone_entry',-.25,.35,1.57],['cone_exit',-1.75,2.2,1.57],
+       ['blocks',-1.75,2.25,1.57],['return',-.7,1.2,0.],['finish_approach',-.25,1.25,1.57],['finish',-.25,2.2,1.57]]
+with patch.object(m.rospy,'get_param',return_value=cfg),patch.object(m.rospy,'set_param'), \
+     patch.object(m,'navigate',side_effect=lambda c,p,r,d,s,**kw:calls.append(('navigate',[v[0] for v in r],kw))):
+    m.run_flow(c,None,route,100.)
+assert calls[0][1]==['bend8']
+assert calls[1][0]=='navigate' and calls[1][1]==['qr_approach','qr']
+assert calls[2][0]=='straight' and calls[2][1][0]==-.37 and calls[2][1][4]==-1
+assert calls[3][0]=='reference' and calls[3][1]==['cone_entry']
+assert calls[4][1]==['cone_exit','blocks']
+assert calls[5][0]=='straight' and calls[5][1][4]==-1
+assert calls[6][0]=='turn'
+assert calls[7][1]==['return','finish_approach'] and not calls[7][2]['announce']
+assert events.count(('IMAGE_SKIPPED','qr'))==1 and events.count(('IMAGE_SKIPPED','blocks'))==1
+assert cfg['navigation']['max_vel_y']==0.
+print('PASS: forward-only staging curve; QR precision; reverse departure; cone/blocks share goal; return passes; image-task boundaries retained')

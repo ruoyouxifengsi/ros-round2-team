@@ -1,0 +1,180 @@
+{
+  "trial": "seed_1",
+  "accepted": true,
+  "seed": 1,
+  "speed_profile": "sprint",
+  "continuous": true,
+  "efficient_approach": true,
+  "entry_turn": {
+    "seconds": 1.5590000000000828,
+    "rotation_deg": 84.56143230813558
+  },
+  "moving_sim_seconds": 44.48500000000007,
+  "stopped_sim_seconds": 2.6869999999997844,
+  "max_tilt_deg": 0.3152652548417875,
+  "guard_trips": 0,
+  "retries": 1,
+  "contact_coverage": true,
+  "contact_summary": {
+    "type": "summary",
+    "messages": 45488,
+    "all_contacts": 543578,
+    "cone_contact_events": 0,
+    "wall_contact_events": 0,
+    "sim": 550.596
+  },
+  "moved_cones": [],
+  "mandatory_stops": true,
+  "stages": [
+    {
+      "stage": "bend1",
+      "wall": 8.61076081200008,
+      "sim": 1.2550000000000523,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend2",
+      "wall": 10.901693334999436,
+      "sim": 1.5299999999999727,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend3",
+      "wall": 10.626937261000421,
+      "sim": 1.4930000000000518,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend4",
+      "wall": 10.361827738999636,
+      "sim": 1.4610000000000127,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5_approach",
+      "wall": 10.790196784000727,
+      "sim": 1.5299999999999727,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5",
+      "wall": 0.6673271340005158,
+      "sim": 0.16899999999998272,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend6",
+      "wall": 4.937763088000793,
+      "sim": 0.7819999999999254,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend7",
+      "wall": 5.585632208998504,
+      "sim": 0.9200000000000728,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend8",
+      "wall": 34.19112975700045,
+      "sim": 5.19500000000005,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr_approach",
+      "wall": 10.790879555001084,
+      "sim": 1.6049999999999045,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr",
+      "wall": 11.402700425000148,
+      "sim": 1.9069999999999254,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr_exit",
+      "wall": 16.207030633000613,
+      "sim": 2.469000000000051,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "cone_entry",
+      "wall": 10.917903002999083,
+      "sim": 1.5590000000000828,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "cone_exit",
+      "wall": 47.69595402599953,
+      "sim": 7.675000000000068,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "blocks",
+      "wall": 3.6513024239993683,
+      "sim": 0.4739999999999327,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "return",
+      "wall": 64.4634348010004,
+      "sim": 9.824999999999932,
+      "retries": 1,
+      "retry_positions": [
+        [
+          -0.7032251839615715,
+          0.41592860557159855
+        ]
+      ]
+    },
+    {
+      "stage": "finish_approach",
+      "wall": 14.033706438000081,
+      "sim": 2.1860000000000355,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "finish",
+      "wall": 14.041289056000096,
+      "sim": 2.3210000000000264,
+      "retries": 0,
+      "retry_positions": []
+    }
+  ],
+  "final_status": {
+    "state": "CONTROL_ROUTE_DONE",
+    "detail": "CONTROL ONLY: image recognition and its processing time omitted",
+    "stamp": 550.128,
+    "control_only": true
+  },
+  "cleanup": {
+    "owned_processes": 19,
+    "remaining": []
+  },
+  "scope": "UNTIMED CONTROL ONLY; images omitted; not official race acceptance",
+  "route_flow": true,
+  "max_lateral_command": 0.0,
+  "wall_contacts": 0,
+  "task_pose_checks": {
+    "qr": true,
+    "blocks": true,
+    "finish": true
+  }
+}

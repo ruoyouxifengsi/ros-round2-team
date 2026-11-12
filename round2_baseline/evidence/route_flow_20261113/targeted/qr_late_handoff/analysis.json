@@ -1,0 +1,106 @@
+{
+  "control_done": true,
+  "ordered_stages_pass": false,
+  "expected_stages": [
+    "bend1",
+    "bend2",
+    "bend3",
+    "bend4",
+    "bend5_approach",
+    "bend5",
+    "bend6",
+    "bend7",
+    "bend8",
+    "qr_approach",
+    "qr",
+    "qr_exit",
+    "cone_entry",
+    "cone_exit",
+    "blocks",
+    "return",
+    "finish_approach",
+    "finish"
+  ],
+  "arrivals": {
+    "qr_approach": {
+      "event": "PASSED",
+      "pose": [
+        -0.17946709753084697,
+        0.4459275961443449,
+        -1.132719188606464
+      ],
+      "body_bounds": [
+        -0.36222946411817325,
+        0.002854258120460876,
+        0.23518043070779507,
+        0.6446246881088569
+      ],
+      "stopped": false,
+      "sample_stamp": 506.45,
+      "sample_age_sim": 0.0020000000000095497,
+      "sample_age_wall": 0.009591608000846463
+    },
+    "qr": {
+      "event": "ARRIVED",
+      "pose": [
+        0.20093620482372063,
+        0.24234553254909919,
+        -0.015845758719918404
+      ],
+      "body_bounds": [
+        0.03049581110321983,
+        0.39642495514441856,
+        0.10444173181333646,
+        0.38025721797701645
+      ],
+      "stopped": true,
+      "sample_stamp": 508.251,
+      "sample_age_sim": 0.03300000000001546,
+      "sample_age_wall": 0.12905161900016537,
+      "body_in_region": true
+    },
+    "qr_exit": {
+      "event": "ARRIVED",
+      "pose": [
+        -0.3606330317973818,
+        0.243241283043947,
+        -0.02489912728743456
+      ],
+      "body_bounds": [
+        -0.532020892938153,
+        -0.16444147721880903,
+        0.1040887403277378,
+        0.3824062171403956
+      ],
+      "stopped": true,
+      "sample_stamp": 511.686,
+      "sample_age_sim": 0.009000000000014552,
+      "sample_age_wall": 0.17501187800007756
+    },
+    "cone_entry": {
+      "event": "ARRIVED",
+      "pose": [
+        -0.24904560055822855,
+        0.3558742438626231,
+        1.505933098941573
+      ],
+      "body_bounds": [
+        -0.3936050413130137,
+        -0.10451842780669426,
+        0.18047289560294033,
+        0.5549752559943848
+      ],
+      "stopped": true,
+      "sample_stamp": 513.352,
+      "sample_age_sim": 0.014000000000010004,
+      "sample_age_wall": 0.47868319199915277
+    }
+  },
+  "elapsed_wall": 55.06144960900019,
+  "max_tilt_deg": 0.09564399182277027,
+  "scope": "Odometry and official URDF geometry; not Gazebo truth or a collision-free certificate",
+  "official_start": false,
+  "random_scene_prepared": true,
+  "within_10_min_after_trigger": true,
+  "control_baseline_pass": false
+}

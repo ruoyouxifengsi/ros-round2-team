@@ -34,6 +34,13 @@ assert tracking['/attitude_guard/max_linear_speed']==.55
 assert tracking['/move_base/local_costmap/resolution']==.025
 assert '/attitude_guard/bend_settings/output_speed' not in params
 print('PASS: optional bend tracking forwards scoped bounds; original guard/map limits remain the default')
+flow=yaml.safe_load(subprocess.check_output(['roslaunch','--dump-params','round2_baseline','baseline.launch',
+    'timer:=false','speed_profile:=sprint','route_flow:=true']))
+assert flow['/round2_control/route_flow'] and flow['/attitude_guard/route_flow']
+assert flow['/round2_control/flow_settings/navigation/max_vel_y']==0.
+assert flow['/attitude_guard/bend_settings/output_speed']==1.05
+assert params['/round2_control/route_flow'] is False
+print('PASS: route-flow bounds enabled explicitly; lateral planning disabled; old mode preserved')
 original=ET.fromstring(params['/robot_description'])
 manual=yaml.safe_load(subprocess.check_output(['roslaunch','--dump-params','round2_baseline','baseline.launch',
     'timer:=true','low_com:=true','speed_profile:=sprint','continuous_bends:=true','efficient_approach:=true']))

@@ -20,6 +20,7 @@ start=next(e['stamp'] for e in events if e['state']=='MOVING');end=events[-1]['s
 live=[s for s in summaries if s['messages']>0]
 coverage=bool(live and live[0]['sim']<=start and live[-1]['sim']>=end)
 required=[n for n in a['expected_stages'] if not (r.get('continuous_bends',False) and n.startswith('bend'))]
+if r.get('route_flow'):required=['qr','blocks','finish']
 stops=all(a['arrivals'].get(n,{}).get('stopped') for n in required)
 turn=entry_turn(r,poses) if r.get('efficient_approach') and r['passed'] else None
 ok=bool(r['passed'] and a['ordered_stages_pass'] and a['arrivals'].get('qr',{}).get('body_in_region') and
@@ -28,6 +29,17 @@ ok=bool(r['passed'] and a['ordered_stages_pass'] and a['arrivals'].get('qr',{}).
         r.get('guard_max_trips')==0 and a['max_tilt_deg']<3 and not r.get('scope') and
         not r.get('cleanup',{}).get('remaining',[1]) and not (folder/'interventions.json').exists() and
         (not r.get('efficient_approach') or (turn and turn['rotation_deg']<180)))
+if r.get('route_flow'):
+    trace=[json.loads(line) for line in (folder/'snapshots/trace.jsonl').read_text().splitlines()]
+    lateral=max((abs(p.get('nav_cmd',[0.,0.,0.])[1]) for p in trace if start<=p['t']<=end),default=float('inf'))
+    targets={name:(x,y,yaw) for name,x,y,yaw in r['executed_route']}
+    task_checks={}
+    for name,position_tolerance,yaw_tolerance in (('qr',.01,.08),('blocks',.03,.25),('finish',.025,.15)):
+        pose=a['arrivals'].get(name,{}).get('pose')
+        target=targets[name]
+        task_checks[name]=bool(pose and math.hypot(pose[0]-target[0],pose[1]-target[1])<=position_tolerance+.0001 and
+            abs(math.atan2(math.sin(pose[2]-target[2]),math.cos(pose[2]-target[2])))<=yaw_tolerance)
+    ok=ok and summaries[-1].get('wall_contact_events',-1)==0 and lateral<1e-6 and all(task_checks.values())
 samples=[p for p in poses if start<=p['t']<=end]
 stopped_sim=sum(max(0.,b['t']-p['t']) for p,b in zip(samples,samples[1:]) if math.hypot(*p['v'][:2])<.02 and abs(p['v'][2])<.05)
 row=dict(trial=folder.name,accepted=ok,seed=r['seed'],speed_profile=r['speed_profile'],continuous=r.get('continuous_bends',False),
@@ -36,6 +48,7 @@ row=dict(trial=folder.name,accepted=ok,seed=r['seed'],speed_profile=r['speed_pro
     retries=h['total_retries'],contact_coverage=coverage,contact_summary=summaries[-1] if summaries else None,
     moved_cones=audit['moved_over_5mm'],mandatory_stops=stops,stages=h['stages'],
     final_status=r.get('final_status'),cleanup=r.get('cleanup'),scope='UNTIMED CONTROL ONLY; images omitted; not official race acceptance')
+if r.get('route_flow'):row.update(route_flow=True,max_lateral_command=lateral,wall_contacts=summaries[-1].get('wall_contact_events'),task_pose_checks=task_checks)
 if r.get('navigation_mode')=='premapped_amcl':
     localized=read('localized_poses.json');stamps=[p['t'] for p in poses];errors=[]
     for pose in localized:
