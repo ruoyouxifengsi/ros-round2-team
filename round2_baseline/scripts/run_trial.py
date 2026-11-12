@@ -33,7 +33,11 @@ p.add_argument('--low-com',action='store_true',help='Experimental base_link COM 
 p.add_argument('--audit-cones',action='store_true',help='Development-only displacement observer; forbidden in competition')
 p.add_argument('--speed-profile',choices=['stable','fast','sprint'],default='stable')
 p.add_argument('--continuous-bends',action='store_true')
+p.add_argument('--bend-path',action='store_true')
 p.add_argument('--efficient-approach',action='store_true')
+p.add_argument('--attitude-protection',action='store_true',help='Restore tilt stops and curvature speed limiting; disabled by default')
+p.add_argument('--build-fixed-map',action='store_true',help='Sensor survey of a separate fixed-only scene; not a race run')
+p.add_argument('--map-file',type=Path,help='Load a laser-built fixed map and enable AMCL localization')
 p.add_argument('--contact-observer',type=Path,help='Development-only native transport observer executable; no engine plugin')
 p.add_argument('--debug-pose',nargs=3,type=float)
 p.add_argument('--debug-goal',nargs=3,type=float)
@@ -45,6 +49,10 @@ p.add_argument('--debug-tail',action='store_true')
 p.add_argument('--debug-stage',default='qr_exit')
 p.add_argument('--debug-prefix-until',help='Development-only route prefix; never a full-round result')
 args=p.parse_args()
+if args.build_fixed_map and (args.cones or args.timer or args.debug_pose or args.debug_prefix_until or args.map_file):
+    p.error('Fixed mapping cannot include random cones, a timer or debug route overrides')
+if args.map_file and not args.map_file.is_file():p.error('Saved map YAML does not exist')
+if args.map_file and args.debug_pose:p.error('Debug spawn needs a matching localization initialization; use a route prefix instead')
 if args.contact_observer and (not args.contact_observer.is_file() or not os.access(args.contact_observer,os.X_OK)):
     p.error('Contact observer executable is missing; build it in a persistent WSL directory before starting')
 if args.timer and args.timeout_clock!='wall':p.error('Official timer runs require wall-clock timeouts')
@@ -58,6 +66,7 @@ for directory in ('config','launch'):
     for copied in (out/directory).glob('*.launch'):
         copied.rename(copied.with_suffix('.launch.txt'))
 sources=sorted(package.joinpath('scripts').glob('*.py'))+sorted(package.joinpath('scripts').glob('*.cpp'))
+sources+=sorted(package.joinpath('src').glob('*.cpp'))+[package/'CMakeLists.txt',package/'package.xml']
 (out/'source_hashes.json').write_text(json.dumps({str(p.relative_to(package)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources},indent=2))
 (out/'source').mkdir()
 for source in sources:
@@ -69,7 +78,18 @@ def launch(command,name,env=None):
     processes.append(proc);return proc
 result={'passed':False,'trigger':'development service','events':[], 'seed':args.seed, 'development_audit':args.audit_cones, 'speed_profile':args.speed_profile,'timeout_clock':args.timeout_clock,'simulation_engine':'official ode'}
 result['continuous_bends']=args.continuous_bends
+result['bend_path']=args.bend_path
 result['efficient_approach']=args.efficient_approach
+result['attitude_protection']=args.attitude_protection
+result['navigation_mode']='premapped_amcl' if args.map_file else 'rolling_odom'
+if args.map_file:
+    import yaml
+    image_path=args.map_file.parent/yaml.safe_load(args.map_file.read_text())['image']
+    if not image_path.is_file():raise ValueError('Saved map image does not exist')
+    (out/'prior_map').mkdir()
+    shutil.copyfile(args.map_file,out/'prior_map/map.yaml')
+    shutil.copyfile(image_path,out/'prior_map'/image_path.name)
+    result['prior_map_sha256']={args.map_file.name:hashlib.sha256(args.map_file.read_bytes()).hexdigest(),image_path.name:hashlib.sha256(image_path.read_bytes()).hexdigest()}
 class StartupComplete(Exception):pass
 startup_started=time.monotonic()
 try:
@@ -100,6 +120,16 @@ try:
         os.environ['GAZEBO_MODEL_PATH']=str(car)+':'+str(car/'models')+':'+str(Path.home()/'.gazebo/models')
         simulation=out/'debug_simulation.launch.txt';tree.write(simulation)
         result['scope']='DEBUG SINGLE STAGE, NOT A COMPETITION RUN'
+    if args.build_fixed_map:
+        from fixed_mapping import prepare_scene
+        import rospkg
+        car=Path(rospkg.RosPack().get_path('car3'))
+        result['mapping_scene']=prepare_scene(car/'world/round2.world',out/'fixed_scene.world')
+        result['mapping_method']='SLAM Toolbox laser occupancy rasterization with official odometry; scan matching and loop correction disabled after replay validation'
+        tree=ET.parse(simulation if args.low_com else car/'launch/gazebo.launch')
+        tree.find('.//include/arg[@name="world_name"]').set('value',str(out/'fixed_scene.world'))
+        simulation=out/'fixed_mapping_simulation.launch.txt';tree.write(simulation)
+        result['scope']='FIXED SCENE LASER SURVEY; not a competition run'
     sim_env=dict(os.environ)
     sim_env['PYTHONUNBUFFERED']='1'
     for key in tuple(sim_env):
@@ -135,10 +165,18 @@ try:
         raise StartupComplete()
     control_args=['roslaunch',str(package/'launch/control.launch'),'speed_profile:='+args.speed_profile,'timeout_clock:='+args.timeout_clock,'continuous_bends:='+str(args.continuous_bends).lower()]
     control_args.append('efficient_approach:='+str(args.efficient_approach).lower())
+    control_args.append('bend_path:='+str(args.bend_path).lower())
+    control_args.append('attitude_protection:='+str(args.attitude_protection).lower())
+    if args.map_file:control_args.append('map_file:='+str(args.map_file.resolve()))
     if args.travel_clearance is not None:
         control_args.append('travel_clearance:='+str(args.travel_clearance))
         result['travel_clearance']=args.travel_clearance
     launch(control_args,'control')
+    if args.build_fixed_map:
+        launch(['roslaunch',str(package/'launch/mapping.launch')],'mapping')
+        launch(['rosbag','record','-O',str(out/'mapping_sensors.bag'),'/nav_scan','/odom','/tf','/tf_static','/slam_toolbox/pose','/map'],'mapping_bag')
+        from nav_msgs.msg import OccupancyGrid
+        rospy.wait_for_message('/map',OccupancyGrid,timeout=45)
     if args.profile_performance:
         launch(['python3',str(package/'scripts/profile_runtime.py'),str(out/'performance.jsonl')],'performance')
     rospy.wait_for_service('/nav_start',timeout=60)
@@ -149,7 +187,7 @@ try:
     time.sleep(2)
     env=dict(os.environ)
     if args.seed is not None:env['CONE_SEED']=str(args.seed)
-    scripts=['random_place.py']
+    scripts=[] if args.build_fixed_map else ['random_place.py']
     if args.cones:scripts.insert(0,'random_cones.py')
     for script in scripts:
         with (out/(script+'.log')).open('w') as f:
@@ -162,7 +200,7 @@ try:
         result['contact_observer_sha256']=hashlib.sha256(args.contact_observer.read_bytes()).hexdigest()
         launch([str(args.contact_observer.resolve()),str(out/'contacts.jsonl')],'contacts')
         time.sleep(2)
-    status={};poses=[]
+    status={};poses=[];localized=[]
     def guard_status(msg):
         value=json.loads(msg.data)
         result['guard_max_trips']=max(result.get('guard_max_trips',0),value.get('trips',0))
@@ -180,10 +218,21 @@ try:
         poses.append(dict(t=msg.header.stamp.to_sec(),wall=time.monotonic(),x=msg.pose.pose.position.x,y=msg.pose.pose.position.y,rpy=tf.transformations.euler_from_quaternion([q.x,q.y,q.z,q.w]),v=[msg.twist.twist.linear.x,msg.twist.twist.linear.y,msg.twist.twist.angular.z]))
     rospy.Subscriber('/baseline/status',String,state)
     rospy.Subscriber('/odom',Odometry,odom,queue_size=10)
+    if args.map_file:
+        def localized_pose(msg):
+            q=msg.pose.pose.orientation
+            import tf
+            localized.append(dict(t=msg.header.stamp.to_sec(),wall=time.monotonic(),frame=msg.header.frame_id,
+                x=msg.pose.pose.position.x,y=msg.pose.pose.position.y,rpy=tf.transformations.euler_from_quaternion([q.x,q.y,q.z,q.w]),
+                covariance=list(msg.pose.covariance)))
+        rospy.Subscriber('/localized_odom',Odometry,localized_pose,queue_size=10)
     launch(['python3',str(Path(__file__).with_name('capture.py')),str(out/'snapshots'),str(args.seconds),'--clock',args.timeout_clock],'capture')
     start=time.monotonic()
     sim_start=rospy.get_time();last_clock=sim_start;clock_progress=time.monotonic()
     debug_client=None
+    if args.build_fixed_map:
+        from fixed_mapping import survey_route
+        rospy.set_param('/round2_control/route',survey_route(rospy.get_param('/round2_control/route')))
     if args.debug_prefix_until:
         route=rospy.get_param('/round2_control/route')
         route=route[:next(i+1 for i,row in enumerate(route) if row[0]==args.debug_prefix_until)]
@@ -250,11 +299,16 @@ try:
     rospy.ServiceProxy('/nav_start',SetBool)(False)
     time.sleep(2)
     (out/'poses.json').write_text(json.dumps(poses))
+    if args.map_file:(out/'localized_poses.json').write_text(json.dumps(localized))
+    if args.build_fixed_map and result['passed']:
+        from fixed_mapping import save_map
+        result['map_sha256']=save_map(out/'map')
 except StartupComplete:
     pass
 except Exception as exc:
     import traceback
     traceback.print_exc()
+    result['passed']=False
     result['error']=repr(exc)
 finally:
     (out/'result.json').write_text(json.dumps(result,indent=2))

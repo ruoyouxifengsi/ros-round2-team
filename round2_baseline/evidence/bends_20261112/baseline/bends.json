@@ -1,0 +1,96 @@
+{
+  "accepted": true,
+  "moving_sim_seconds": 33.11799999999994,
+  "max_tilt_deg": 0.09897543303943118,
+  "trigger_elapsed_sim": 33.17799999999994,
+  "max_speed_mps": 0.5396871215736301,
+  "max_yaw_rate_rps": 0.6456304998958812,
+  "max_lateral_command": 0.25,
+  "path_m": 7.102990383301386,
+  "rotation_deg": 728.3621462860956,
+  "stationary_sim_seconds": 0.3070000000000732,
+  "retries": 10,
+  "contact_coverage": true,
+  "wall_contacts": 0,
+  "cone_contacts": 0,
+  "final_position_error_m": 0.0033968816166479883,
+  "final_yaw_error_rad": 0.2160916310598917,
+  "stopped": true,
+  "gates": [
+    {
+      "name": "bend1",
+      "error": 0.09021052563109141
+    },
+    {
+      "name": "bend2",
+      "error": 0.08755221173791114
+    },
+    {
+      "name": "bend3",
+      "error": 0.09811244077116389
+    },
+    {
+      "name": "bend4",
+      "error": 0.0980089252697834
+    },
+    {
+      "name": "bend5_approach",
+      "error": 0.06861216707150462
+    },
+    {
+      "name": "bend5",
+      "error": 0.09973042086577251
+    },
+    {
+      "name": "bend6",
+      "error": 0.08011901316990273
+    },
+    {
+      "name": "bend7",
+      "error": 0.09339946574753803
+    },
+    {
+      "name": "bend8",
+      "error": 0.0033968816166479883
+    }
+  ],
+  "stages": [
+    {
+      "name": "bend1",
+      "sim_seconds": 2.257000000000005
+    },
+    {
+      "name": "bend2",
+      "sim_seconds": 2.6569999999999823
+    },
+    {
+      "name": "bend3",
+      "sim_seconds": 3.1079999999999472
+    },
+    {
+      "name": "bend4",
+      "sim_seconds": 2.756999999999948
+    },
+    {
+      "name": "bend5_approach",
+      "sim_seconds": 2.506999999999948
+    },
+    {
+      "name": "bend5",
+      "sim_seconds": 2.4080000000000155
+    },
+    {
+      "name": "bend6",
+      "sim_seconds": 1.45799999999997
+    },
+    {
+      "name": "bend7",
+      "sim_seconds": 4.4080000000000155
+    },
+    {
+      "name": "bend8",
+      "sim_seconds": 11.5
+    }
+  ],
+  "scope": "BEND PREFIX ONLY: identical start, ordered 10cm waypoint gates, bend8 stopped within 3cm / 0.25rad; no race-time claim"
+}

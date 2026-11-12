@@ -12,6 +12,7 @@ p.add_argument('baseline',type=Path)
 p.add_argument('validation',type=Path)
 p.add_argument('--probe',type=Path,action='append',default=[])
 p.add_argument('--failed-attempt',type=Path,action='append',default=[])
+p.add_argument('--baseline-ref',default='continuous-before-docking-v2')
 args=p.parse_args()
 read=lambda path:json.loads(path.read_text())
 digest=lambda path:hashlib.sha256(path.read_bytes()).hexdigest()
@@ -37,11 +38,12 @@ def export(folder,name):
     (target/'motion.json').write_text(json.dumps(motion,indent=2))
     return motion
 
-paired=[];hashes=[];models=[];physics=[]
+paired=[];hashes=[];models=[];physics=[];maps=[]
 for attempt in batch['attempts']:
     seed=attempt['seed'];name='seed_'+str(seed)
     old=args.baseline/name;new=args.validation/name
     before=read(old/'practice.json');after=read(new/'practice.json')
+    if after.get('prior_map_sha256'):maps.append(after['prior_map_sha256'])
     assert before['accepted'] and after['accepted'] and after['efficient_approach']
     old_physics=read(old/'physics_properties.json');new_physics=read(new/'physics_properties.json')
     assert old_physics==new_physics
@@ -51,7 +53,9 @@ for attempt in batch['attempts']:
     assert old_layout.keys()==new_layout.keys()
     assert all(sum((old_layout[n][i]-new_layout[n][i])**2 for i in (0,1))**.5<.001 for n in old_layout)
     source=read(new/'source_hashes.json')
-    signature={name:source['scripts/'+name] for name in ('control.py','attitude_guard.py','cone_obstacles.py')}
+    names=['control.py','attitude_guard.py','cone_obstacles.py']
+    if 'scripts/localized_odometry.py' in source:names.append('localized_odometry.py')
+    signature={name:source['scripts/'+name] for name in names}
     for directory in ('config','launch'):
         signature.update({str(path.relative_to(new)):digest(path) for path in (new/directory).glob('*') if path.is_file()})
     hashes.append(signature)
@@ -63,9 +67,10 @@ for attempt in batch['attempts']:
         before_entry_turn=old_motion['entry_turn'],after_entry_turn=new_motion['entry_turn'],
         stage_comparison={stage:dict(before=old_stages[stage],after=new_stages[stage]) for stage in old_stages},
         accepted=after['accepted'],guard_trips=after['guard_trips'],contact_events=after['contact_summary']['cone_contact_events'],
-        max_tilt_deg=after['max_tilt_deg'],retries=after['retries']))
+        max_tilt_deg=after['max_tilt_deg'],retries=after['retries'],localization=after.get('localization')))
 assert all(h==hashes[0] for h in hashes)
 assert len(set(models))==1 and all(v==physics[0] for v in physics)
+if maps:assert len(maps)==3 and all(m==maps[0] for m in maps)
 probes={folder.name:export(folder,folder.name[6:] if folder.name.startswith('local_') else folder.name) for folder in args.probe}
 failures=[]
 for i,folder in enumerate(args.failed_attempt):
@@ -76,7 +81,7 @@ for i,folder in enumerate(args.failed_attempt):
         fixture={key:snapshot[key] for key in ('t','position','rpy','local','status')}
         (args.output/('development_failure_'+str(i))/'entry_snapshot.json').write_text(json.dumps(fixture))
 summary=dict(scope='Official ODE, approved low COM; untimed control only, images and speech omitted.',
-    baseline_ref='continuous-before-docking-v2',route_attempts=3,route_passes=3,paired=paired,
+    baseline_ref=args.baseline_ref,route_attempts=3,route_passes=3,paired=paired,
     average_before_sim_seconds=sum(r['before_sim_seconds'] for r in paired)/3,
     average_after_sim_seconds=sum(r['after_sim_seconds'] for r in paired)/3,
     identical_navigation_across_three_layouts=True,navigation_hashes=hashes[0],
@@ -84,7 +89,8 @@ summary=dict(scope='Official ODE, approved low COM; untimed control only, images
     development_probes=probes,development_failures=failures,development_failure_count=len(failures),
     reassessment=batch.get('reassessment'),
     assessment_source_hashes={name:digest(Path(__file__).parent/name) for name in ('assess_practice.py','analyze_trial.py','arrival_evidence.py','check_entry_turn.py','trial_health.py')},
-    limitation='Three layouts, one final run each; paired layout positions are equal but planner execution varies. Probes use debug starting poses and are not full-route passes. The first finish probe was rejected for slower motion. The first entry probe was superseded by move-before-turn after full-route boundary clearance failure.')
+    prior_map_sha256=maps[0] if maps else None,
+    limitation='Three layouts, one final run each; paired layout positions are equal but planner execution varies. Development probes and failed attempts are not full-route passes. Images and speech are omitted; these are simulation durations, not official competition scores.')
 (args.output/'summary.json').write_text(json.dumps(summary,indent=2))
 if (args.validation/'summary_before_causal_fix.json').exists():
     shutil.copyfile(args.validation/'summary_before_causal_fix.json',args.output/'summary_before_causal_fix.json')

@@ -1,0 +1,402 @@
+{
+  "baseline": {
+    "accepted": true,
+    "moving_sim_seconds": 33.11799999999994,
+    "max_tilt_deg": 0.09897543303943118,
+    "trigger_elapsed_sim": 33.17799999999994,
+    "max_speed_mps": 0.5396871215736301,
+    "max_yaw_rate_rps": 0.6456304998958812,
+    "max_lateral_command": 0.25,
+    "path_m": 7.102990383301386,
+    "rotation_deg": 728.3621462860956,
+    "stationary_sim_seconds": 0.3070000000000732,
+    "retries": 10,
+    "contact_coverage": true,
+    "wall_contacts": 0,
+    "cone_contacts": 0,
+    "final_position_error_m": 0.0033968816166479883,
+    "final_yaw_error_rad": 0.2160916310598917,
+    "stopped": true,
+    "gates": [
+      {
+        "name": "bend1",
+        "error": 0.09021052563109141
+      },
+      {
+        "name": "bend2",
+        "error": 0.08755221173791114
+      },
+      {
+        "name": "bend3",
+        "error": 0.09811244077116389
+      },
+      {
+        "name": "bend4",
+        "error": 0.0980089252697834
+      },
+      {
+        "name": "bend5_approach",
+        "error": 0.06861216707150462
+      },
+      {
+        "name": "bend5",
+        "error": 0.09973042086577251
+      },
+      {
+        "name": "bend6",
+        "error": 0.08011901316990273
+      },
+      {
+        "name": "bend7",
+        "error": 0.09339946574753803
+      },
+      {
+        "name": "bend8",
+        "error": 0.0033968816166479883
+      }
+    ],
+    "stages": [
+      {
+        "name": "bend1",
+        "sim_seconds": 2.257000000000005
+      },
+      {
+        "name": "bend2",
+        "sim_seconds": 2.6569999999999823
+      },
+      {
+        "name": "bend3",
+        "sim_seconds": 3.1079999999999472
+      },
+      {
+        "name": "bend4",
+        "sim_seconds": 2.756999999999948
+      },
+      {
+        "name": "bend5_approach",
+        "sim_seconds": 2.506999999999948
+      },
+      {
+        "name": "bend5",
+        "sim_seconds": 2.4080000000000155
+      },
+      {
+        "name": "bend6",
+        "sim_seconds": 1.45799999999997
+      },
+      {
+        "name": "bend7",
+        "sim_seconds": 4.4080000000000155
+      },
+      {
+        "name": "bend8",
+        "sim_seconds": 11.5
+      }
+    ],
+    "scope": "BEND PREFIX ONLY: identical start, ordered 10cm waypoint gates, bend8 stopped within 3cm / 0.25rad; no race-time claim"
+  },
+  "optimized": [
+    {
+      "accepted": true,
+      "moving_sim_seconds": 14.196000000000026,
+      "max_tilt_deg": 0.07910133554379678,
+      "trigger_elapsed_sim": 14.305000000000064,
+      "max_speed_mps": 0.9902560695395595,
+      "max_yaw_rate_rps": 2.5390176212086395,
+      "max_lateral_command": 0.0,
+      "path_m": 6.404747172437359,
+      "rotation_deg": 768.7580166966175,
+      "stationary_sim_seconds": 0.3389999999999418,
+      "retries": 0,
+      "contact_coverage": true,
+      "wall_contacts": 0,
+      "cone_contacts": 0,
+      "final_position_error_m": 0.020297217181489566,
+      "final_yaw_error_rad": 0.11734432354411829,
+      "stopped": true,
+      "gates": [
+        {
+          "name": "bend1",
+          "error": 0.08532287536816373
+        },
+        {
+          "name": "bend2",
+          "error": 0.08980567280400865
+        },
+        {
+          "name": "bend3",
+          "error": 0.09997580149766122
+        },
+        {
+          "name": "bend4",
+          "error": 0.09017996805997247
+        },
+        {
+          "name": "bend5_approach",
+          "error": 0.09140998389163232
+        },
+        {
+          "name": "bend5",
+          "error": 0.09714947506886658
+        },
+        {
+          "name": "bend6",
+          "error": 0.09627901136184566
+        },
+        {
+          "name": "bend7",
+          "error": 0.09102012863338656
+        },
+        {
+          "name": "bend8",
+          "error": 0.020297217181489566
+        }
+      ],
+      "stages": [
+        {
+          "name": "bend1",
+          "sim_seconds": 1.254000000000019
+        },
+        {
+          "name": "bend2",
+          "sim_seconds": 1.7629999999999768
+        },
+        {
+          "name": "bend3",
+          "sim_seconds": 1.426999999999964
+        },
+        {
+          "name": "bend4",
+          "sim_seconds": 1.4980000000000473
+        },
+        {
+          "name": "bend5_approach",
+          "sim_seconds": 1.495999999999981
+        },
+        {
+          "name": "bend5",
+          "sim_seconds": 0.16599999999999682
+        },
+        {
+          "name": "bend6",
+          "sim_seconds": 0.7540000000000191
+        },
+        {
+          "name": "bend7",
+          "sim_seconds": 0.94500000000005
+        },
+        {
+          "name": "bend8",
+          "sim_seconds": 4.884999999999991
+        }
+      ],
+      "scope": "BEND PREFIX ONLY: identical start, ordered 10cm waypoint gates, bend8 stopped within 3cm / 0.25rad; no race-time claim"
+    },
+    {
+      "accepted": true,
+      "moving_sim_seconds": 14.694999999999993,
+      "max_tilt_deg": 0.08656863827656151,
+      "trigger_elapsed_sim": 14.972999999999956,
+      "max_speed_mps": 0.9903191274518953,
+      "max_yaw_rate_rps": 2.5285570060505584,
+      "max_lateral_command": 0.0,
+      "path_m": 6.416128360380222,
+      "rotation_deg": 777.7339439413613,
+      "stationary_sim_seconds": 0.5430000000000064,
+      "retries": 0,
+      "contact_coverage": true,
+      "wall_contacts": 0,
+      "cone_contacts": 0,
+      "final_position_error_m": 0.020615331493373707,
+      "final_yaw_error_rad": 0.11721404771066268,
+      "stopped": true,
+      "gates": [
+        {
+          "name": "bend1",
+          "error": 0.08664723260115062
+        },
+        {
+          "name": "bend2",
+          "error": 0.09939531655266622
+        },
+        {
+          "name": "bend3",
+          "error": 0.09359027529157055
+        },
+        {
+          "name": "bend4",
+          "error": 0.09960171878043866
+        },
+        {
+          "name": "bend5_approach",
+          "error": 0.08997291150063244
+        },
+        {
+          "name": "bend5",
+          "error": 0.0985158312398145
+        },
+        {
+          "name": "bend6",
+          "error": 0.09116417081934604
+        },
+        {
+          "name": "bend7",
+          "error": 0.09251005335423503
+        },
+        {
+          "name": "bend8",
+          "error": 0.020615331337365164
+        }
+      ],
+      "stages": [
+        {
+          "name": "bend1",
+          "sim_seconds": 1.2479999999999905
+        },
+        {
+          "name": "bend2",
+          "sim_seconds": 1.8760000000000332
+        },
+        {
+          "name": "bend3",
+          "sim_seconds": 1.461999999999989
+        },
+        {
+          "name": "bend4",
+          "sim_seconds": 1.4580000000000268
+        },
+        {
+          "name": "bend5_approach",
+          "sim_seconds": 1.6999999999999886
+        },
+        {
+          "name": "bend5",
+          "sim_seconds": 0.16700000000003
+        },
+        {
+          "name": "bend6",
+          "sim_seconds": 0.7840000000000487
+        },
+        {
+          "name": "bend7",
+          "sim_seconds": 0.9180000000000064
+        },
+        {
+          "name": "bend8",
+          "sim_seconds": 5.010999999999967
+        }
+      ],
+      "scope": "BEND PREFIX ONLY: identical start, ordered 10cm waypoint gates, bend8 stopped within 3cm / 0.25rad; no race-time claim"
+    },
+    {
+      "accepted": true,
+      "moving_sim_seconds": 13.899000000000058,
+      "max_tilt_deg": 0.10598584090156632,
+      "trigger_elapsed_sim": 13.985000000000014,
+      "max_speed_mps": 0.9902525271920211,
+      "max_yaw_rate_rps": 2.5201545042150157,
+      "max_lateral_command": 0.0,
+      "path_m": 6.399926466700538,
+      "rotation_deg": 767.5266268411756,
+      "stationary_sim_seconds": 0.30599999999992633,
+      "retries": 0,
+      "contact_coverage": true,
+      "wall_contacts": 0,
+      "cone_contacts": 0,
+      "final_position_error_m": 0.020846208227021996,
+      "final_yaw_error_rad": 0.11702812986785238,
+      "stopped": true,
+      "gates": [
+        {
+          "name": "bend1",
+          "error": 0.09059113095611576
+        },
+        {
+          "name": "bend2",
+          "error": 0.09919427082118609
+        },
+        {
+          "name": "bend3",
+          "error": 0.09762781234377024
+        },
+        {
+          "name": "bend4",
+          "error": 0.09243090734917375
+        },
+        {
+          "name": "bend5_approach",
+          "error": 0.09212381390287012
+        },
+        {
+          "name": "bend5",
+          "error": 0.09731464714239807
+        },
+        {
+          "name": "bend6",
+          "error": 0.09472309165125448
+        },
+        {
+          "name": "bend7",
+          "error": 0.09146072765208073
+        },
+        {
+          "name": "bend8",
+          "error": 0.020846208183661008
+        }
+      ],
+      "stages": [
+        {
+          "name": "bend1",
+          "sim_seconds": 1.2520000000000095
+        },
+        {
+          "name": "bend2",
+          "sim_seconds": 1.5299999999999727
+        },
+        {
+          "name": "bend3",
+          "sim_seconds": 1.4599999999999795
+        },
+        {
+          "name": "bend4",
+          "sim_seconds": 1.4950000000000045
+        },
+        {
+          "name": "bend5_approach",
+          "sim_seconds": 1.4939999999999714
+        },
+        {
+          "name": "bend5",
+          "sim_seconds": 0.17200000000002547
+        },
+        {
+          "name": "bend6",
+          "sim_seconds": 0.7520000000000095
+        },
+        {
+          "name": "bend7",
+          "sim_seconds": 0.9500000000000455
+        },
+        {
+          "name": "bend8",
+          "sim_seconds": 4.768000000000029
+        }
+      ],
+      "scope": "BEND PREFIX ONLY: identical start, ordered 10cm waypoint gates, bend8 stopped within 3cm / 0.25rad; no race-time claim"
+    }
+  ],
+  "optimized_mean_sim_seconds": 14.263333333333359,
+  "reduction_percent": 56.931779294240634,
+  "same_physics": true,
+  "same_low_com_model": true,
+  "same_optimized_runtime_and_configuration": true,
+  "low_com_sha256": "9761992c897edcebb8a069f7540cb250d292fbbd8a10e2cee7eb11528b134c12",
+  "optimized_runtime_sha256": {
+    "scripts/control.py": "d28caf4357899a12ebd8370c6cf33a5150c4e16034d8140568f4a818c05f0f5e",
+    "scripts/attitude_guard.py": "f8ee868daa2bd85d27d657be9cc7f3a9e1ce8b9dafc2e402843a5862009de3e9",
+    "scripts/bend_path.py": "04d983bc174a5dfe82f55d6d11b1e92f94f947d7520a9bd029a80fac683b1bb6",
+    "scripts/cone_obstacles.py": "1001dfb76d657ba783d074a581cf62f3886bda8d5c38eac745cee33b01006c24"
+  },
+  "scope": "Only the fixed bend prefix was repeated. No cone layouts, image tasks, full round or official timer validation.",
+  "comparison": "Same official start, ordered original waypoint gates, stopped bend8 within 3cm and 0.25rad. Movement clock starts at first MOVING; trigger elapsed is also retained."
+}

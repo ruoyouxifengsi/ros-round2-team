@@ -1,0 +1,96 @@
+{
+  "metric": "Map-to-scan consistency using official odometry; not independent ground-truth accuracy",
+  "candidates": [
+    {
+      "run": "local_fixed_mapping_v1",
+      "consistency": {
+        "wall_cell_distance_to_scan_p50": 0.2554196747623575,
+        "wall_cell_distance_to_scan_p95": 0.8442220959392304,
+        "fraction_wall_cells_within_5cm": 0.11715933669790915,
+        "scan_points": 15696,
+        "occupied_cells": 5548,
+        "accepted": false
+      }
+    },
+    {
+      "run": "local_mapping_no_loop_v2",
+      "consistency": {
+        "wall_cell_distance_to_scan_p50": 0.1435103000756105,
+        "wall_cell_distance_to_scan_p95": 0.5390471115099855,
+        "fraction_wall_cells_within_5cm": 0.2512820512820513,
+        "scan_points": 15696,
+        "occupied_cells": 3120,
+        "accepted": false
+      }
+    },
+    {
+      "run": "local_mapping_tight_prior",
+      "consistency": {
+        "wall_cell_distance_to_scan_p50": 0.2547746057669182,
+        "wall_cell_distance_to_scan_p95": 1.4961577233609293,
+        "fraction_wall_cells_within_5cm": 0.15768194070080863,
+        "scan_points": 15696,
+        "occupied_cells": 5194,
+        "accepted": false
+      }
+    },
+    {
+      "run": "local_mapping_tight_no_loop",
+      "consistency": {
+        "wall_cell_distance_to_scan_p50": 0.09993252745120279,
+        "wall_cell_distance_to_scan_p95": 0.6004394485185254,
+        "fraction_wall_cells_within_5cm": 0.32352083940542115,
+        "scan_points": 15696,
+        "occupied_cells": 3431,
+        "accepted": false
+      }
+    },
+    {
+      "run": "local_mapping_narrow",
+      "consistency": {
+        "wall_cell_distance_to_scan_p50": 0.4207228869461852,
+        "wall_cell_distance_to_scan_p95": 1.5384925678716856,
+        "fraction_wall_cells_within_5cm": 0.11245314452311538,
+        "scan_points": 15696,
+        "occupied_cells": 4802,
+        "accepted": false
+      }
+    },
+    {
+      "run": "local_mapping_stock",
+      "consistency": {
+        "wall_cell_distance_to_scan_p50": 0.18063929595454187,
+        "wall_cell_distance_to_scan_p95": 0.9956022651387826,
+        "fraction_wall_cells_within_5cm": 0.2271186440677966,
+        "scan_points": 15696,
+        "occupied_cells": 3245,
+        "accepted": false
+      }
+    },
+    {
+      "run": "local_mapping_odom_diagnostic",
+      "consistency": {
+        "wall_cell_distance_to_scan_p50": 0.006975239486818503,
+        "wall_cell_distance_to_scan_p95": 0.025952496090506875,
+        "fraction_wall_cells_within_5cm": 1.0,
+        "scan_points": 15696,
+        "occupied_cells": 1926,
+        "accepted": true
+      }
+    },
+    {
+      "run": "local_fixed_mapping_v2",
+      "consistency": {
+        "wall_cell_distance_to_scan_p50": 0.008106477782925081,
+        "wall_cell_distance_to_scan_p95": 0.02938425384456271,
+        "fraction_wall_cells_within_5cm": 0.9889928453494772,
+        "scan_points": 8928,
+        "occupied_cells": 1817,
+        "accepted": true
+      }
+    }
+  ],
+  "selected": "local_fixed_mapping_v2",
+  "selected_method": "Laser occupancy mapping with official odometry, scan matching and loop correction off",
+  "replay_sensor_bag_sha256": "61fb46cb7681ec9e8e295696a6f2909ba6c16d5a0dde956d43c7357c8dc0c3b4"
+}

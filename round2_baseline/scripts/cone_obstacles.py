@@ -31,11 +31,12 @@ def detect(ranges,angle_min,angle_increment,minimum,maximum,tx,ty,yaw):
 
 if __name__=='__main__':
     rospy.init_node('cone_obstacles')
+    frame=rospy.get_param('~navigation_frame','odom')
     listener=tf.TransformListener();seen={};confirmed=set()
     pub=rospy.Publisher('/cone_footprints',PointCloud2,queue_size=1)
     def scan(msg):
         try:
-            pos,q=listener.lookupTransform('odom',msg.header.frame_id,msg.header.stamp)
+            pos,q=listener.lookupTransform(frame,msg.header.frame_id,msg.header.stamp)
         except tf.Exception:return
         roll,pitch,yaw=tf.transformations.euler_from_quaternion(q)
         if max(abs(roll),abs(pitch))>math.radians(.7):return
@@ -48,6 +49,6 @@ if __name__=='__main__':
             for ix in range(-6,7):
                 for iy in range(-6,7):
                     if ix*ix+iy*iy<=36:points.append((cx+ix*.025,cy+iy*.025,.05))
-        pub.publish(point_cloud2.create_cloud_xyz32(Header(stamp=msg.header.stamp,frame_id='odom'),points))
+        pub.publish(point_cloud2.create_cloud_xyz32(Header(stamp=msg.header.stamp,frame_id=frame),points))
     rospy.Subscriber('/nav_scan',LaserScan,scan,queue_size=1)
     rospy.spin()

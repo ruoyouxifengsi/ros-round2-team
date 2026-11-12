@@ -4,6 +4,7 @@ import math
 from pathlib import Path
 import subprocess
 import sys
+import bisect
 from check_entry_turn import entry_turn
 
 folder=Path(sys.argv[1]);scripts=Path(__file__).parent
@@ -35,5 +36,21 @@ row=dict(trial=folder.name,accepted=ok,seed=r['seed'],speed_profile=r['speed_pro
     retries=h['total_retries'],contact_coverage=coverage,contact_summary=summaries[-1] if summaries else None,
     moved_cones=audit['moved_over_5mm'],mandatory_stops=stops,stages=h['stages'],
     final_status=r.get('final_status'),cleanup=r.get('cleanup'),scope='UNTIMED CONTROL ONLY; images omitted; not official race acceptance')
+if r.get('navigation_mode')=='premapped_amcl':
+    localized=read('localized_poses.json');stamps=[p['t'] for p in poses];errors=[]
+    for pose in localized:
+        i=bisect.bisect_left(stamps,pose['t'])
+        if i<len(poses) and abs(poses[i]['t']-pose['t'])<.002:
+            errors.append(math.hypot(pose['x']-poses[i]['x'],pose['y']-poses[i]['y']))
+    errors.sort()
+    localization_ok=bool(len(errors)>100 and localized[0]['t']<=start+.5 and localized[-1]['t']>=end-.2 and
+        all(p['frame']=='map' and all(math.isfinite(v) for v in (p['x'],p['y'],*p['rpy'])) for p in localized))
+    row['localization']=dict(coverage_pass=localization_ok,samples=len(localized),matched_odom_samples=len(errors),
+        position_difference_p95_m=errors[int(.95*(len(errors)-1))] if errors else None,
+        position_difference_max_m=max(errors) if errors else None,
+        interpretation='Difference from official odometry, not an independent ground-truth accuracy measurement')
+    row['navigation_mode']='premapped_amcl';row['prior_map_sha256']=r['prior_map_sha256']
+    row['costmap_holds']=(folder/'control.log').read_text(errors='replace').count('Costmap stale: holding zero velocity until fresh data')
+    ok=ok and localization_ok;row['accepted']=ok
 (folder/'practice.json').write_text(json.dumps(row,indent=2));print(json.dumps(row,indent=2))
 raise SystemExit(0 if ok else 1)

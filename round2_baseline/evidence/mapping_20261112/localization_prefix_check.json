@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "trigger": "development service",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 502.536,
+      "control_only": true,
+      "wall": 3551.828659924
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend1",
+      "stamp": 504.451,
+      "control_only": true,
+      "wall": 3551.881061997
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend1",
+      "stamp": 508.888,
+      "control_only": true,
+      "wall": 3571.218533202
+    },
+    {
+      "state": "CONTROL_ROUTE_DONE",
+      "detail": "Not a complete competition finish; wheel placement requires verification",
+      "stamp": 508.889,
+      "control_only": true,
+      "wall": 3571.234160864
+    }
+  ],
+  "seed": null,
+  "development_audit": false,
+  "speed_profile": "sprint",
+  "timeout_clock": "sim",
+  "simulation_engine": "official ode",
+  "continuous_bends": true,
+  "efficient_approach": true,
+  "navigation_mode": "premapped_amcl",
+  "prior_map_sha256": {
+    "fixed_map.yaml": "87ab7ce8d13f4df54ecf36acb4abf4e9ed33b85c0e9462f2b4f2154c1770be9e",
+    "fixed_map.pgm": "fd83ae019f7f1ca2b1c8b7acda64e2b94502d2e9e4c5900ed00237a1d2abcd8f"
+  },
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "startup_seconds": 6.003801158999977,
+  "guard_max_trips": 0,
+  "guard_last_mode": "RUN",
+  "scope": "DEBUG ROUTE PREFIX, NOT A COMPETITION RUN",
+  "elapsed_wall": 20.028532044000258,
+  "elapsed_sim": 4.463999999999999,
+  "final_status": {
+    "state": "CONTROL_ROUTE_DONE",
+    "detail": "Not a complete competition finish; wheel placement requires verification",
+    "stamp": 508.889,
+    "control_only": true
+  },
+  "cleanup": {
+    "owned_processes": 19,
+    "remaining": []
+  }
+}

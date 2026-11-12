@@ -1,0 +1,173 @@
+{
+  "passed": true,
+  "trigger": "development service",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 501.821,
+      "control_only": true,
+      "wall": 6913.21341719
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend1",
+      "stamp": 504.687,
+      "control_only": true,
+      "wall": 6913.261575526
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend1",
+      "stamp": 506.944,
+      "control_only": true,
+      "wall": 6921.176489711
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend2",
+      "stamp": 506.951,
+      "control_only": true,
+      "wall": 6921.204715385
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend2",
+      "stamp": 509.608,
+      "control_only": true,
+      "wall": 6930.548259607
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend3",
+      "stamp": 509.615,
+      "control_only": true,
+      "wall": 6930.57620118
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend3",
+      "stamp": 512.723,
+      "control_only": true,
+      "wall": 6941.402303712
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend4",
+      "stamp": 512.73,
+      "control_only": true,
+      "wall": 6941.431784268
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend4",
+      "stamp": 515.487,
+      "control_only": true,
+      "wall": 6952.190311924
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5_approach",
+      "stamp": 515.494,
+      "control_only": true,
+      "wall": 6952.218875864
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5_approach",
+      "stamp": 518.001,
+      "control_only": true,
+      "wall": 6962.093530628
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5",
+      "stamp": 518.009,
+      "control_only": true,
+      "wall": 6962.126996853
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5",
+      "stamp": 520.417,
+      "control_only": true,
+      "wall": 6972.627897304
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend6",
+      "stamp": 520.424,
+      "control_only": true,
+      "wall": 6972.652869175
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend6",
+      "stamp": 521.882,
+      "control_only": true,
+      "wall": 6978.805786188
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend7",
+      "stamp": 521.889,
+      "control_only": true,
+      "wall": 6978.834422399
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend7",
+      "stamp": 526.297,
+      "control_only": true,
+      "wall": 6999.616424508
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend8",
+      "stamp": 526.304,
+      "control_only": true,
+      "wall": 6999.64593919
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend8",
+      "stamp": 537.804,
+      "control_only": true,
+      "wall": 7057.725894922
+    },
+    {
+      "state": "CONTROL_ROUTE_DONE",
+      "detail": "Not a complete competition finish; wheel placement requires verification",
+      "stamp": 537.805,
+      "control_only": true,
+      "wall": 7057.741417765
+    }
+  ],
+  "seed": null,
+  "development_audit": false,
+  "speed_profile": "sprint",
+  "timeout_clock": "sim",
+  "simulation_engine": "official ode",
+  "continuous_bends": true,
+  "efficient_approach": true,
+  "attitude_protection": false,
+  "navigation_mode": "rolling_odom",
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "startup_seconds": 6.333293227000468,
+  "contact_observer_sha256": "cbc2e9a409ad5c4c82d359392a6ae72a65aaa4aa4c31618951f9d14f6045a242",
+  "guard_max_trips": 0,
+  "guard_last_mode": "RUN",
+  "scope": "DEBUG ROUTE PREFIX, NOT A COMPETITION RUN",
+  "elapsed_wall": 145.14036611200027,
+  "elapsed_sim": 33.17799999999994,
+  "final_status": {
+    "state": "CONTROL_ROUTE_DONE",
+    "detail": "Not a complete competition finish; wheel placement requires verification",
+    "stamp": 537.805,
+    "control_only": true
+  },
+  "cleanup": {
+    "owned_processes": 18,
+    "remaining": []
+  }
+}

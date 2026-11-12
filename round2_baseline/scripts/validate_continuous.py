@@ -12,6 +12,8 @@ p.add_argument('--observer',type=Path,required=True)
 p.add_argument('--profile',choices=['fast','sprint'],default='sprint')
 p.add_argument('--seeds',nargs=3,type=int,default=[42,1,2])
 p.add_argument('--efficient-approach',action='store_true')
+p.add_argument('--attitude-protection',action='store_true')
+p.add_argument('--map-file',type=Path)
 args=p.parse_args()
 if not args.observer.is_file() or not os.access(args.observer,os.X_OK):p.error('Build the observer in a persistent WSL directory first')
 if len(set(args.seeds))!=3:p.error('Use three distinct seeds')
@@ -23,6 +25,8 @@ for seed in args.seeds:
         '--speed-profile',args.profile,'--continuous-bends','--timeout-clock','sim','--audit-cones',
         '--contact-observer',str(args.observer),'--profile-performance','--seconds','350']
     if args.efficient_approach:command.append('--efficient-approach')
+    if args.attitude_protection:command.append('--attitude-protection')
+    if args.map_file:command.extend(['--map-file',str(args.map_file.resolve())])
     print('START seed '+str(seed),flush=True)
     with (args.output/('seed_'+str(seed)+'.log')).open('w') as log:
         run=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT)

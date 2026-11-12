@@ -5,7 +5,10 @@
   <arg name="speed_profile" default="stable"/>
   <arg name="timeout_clock" default="wall"/>
   <arg name="continuous_bends" default="false"/>
+  <arg name="bend_path" default="false"/>
   <arg name="efficient_approach" default="false"/>
+  <arg name="map_file" default=""/>
+  <arg name="attitude_protection" default="false"/>
   <include file="$(find round2_baseline)/launch/simulation.launch">
     <arg name="gui" value="$(arg gui)"/>
     <arg name="low_com" value="$(arg low_com)"/>
@@ -13,7 +16,10 @@
   <include file="$(find round2_baseline)/launch/control.launch">
     <arg name="speed_profile" value="$(arg speed_profile)"/>
     <arg name="continuous_bends" value="$(arg continuous_bends)"/>
+    <arg name="bend_path" value="$(arg bend_path)"/>
     <arg name="efficient_approach" value="$(arg efficient_approach)"/>
+    <arg name="map_file" value="$(arg map_file)"/>
+    <arg name="attitude_protection" value="$(arg attitude_protection)"/>
     <arg name="timeout_clock" value="$(eval 'wall' if arg('timer') else arg('timeout_clock'))"/>
   </include>
   <include if="$(arg timer)" file="$(find ucar_accumtimer)/launch/AccumTimer.launch"/>

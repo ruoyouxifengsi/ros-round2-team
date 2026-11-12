@@ -1,0 +1,174 @@
+{
+  "passed": true,
+  "trigger": "development service",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 501.732,
+      "control_only": true,
+      "wall": 10071.722915337
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend1",
+      "stamp": 503.667,
+      "control_only": true,
+      "wall": 10072.766711496
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend1",
+      "stamp": 504.919,
+      "control_only": true,
+      "wall": 10079.008954941
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend2",
+      "stamp": 504.922,
+      "control_only": true,
+      "wall": 10079.020323635
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend2",
+      "stamp": 506.452,
+      "control_only": true,
+      "wall": 10087.029581926
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend3",
+      "stamp": 506.452,
+      "control_only": true,
+      "wall": 10087.03101565
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend3",
+      "stamp": 507.912,
+      "control_only": true,
+      "wall": 10097.285792574
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend4",
+      "stamp": 507.913,
+      "control_only": true,
+      "wall": 10097.287579019
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend4",
+      "stamp": 509.408,
+      "control_only": true,
+      "wall": 10106.614415824
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5_approach",
+      "stamp": 509.408,
+      "control_only": true,
+      "wall": 10106.615374195
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5_approach",
+      "stamp": 510.902,
+      "control_only": true,
+      "wall": 10116.795122818
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5",
+      "stamp": 510.902,
+      "control_only": true,
+      "wall": 10116.796872836
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5",
+      "stamp": 511.074,
+      "control_only": true,
+      "wall": 10117.461603728
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend6",
+      "stamp": 511.074,
+      "control_only": true,
+      "wall": 10117.462788002
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend6",
+      "stamp": 511.826,
+      "control_only": true,
+      "wall": 10122.113232537
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend7",
+      "stamp": 511.827,
+      "control_only": true,
+      "wall": 10122.115570849
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend7",
+      "stamp": 512.777,
+      "control_only": true,
+      "wall": 10128.44769597
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend8",
+      "stamp": 512.778,
+      "control_only": true,
+      "wall": 10128.449382304
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend8",
+      "stamp": 517.546,
+      "control_only": true,
+      "wall": 10157.752287828
+    },
+    {
+      "state": "CONTROL_ROUTE_DONE",
+      "detail": "Not a complete competition finish; wheel placement requires verification",
+      "stamp": 517.566,
+      "control_only": true,
+      "wall": 10158.070454759
+    }
+  ],
+  "seed": null,
+  "development_audit": false,
+  "speed_profile": "sprint",
+  "timeout_clock": "sim",
+  "simulation_engine": "official ode",
+  "continuous_bends": true,
+  "bend_path": true,
+  "efficient_approach": true,
+  "attitude_protection": false,
+  "navigation_mode": "rolling_odom",
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "startup_seconds": 6.827163526999357,
+  "contact_observer_sha256": "cbc2e9a409ad5c4c82d359392a6ae72a65aaa4aa4c31618951f9d14f6045a242",
+  "guard_max_trips": 0,
+  "guard_last_mode": "RUN",
+  "scope": "DEBUG ROUTE PREFIX, NOT A COMPETITION RUN",
+  "elapsed_wall": 87.09832869599995,
+  "elapsed_sim": 13.985000000000014,
+  "final_status": {
+    "state": "CONTROL_ROUTE_DONE",
+    "detail": "Not a complete competition finish; wheel placement requires verification",
+    "stamp": 517.566,
+    "control_only": true
+  },
+  "cleanup": {
+    "owned_processes": 18,
+    "remaining": []
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "wall_cell_distance_to_scan_p50": 0.09993252745120279,
+  "wall_cell_distance_to_scan_p95": 0.6004394485185254,
+  "fraction_wall_cells_within_5cm": 0.32352083940542115,
+  "scan_points": 15696,
+  "occupied_cells": 3431,
+  "accepted": false
+}

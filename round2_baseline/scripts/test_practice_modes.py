@@ -20,7 +20,20 @@ assert params['/round2_control/efficient_approach'] is True
 assert params['/move_base/TebLocalPlannerROS/max_vel_x']==.5
 assert params['/move_base/TebLocalPlannerROS/acc_lim_x']==.65
 assert params['/attitude_guard/linear_acceleration']==.65
+assert params['/attitude_guard/attitude_protection'] is False
+restored=yaml.safe_load(subprocess.check_output(['roslaunch','--dump-params','round2_baseline','baseline.launch','attitude_protection:=true']))
+assert restored['/attitude_guard/attitude_protection'] is True
+print('PASS: attitude protection defaults off and can be restored explicitly')
 print('PASS: continuous sprint launch forwards consistent planner and guard limits')
+tracking=yaml.safe_load(subprocess.check_output(['roslaunch','--dump-params','round2_baseline','baseline.launch',
+    'timer:=false','speed_profile:=sprint','bend_path:=true']))
+assert tracking['/round2_control/bend_path'] is True
+assert tracking['/round2_control/bend_settings/max_speed']==1.
+assert tracking['/attitude_guard/bend_settings/output_yaw_rate']==2.8
+assert tracking['/attitude_guard/max_linear_speed']==.55
+assert tracking['/move_base/local_costmap/resolution']==.025
+assert '/attitude_guard/bend_settings/output_speed' not in params
+print('PASS: optional bend tracking forwards scoped bounds; original guard/map limits remain the default')
 original=ET.fromstring(params['/robot_description'])
 manual=yaml.safe_load(subprocess.check_output(['roslaunch','--dump-params','round2_baseline','baseline.launch',
     'timer:=true','low_com:=true','speed_profile:=sprint','continuous_bends:=true','efficient_approach:=true']))

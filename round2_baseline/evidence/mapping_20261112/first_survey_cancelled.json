@@ -1,0 +1,275 @@
+{
+  "passed": false,
+  "trigger": "development service",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 501.402,
+      "control_only": true,
+      "wall": 2028.171783239
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend1",
+      "stamp": 503.485,
+      "control_only": true,
+      "wall": 2028.217390349
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend1",
+      "stamp": 506.394,
+      "control_only": true,
+      "wall": 2037.837326961
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend2",
+      "stamp": 506.402,
+      "control_only": true,
+      "wall": 2037.870514532
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend2",
+      "stamp": 509.86,
+      "control_only": true,
+      "wall": 2049.059015409
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend3",
+      "stamp": 509.867,
+      "control_only": true,
+      "wall": 2049.084668577
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend3",
+      "stamp": 514.825,
+      "control_only": true,
+      "wall": 2065.407559913
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend4",
+      "stamp": 514.833,
+      "control_only": true,
+      "wall": 2065.433736634
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend4",
+      "stamp": 518.141,
+      "control_only": true,
+      "wall": 2079.031286181
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5_approach",
+      "stamp": 518.148,
+      "control_only": true,
+      "wall": 2079.05930291
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5_approach",
+      "stamp": 520.906,
+      "control_only": true,
+      "wall": 2091.034726223
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5",
+      "stamp": 520.914,
+      "control_only": true,
+      "wall": 2091.063364722
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5",
+      "stamp": 529.771,
+      "control_only": true,
+      "wall": 2133.806598954
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend6",
+      "stamp": 529.779,
+      "control_only": true,
+      "wall": 2133.839428363
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend6",
+      "stamp": 541.387,
+      "control_only": true,
+      "wall": 2192.40770512
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend7",
+      "stamp": 541.396,
+      "control_only": true,
+      "wall": 2192.800638396
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend7",
+      "stamp": 543.754,
+      "control_only": true,
+      "wall": 2206.293892798
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend8",
+      "stamp": 543.761,
+      "control_only": true,
+      "wall": 2206.326163899
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend8",
+      "stamp": 546.969,
+      "control_only": true,
+      "wall": 2224.761739222
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_approach",
+      "stamp": 546.977,
+      "control_only": true,
+      "wall": 2224.799420787
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr_approach",
+      "stamp": 556.452,
+      "control_only": true,
+      "wall": 2274.410213606
+    },
+    {
+      "state": "MOVING",
+      "detail": "cone_entry",
+      "stamp": 556.46,
+      "control_only": true,
+      "wall": 2274.438016422
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "cone_entry",
+      "stamp": 562.705,
+      "control_only": true,
+      "wall": 2309.061399485
+    },
+    {
+      "state": "MOVING",
+      "detail": "cone_exit",
+      "stamp": 562.713,
+      "control_only": true,
+      "wall": 2309.088401529
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "cone_exit",
+      "stamp": 571.068,
+      "control_only": true,
+      "wall": 2360.033605461
+    },
+    {
+      "state": "MOVING",
+      "detail": "return",
+      "stamp": 571.076,
+      "control_only": true,
+      "wall": 2360.062000825
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "return",
+      "stamp": 581.187,
+      "control_only": true,
+      "wall": 2417.125617475
+    },
+    {
+      "state": "MOVING",
+      "detail": "finish_approach",
+      "stamp": 581.196,
+      "control_only": true,
+      "wall": 2417.159134842
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "finish_approach",
+      "stamp": 584.927,
+      "control_only": true,
+      "wall": 2434.358670161
+    },
+    {
+      "state": "MOVING",
+      "detail": "survey_return",
+      "stamp": 584.936,
+      "control_only": true,
+      "wall": 2434.392726043
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "survey_return",
+      "stamp": 588.384,
+      "control_only": true,
+      "wall": 2453.174944706
+    },
+    {
+      "state": "MOVING",
+      "detail": "survey_close",
+      "stamp": 588.391,
+      "control_only": true,
+      "wall": 2453.205994817
+    },
+    {
+      "state": "FAILED",
+      "detail": "Cancelled, stale odometry or stage timeout: survey_close",
+      "stamp": 635.755,
+      "control_only": true,
+      "wall": 2739.668988139
+    }
+  ],
+  "seed": null,
+  "development_audit": false,
+  "speed_profile": "fast",
+  "timeout_clock": "sim",
+  "simulation_engine": "official ode",
+  "continuous_bends": true,
+  "efficient_approach": true,
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "mapping_scene": {
+    "source_sha256": "76d67410d119977a485e46a3320c6f18a12a72fe116155da30848a2e717edc78",
+    "fixed_scene_sha256": "56923c58625ee226c6910fcfb8197cfabeda8dabf564faed0da0c507acba3733",
+    "removed_models": [
+      "Construction Cone",
+      "cube_0",
+      "cube_1",
+      "cube_2",
+      "qr_board_electronic",
+      "qr_board_goods",
+      "qr_board_s"
+    ],
+    "method": "Remove movable task objects only before scanning; retain fixed scene and physics. No geometry is converted into map cells."
+  },
+  "scope": "FIXED SCENE LASER SURVEY; not a competition run",
+  "startup_seconds": 5.478019192999909,
+  "guard_max_trips": 0,
+  "guard_last_mode": "RUN",
+  "elapsed_wall": 711.7543252790001,
+  "elapsed_sim": 132.34300000000002,
+  "final_status": {
+    "state": "FAILED",
+    "detail": "Cancelled, stale odometry or stage timeout: survey_close",
+    "stamp": 635.755,
+    "control_only": true
+  },
+  "cleanup": {
+    "owned_processes": 21,
+    "remaining": []
+  }
+}

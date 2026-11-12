@@ -6,3 +6,6 @@
 *.pdf binary
 *.png binary
 第二次分站赛下发/** -text
+round2_baseline/evidence/bends_20261112/** -text -whitespace
+round2_baseline/evidence/mapping_20261112/** -text -whitespace
+round2_baseline/maps/round2_fixed/** -text -whitespace

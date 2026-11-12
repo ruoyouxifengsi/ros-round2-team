@@ -20,6 +20,7 @@ class YawFeedback:
     """Bounded PI trim for measured low-speed yaw tracking error."""
     def __init__(self):
         self.integral = self.target = 0.
+        self.maximum = .65
 
     def reset(self):
         self.integral = self.target = 0.
@@ -34,19 +35,21 @@ class YawFeedback:
         error = target-measured
         self.integral = max(-.25,min(.25,self.integral+.5*error*dt))
         value = target+.5*error+self.integral
-        return math.copysign(max(0.,min(.65,value*math.copysign(1.,target))),target)
+        return math.copysign(max(0.,min(self.maximum,value*math.copysign(1.,target))),target)
 
 
 class Guard:
-    def __init__(self, max_speed=.12, linear_accel=.2, hold_tilt_deg=1.0, angular_feedback=False, curvature_accel=0.):
+    def __init__(self, max_speed=.12, linear_accel=.2, hold_tilt_deg=1.0, angular_feedback=False, curvature_accel=0., attitude_protection=True):
         if not all(math.isfinite(v) and v > 0 for v in (max_speed,linear_accel)):
             raise ValueError('velocity and acceleration limits must be positive and finite')
         if (isinstance(hold_tilt_deg,bool) or not isinstance(hold_tilt_deg,(int,float)) or
                 not math.isfinite(hold_tilt_deg) or not .3 < hold_tilt_deg < 8.):
             raise ValueError('hold_tilt_deg must be finite and strictly between 0.3 and 8 degrees')
         self.max_speed, self.linear_accel = max_speed, linear_accel
+        self.max_yaw_rate = .8
         if not math.isfinite(curvature_accel) or curvature_accel<0:raise ValueError('invalid curvature acceleration')
         self.curvature_accel = curvature_accel
+        self.attitude_protection = attitude_protection
         self.hold_tilt_deg = float(hold_tilt_deg)
         self.mode, self.reason = 'BLOCKED', 'waiting for odometry'
         self.odom = self.cmd = self.level_since = self.last_clock = None
@@ -56,6 +59,19 @@ class Guard:
         self.clock_progress_wall = None
         self.yaw_feedback = YawFeedback() if angular_feedback else None
         self.yaw_rate = 0.
+        self.normal_limits=(self.max_speed,self.linear_accel,self.max_yaw_rate,
+                            self.yaw_feedback.maximum if self.yaw_feedback else None)
+
+    def route_limits(self,state,bend_settings):
+        active=state.get('state') in ('MOVING','PASSED') and state.get('detail','').startswith('bend')
+        if bend_settings and active:
+            values=[bend_settings[k] for k in ('output_speed','output_acceleration','output_yaw_rate')]
+            if not all(math.isfinite(v) and v>0 for v in values):raise ValueError('Invalid bend output limits')
+            self.max_speed,self.linear_accel,self.max_yaw_rate=values
+            if self.yaw_feedback:self.yaw_feedback.maximum=self.max_yaw_rate
+        else:
+            self.max_speed,self.linear_accel,self.max_yaw_rate,feedback_limit=self.normal_limits
+            if self.yaw_feedback:self.yaw_feedback.maximum=feedback_limit
 
     def input(self, velocity, sim, wall):
         if len(velocity) != 3 or not all(math.isfinite(v) for v in velocity):
@@ -80,10 +96,10 @@ class Guard:
                 self.zero('reset odometry clock', True)
         self.odom = (stamp, wall, tilt)
         self.yaw_rate = yaw_rate
-        if tilt >= 8.:
+        if self.attitude_protection and tilt >= 8.:
             self.mode = 'FAULT'
             self.zero('excessive tilt')
-        elif tilt >= self.hold_tilt_deg and self.mode != 'FAULT':
+        elif self.attitude_protection and tilt >= self.hold_tilt_deg and self.mode != 'FAULT':
             if self.mode != 'HOLD':
                 self.trips += 1
             self.mode = 'HOLD'
@@ -120,10 +136,10 @@ class Guard:
         if self.odom is None or not (-.1 <= sim-self.odom[0] <= .5) or not (0. <= wall-self.odom[1] <= 3.):
             return self.zero('stale or invalid odometry', True)
         stamp, _, tilt = self.odom
-        if tilt >= 8.:
+        if self.attitude_protection and tilt >= 8.:
             self.mode = 'FAULT'
             return self.zero('excessive tilt')
-        if tilt >= self.hold_tilt_deg:
+        if self.attitude_protection and tilt >= self.hold_tilt_deg:
             if self.mode != 'HOLD':
                 self.trips += 1
             self.mode = 'HOLD'
@@ -131,7 +147,10 @@ class Guard:
             self.release_serial = self.serial
         if self.mode != 'RUN':
             self.hold_seconds += dt
-            if tilt <= .3:
+            if not self.attitude_protection:
+                self.mode = 'RUN'
+                self.release_serial = self.serial
+            elif tilt <= .3:
                 if self.level_since is None:
                     self.level_since = stamp
                 if stamp-self.level_since >= .3:
@@ -139,7 +158,7 @@ class Guard:
                     self.release_serial = self.serial
             else:
                 self.level_since = None
-            return self.zero('waiting for level attitude and a new command')
+            return self.zero('waiting for level attitude and a new command' if self.attitude_protection else 'waiting for a new command')
         if (self.cmd is None or self.cmd[3] <= self.release_serial or
                 not (0. <= sim-self.cmd[1] <= .5) or wall-self.cmd[2] > 3.):
             return self.zero('waiting for fresh command')
@@ -149,7 +168,7 @@ class Guard:
             target[0] *= self.max_speed/magnitude
             target[1] *= self.max_speed/magnitude
         normal_accel=math.hypot(*target[:2])*abs(target[2])
-        if self.curvature_accel and normal_accel>self.curvature_accel:
+        if self.attitude_protection and self.curvature_accel and normal_accel>self.curvature_accel:
             factor=math.sqrt(self.curvature_accel/normal_accel)
             target=[value*factor for value in target]
         delta = [target[i]-self.velocity[i] for i in range(2)]
@@ -157,7 +176,7 @@ class Guard:
         scale = min(1., self.linear_accel*dt/norm) if norm else 1.
         for i in range(2):
             self.velocity[i] += delta[i]*scale
-        self.velocity[2] = max(-.8, min(.8, target[2]))
+        self.velocity[2] = max(-self.max_yaw_rate, min(self.max_yaw_rate, target[2]))
         if self.yaw_feedback:
             self.velocity[2] = self.yaw_feedback.step(self.velocity[2],self.yaw_rate,dt)
         self.reason = 'passing bounded navigation command'
@@ -277,6 +296,27 @@ def self_test():
     closed.input([0,0,.25],1.36,1.36)
     assert closed.tick(1.36,1.36)[2]>.25
     assert closed.tick(5.,5.)==[0,0,0] and closed.yaw_feedback.integral==0.
+    disabled=Guard(max_speed=.55,linear_accel=10.,curvature_accel=.18,attitude_protection=False)
+    tilted=[0,math.sin(math.radians(11.)/2),0,math.cos(math.radians(11.)/2)]
+    disabled.observe(1.,1.,tilted);disabled.tick(1.,1.)
+    disabled.observe(1.1,1.1,tilted);disabled.input([.5,0,.6],1.1,1.1)
+    assert disabled.tick(1.1,1.1)==[.5,0.,.6] and disabled.mode=='RUN' and disabled.trips==0
+    assert not disabled.scan_is_level([(1.,11.),(1.1,11.)],1.05,1.1,1.1)
+    assert disabled.tick(5.,5.)==[0,0,0] and disabled.mode=='BLOCKED'
+    assert not disabled.observe(5.1,5.1,[float('nan'),0,0,1])
+    assert disabled.tick(5.1,5.1)==[0,0,0]
+    print('PASS: protection off bypasses tilt stops and curvature scaling; invalid/stale-data stops and laser filtering remain')
+    scoped=Guard(max_speed=.55,linear_accel=.65,angular_feedback=True)
+    limits=dict(output_speed=.9,output_acceleration=1.3,output_yaw_rate=2.1)
+    for state in ('MOVING','PASSED'):
+        scoped.route_limits(dict(state=state,detail='bend3'),limits)
+        assert (scoped.max_speed,scoped.linear_accel,scoped.yaw_feedback.maximum)==(.9,1.3,2.1)
+    for state,stage in (('ARRIVED','bend8'),('MOVING','cone_exit'),('FAILED','bend3'),('CONTROL_ROUTE_DONE','')):
+        scoped.route_limits(dict(state=state,detail=stage),limits)
+        assert (scoped.max_speed,scoped.linear_accel,scoped.yaw_feedback.maximum)==(.55,.65,.65)
+    scoped.route_limits(dict(state='MOVING',detail='bend1'),{})
+    assert scoped.max_speed==.55
+    print('PASS: bend bounds only activate with opt-in settings and restore on exit/failure')
     print('PASS: startup, new-command release, slew and clamp, stale data, frozen clock, duplicate odometry, scan gate, latched fault, bounded yaw feedback and stop reset')
 
 
@@ -289,8 +329,15 @@ def main():
     from std_msgs.msg import String
     rospy.init_node('attitude_guard')
     guard = Guard(rospy.get_param('~max_linear_speed',.12),rospy.get_param('~linear_acceleration',.2),
-                  rospy.get_param('~hold_tilt_deg',1.0),rospy.get_param('~angular_feedback',False),rospy.get_param('~curvature_accel',0.))
+                  rospy.get_param('~hold_tilt_deg',1.0),rospy.get_param('~angular_feedback',False),rospy.get_param('~curvature_accel',0.),
+                  rospy.get_param('~attitude_protection',True))
     lock = threading.RLock()
+    bend_settings=rospy.get_param('~bend_settings',{})
+    def route_state(message):
+        state=json.loads(message.data)
+        with lock:
+            guard.route_limits(state,bend_settings)
+    rospy.Subscriber('/baseline/status',String,route_state,queue_size=10)
     history, scans = deque(maxlen=300), deque(maxlen=100)
     stats = {'scan_passed': 0, 'scan_dropped': 0}
     output = rospy.Publisher('/cmd_vel',Twist,queue_size=1)
@@ -341,7 +388,7 @@ def main():
                         scan_output.publish(scan);stats['scan_passed']+=1
                     else:stats['scan_dropped']+=1
                 if wall-last_status>=.5:
-                    data=dict(stats,mode=guard.mode,reason=guard.reason,trips=guard.trips,
+                    data=dict(stats,mode=guard.mode,reason=guard.reason,trips=guard.trips,attitude_protection=guard.attitude_protection,
                               tilt_deg=guard.odom[2] if guard.odom else None,
                               hold_tilt_deg=guard.hold_tilt_deg,
                               hold_seconds=guard.hold_seconds,output=velocity)

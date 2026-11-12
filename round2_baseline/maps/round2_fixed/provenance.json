@@ -1,0 +1,346 @@
+{
+  "method": "SLAM Toolbox laser occupancy rasterization with official odometry; scan matching and loop correction disabled after replay validation",
+  "survey_sim_seconds": 69.019,
+  "survey_result": {
+    "passed": true,
+    "trigger": "development service",
+    "events": [
+      {
+        "state": "IDLE",
+        "detail": "CONTROL_ONLY: image tasks omitted",
+        "stamp": 501.376,
+        "control_only": true,
+        "wall": 3671.105602686
+      },
+      {
+        "state": "MOVING",
+        "detail": "bend1",
+        "stamp": 502.595,
+        "control_only": true,
+        "wall": 3671.191746261
+      },
+      {
+        "state": "PASSED",
+        "detail": "bend1",
+        "stamp": 505.504,
+        "control_only": true,
+        "wall": 3686.232272486
+      },
+      {
+        "state": "MOVING",
+        "detail": "bend2",
+        "stamp": 505.512,
+        "control_only": true,
+        "wall": 3686.261420272
+      },
+      {
+        "state": "PASSED",
+        "detail": "bend2",
+        "stamp": 508.97,
+        "control_only": true,
+        "wall": 3706.367652604
+      },
+      {
+        "state": "MOVING",
+        "detail": "bend3",
+        "stamp": 508.978,
+        "control_only": true,
+        "wall": 3706.398997384
+      },
+      {
+        "state": "PASSED",
+        "detail": "bend3",
+        "stamp": 512.186,
+        "control_only": true,
+        "wall": 3725.186077191
+      },
+      {
+        "state": "MOVING",
+        "detail": "bend4",
+        "stamp": 512.193,
+        "control_only": true,
+        "wall": 3725.212316129
+      },
+      {
+        "state": "PASSED",
+        "detail": "bend4",
+        "stamp": 515.652,
+        "control_only": true,
+        "wall": 3744.707027112
+      },
+      {
+        "state": "MOVING",
+        "detail": "bend5_approach",
+        "stamp": 515.66,
+        "control_only": true,
+        "wall": 3744.738027358
+      },
+      {
+        "state": "PASSED",
+        "detail": "bend5_approach",
+        "stamp": 518.618,
+        "control_only": true,
+        "wall": 3760.766267076
+      },
+      {
+        "state": "MOVING",
+        "detail": "bend5",
+        "stamp": 518.626,
+        "control_only": true,
+        "wall": 3760.799085701
+      },
+      {
+        "state": "PASSED",
+        "detail": "bend5",
+        "stamp": 520.285,
+        "control_only": true,
+        "wall": 3771.344082209
+      },
+      {
+        "state": "MOVING",
+        "detail": "bend6",
+        "stamp": 520.293,
+        "control_only": true,
+        "wall": 3771.377973704
+      },
+      {
+        "state": "PASSED",
+        "detail": "bend6",
+        "stamp": 522.452,
+        "control_only": true,
+        "wall": 3783.751595332
+      },
+      {
+        "state": "MOVING",
+        "detail": "bend7",
+        "stamp": 522.459,
+        "control_only": true,
+        "wall": 3783.779982024
+      },
+      {
+        "state": "PASSED",
+        "detail": "bend7",
+        "stamp": 526.268,
+        "control_only": true,
+        "wall": 3807.338951272
+      },
+      {
+        "state": "MOVING",
+        "detail": "bend8",
+        "stamp": 526.276,
+        "control_only": true,
+        "wall": 3807.36666811
+      },
+      {
+        "state": "PASSED",
+        "detail": "bend8",
+        "stamp": 529.784,
+        "control_only": true,
+        "wall": 3828.152599979
+      },
+      {
+        "state": "MOVING",
+        "detail": "qr_approach",
+        "stamp": 529.792,
+        "control_only": true,
+        "wall": 3828.182926766
+      },
+      {
+        "state": "ARRIVED",
+        "detail": "qr_approach",
+        "stamp": 539.507,
+        "control_only": true,
+        "wall": 3887.169285058
+      },
+      {
+        "state": "MOVING",
+        "detail": "cone_entry",
+        "stamp": 539.515,
+        "control_only": true,
+        "wall": 3887.196915375
+      },
+      {
+        "state": "ARRIVED",
+        "detail": "cone_entry",
+        "stamp": 545.59,
+        "control_only": true,
+        "wall": 3922.836724395
+      },
+      {
+        "state": "MOVING",
+        "detail": "cone_exit",
+        "stamp": 545.599,
+        "control_only": true,
+        "wall": 3923.417696549
+      },
+      {
+        "state": "ARRIVED",
+        "detail": "cone_exit",
+        "stamp": 554.449,
+        "control_only": true,
+        "wall": 3976.354245182
+      },
+      {
+        "state": "MOVING",
+        "detail": "return",
+        "stamp": 554.458,
+        "control_only": true,
+        "wall": 3976.74647276
+      },
+      {
+        "state": "ARRIVED",
+        "detail": "return",
+        "stamp": 564.469,
+        "control_only": true,
+        "wall": 4036.231990166
+      },
+      {
+        "state": "MOVING",
+        "detail": "finish_approach",
+        "stamp": 564.477,
+        "control_only": true,
+        "wall": 4036.260856523
+      },
+      {
+        "state": "ARRIVED",
+        "detail": "finish_approach",
+        "stamp": 568.146,
+        "control_only": true,
+        "wall": 4058.215826897
+      },
+      {
+        "state": "MOVING",
+        "detail": "survey_return",
+        "stamp": 568.156,
+        "control_only": true,
+        "wall": 4058.646803956
+      },
+      {
+        "state": "ARRIVED",
+        "detail": "survey_return",
+        "stamp": 571.614,
+        "control_only": true,
+        "wall": 4078.123356281
+      },
+      {
+        "state": "CONTROL_ROUTE_DONE",
+        "detail": "Not a complete competition finish; wheel placement requires verification",
+        "stamp": 571.614,
+        "control_only": true,
+        "wall": 4078.124429795
+      }
+    ],
+    "seed": null,
+    "development_audit": false,
+    "speed_profile": "fast",
+    "timeout_clock": "sim",
+    "simulation_engine": "official ode",
+    "continuous_bends": true,
+    "efficient_approach": true,
+    "navigation_mode": "rolling_odom",
+    "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+    "mapping_scene": {
+      "source_sha256": "76d67410d119977a485e46a3320c6f18a12a72fe116155da30848a2e717edc78",
+      "fixed_scene_sha256": "56923c58625ee226c6910fcfb8197cfabeda8dabf564faed0da0c507acba3733",
+      "removed_models": [
+        "Construction Cone",
+        "cube_0",
+        "cube_1",
+        "cube_2",
+        "qr_board_electronic",
+        "qr_board_goods",
+        "qr_board_s"
+      ],
+      "method": "Remove movable task objects only before scanning; retain fixed scene and physics. No geometry is converted into map cells."
+    },
+    "mapping_method": "SLAM Toolbox laser occupancy rasterization with official odometry; scan matching and loop correction disabled after replay validation",
+    "scope": "FIXED SCENE LASER SURVEY; not a competition run",
+    "startup_seconds": 5.4084010609999496,
+    "guard_max_trips": 0,
+    "guard_last_mode": "RUN",
+    "elapsed_wall": 407.5144687820002,
+    "elapsed_sim": 69.04599999999994,
+    "final_status": {
+      "state": "CONTROL_ROUTE_DONE",
+      "detail": "Not a complete competition finish; wheel placement requires verification",
+      "stamp": 571.614,
+      "control_only": true
+    },
+    "map_sha256": {
+      "fixed_map.yaml": "0ca2508d2ce514acd2d8389172a74e3b6650fbb269354e3ee8a53c5240b26e03",
+      "fixed_map.pgm": "cdbe298746baeb9730ec24e4bdee973cbd635132878785a8b0584501243f6eeb",
+      "fixed_graph.posegraph": "fb4efdab901384c17cca8639ff4bc13e9b8e157f9a5a9d89d36f38294261cf5a",
+      "fixed_graph.data": "0f2a9ad6e195b188235cb84e97b1f0a49e279fc51c835c02f8a02f5c0debaf58"
+    },
+    "cleanup": {
+      "owned_processes": 21,
+      "remaining": []
+    }
+  },
+  "sensor_bag_sha256": "8feda9a9f9d40a60b473eac34f76b7d4143aeff097b45c2c45515dff60006060",
+  "map_sha256": {
+    "fixed_map.yaml": "0ca2508d2ce514acd2d8389172a74e3b6650fbb269354e3ee8a53c5240b26e03",
+    "fixed_map.pgm": "cdbe298746baeb9730ec24e4bdee973cbd635132878785a8b0584501243f6eeb"
+  },
+  "mapping_config": {
+    "solver_plugin": "solver_plugins::CeresSolver",
+    "ceres_linear_solver": "SPARSE_NORMAL_CHOLESKY",
+    "ceres_preconditioner": "SCHUR_JACOBI",
+    "ceres_trust_strategy": "LEVENBERG_MARQUARDT",
+    "ceres_dogleg_type": "TRADITIONAL_DOGLEG",
+    "ceres_loss_function": "None",
+    "odom_frame": "odom",
+    "map_frame": "map",
+    "base_frame": "base_footprint",
+    "scan_topic": "/nav_scan",
+    "mode": "mapping",
+    "resolution": 0.025,
+    "max_laser_range": 8.0,
+    "minimum_time_interval": 0.1,
+    "minimum_travel_distance": 0.05,
+    "minimum_travel_heading": 0.08,
+    "map_update_interval": 0.5,
+    "transform_publish_period": 0.05,
+    "transform_timeout": 0.3,
+    "tf_buffer_duration": 30.0,
+    "stack_size_to_use": 40000000,
+    "enable_interactive_mode": false,
+    "throttle_scans": 1,
+    "debug_logging": false,
+    "use_scan_matching": false,
+    "use_scan_barycenter": true,
+    "scan_buffer_size": 20,
+    "scan_buffer_maximum_scan_distance": 4.0,
+    "link_match_minimum_response_fine": 0.1,
+    "link_scan_maximum_distance": 1.0,
+    "loop_search_maximum_distance": 1.5,
+    "do_loop_closing": false,
+    "loop_match_minimum_chain_size": 10,
+    "loop_match_maximum_variance_coarse": 1.0,
+    "loop_match_minimum_response_coarse": 0.5,
+    "loop_match_minimum_response_fine": 0.6,
+    "correlation_search_space_dimension": 0.3,
+    "correlation_search_space_resolution": 0.01,
+    "correlation_search_space_smear_deviation": 0.03,
+    "loop_search_space_dimension": 2.0,
+    "loop_search_space_resolution": 0.025,
+    "loop_search_space_smear_deviation": 0.03,
+    "distance_variance_penalty": 0.5,
+    "angle_variance_penalty": 1.0,
+    "fine_search_angle_offset": 0.00349,
+    "coarse_search_angle_offset": 0.1745,
+    "coarse_angle_resolution": 0.01745,
+    "minimum_angle_penalty": 0.9,
+    "minimum_distance_penalty": 0.5,
+    "use_response_expansion": true
+  },
+  "consistency": {
+    "wall_cell_distance_to_scan_p50": 0.008106477782925081,
+    "wall_cell_distance_to_scan_p95": 0.02938425384456271,
+    "fraction_wall_cells_within_5cm": 0.9889928453494772,
+    "scan_points": 8928,
+    "occupied_cells": 1817,
+    "accepted": true
+  },
+  "note": "Original map_saver output; no painted cells, cropping, resizing, origin changes or world geometry conversion. No random cones in prior map. Sensor bag and pose graph retained locally; YAML+PGM suffice for navigation."
+}

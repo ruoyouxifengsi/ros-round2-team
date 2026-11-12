@@ -3,15 +3,31 @@
   <arg name="timeout_clock" default="wall"/>
   <arg name="travel_clearance" default="0.06"/>
   <arg name="continuous_bends" default="false"/>
+  <arg name="bend_path" default="false"/>
   <arg name="efficient_approach" default="false"/>
-  <node pkg="round2_baseline" type="cone_obstacles.py" name="cone_obstacles" output="screen"/>
+  <arg name="map_file" default=""/>
+  <arg name="attitude_protection" default="false"/>
+  <group if="$(eval arg('map_file') != '')">
+    <node pkg="map_server" type="map_server" name="map_server" args="$(arg map_file)" output="screen" required="true"/>
+    <node pkg="amcl" type="amcl" name="amcl" output="screen" required="true">
+      <rosparam file="$(find round2_baseline)/config/amcl.yaml"/>
+      <remap from="scan" to="/nav_scan"/>
+    </node>
+    <node pkg="round2_baseline" type="localized_odometry.py" name="localized_odometry" output="screen" required="true"/>
+  </group>
+  <node pkg="round2_baseline" type="cone_obstacles.py" name="cone_obstacles" output="screen">
+    <param name="navigation_frame" value="$(eval 'map' if arg('map_file') else 'odom')"/>
+  </node>
   <node pkg="move_base" type="move_base" name="move_base" output="screen" clear_params="true">
     <remap from="cmd_vel" to="nav_cmd_vel"/>
     <rosparam file="$(find round2_baseline)/config/navigation.yaml"/>
     <rosparam if="$(eval arg('speed_profile') == 'fast')" file="$(find round2_baseline)/config/speed_fast.yaml"/>
     <rosparam if="$(eval arg('speed_profile') == 'sprint')" file="$(find round2_baseline)/config/speed_sprint.yaml"/>
+    <rosparam if="$(eval arg('map_file') != '')" file="$(find round2_baseline)/config/premapped_navigation.yaml"/>
   </node>
   <node pkg="round2_baseline" type="attitude_guard.py" name="attitude_guard" output="screen">
+    <rosparam if="$(arg bend_path)" param="bend_settings" file="$(find round2_baseline)/config/bend_tracking.yaml"/>
+    <param name="attitude_protection" value="$(arg attitude_protection)"/>
     <param name="max_linear_speed" value="$(eval 0.55 if arg('speed_profile') == 'sprint' else (0.45 if arg('speed_profile') == 'fast' else 0.3))"/>
     <param name="curvature_accel" value="$(eval 0.18 if arg('speed_profile') == 'sprint' else (0.12 if arg('speed_profile') == 'fast' else 0.0))"/>
     <param name="linear_acceleration" value="$(eval 0.65 if arg('speed_profile') == 'sprint' else 0.5)"/>
@@ -19,7 +35,12 @@
     <param name="angular_feedback" value="true"/>
   </node>
   <node pkg="round2_baseline" type="control.py" name="round2_control" output="screen">
+    <param name="navigation_frame" value="$(eval 'map' if arg('map_file') else 'odom')"/>
+    <param name="pose_topic" value="$(eval '/localized_odom' if arg('map_file') else '/odom')"/>
+    <param name="docking_inset" value="$(eval 0.03 if arg('map_file') else 0.0)"/>
     <param name="continuous_bends" value="$(arg continuous_bends)"/>
+    <param name="bend_path" value="$(arg bend_path)"/>
+    <rosparam param="bend_settings" file="$(find round2_baseline)/config/bend_tracking.yaml"/>
     <param name="efficient_approach" value="$(arg efficient_approach)"/>
     <param name="timeout_clock" value="$(arg timeout_clock)"/>
     <param name="speed_profile" value="$(arg speed_profile)"/>

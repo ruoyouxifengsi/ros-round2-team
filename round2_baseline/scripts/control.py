@@ -48,13 +48,13 @@ def footprint_clear(grid, x, y, yaw, polygon, padding):
     return True
 
 
-def short_turn_command(grid,x,y,angle,target,polygon,padding):
+def short_turn_command(grid,x,y,angle,target,polygon,padding,angular_limit=.5):
     error=math.atan2(math.sin(target-angle),math.cos(target-angle))
     if abs(error)<.12:return 0.
     steps=max(1,math.ceil(abs(error)/.04))
     if not all(footprint_clear(grid,x,y,angle+error*i/steps,polygon,padding) for i in range(steps+1)):
         return None
-    return max(-.5,min(.5,1.6*error))
+    return max(-angular_limit,min(angular_limit,1.6*error))
 
 
 def entry_velocity(px,py,angle,x,y,heading):
@@ -88,6 +88,7 @@ class Control:
         self.fast = rospy.get_param('~speed_profile','stable') in ('fast','sprint')
         self.continuous = rospy.get_param('~continuous_bends',False)
         self.efficient = rospy.get_param('~efficient_approach',False)
+        self.navigation_frame = rospy.get_param('~navigation_frame','odom')
         self.sim_timeouts = rospy.get_param('~timeout_clock','wall')=='sim'
         self.cancelled = threading.Event()
         self.odom = None
@@ -99,7 +100,7 @@ class Control:
         self.velocity = rospy.Publisher('/nav_cmd_vel',Twist,queue_size=1)
         self.status = rospy.Publisher('/baseline/status', String, queue_size=10, latch=True)
         self.ready = rospy.Publisher('/baseline/ready', Bool, queue_size=1, latch=True)
-        rospy.Subscriber('/odom', Odometry, self.observe)
+        rospy.Subscriber(rospy.get_param('~pose_topic','/odom'), Odometry, self.observe)
         rospy.Subscriber('/attitude_guard/status', String, self.observe_guard)
         rospy.Subscriber('/move_base/local_costmap/costmap',OccupancyGrid,self.observe_map,queue_size=1)
         rospy.Service('/nav_start', SetBool, self.start)
@@ -176,6 +177,17 @@ class Control:
             travel = {k:rospy.get_param('/move_base/TebLocalPlannerROS/'+k) for k in docking}
             run_deadline = self.budget_time()+rospy.get_param('~run_timeout', 540.0)
             route=rospy.get_param('~route')
+            if rospy.get_param('~bend_path',False):
+                bends=[]
+                for point in route:
+                    if not point[0].startswith('bend'):break
+                    bends.append(point)
+                if bends:
+                    self.follow_bends(bends,run_deadline)
+                    route=route[len(bends):]
+            # Leave room for map resolution and localization error inside the same task boxes.
+            inset=rospy.get_param('~docking_inset',0.)
+            route=[[name,x+(inset if name=='qr' else 0.),y+(inset if name=='finish' else 0.),yaw] for name,x,y,yaw in route]
             for index,(name,x,y,yaw) in enumerate(route):
                 if self.cancelled.is_set():
                     raise RuntimeError('Cancelled')
@@ -210,7 +222,7 @@ class Control:
                     self.report('ARRIVED',name)
                     continue
                 g = MoveBaseGoal()
-                g.target_pose.header.frame_id = 'odom'
+                g.target_pose.header.frame_id = self.navigation_frame
                 g.target_pose.header.stamp = rospy.Time.now()
                 g.target_pose.pose.position.x = x
                 g.target_pose.pose.position.y = y
@@ -264,6 +276,83 @@ class Control:
             with self.lock:
                 self.running = False
 
+    def follow_bends(self,route,run_deadline):
+        import sys
+        from pathlib import Path
+        if str(Path(__file__).parent) not in sys.path:sys.path.insert(0,str(Path(__file__).parent))
+        from bend_path import rounded_path
+        p=self.odom.pose.pose.position
+        vertices=[(p.x,p.y)]+[(x,2.72 if name in ('bend1','bend2') else y) for name,x,y,_ in route]
+        path=rounded_path(vertices)
+        from bend_path import path_command, braking_clear, validate_settings
+        tuning=rospy.get_param('~bend_settings')
+        validate_settings(tuning)
+        costmap_client=Client('/move_base/local_costmap',timeout=5)
+        old_resolution=costmap_client.get_configuration()['resolution']
+        polygon=rospy.get_param('/move_base/local_costmap/footprint')
+        if isinstance(polygon,str):polygon=ast.literal_eval(polygon)
+        padding=rospy.get_param('/move_base/local_costmap/footprint_padding')
+        self.client.cancel_all_goals()
+        try:
+            costmap_client.update_configuration({'resolution':.01})
+            ready=time.monotonic()+5
+            while self.costmap is None or abs(self.costmap.info.resolution-.01)>1e-6:
+                if time.monotonic()>ready:raise RuntimeError('Bend costmap resolution update timed out')
+                time.sleep(.02)
+            name,x,y,yaw=route[-1]
+            self.report('MOVING',route[0][0])
+            index=0;progress=0;deadline=min(run_deadline,self.budget_time()+60)
+            last_progress=self.budget_time();previous=p
+            while not rospy.is_shutdown():
+                now=time.monotonic();pose=self.odom.pose.pose;position=pose.position;q=pose.orientation
+                if self.cancelled.is_set() or now-self.received>2 or self.budget_time()>deadline:
+                    raise RuntimeError('Continuous bend path cancelled, stale or timed out')
+                if math.hypot(position.x-previous.x,position.y-previous.y)>.01:
+                    last_progress=self.budget_time();previous=position
+                if self.budget_time()-last_progress>5:raise RuntimeError('Continuous bend path made no measured progress')
+                if index<len(route)-1 and math.hypot(position.x-route[index][1],position.y-route[index][2])<.10:
+                    self.report('PASSED',route[index][0]);index+=1
+                    self.report('MOVING',route[index][0])
+                if math.hypot(position.x-x,position.y-y)<.023:break
+                angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
+                vx,omega,progress=path_command(path,progress,position.x,position.y,angle,
+                    tuning['max_speed'],tuning['acceleration'],tuning['max_yaw_rate'])
+                grid=self.fresh_costmap(deadline)
+                measured=self.odom.twist.twist
+                safe=braking_clear(lambda px,py,pa:footprint_clear(grid,px,py,pa,polygon,padding),
+                    position.x,position.y,angle,(measured.linear.x,measured.linear.y,measured.angular.z),
+                    (vx,0.,omega),tuning['output_acceleration'])
+                msg=Twist()
+                if safe:msg.linear.x=vx;msg.angular.z=omega
+                self.velocity.publish(msg);time.sleep(.02)
+            self.velocity.publish(Twist())
+            if index!=len(route)-1 or not self.stopped():
+                raise RuntimeError('Continuous bend path failed or missed a waypoint: '+route[index][0])
+            self.rotate_short(yaw,run_deadline,tuning['max_yaw_rate'])
+            if not self.stopped():raise RuntimeError('Bend exit rotation did not stop')
+            self.report('ARRIVED',route[-1][0])
+        finally:
+            self.velocity.publish(Twist())
+            costmap_client.update_configuration({'resolution':old_resolution})
+
+    def fresh_costmap(self,deadline):
+        started=time.monotonic();waiting=False
+        while not rospy.is_shutdown():
+            wall=time.monotonic();grid=self.costmap
+            if grid is not None and grid.header.frame_id.lstrip('/')!=self.navigation_frame:
+                raise RuntimeError('Costmap frame differs from the navigation frame')
+            if grid is not None and wall-self.map_received<=2:
+                if waiting:rospy.loginfo('Costmap recovered; resuming checked motion')
+                return grid
+            self.velocity.publish(Twist())
+            if self.navigation_frame!='map' or self.cancelled.is_set() or wall-self.received>2 or self.budget_time()>deadline or wall-started>=5:
+                raise RuntimeError('Fresh costmap unavailable; vehicle held stopped')
+            if not waiting:
+                rospy.logwarn('Costmap stale: holding zero velocity until fresh data')
+                waiting=True
+            time.sleep(.05)
+        raise RuntimeError('Shutdown while waiting for a fresh costmap')
+
     def move_entry(self,x,y,run_deadline):
         self.client.cancel_all_goals()
         if not self.stopped():raise RuntimeError('Entry translation requires a stopped vehicle')
@@ -277,11 +366,10 @@ class Control:
         deadline=min(run_deadline,self.budget_time()+10)
         try:
             while not rospy.is_shutdown():
-                wall=time.monotonic();grid=self.costmap
+                wall=time.monotonic()
                 if self.cancelled.is_set() or self.budget_time()>deadline or wall-self.received>2:
                     raise RuntimeError('Entry translation cancelled, stale odometry or timeout')
-                if grid is None or wall-self.map_received>2 or grid.header.frame_id.lstrip('/')!='odom':
-                    raise RuntimeError('Entry translation requires a fresh odom-frame costmap')
+                grid=self.fresh_costmap(deadline)
                 p=self.odom.pose.pose;q=p.orientation
                 angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
                 vx,vy,omega,distance=entry_velocity(p.position.x,p.position.y,angle,x,y,heading)
@@ -301,7 +389,7 @@ class Control:
         finally:
             self.velocity.publish(Twist())
 
-    def rotate_short(self,target,run_deadline):
+    def rotate_short(self,target,run_deadline,angular_limit=.5):
         self.client.cancel_all_goals()
         if not self.stopped():raise RuntimeError('Entry rotation requires a stopped vehicle')
         polygon=rospy.get_param('/move_base/local_costmap/footprint')
@@ -313,12 +401,10 @@ class Control:
                 wall=time.monotonic()
                 if self.cancelled.is_set() or self.budget_time()>deadline or wall-self.received>2:
                     raise RuntimeError('Entry rotation cancelled, stale odometry or timeout')
-                grid=self.costmap
-                if grid is None or wall-self.map_received>2 or grid.header.frame_id.lstrip('/')!='odom':
-                    raise RuntimeError('Entry rotation requires a fresh odom-frame costmap')
+                grid=self.fresh_costmap(deadline)
                 pose=self.odom.pose.pose;q=pose.orientation
                 angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
-                omega=short_turn_command(grid,pose.position.x,pose.position.y,angle,target,polygon,padding)
+                omega=short_turn_command(grid,pose.position.x,pose.position.y,angle,target,polygon,padding,angular_limit)
                 if omega is None:raise RuntimeError('Shortest entry rotation intersects occupied or unknown space')
                 if omega==0:return
                 msg=Twist();msg.angular.z=omega;self.velocity.publish(msg)
@@ -338,8 +424,7 @@ class Control:
                 now=self.budget_time();wall_now=time.monotonic()
                 if self.cancelled.is_set() or now>deadline or wall_now-self.received>2:
                     raise RuntimeError('Straight docking cancelled, stale odometry or timeout')
-                if self.costmap is None or wall_now-self.map_received>2 or self.costmap.header.frame_id.lstrip('/')!='odom':
-                    raise RuntimeError('Straight docking requires a fresh odom-frame costmap')
+                grid=self.fresh_costmap(deadline)
                 pose=self.odom.pose.pose;q=pose.orientation;p=pose.position
                 angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
                 dx,dy=x-p.x,y-p.y;distance=math.hypot(dx,dy)
@@ -357,12 +442,12 @@ class Control:
                 prediction_time=min(1.,max(0.,remaining-stop_along+.003)/max(abs(v),.001))
                 steps=max(10,math.ceil(abs(v)*prediction_time/.01)) if self.efficient else 10
                 for i in range(steps+1):
-                    safe &= footprint_clear(self.costmap,px,py,pa,polygon,padding)
+                    safe &= footprint_clear(grid,px,py,pa,polygon,padding)
                     dt=(prediction_time/steps if i<steps else 0.) if self.efficient else min(.1,max(0.,prediction_time-i*.1))
                     px+=v*math.cos(pa)*dt;py+=v*math.sin(pa)*dt;pa+=omega*dt
                 msg=Twist()
                 if safe:msg.linear.x=v;msg.angular.z=omega
-                elif all(footprint_clear(self.costmap,p.x,p.y,angle+omega*.1*i,polygon,padding) for i in range(11)):
+                elif all(footprint_clear(grid,p.x,p.y,angle+omega*.1*i,polygon,padding) for i in range(11)):
                     msg.angular.z=omega
                 self.velocity.publish(msg)
                 time.sleep(.05)
