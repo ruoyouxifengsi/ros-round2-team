@@ -25,10 +25,10 @@ for line in (args.trial/'control.log').read_text(errors='replace').splitlines():
 trace=[json.loads(line) for line in (args.trial/'snapshots/trace.jsonl').read_text().splitlines()]
 stages=[]
 for e in starts:
-    end=next((a for a in events if a['state']=='ARRIVED' and a['detail']==e['detail']),None)
+    end=next((a for a in events if a['state'] in ('ARRIVED','PASSED') and a['detail']==e['detail']),None)
     stamps=[w['stamp'] for w in warnings if w['stage']==e['detail']]
     nearby=[min(trace,key=lambda t:abs(t['t']-stamp))['position'] for stamp in stamps] if trace else []
-    stages.append(dict(stage=e['detail'],wall=end['wall']-e['wall'] if end else None,
+    stages.append(dict(stage=e['detail'],wall=end['wall']-e['wall'] if end else None,sim=end['stamp']-e['stamp'] if end else None,
         retries=counts[e['detail']],retry_positions=nearby))
 out=dict(total_retries=len(warnings),stages=stages,final_status=r.get('final_status'),
          guard_trips=max((t.get('guard',{}).get('trips',0) for t in trace),default=None))

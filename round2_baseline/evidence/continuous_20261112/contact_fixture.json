@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "negative": {
+    "type": "summary",
+    "messages": 469,
+    "all_contacts": 3490,
+    "cone_contact_events": 0,
+    "sim": 497.946
+  },
+  "positive": {
+    "type": "summary",
+    "messages": 2744,
+    "all_contacts": 16387,
+    "cone_contact_events": 472,
+    "sim": 500.221
+  },
+  "scope": "DEVELOPMENT FIXTURE ONLY: deliberately placed cone into stationary vehicle; no navigation"
+}

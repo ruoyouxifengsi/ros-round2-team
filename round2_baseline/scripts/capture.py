@@ -26,10 +26,11 @@ def save(key, msg):
 for key, topic, typ in [('odom','/odom',Odometry),('scan','/scan',LaserScan),('local','/move_base/local_costmap/costmap',OccupancyGrid),('global','/move_base/global_costmap/costmap',OccupancyGrid),('plan','/move_base/NavfnROS/plan',RosPath),('status','/baseline/status',String),('guard','/attitude_guard/status',String),('nav_cmd','/nav_cmd_vel',Twist),('cmd','/cmd_vel',Twist)]:
     rospy.Subscriber(topic,typ,lambda msg,k=key:save(k,msg),queue_size=1)
 out = Path(sys.argv[1]); out.mkdir(parents=True,exist_ok=True)
-end = time.monotonic()+float(sys.argv[2] if len(sys.argv)>2 else 100)
+clock = rospy.get_time if '--clock' in sys.argv and sys.argv[sys.argv.index('--clock')+1]=='sim' else time.monotonic
+end = clock()+float(sys.argv[2] if len(sys.argv)>2 else 100)
 i=0
 with (out/'trace.jsonl').open('w') as f:
-    while time.monotonic()<end and not rospy.is_shutdown():
+    while clock()<end and not rospy.is_shutdown():
         time.sleep(1)
         if 'odom' not in latest: continue
         o=latest['odom']; p=o.pose.pose; q=p.orientation

@@ -1,0 +1,18 @@
+{
+  "passed": false,
+  "trigger": "development service",
+  "events": [],
+  "seed": 42,
+  "development_audit": true,
+  "speed_profile": "sprint",
+  "timeout_clock": "sim",
+  "simulation_engine": "official ode",
+  "continuous_bends": true,
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "startup_seconds": 7.341505276999669,
+  "error": "FileNotFoundError(2, 'No such file or directory')",
+  "cleanup": {
+    "owned_processes": 17,
+    "remaining": []
+  }
+}

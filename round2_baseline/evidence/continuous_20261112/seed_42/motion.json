@@ -1,0 +1,12 @@
+{
+  "seed": 42,
+  "scope": "FULL CONTROL ROUTE",
+  "passed": true,
+  "moving_sim_seconds": 82.13500000000005,
+  "moving_wall_seconds": 544.4652747720011,
+  "stopped_sim_seconds": 2.515999999999906,
+  "peak_planar_speed_mps": 0.5400231559700212,
+  "max_tilt_deg": 0.3628366438300959,
+  "guard_max_trips": 0,
+  "retries": 8
+}

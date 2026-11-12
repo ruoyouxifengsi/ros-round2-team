@@ -1,0 +1,169 @@
+{
+  "total_retries": 7,
+  "stages": [
+    {
+      "stage": "bend1",
+      "wall": 17.670426887998474,
+      "sim": 5.458000000000027,
+      "retries": 1,
+      "retry_positions": [
+        [
+          -0.7280105948663687,
+          1.9457575390991724
+        ]
+      ]
+    },
+    {
+      "stage": "bend2",
+      "wall": 18.136384266001187,
+      "sim": 5.212999999999965,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend3",
+      "wall": 17.33350775100007,
+      "sim": 4.956000000000017,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend4",
+      "wall": 22.625086484998974,
+      "sim": 5.453999999999951,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5_approach",
+      "wall": 16.352815079999345,
+      "sim": 4.558999999999969,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5",
+      "wall": 92.23423080499924,
+      "sim": 19.43999999999994,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend6",
+      "wall": 15.713426820999302,
+      "sim": 3.5499999999999545,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend7",
+      "wall": 21.020455014000618,
+      "sim": 4.023000000000025,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend8",
+      "wall": 67.396085639999,
+      "sim": 12.41199999999992,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr_approach",
+      "wall": 35.666939549000745,
+      "sim": 6.625999999999976,
+      "retries": 4,
+      "retry_positions": [
+        [
+          -0.5897252327448694,
+          0.9607902296285354
+        ],
+        [
+          -0.6413691206609737,
+          0.8662154417140874
+        ],
+        [
+          -0.5936155829811038,
+          0.6578170367093039
+        ],
+        [
+          -0.555741340283106,
+          0.5844564161414094
+        ]
+      ]
+    },
+    {
+      "stage": "qr",
+      "wall": 28.623309335000158,
+      "sim": 5.152000000000044,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr_exit",
+      "wall": 20.33615458500026,
+      "sim": 3.5730000000000928,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "cone_entry",
+      "wall": 69.44002319300125,
+      "sim": 12.286000000000058,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "cone_exit",
+      "wall": 50.175476225998864,
+      "sim": 8.528999999999996,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "blocks",
+      "wall": 1.1971350650001114,
+      "sim": 0.35000000000002274,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "return",
+      "wall": 64.88156345700008,
+      "sim": 10.756999999999948,
+      "retries": 2,
+      "retry_positions": [
+        [
+          0.1769092810323321,
+          0.24164736139072224
+        ],
+        [
+          0.1769092810323321,
+          0.24164736139072224
+        ]
+      ]
+    },
+    {
+      "stage": "finish_approach",
+      "wall": 22.717976848000035,
+      "sim": 3.7509999999999764,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "finish",
+      "wall": 38.01420502499968,
+      "sim": 6.833000000000084,
+      "retries": 0,
+      "retry_positions": []
+    }
+  ],
+  "final_status": {
+    "state": "CONTROL_ROUTE_DONE",
+    "detail": "Not a complete competition finish; wheel placement requires verification",
+    "stamp": 627.272,
+    "control_only": true
+  },
+  "guard_trips": 0
+}

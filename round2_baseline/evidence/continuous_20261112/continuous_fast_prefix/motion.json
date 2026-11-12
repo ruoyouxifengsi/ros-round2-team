@@ -1,0 +1,12 @@
+{
+  "seed": 42,
+  "scope": "DEBUG ROUTE PREFIX, NOT A COMPETITION RUN",
+  "passed": true,
+  "moving_sim_seconds": 36.82600000000002,
+  "moving_wall_seconds": 240.79341433199988,
+  "stopped_sim_seconds": 0.5790000000001214,
+  "peak_planar_speed_mps": 0.4283176110092238,
+  "max_tilt_deg": 0.09707120800589165,
+  "guard_max_trips": 0,
+  "retries": 10
+}

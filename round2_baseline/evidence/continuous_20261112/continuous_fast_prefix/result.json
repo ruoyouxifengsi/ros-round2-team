@@ -1,0 +1,169 @@
+{
+  "passed": true,
+  "trigger": "development service",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 500.149,
+      "control_only": true,
+      "wall": 14064.000431951
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend1",
+      "stamp": 502.832,
+      "control_only": true,
+      "wall": 14064.045461986
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend1",
+      "stamp": 505.739,
+      "control_only": true,
+      "wall": 14081.907169234
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend2",
+      "stamp": 505.747,
+      "control_only": true,
+      "wall": 14081.946677091
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend2",
+      "stamp": 509.303,
+      "control_only": true,
+      "wall": 14106.793359624
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend3",
+      "stamp": 509.309,
+      "control_only": true,
+      "wall": 14106.822369344
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend3",
+      "stamp": 513.016,
+      "control_only": true,
+      "wall": 14129.887304965
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend4",
+      "stamp": 513.023,
+      "control_only": true,
+      "wall": 14129.919380226
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend4",
+      "stamp": 516.283,
+      "control_only": true,
+      "wall": 14151.891931627
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5_approach",
+      "stamp": 516.289,
+      "control_only": true,
+      "wall": 14151.917211257
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5_approach",
+      "stamp": 519.046,
+      "control_only": true,
+      "wall": 14170.862850919
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5",
+      "stamp": 519.052,
+      "control_only": true,
+      "wall": 14170.889536542
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5",
+      "stamp": 520.659,
+      "control_only": true,
+      "wall": 14181.790209031
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend6",
+      "stamp": 520.666,
+      "control_only": true,
+      "wall": 14181.814652266
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend6",
+      "stamp": 522.772,
+      "control_only": true,
+      "wall": 14194.653793119
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend7",
+      "stamp": 522.778,
+      "control_only": true,
+      "wall": 14194.681790673
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend7",
+      "stamp": 527.085,
+      "control_only": true,
+      "wall": 14222.511433361
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend8",
+      "stamp": 527.092,
+      "control_only": true,
+      "wall": 14222.539213544
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend8",
+      "stamp": 539.658,
+      "control_only": true,
+      "wall": 14304.8374636
+    },
+    {
+      "state": "CONTROL_ROUTE_DONE",
+      "detail": "Not a complete competition finish; wheel placement requires verification",
+      "stamp": 539.658,
+      "control_only": true,
+      "wall": 14304.838876318
+    }
+  ],
+  "seed": 42,
+  "development_audit": true,
+  "speed_profile": "fast",
+  "timeout_clock": "sim",
+  "simulation_engine": "official ode",
+  "continuous_bends": true,
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "startup_seconds": 7.3607073910006875,
+  "guard_max_trips": 0,
+  "guard_last_mode": "RUN",
+  "scope": "DEBUG ROUTE PREFIX, NOT A COMPETITION RUN",
+  "elapsed_wall": 241.27089317900027,
+  "elapsed_sim": 36.948999999999955,
+  "final_status": {
+    "state": "CONTROL_ROUTE_DONE",
+    "detail": "Not a complete competition finish; wheel placement requires verification",
+    "stamp": 539.658,
+    "control_only": true
+  },
+  "cleanup": {
+    "owned_processes": 18,
+    "remaining": []
+  }
+}

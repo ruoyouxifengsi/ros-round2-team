@@ -64,7 +64,8 @@ class Control:
         self.client = actionlib.SimpleActionClient('/move_base', MoveBaseAction)
         self.lock = threading.Lock()
         self.running = False
-        self.fast = rospy.get_param('~speed_profile','stable')=='fast'
+        self.fast = rospy.get_param('~speed_profile','stable') in ('fast','sprint')
+        self.continuous = rospy.get_param('~continuous_bends',False)
         self.sim_timeouts = rospy.get_param('~timeout_clock','wall')=='sim'
         self.cancelled = threading.Event()
         self.odom = None
@@ -152,7 +153,8 @@ class Control:
             docking = rospy.get_param('~docking_settings', {})
             travel = {k:rospy.get_param('/move_base/TebLocalPlannerROS/'+k) for k in docking}
             run_deadline = self.budget_time()+rospy.get_param('~run_timeout', 540.0)
-            for name,x,y,yaw in rospy.get_param('~route'):
+            route=rospy.get_param('~route')
+            for index,(name,x,y,yaw) in enumerate(route):
                 if self.cancelled.is_set():
                     raise RuntimeError('Cancelled')
                 distance = 0.08 if name in ('cone_exit','blocks','return') else rospy.get_param('~travel_clearance',0.06)
@@ -160,6 +162,9 @@ class Control:
                 # The 2cm objective repeatedly proposes colliding corner trajectories.
                 if name=='bend1':distance=0.06
                 settings = dict(docking if name in ('qr','qr_exit','finish') else travel)
+                passing = self.continuous and name.startswith('bend') and index<len(route)-1
+                settings['free_goal_vel'] = passing
+                if passing:settings['yaw_goal_tolerance']=math.pi
                 settings['min_obstacle_dist'] = distance
                 if name in ('cone_exit','blocks'):settings['xy_goal_tolerance']=.05
                 planner.update_configuration(settings)
@@ -181,9 +186,13 @@ class Control:
                 progress_at=self.budget_time()
                 previous=self.odom.pose.pose
                 approach_released=distance<=0.02 or name in ('cone_exit','blocks','return')
-                while not self.client.wait_for_result(rospy.Duration(0.2)):
+                passed=False
+                while not self.client.wait_for_result(rospy.Duration(0.05 if passing else 0.2)):
                     now=self.budget_time();wall_now=time.monotonic()
                     current=self.odom.pose.pose
+                    if passing and not self.cancelled.is_set() and wall_now-self.received<1 and math.hypot(current.position.x-x,current.position.y-y)<.10:
+                        passed=True
+                        break
                     # Keep the original final-approach objective so a larger travel
                     # clearance cannot prevent convergence to an existing waypoint.
                     if not approach_released and math.hypot(current.position.x-x,current.position.y-y)<.15:
@@ -199,6 +208,9 @@ class Control:
                         raise RuntimeError('No measured movement for 28 budget seconds: '+name)
                     if self.cancelled.is_set() or now>deadline or now>run_deadline or wall_now-self.received>2:
                         raise RuntimeError('Cancelled, stale odometry or stage timeout: '+name)
+                if passed:
+                    self.report('PASSED',name)
+                    continue
                 if self.client.get_state()!=3 or not self.stopped():
                     raise RuntimeError('Navigation or stop failed: '+name)
                 self.report('ARRIVED', name)

@@ -1,0 +1,192 @@
+{
+  "trial": "seed_1",
+  "accepted": true,
+  "seed": 1,
+  "speed_profile": "sprint",
+  "continuous": true,
+  "moving_sim_seconds": 81.14099999999996,
+  "stopped_sim_seconds": 2.5440000000000964,
+  "max_tilt_deg": 0.42476975039886183,
+  "guard_trips": 0,
+  "retries": 7,
+  "contact_coverage": true,
+  "contact_summary": {
+    "type": "summary",
+    "messages": 81720,
+    "all_contacts": 977869,
+    "cone_contact_events": 0,
+    "sim": 584.431
+  },
+  "moved_cones": [],
+  "mandatory_stops": true,
+  "stages": [
+    {
+      "stage": "bend1",
+      "wall": 16.81193935600095,
+      "sim": 2.4569999999999936,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend2",
+      "wall": 21.54070214800049,
+      "sim": 3.008000000000038,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend3",
+      "wall": 30.996525664999353,
+      "sim": 4.557000000000016,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend4",
+      "wall": 19.521258906001094,
+      "sim": 2.9560000000000173,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5_approach",
+      "wall": 16.413567966999835,
+      "sim": 2.4060000000000628,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5",
+      "wall": 13.343137567999293,
+      "sim": 2.05600000000004,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend6",
+      "wall": 8.83789296300165,
+      "sim": 1.356999999999971,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend7",
+      "wall": 26.95656498900098,
+      "sim": 3.9569999999999936,
+      "retries": 4,
+      "retry_positions": [
+        [
+          0.7581641102853303,
+          0.7477743579522764
+        ],
+        [
+          0.7452976545714056,
+          0.7535861569433847
+        ],
+        [
+          0.7636378812057619,
+          0.7666170005568937
+        ],
+        [
+          0.8005482361641355,
+          0.9171258095186411
+        ]
+      ]
+    },
+    {
+      "stage": "bend8",
+      "wall": 20.860777808999046,
+      "sim": 3.255999999999972,
+      "retries": 2,
+      "retry_positions": [
+        [
+          0.4872532465801484,
+          1.1940471663817807
+        ],
+        [
+          0.06295944763114365,
+          1.228148592214905
+        ]
+      ]
+    },
+    {
+      "stage": "qr_approach",
+      "wall": 53.314432852999744,
+      "sim": 7.959999999999923,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr",
+      "wall": 34.57752530200014,
+      "sim": 5.240000000000009,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr_exit",
+      "wall": 23.647903937000592,
+      "sim": 3.5819999999999936,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "cone_entry",
+      "wall": 28.798123090000445,
+      "sim": 4.4389999999999645,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "cone_exit",
+      "wall": 59.17954169499899,
+      "sim": 9.182999999999993,
+      "retries": 1,
+      "retry_positions": [
+        [
+          -0.8023299972110497,
+          0.39799411810401464
+        ]
+      ]
+    },
+    {
+      "stage": "blocks",
+      "wall": 1.843785687999116,
+      "sim": 0.3330000000000837,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "return",
+      "wall": 93.95556700900124,
+      "sim": 14.313999999999965,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "finish_approach",
+      "wall": 20.704313636000734,
+      "sim": 3.1920000000000073,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "finish",
+      "wall": 44.228689475001374,
+      "sim": 6.770999999999958,
+      "retries": 0,
+      "retry_positions": []
+    }
+  ],
+  "final_status": {
+    "state": "CONTROL_ROUTE_DONE",
+    "detail": "Not a complete competition finish; wheel placement requires verification",
+    "stamp": 584.116,
+    "control_only": true
+  },
+  "cleanup": {
+    "owned_processes": 19,
+    "remaining": []
+  },
+  "scope": "UNTIMED CONTROL ONLY; images omitted; not official race acceptance"
+}

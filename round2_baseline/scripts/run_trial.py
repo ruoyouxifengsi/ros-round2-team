@@ -15,8 +15,6 @@ import xml.etree.ElementTree as ET
 import re
 from trial_processes import stop_processes, wait_for_ports
 
-lock_file=open('/tmp/round2_baseline_trial.lock','w')
-fcntl.flock(lock_file,fcntl.LOCK_EX)
 os.environ['ROS_MASTER_URI']='http://localhost:11321'
 os.environ['GAZEBO_MASTER_URI']='http://localhost:11355'
 
@@ -33,7 +31,9 @@ p.add_argument('--seed',type=int)
 p.add_argument('--timer',action='store_true')
 p.add_argument('--low-com',action='store_true',help='Experimental base_link COM z=0.02; official assets remain unchanged')
 p.add_argument('--audit-cones',action='store_true',help='Development-only displacement observer; forbidden in competition')
-p.add_argument('--speed-profile',choices=['stable','fast'],default='stable')
+p.add_argument('--speed-profile',choices=['stable','fast','sprint'],default='stable')
+p.add_argument('--continuous-bends',action='store_true')
+p.add_argument('--contact-observer',type=Path,help='Development-only native transport observer executable; no engine plugin')
 p.add_argument('--debug-pose',nargs=3,type=float)
 p.add_argument('--debug-goal',nargs=3,type=float)
 p.add_argument('--debug-distance',type=float)
@@ -42,18 +42,24 @@ p.add_argument('--debug-config')
 p.add_argument('--debug-control',action='store_true')
 p.add_argument('--debug-tail',action='store_true')
 p.add_argument('--debug-stage',default='qr_exit')
+p.add_argument('--debug-prefix-until',help='Development-only route prefix; never a full-round result')
 args=p.parse_args()
+if args.contact_observer and (not args.contact_observer.is_file() or not os.access(args.contact_observer,os.X_OK)):
+    p.error('Contact observer executable is missing; build it in a persistent WSL directory before starting')
 if args.timer and args.timeout_clock!='wall':p.error('Official timer runs require wall-clock timeouts')
 if bool(args.debug_pose)!=bool(args.debug_goal):p.error('Both debug pose and goal are required')
+lock_file=open('/tmp/round2_baseline_trial.lock','w')
+fcntl.flock(lock_file,fcntl.LOCK_EX)
 out=Path(args.output).resolve();out.mkdir(parents=True,exist_ok=False)
 package=Path(__file__).resolve().parents[1]
 for directory in ('config','launch'):
     shutil.copytree(package/directory,out/directory)
     for copied in (out/directory).glob('*.launch'):
         copied.rename(copied.with_suffix('.launch.txt'))
-(out/'source_hashes.json').write_text(json.dumps({str(p.relative_to(package)):hashlib.sha256(p.read_bytes()).hexdigest() for p in package.joinpath('scripts').glob('*.py')},indent=2))
+sources=sorted(package.joinpath('scripts').glob('*.py'))+sorted(package.joinpath('scripts').glob('*.cpp'))
+(out/'source_hashes.json').write_text(json.dumps({str(p.relative_to(package)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources},indent=2))
 (out/'source').mkdir()
-for source in package.joinpath('scripts').glob('*.py'):
+for source in sources:
     shutil.copyfile(source,out/'source'/(source.name+'.txt'))
 processes=[];files=[]
 def launch(command,name,env=None):
@@ -61,6 +67,7 @@ def launch(command,name,env=None):
     proc=subprocess.Popen(command,stdout=f,stderr=subprocess.STDOUT,start_new_session=True,env=env)
     processes.append(proc);return proc
 result={'passed':False,'trigger':'development service','events':[], 'seed':args.seed, 'development_audit':args.audit_cones, 'speed_profile':args.speed_profile,'timeout_clock':args.timeout_clock,'simulation_engine':'official ode'}
+result['continuous_bends']=args.continuous_bends
 class StartupComplete(Exception):pass
 startup_started=time.monotonic()
 try:
@@ -124,7 +131,7 @@ try:
     if args.startup_only:
         result.update(passed=True,scope='STARTUP ONLY; no route test')
         raise StartupComplete()
-    control_args=['roslaunch',str(package/'launch/control.launch'),'speed_profile:='+args.speed_profile,'timeout_clock:='+args.timeout_clock]
+    control_args=['roslaunch',str(package/'launch/control.launch'),'speed_profile:='+args.speed_profile,'timeout_clock:='+args.timeout_clock,'continuous_bends:='+str(args.continuous_bends).lower()]
     if args.travel_clearance is not None:
         control_args.append('travel_clearance:='+str(args.travel_clearance))
         result['travel_clearance']=args.travel_clearance
@@ -148,7 +155,16 @@ try:
     if args.audit_cones:
         launch(['python3',str(package/'scripts/audit_cones.py'),str(out/'cone_audit.json')],'cone_audit')
         time.sleep(2)
+    if args.contact_observer:
+        result['contact_observer_sha256']=hashlib.sha256(args.contact_observer.read_bytes()).hexdigest()
+        launch([str(args.contact_observer.resolve()),str(out/'contacts.jsonl')],'contacts')
+        time.sleep(2)
     status={};poses=[]
+    def guard_status(msg):
+        value=json.loads(msg.data)
+        result['guard_max_trips']=max(result.get('guard_max_trips',0),value.get('trips',0))
+        result['guard_last_mode']=value.get('mode')
+    rospy.Subscriber('/attitude_guard/status',String,guard_status,queue_size=10)
     def state(msg):
         value=json.loads(msg.data)
         if value!=status:
@@ -161,10 +177,15 @@ try:
         poses.append(dict(t=msg.header.stamp.to_sec(),wall=time.monotonic(),x=msg.pose.pose.position.x,y=msg.pose.pose.position.y,rpy=tf.transformations.euler_from_quaternion([q.x,q.y,q.z,q.w]),v=[msg.twist.twist.linear.x,msg.twist.twist.linear.y,msg.twist.twist.angular.z]))
     rospy.Subscriber('/baseline/status',String,state)
     rospy.Subscriber('/odom',Odometry,odom,queue_size=10)
-    launch(['python3',str(Path(__file__).with_name('capture.py')),str(out/'snapshots'),str(args.seconds)],'capture')
+    launch(['python3',str(Path(__file__).with_name('capture.py')),str(out/'snapshots'),str(args.seconds),'--clock',args.timeout_clock],'capture')
     start=time.monotonic()
     sim_start=rospy.get_time();last_clock=sim_start;clock_progress=time.monotonic()
     debug_client=None
+    if args.debug_prefix_until:
+        route=rospy.get_param('/round2_control/route')
+        route=route[:next(i+1 for i,row in enumerate(route) if row[0]==args.debug_prefix_until)]
+        rospy.set_param('/round2_control/route',route)
+        result['scope']='DEBUG ROUTE PREFIX, NOT A COMPETITION RUN'
     if args.debug_control:
         if not args.debug_pose:raise RuntimeError('Debug control requires a debug spawn')
         rospy.set_param('/round2_control/start_position',args.debug_pose[:2])
@@ -229,6 +250,8 @@ try:
 except StartupComplete:
     pass
 except Exception as exc:
+    import traceback
+    traceback.print_exc()
     result['error']=repr(exc)
 finally:
     (out/'result.json').write_text(json.dumps(result,indent=2))
