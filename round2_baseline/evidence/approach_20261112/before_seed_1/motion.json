@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "scope": "FULL CONTROL ROUTE",
+  "moving_sim_seconds": 81.14099999999996,
+  "guard_trips": 0,
+  "entry_turn": {
+    "seconds": 4.4389999999999645,
+    "rotation_deg": 91.38588400489944
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "first": {
+    "type": "summary",
+    "messages": 129,
+    "all_contacts": 1228,
+    "cone_contact_events": 0,
+    "sim": 502.944
+  },
+  "last": {
+    "type": "summary",
+    "messages": 10541,
+    "all_contacts": 124789,
+    "cone_contact_events": 0,
+    "sim": 513.356
+  },
+  "events": []
+}

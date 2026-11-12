@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "trigger": "debug action goal",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 500.533,
+      "control_only": true,
+      "wall": 21108.368267845
+    }
+  ],
+  "seed": 42,
+  "development_audit": true,
+  "speed_profile": "sprint",
+  "timeout_clock": "sim",
+  "simulation_engine": "official ode",
+  "continuous_bends": true,
+  "efficient_approach": true,
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+  "startup_seconds": 6.610096537999198,
+  "contact_observer_sha256": "1d4e8aa9cdcb7978626b8b3e2177c529783b16267788c83e512a70883ac0b19b",
+  "guard_max_trips": 0,
+  "guard_last_mode": "RUN",
+  "debug_goals": [
+    [
+      -0.25,
+      0.35,
+      1.57
+    ]
+  ],
+  "debug_arrivals": [
+    {
+      "t": 507.343,
+      "wall": 21133.620063921
+    }
+  ],
+  "action_state": 3,
+  "elapsed_wall": 25.248903722997056,
+  "elapsed_sim": 4.451999999999998,
+  "final_status": {
+    "state": "IDLE",
+    "detail": "CONTROL_ONLY: image tasks omitted",
+    "stamp": 500.533,
+    "control_only": true
+  },
+  "cleanup": {
+    "owned_processes": 19,
+    "remaining": []
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+  "moving_sim_seconds": 6.175000000000011,
+  "guard_trips": 0,
+  "entry_turn": {
+    "seconds": 6.175000000000011,
+    "rotation_deg": 83.19851591533714
+  }
+}

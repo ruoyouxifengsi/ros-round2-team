@@ -1,0 +1,226 @@
+{
+  "passed": false,
+  "trigger": "development service",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 500.858,
+      "control_only": true,
+      "wall": 20241.606964807
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend1",
+      "stamp": 504.703,
+      "control_only": true,
+      "wall": 20241.651235831
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend1",
+      "stamp": 507.16,
+      "control_only": true,
+      "wall": 20251.753461654
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend2",
+      "stamp": 507.166,
+      "control_only": true,
+      "wall": 20251.779995406
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend2",
+      "stamp": 509.923,
+      "control_only": true,
+      "wall": 20263.268742154
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend3",
+      "stamp": 509.929,
+      "control_only": true,
+      "wall": 20263.294321235
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend3",
+      "stamp": 513.636,
+      "control_only": true,
+      "wall": 20282.412036199
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend4",
+      "stamp": 513.642,
+      "control_only": true,
+      "wall": 20282.44076064
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend4",
+      "stamp": 516.399,
+      "control_only": true,
+      "wall": 20295.620787335
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5_approach",
+      "stamp": 516.405,
+      "control_only": true,
+      "wall": 20295.645993456
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5_approach",
+      "stamp": 518.812,
+      "control_only": true,
+      "wall": 20308.68477572
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5",
+      "stamp": 518.818,
+      "control_only": true,
+      "wall": 20308.711245848
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5",
+      "stamp": 520.625,
+      "control_only": true,
+      "wall": 20317.580965259
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend6",
+      "stamp": 520.632,
+      "control_only": true,
+      "wall": 20317.607055833
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend6",
+      "stamp": 522.238,
+      "control_only": true,
+      "wall": 20327.596317448
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend7",
+      "stamp": 522.244,
+      "control_only": true,
+      "wall": 20327.621390334
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend7",
+      "stamp": 525.4,
+      "control_only": true,
+      "wall": 20345.38659956
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend8",
+      "stamp": 525.406,
+      "control_only": true,
+      "wall": 20345.412424665
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend8",
+      "stamp": 529.012,
+      "control_only": true,
+      "wall": 20365.411029968
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_approach",
+      "stamp": 529.018,
+      "control_only": true,
+      "wall": 20365.439037252
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr_approach",
+      "stamp": 538.47,
+      "control_only": true,
+      "wall": 20418.947077814
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr",
+      "stamp": 538.476,
+      "control_only": true,
+      "wall": 20418.972993647
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr",
+      "stamp": 541.802,
+      "control_only": true,
+      "wall": 20440.461679828
+    },
+    {
+      "state": "IMAGE_SKIPPED",
+      "detail": "qr",
+      "stamp": 541.802,
+      "control_only": true,
+      "wall": 20440.462975492
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_exit",
+      "stamp": 541.809,
+      "control_only": true,
+      "wall": 20440.490285497
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr_exit",
+      "stamp": 544.806,
+      "control_only": true,
+      "wall": 20459.550465369
+    },
+    {
+      "state": "MOVING",
+      "detail": "cone_entry",
+      "stamp": 544.814,
+      "control_only": true,
+      "wall": 20459.978658268
+    },
+    {
+      "state": "FAILED",
+      "detail": "Shortest entry rotation intersects occupied or unknown space",
+      "stamp": 545.095,
+      "control_only": true,
+      "wall": 20461.503307102
+    }
+  ],
+  "seed": 42,
+  "development_audit": true,
+  "speed_profile": "sprint",
+  "timeout_clock": "sim",
+  "simulation_engine": "official ode",
+  "continuous_bends": true,
+  "efficient_approach": true,
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "startup_seconds": 6.3134808569993766,
+  "contact_observer_sha256": "1d4e8aa9cdcb7978626b8b3e2177c529783b16267788c83e512a70883ac0b19b",
+  "guard_max_trips": 0,
+  "guard_last_mode": "RUN",
+  "elapsed_wall": 220.23427307500242,
+  "elapsed_sim": 40.49000000000001,
+  "final_status": {
+    "state": "FAILED",
+    "detail": "Shortest entry rotation intersects occupied or unknown space",
+    "stamp": 545.095,
+    "control_only": true
+  },
+  "cleanup": {
+    "owned_processes": 19,
+    "remaining": []
+  }
+}

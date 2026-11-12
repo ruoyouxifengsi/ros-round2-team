@@ -48,15 +48,36 @@ def footprint_clear(grid, x, y, yaw, polygon, padding):
     return True
 
 
-def straight_velocity(px,py,angle,x,y,yaw,direction,fast=False):
+def short_turn_command(grid,x,y,angle,target,polygon,padding):
+    error=math.atan2(math.sin(target-angle),math.cos(target-angle))
+    if abs(error)<.12:return 0.
+    steps=max(1,math.ceil(abs(error)/.04))
+    if not all(footprint_clear(grid,x,y,angle+error*i/steps,polygon,padding) for i in range(steps+1)):
+        return None
+    return max(-.5,min(.5,1.6*error))
+
+
+def entry_velocity(px,py,angle,x,y,heading):
+    dx,dy=x-px,y-py;distance=math.hypot(dx,dy)
+    gain=min(1.6,.12/max(distance,1e-9))
+    error=math.atan2(math.sin(heading-angle),math.cos(heading-angle))
+    vx=gain*(dx*math.cos(angle)+dy*math.sin(angle))
+    vy=gain*(-dx*math.sin(angle)+dy*math.cos(angle))
+    return vx,vy,max(-.3,min(.3,1.6*error)),distance
+
+
+def straight_velocity(px,py,angle,x,y,yaw,direction,fast=False,efficient=False):
     dx,dy=x-px,y-py
     cross=(py-y)*math.cos(yaw)-(px-x)*math.sin(yaw)
-    target=yaw-direction*max(-.12,min(.12,2.*cross))
+    target=yaw-direction*max(-.12,min(.12,(4. if efficient and fast else 2.)*cross))
     error=math.atan2(math.sin(target-angle),math.cos(target-angle))
     remaining=direction*(dx*math.cos(yaw)+dy*math.sin(yaw))
     speed=min(.18,1.2*max(0.,remaining),math.sqrt(.5*max(0.,remaining))) if fast else min(.08,.8*max(0.,remaining))
-    v=direction*speed if abs(error)<.25 else 0.
-    return v,max(-.15,min(.15,1.5*error)),remaining
+    if efficient and fast:
+        speed=min(.28 if direction>0 else .22,1.5*max(0.,remaining),math.sqrt(.5*max(0.,remaining)))
+    v=direction*speed if abs(error)<(.15 if efficient and fast else .25) else 0.
+    angular_limit=.4 if efficient and fast else .15
+    return v,max(-angular_limit,min(angular_limit,(3. if efficient and fast else 1.5)*error)),remaining
 
 
 class Control:
@@ -66,6 +87,7 @@ class Control:
         self.running = False
         self.fast = rospy.get_param('~speed_profile','stable') in ('fast','sprint')
         self.continuous = rospy.get_param('~continuous_bends',False)
+        self.efficient = rospy.get_param('~efficient_approach',False)
         self.sim_timeouts = rospy.get_param('~timeout_clock','wall')=='sim'
         self.cancelled = threading.Event()
         self.odom = None
@@ -166,9 +188,22 @@ class Control:
                 settings['free_goal_vel'] = passing
                 if passing:settings['yaw_goal_tolerance']=math.pi
                 settings['min_obstacle_dist'] = distance
+                docking_cruise=self.efficient and self.fast and name=='qr'
+                if docking_cruise:settings['max_vel_x']=.20
                 if name in ('cone_exit','blocks'):settings['xy_goal_tolerance']=.05
                 planner.update_configuration(settings)
                 self.report('MOVING',name)
+                entry_turn=self.efficient and name=='cone_entry'
+                if entry_turn:
+                    self.move_entry(x,y,run_deadline)
+                    if not self.stopped():raise RuntimeError('Entry translation did not stop')
+                    self.rotate_short(yaw,run_deadline)
+                    if not self.stopped():raise RuntimeError('Entry rotation did not stop')
+                    p=self.odom.pose.pose.position
+                    if math.hypot(p.x-x,p.y-y)>settings.get('xy_goal_tolerance',.03):
+                        raise RuntimeError('Entry rotation left the position tolerance')
+                    self.report('ARRIVED',name)
+                    continue
                 if name in ('qr_exit','finish'):
                     self.straight_move(x,y,yaw,run_deadline,-1 if name=='qr_exit' else 1,.03 if name=='qr_exit' else .025)
                     if not self.stopped():raise RuntimeError('Straight docking did not stop')
@@ -190,6 +225,9 @@ class Control:
                 while not self.client.wait_for_result(rospy.Duration(0.05 if passing else 0.2)):
                     now=self.budget_time();wall_now=time.monotonic()
                     current=self.odom.pose.pose
+                    if docking_cruise and math.hypot(current.position.x-x,current.position.y-y)<.12:
+                        planner.update_configuration({'max_vel_x':docking['max_vel_x']})
+                        docking_cruise=False
                     if passing and not self.cancelled.is_set() and wall_now-self.received<1 and math.hypot(current.position.x-x,current.position.y-y)<.10:
                         passed=True
                         break
@@ -226,6 +264,68 @@ class Control:
             with self.lock:
                 self.running = False
 
+    def move_entry(self,x,y,run_deadline):
+        self.client.cancel_all_goals()
+        if not self.stopped():raise RuntimeError('Entry translation requires a stopped vehicle')
+        polygon=rospy.get_param('/move_base/local_costmap/footprint')
+        if isinstance(polygon,str):polygon=ast.literal_eval(polygon)
+        padding=rospy.get_param('/move_base/local_costmap/footprint_padding')
+        p=self.odom.pose.pose
+        if math.hypot(p.position.x-x,p.position.y-y)>.25:
+            raise RuntimeError('Entry translation is only permitted near its waypoint')
+        q=p.orientation;heading=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
+        deadline=min(run_deadline,self.budget_time()+10)
+        try:
+            while not rospy.is_shutdown():
+                wall=time.monotonic();grid=self.costmap
+                if self.cancelled.is_set() or self.budget_time()>deadline or wall-self.received>2:
+                    raise RuntimeError('Entry translation cancelled, stale odometry or timeout')
+                if grid is None or wall-self.map_received>2 or grid.header.frame_id.lstrip('/')!='odom':
+                    raise RuntimeError('Entry translation requires a fresh odom-frame costmap')
+                p=self.odom.pose.pose;q=p.orientation
+                angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
+                vx,vy,omega,distance=entry_velocity(p.position.x,p.position.y,angle,x,y,heading)
+                if distance<.015:return
+                if abs(math.atan2(math.sin(angle-heading),math.cos(angle-heading)))>.2:
+                    raise RuntimeError('Entry translation lost its heading')
+                dt=min(1.,distance/max(math.hypot(vx,vy),.001))/20
+                px,py,pa=p.position.x,p.position.y,angle
+                for i in range(21):
+                    if not footprint_clear(grid,px,py,pa,polygon,padding):
+                        raise RuntimeError('Entry translation intersects occupied or unknown space')
+                    if i<20:
+                        px+=(vx*math.cos(pa)-vy*math.sin(pa))*dt
+                        py+=(vx*math.sin(pa)+vy*math.cos(pa))*dt;pa+=omega*dt
+                msg=Twist();msg.linear.x=vx;msg.linear.y=vy;msg.angular.z=omega
+                self.velocity.publish(msg);time.sleep(.05)
+        finally:
+            self.velocity.publish(Twist())
+
+    def rotate_short(self,target,run_deadline):
+        self.client.cancel_all_goals()
+        if not self.stopped():raise RuntimeError('Entry rotation requires a stopped vehicle')
+        polygon=rospy.get_param('/move_base/local_costmap/footprint')
+        if isinstance(polygon,str):polygon=ast.literal_eval(polygon)
+        padding=rospy.get_param('/move_base/local_costmap/footprint_padding')
+        deadline=min(run_deadline,self.budget_time()+15)
+        try:
+            while not rospy.is_shutdown():
+                wall=time.monotonic()
+                if self.cancelled.is_set() or self.budget_time()>deadline or wall-self.received>2:
+                    raise RuntimeError('Entry rotation cancelled, stale odometry or timeout')
+                grid=self.costmap
+                if grid is None or wall-self.map_received>2 or grid.header.frame_id.lstrip('/')!='odom':
+                    raise RuntimeError('Entry rotation requires a fresh odom-frame costmap')
+                pose=self.odom.pose.pose;q=pose.orientation
+                angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
+                omega=short_turn_command(grid,pose.position.x,pose.position.y,angle,target,polygon,padding)
+                if omega is None:raise RuntimeError('Shortest entry rotation intersects occupied or unknown space')
+                if omega==0:return
+                msg=Twist();msg.angular.z=omega;self.velocity.publish(msg)
+                time.sleep(.05)
+        finally:
+            self.velocity.publish(Twist())
+
     def straight_move(self, x, y, yaw, run_deadline, direction, tolerance):
         self.client.cancel_all_goals()
         polygon=rospy.get_param('/move_base/local_costmap/footprint')
@@ -249,15 +349,16 @@ class Control:
                 if now-progress_at>28:raise RuntimeError('Straight docking made no progress')
                 heading_error=math.atan2(math.sin(angle-yaw),math.cos(angle-yaw))
                 if abs(heading_error)>.3:raise RuntimeError('Straight docking heading left the corridor')
-                v,omega,remaining=straight_velocity(p.x,p.y,angle,x,y,yaw,direction,self.fast)
+                v,omega,remaining=straight_velocity(p.x,p.y,angle,x,y,yaw,direction,self.fast,self.efficient)
                 if remaining<=0:raise RuntimeError('Straight docking passed target without alignment')
                 safe=True;px,py,pa=p.x,p.y,angle
                 cross_squared=max(0.,distance*distance-remaining*remaining)
                 stop_along=math.sqrt(max(0.,tolerance*tolerance-cross_squared))
                 prediction_time=min(1.,max(0.,remaining-stop_along+.003)/max(abs(v),.001))
-                for i in range(11):
+                steps=max(10,math.ceil(abs(v)*prediction_time/.01)) if self.efficient else 10
+                for i in range(steps+1):
                     safe &= footprint_clear(self.costmap,px,py,pa,polygon,padding)
-                    dt=min(.1,max(0.,prediction_time-i*.1))
+                    dt=(prediction_time/steps if i<steps else 0.) if self.efficient else min(.1,max(0.,prediction_time-i*.1))
                     px+=v*math.cos(pa)*dt;py+=v*math.sin(pa)*dt;pa+=omega*dt
                 msg=Twist()
                 if safe:msg.linear.x=v;msg.angular.z=omega

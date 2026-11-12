@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "trigger": "debug control service",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 500.623,
+      "control_only": true,
+      "wall": 19925.180457476
+    },
+    {
+      "state": "MOVING",
+      "detail": "finish",
+      "stamp": 503.471,
+      "control_only": true,
+      "wall": 19925.228316001
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "finish",
+      "stamp": 508.182,
+      "control_only": true,
+      "wall": 19944.631751763
+    },
+    {
+      "state": "CONTROL_ROUTE_DONE",
+      "detail": "Not a complete competition finish; wheel placement requires verification",
+      "stamp": 508.182,
+      "control_only": true,
+      "wall": 19944.649082945
+    }
+  ],
+  "seed": 42,
+  "development_audit": true,
+  "speed_profile": "sprint",
+  "timeout_clock": "sim",
+  "simulation_engine": "official ode",
+  "continuous_bends": true,
+  "efficient_approach": true,
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+  "startup_seconds": 6.489182074001292,
+  "contact_observer_sha256": "1d4e8aa9cdcb7978626b8b3e2177c529783b16267788c83e512a70883ac0b19b",
+  "guard_max_trips": 0,
+  "guard_last_mode": "RUN",
+  "elapsed_wall": 20.021936597000604,
+  "elapsed_sim": 4.733000000000004,
+  "final_status": {
+    "state": "CONTROL_ROUTE_DONE",
+    "detail": "Not a complete competition finish; wheel placement requires verification",
+    "stamp": 508.182,
+    "control_only": true
+  },
+  "cleanup": {
+    "owned_processes": 19,
+    "remaining": []
+  }
+}

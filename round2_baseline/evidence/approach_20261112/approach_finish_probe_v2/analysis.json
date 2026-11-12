@@ -1,0 +1,49 @@
+{
+  "control_done": true,
+  "ordered_stages_pass": false,
+  "expected_stages": [
+    "bend1",
+    "bend2",
+    "bend3",
+    "bend4",
+    "bend5_approach",
+    "bend5",
+    "bend6",
+    "bend7",
+    "bend8",
+    "qr_approach",
+    "qr",
+    "qr_exit",
+    "cone_entry",
+    "cone_exit",
+    "blocks",
+    "return",
+    "finish_approach",
+    "finish"
+  ],
+  "arrivals": {
+    "finish": {
+      "event": "ARRIVED",
+      "pose": [
+        -0.24470493475481656,
+        2.1766417527568382,
+        1.5880631299407284
+      ],
+      "body_bounds": [
+        -0.3827952449439956,
+        -0.10659666997744682,
+        2.006050826024189,
+        2.372252121910658
+      ],
+      "stopped": true,
+      "body_in_region": true
+    }
+  },
+  "elapsed_wall": 20.021936597000604,
+  "max_tilt_deg": 0.4218463043870063,
+  "scope": "Odometry and official URDF geometry; not Gazebo truth or a collision-free certificate",
+  "official_start": false,
+  "random_scene_prepared": true,
+  "within_10_min_after_trigger": true,
+  "control_baseline_pass": false
+}

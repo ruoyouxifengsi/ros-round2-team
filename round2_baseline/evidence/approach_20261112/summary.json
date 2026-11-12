@@ -1,0 +1,369 @@
+{
+  "scope": "Official ODE, approved low COM; untimed control only, images and speech omitted.",
+  "baseline_ref": "continuous-before-docking-v2",
+  "route_attempts": 3,
+  "route_passes": 3,
+  "paired": [
+    {
+      "seed": 42,
+      "before_sim_seconds": 82.13500000000005,
+      "after_sim_seconds": 69.822,
+      "reduction_pct": 14.991173068728358,
+      "before_entry_turn": {
+        "seconds": 11.812999999999988,
+        "rotation_deg": 267.04256749914316
+      },
+      "after_entry_turn": {
+        "seconds": 6.066000000000031,
+        "rotation_deg": 83.11855327730535
+      },
+      "stage_comparison": {
+        "bend1": {
+          "before": 2.3570000000000277,
+          "after": 2.45799999999997
+        },
+        "bend2": {
+          "before": 3.0569999999999595,
+          "after": 2.757000000000005
+        },
+        "bend3": {
+          "before": 3.005999999999972,
+          "after": 3.3069999999999595
+        },
+        "bend4": {
+          "before": 2.9559999999999604,
+          "after": 2.8570000000000846
+        },
+        "bend5_approach": {
+          "before": 2.3069999999999027,
+          "after": 2.256999999999948
+        },
+        "bend5": {
+          "before": 2.407000000000039,
+          "after": 1.6059999999999945
+        },
+        "bend6": {
+          "before": 1.3070000000000164,
+          "after": 1.657000000000039
+        },
+        "bend7": {
+          "before": 3.80600000000004,
+          "after": 3.4569999999999936
+        },
+        "bend8": {
+          "before": 3.3560000000001082,
+          "after": 3.106999999999971
+        },
+        "qr_approach": {
+          "before": 9.449999999999932,
+          "after": 9.059999999999945
+        },
+        "qr": {
+          "before": 5.515999999999963,
+          "after": 3.157000000000039
+        },
+        "qr_exit": {
+          "before": 3.625,
+          "after": 2.9839999999999236
+        },
+        "cone_entry": {
+          "before": 11.812999999999988,
+          "after": 6.066000000000031
+        },
+        "cone_exit": {
+          "before": 7.173000000000002,
+          "after": 7.117999999999938
+        },
+        "blocks": {
+          "before": 0.2759999999999536,
+          "after": 0.32600000000002183
+        },
+        "return": {
+          "before": 9.682999999999993,
+          "after": 9.61999999999989
+        },
+        "finish_approach": {
+          "before": 3.244000000000028,
+          "after": 3.2200000000000273
+        },
+        "finish": {
+          "before": 6.6720000000000255,
+          "after": 4.69500000000005
+        }
+      },
+      "accepted": true,
+      "guard_trips": 0,
+      "contact_events": 0,
+      "max_tilt_deg": 0.42729527372915144,
+      "retries": 7
+    },
+    {
+      "seed": 1,
+      "before_sim_seconds": 81.14099999999996,
+      "after_sim_seconds": 78.38600000000002,
+      "reduction_pct": 3.3953241887577645,
+      "before_entry_turn": {
+        "seconds": 4.4389999999999645,
+        "rotation_deg": 91.38588400489944
+      },
+      "after_entry_turn": {
+        "seconds": 6.254000000000019,
+        "rotation_deg": 84.17589598563472
+      },
+      "stage_comparison": {
+        "bend1": {
+          "before": 2.4569999999999936,
+          "after": 2.4560000000000173
+        },
+        "bend2": {
+          "before": 3.008000000000038,
+          "after": 2.8070000000000164
+        },
+        "bend3": {
+          "before": 4.557000000000016,
+          "after": 2.9069999999999823
+        },
+        "bend4": {
+          "before": 2.9560000000000173,
+          "after": 2.606999999999971
+        },
+        "bend5_approach": {
+          "before": 2.4060000000000628,
+          "after": 2.3570000000000846
+        },
+        "bend5": {
+          "before": 2.05600000000004,
+          "after": 1.5080000000000382
+        },
+        "bend6": {
+          "before": 1.356999999999971,
+          "after": 1.7590000000000146
+        },
+        "bend7": {
+          "before": 3.9569999999999936,
+          "after": 3.6059999999999945
+        },
+        "bend8": {
+          "before": 3.255999999999972,
+          "after": 3.407000000000039
+        },
+        "qr_approach": {
+          "before": 7.959999999999923,
+          "after": 9.096000000000004
+        },
+        "qr": {
+          "before": 5.240000000000009,
+          "after": 3.3279999999999745
+        },
+        "qr_exit": {
+          "before": 3.5819999999999936,
+          "after": 2.983000000000061
+        },
+        "cone_entry": {
+          "before": 4.4389999999999645,
+          "after": 6.254000000000019
+        },
+        "cone_exit": {
+          "before": 9.182999999999993,
+          "after": 9.971000000000004
+        },
+        "blocks": {
+          "before": 0.3330000000000837,
+          "after": 0.3069999999999027
+        },
+        "return": {
+          "before": 14.313999999999965,
+          "after": 14.91700000000003
+        },
+        "finish_approach": {
+          "before": 3.1920000000000073,
+          "after": 3.242999999999938
+        },
+        "finish": {
+          "before": 6.770999999999958,
+          "after": 4.75
+        }
+      },
+      "accepted": true,
+      "guard_trips": 0,
+      "contact_events": 0,
+      "max_tilt_deg": 0.44590636596131883,
+      "retries": 10
+    },
+    {
+      "seed": 2,
+      "before_sim_seconds": 81.04099999999994,
+      "after_sim_seconds": 77.298,
+      "reduction_pct": 4.618649819227228,
+      "before_entry_turn": {
+        "seconds": 11.514999999999986,
+        "rotation_deg": 256.9111353631526
+      },
+      "after_entry_turn": {
+        "seconds": 6.140999999999963,
+        "rotation_deg": 83.75239780318721
+      },
+      "stage_comparison": {
+        "bend1": {
+          "before": 2.4560000000000173,
+          "after": 2.406000000000006
+        },
+        "bend2": {
+          "before": 2.805999999999983,
+          "after": 2.905999999999949
+        },
+        "bend3": {
+          "before": 2.858000000000004,
+          "after": 3.8560000000000514
+        },
+        "bend4": {
+          "before": 2.8570000000000277,
+          "after": 2.7060000000000173
+        },
+        "bend5_approach": {
+          "before": 2.4560000000000173,
+          "after": 2.405999999999949
+        },
+        "bend5": {
+          "before": 1.608000000000061,
+          "after": 0.8590000000000373
+        },
+        "bend6": {
+          "before": 1.7570000000000618,
+          "after": 5.506999999999948
+        },
+        "bend7": {
+          "before": 3.4569999999999936,
+          "after": 2.2070000000001073
+        },
+        "bend8": {
+          "before": 3.3559999999999945,
+          "after": 3.3559999999999945
+        },
+        "qr_approach": {
+          "before": 9.057000000000016,
+          "after": 9.140999999999963
+        },
+        "qr": {
+          "before": 5.389999999999986,
+          "after": 3.3940000000000055
+        },
+        "qr_exit": {
+          "before": 3.617999999999938,
+          "after": 2.975999999999999
+        },
+        "cone_entry": {
+          "before": 11.514999999999986,
+          "after": 6.140999999999963
+        },
+        "cone_exit": {
+          "before": 7.6889999999999645,
+          "after": 8.32899999999995
+        },
+        "blocks": {
+          "before": 0.3369999999999891,
+          "after": 0.3289999999999509
+        },
+        "return": {
+          "before": 9.841000000000008,
+          "after": 12.558999999999969
+        },
+        "finish_approach": {
+          "before": 3.12399999999991,
+          "after": 3.161000000000058
+        },
+        "finish": {
+          "before": 6.74899999999991,
+          "after": 4.940000000000055
+        }
+      },
+      "accepted": true,
+      "guard_trips": 0,
+      "contact_events": 0,
+      "max_tilt_deg": 0.5272409057591311,
+      "retries": 8
+    }
+  ],
+  "average_before_sim_seconds": 81.43899999999998,
+  "average_after_sim_seconds": 75.16866666666668,
+  "identical_navigation_across_three_layouts": true,
+  "navigation_hashes": {
+    "control.py": "96069c2c6adc7e99bd72cfcfbcba019b4d9538fb30c01c814bec4a821e6be0ee",
+    "attitude_guard.py": "9866ad33e1894652ffec69c18fdf4348049391c3b74f3265ff63e896032de4a8",
+    "cone_obstacles.py": "56bea7299f3e862216b351e5ab8daa6742c5d9c9dd8c2d7f5f2bd06cd2cc378b",
+    "config/docking.yaml": "dd44c9b0dd0b117e8f38dd33bc3a6c2005ce43b2f28bffb6e90cb250118d3412",
+    "config/navigation.yaml": "4bfb2aa7c44aaf8232c84408f82e0fc6c57369977bd70bddd36078f2a7ff2291",
+    "config/speed_fast.yaml": "2bec2f04e3578e6148dbbf22da3426372d09004a79eee63948947de2c8ea09d2",
+    "config/speed_sprint.yaml": "369ffdbee5ff9fe24454835ef5037eb54e3ba05791297205d5a7d4f5092d7847",
+    "launch/baseline.launch.txt": "ee95ec3e29a96bb6c6e710ae5b5ccf699ba6546fc70ce389a2fb05b377f0a510",
+    "launch/control.launch.txt": "0b63aa079aa67311e1f46845408dcb11d0ffbd811248cff96ab30677edd8e7ef",
+    "launch/simulation.launch.txt": "09e026f683afc762df5a6f4ffb2b13ad273fb22742f43707e135672d910ace9a"
+  },
+  "physics_equal_to_baseline": true,
+  "matched_layouts_verified": true,
+  "unchanged_low_com_model_sha256": "9761992c897edcebb8a069f7540cb250d292fbbd8a10e2cee7eb11528b134c12",
+  "development_probes": {
+    "local_approach_entry_probe_42": {
+      "passed": true,
+      "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+      "moving_sim_seconds": 5.450999999999965,
+      "guard_trips": 0,
+      "entry_turn": {
+        "seconds": 5.450999999999965,
+        "rotation_deg": 88.4044298347136
+      }
+    },
+    "local_approach_qr_probe": {
+      "passed": true,
+      "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+      "moving_sim_seconds": 4.036000000000001,
+      "guard_trips": 0
+    },
+    "local_approach_finish_probe": {
+      "passed": true,
+      "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+      "moving_sim_seconds": 9.853000000000009,
+      "guard_trips": 0
+    },
+    "local_approach_finish_probe_v2": {
+      "passed": true,
+      "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+      "moving_sim_seconds": 4.711000000000013,
+      "guard_trips": 0
+    },
+    "local_approach_entry_control_v3": {
+      "passed": true,
+      "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+      "moving_sim_seconds": 6.175000000000011,
+      "guard_trips": 0,
+      "entry_turn": {
+        "seconds": 6.175000000000011,
+        "rotation_deg": 83.19851591533714
+      }
+    }
+  },
+  "development_failures": [
+    {
+      "passed": false,
+      "scope": "FULL CONTROL ROUTE",
+      "moving_sim_seconds": 40.39200000000005,
+      "guard_trips": 0
+    },
+    {
+      "passed": false,
+      "scope": "FULL CONTROL ROUTE",
+      "moving_sim_seconds": 51.21100000000001,
+      "guard_trips": 0
+    }
+  ],
+  "development_failure_count": 2,
+  "reassessment": "Same recorded runs; causal arrival sample replaces nearest sample that could belong to next stage. Original summary retained.",
+  "assessment_source_hashes": {
+    "assess_practice.py": "a0421eb313722593a4e3d9bf80d29c3d8537bcd6a21531980ff50f7f3f3dddec",
+    "analyze_trial.py": "c74eb77c2ded907a4ae1822d2d6ee0aa8c21c1d32d807fbe9961591bdf61fe9f",
+    "arrival_evidence.py": "cb6064f15c3be3d252cfd7aba8ce2349f68789a4516cef7bf1707f954219124c",
+    "check_entry_turn.py": "7e446381c2fa03d1c4169bb400f33954fc4e709be0bb9e3e8e98b195720ed674",
+    "trial_health.py": "ae3719b427f9795a0c36be440f0839201133553399c5864d0448006dbe344f7a"
+  },
+  "limitation": "Three layouts, one final run each; paired layout positions are equal but planner execution varies. Probes use debug starting poses and are not full-route passes. The first finish probe was rejected for slower motion. The first entry probe was superseded by move-before-turn after full-route boundary clearance failure."
+}

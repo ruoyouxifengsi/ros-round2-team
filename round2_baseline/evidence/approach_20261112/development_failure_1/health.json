@@ -1,0 +1,121 @@
+{
+  "total_retries": 4,
+  "stages": [
+    {
+      "stage": "bend1",
+      "wall": 11.245749391000572,
+      "sim": 2.405999999999949,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend2",
+      "wall": 15.977514909001911,
+      "sim": 2.9560000000000173,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend3",
+      "wall": 35.75483119300043,
+      "sim": 6.305999999999983,
+      "retries": 1,
+      "retry_positions": [
+        [
+          0.2528826770173646,
+          2.593022438328412
+        ]
+      ]
+    },
+    {
+      "stage": "bend4",
+      "wall": 18.047403905002284,
+      "sim": 3.2060000000000173,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5_approach",
+      "wall": 14.092329862000042,
+      "sim": 2.5559999999999263,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5",
+      "wall": 10.211605061002047,
+      "sim": 1.6589999999999918,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend6",
+      "wall": 12.246350399000221,
+      "sim": 1.7060000000000173,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend7",
+      "wall": 20.138608002998808,
+      "sim": 3.3559999999999945,
+      "retries": 3,
+      "retry_positions": [
+        [
+          0.7580252135648362,
+          0.7326225780867345
+        ],
+        [
+          0.7525197416475169,
+          0.738093546007405
+        ],
+        [
+          0.7718721035908562,
+          0.7568677074174737
+        ]
+      ]
+    },
+    {
+      "stage": "bend8",
+      "wall": 17.05305156799659,
+      "sim": 2.6079999999999472,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr_approach",
+      "wall": 53.547073908997845,
+      "sim": 8.425000000000068,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr",
+      "wall": 21.864420132002124,
+      "sim": 3.1889999999999645,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr_exit",
+      "wall": 19.901385567001853,
+      "sim": 2.9839999999999236,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "cone_entry",
+      "wall": null,
+      "sim": null,
+      "retries": 0,
+      "retry_positions": []
+    }
+  ],
+  "final_status": {
+    "state": "FAILED",
+    "detail": "Navigation or stop failed: cone_entry",
+    "stamp": 554.681,
+    "control_only": true
+  },
+  "guard_trips": 0
+}

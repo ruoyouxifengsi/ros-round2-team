@@ -33,6 +33,7 @@ p.add_argument('--low-com',action='store_true',help='Experimental base_link COM 
 p.add_argument('--audit-cones',action='store_true',help='Development-only displacement observer; forbidden in competition')
 p.add_argument('--speed-profile',choices=['stable','fast','sprint'],default='stable')
 p.add_argument('--continuous-bends',action='store_true')
+p.add_argument('--efficient-approach',action='store_true')
 p.add_argument('--contact-observer',type=Path,help='Development-only native transport observer executable; no engine plugin')
 p.add_argument('--debug-pose',nargs=3,type=float)
 p.add_argument('--debug-goal',nargs=3,type=float)
@@ -68,6 +69,7 @@ def launch(command,name,env=None):
     processes.append(proc);return proc
 result={'passed':False,'trigger':'development service','events':[], 'seed':args.seed, 'development_audit':args.audit_cones, 'speed_profile':args.speed_profile,'timeout_clock':args.timeout_clock,'simulation_engine':'official ode'}
 result['continuous_bends']=args.continuous_bends
+result['efficient_approach']=args.efficient_approach
 class StartupComplete(Exception):pass
 startup_started=time.monotonic()
 try:
@@ -132,6 +134,7 @@ try:
         result.update(passed=True,scope='STARTUP ONLY; no route test')
         raise StartupComplete()
     control_args=['roslaunch',str(package/'launch/control.launch'),'speed_profile:='+args.speed_profile,'timeout_clock:='+args.timeout_clock,'continuous_bends:='+str(args.continuous_bends).lower()]
+    control_args.append('efficient_approach:='+str(args.efficient_approach).lower())
     if args.travel_clearance is not None:
         control_args.append('travel_clearance:='+str(args.travel_clearance))
         result['travel_clearance']=args.travel_clearance

@@ -24,7 +24,7 @@ class Action:
     def cancel_all_goals(self):pass
 
 c=m.Control.__new__(m.Control)
-c.client=Action();c.continuous=True;c.fast=True;c.sim_timeouts=False
+c.client=Action();c.continuous=True;c.fast=True;c.sim_timeouts=False;c.efficient=False
 c.cancelled=threading.Event();c.lock=threading.Lock();c.running=True
 c.received=time.monotonic()
 c.odom=NS(pose=NS(pose=NS(position=NS(x=.05,y=0.),orientation=NS(x=0.,y=0.,z=0.,w=1.))))

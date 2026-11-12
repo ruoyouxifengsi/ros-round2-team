@@ -1,0 +1,129 @@
+{
+  "total_retries": 6,
+  "stages": [
+    {
+      "stage": "bend1",
+      "wall": 10.10222582300048,
+      "sim": 2.4570000000000505,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend2",
+      "wall": 11.488746748000267,
+      "sim": 2.757000000000005,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend3",
+      "wall": 19.11771496399888,
+      "sim": 3.7069999999999936,
+      "retries": 4,
+      "retry_positions": [
+        [
+          0.2187604917299071,
+          2.6534548359893924
+        ],
+        [
+          0.24277377215909685,
+          2.6325590091223185
+        ],
+        [
+          0.23947148662410103,
+          2.626026605736229
+        ],
+        [
+          0.22797267256037795,
+          2.620950553218151
+        ]
+      ]
+    },
+    {
+      "stage": "bend4",
+      "wall": 13.180026695001288,
+      "sim": 2.756999999999948,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5_approach",
+      "wall": 13.038782264000474,
+      "sim": 2.407000000000039,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend5",
+      "wall": 8.869719410999096,
+      "sim": 1.8070000000000164,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend6",
+      "wall": 9.989261614999123,
+      "sim": 1.6060000000001082,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "bend7",
+      "wall": 17.76520922599957,
+      "sim": 3.155999999999949,
+      "retries": 2,
+      "retry_positions": [
+        [
+          0.7406607997930729,
+          0.7706224855674012
+        ],
+        [
+          0.7368302624171486,
+          0.7763192805897703
+        ]
+      ]
+    },
+    {
+      "stage": "bend8",
+      "wall": 19.99860530300066,
+      "sim": 3.6059999999999945,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr_approach",
+      "wall": 53.50804056199922,
+      "sim": 9.451999999999998,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr",
+      "wall": 21.488686181000958,
+      "sim": 3.326000000000022,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "qr_exit",
+      "wall": 19.060179872001754,
+      "sim": 2.997000000000071,
+      "retries": 0,
+      "retry_positions": []
+    },
+    {
+      "stage": "cone_entry",
+      "wall": null,
+      "sim": null,
+      "retries": 0,
+      "retry_positions": []
+    }
+  ],
+  "final_status": {
+    "state": "FAILED",
+    "detail": "Shortest entry rotation intersects occupied or unknown space",
+    "stamp": 545.095,
+    "control_only": true
+  },
+  "guard_trips": 0
+}

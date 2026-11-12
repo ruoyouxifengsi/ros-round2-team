@@ -4,6 +4,7 @@ import math
 from pathlib import Path
 import subprocess
 import sys
+from check_entry_turn import entry_turn
 
 folder=Path(sys.argv[1]);scripts=Path(__file__).parent
 for script in ('analyze_trial.py','trial_health.py'):
@@ -19,14 +20,17 @@ live=[s for s in summaries if s['messages']>0]
 coverage=bool(live and live[0]['sim']<=start and live[-1]['sim']>=end)
 required=[n for n in a['expected_stages'] if not (r.get('continuous_bends',False) and n.startswith('bend'))]
 stops=all(a['arrivals'].get(n,{}).get('stopped') for n in required)
+turn=entry_turn(r,poses) if r.get('efficient_approach') and r['passed'] else None
 ok=bool(r['passed'] and a['ordered_stages_pass'] and a['arrivals'].get('qr',{}).get('body_in_region') and
         a['arrivals'].get('finish',{}).get('body_in_region') and stops and coverage and
         summaries[-1]['cone_contact_events']==0 and len(audit['baseline'])==5 and not audit['moved_over_5mm'] and
         r.get('guard_max_trips')==0 and a['max_tilt_deg']<3 and not r.get('scope') and
-        not r.get('cleanup',{}).get('remaining',[1]) and not (folder/'interventions.json').exists())
+        not r.get('cleanup',{}).get('remaining',[1]) and not (folder/'interventions.json').exists() and
+        (not r.get('efficient_approach') or (turn and turn['rotation_deg']<180)))
 samples=[p for p in poses if start<=p['t']<=end]
 stopped_sim=sum(max(0.,b['t']-p['t']) for p,b in zip(samples,samples[1:]) if math.hypot(*p['v'][:2])<.02 and abs(p['v'][2])<.05)
 row=dict(trial=folder.name,accepted=ok,seed=r['seed'],speed_profile=r['speed_profile'],continuous=r.get('continuous_bends',False),
+    efficient_approach=r.get('efficient_approach',False),entry_turn=turn,
     moving_sim_seconds=end-start,stopped_sim_seconds=stopped_sim,max_tilt_deg=a['max_tilt_deg'],guard_trips=r.get('guard_max_trips'),
     retries=h['total_retries'],contact_coverage=coverage,contact_summary=summaries[-1] if summaries else None,
     moved_cones=audit['moved_over_5mm'],mandatory_stops=stops,stages=h['stages'],
