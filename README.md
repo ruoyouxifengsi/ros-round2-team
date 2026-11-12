@@ -32,6 +32,8 @@ python3 round2_baseline/scripts/run_trial.py \
 
 此命令自动布景和发车，跳过图像与播报。队友电脑正式计时联调时，去掉 `--timeout-clock sim`，加 `--timer` 并将 `--seconds` 改为 `600`。比赛不得带开发观察参数 `--audit-cones`、`--contact-observer`。具体改法、局部反例、验证与回退见 [操作记录](round2_baseline/操作记录.md)。下方为此前版本记录。
 
+**自己点击计时器 Draw 发车**：使用 `roslaunch round2_baseline baseline.launch timer:=true low_com:=true speed_profile:=sprint continuous_bends:=true efficient_approach:=true gui:=true`，不要使用上面的自动测试器。另开终端运行官方布景脚本，确认 `/baseline/ready` 为 true 后，在计时器填写组号并手动点 Draw。两个终端需使用相同 ROS 地址并加载工作空间；完整步骤见操作记录“手动点击计时器发车”。手动低质心入口已通过启动参数与模型一致性检查，本次没有为入口选项重跑仿真。
+
 ## 2026-11-12 此前交付：连续过弯与提速，三个布局通过
 
 工作分支仍为 `official/fast-control`。采用 **TEB 行驶避障 + 专门的精确停车控制**，不修改官方引擎或碰撞模型。低质心沿用已获准的版本。
@@ -157,7 +159,7 @@ python3 round2_baseline/scripts/analyze_trial.py round2_baseline/evidence/local_
 
 每次输出目录必须不存在；重复测试请换名字。测试器使用独立 ROS 11321 / Gazebo 11355 端口并清理自己创建的进程。`--seed 42` 仅为练习，不用于比赛。`--debug-*` 是单段诊断，不能算整轮通过。无显示环境时先解决 DISPLAY/WSLg，不能去掉官方计时器后声称验证了比赛发车。
 
-手动原版入口：`roslaunch round2_baseline baseline.launch`。等待 `/baseline/ready` 为 true，按规则取得发车许可后运行 `rosrun car3 random_cones.py` 和 `rosrun car3 random_place.py`，再在官方计时器点击 Draw。比赛发车后不得操作电脑。低质心版当前提供测试器入口，未改动正式手动入口。
+手动原版入口：`roslaunch round2_baseline baseline.launch`。等待 `/baseline/ready` 为 true，按规则取得发车许可后运行 `rosrun car3 random_cones.py` 和 `rosrun car3 random_place.py`，再在官方计时器点击 Draw。比赛发车后不得操作电脑。手动低质心版追加 `low_com:=true`，默认仍保留原车模。
 
 ## 图像队友在哪里接入
 

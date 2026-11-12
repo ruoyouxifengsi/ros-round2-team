@@ -1,8 +1,10 @@
 <launch>
   <arg name="gui" default="false"/>
+  <arg name="low_com" default="false"/>
   <env name="GAZEBO_MODEL_PATH" value="$(find car3):$(find car3)/models:$(optenv HOME)/.gazebo/models"/>
   <include file="$(find car3)/launch/gazebo.launch">
     <arg name="world" value="round2"/>
     <arg name="gui" value="$(arg gui)"/>
   </include>
+  <param if="$(arg low_com)" name="robot_description" textfile="$(find round2_baseline)/variants/low_com.urdf"/>
 </launch>

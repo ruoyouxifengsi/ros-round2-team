@@ -1,12 +1,14 @@
 <launch>
   <arg name="gui" default="true"/>
   <arg name="timer" default="true"/>
+  <arg name="low_com" default="false"/>
   <arg name="speed_profile" default="stable"/>
   <arg name="timeout_clock" default="wall"/>
   <arg name="continuous_bends" default="false"/>
   <arg name="efficient_approach" default="false"/>
   <include file="$(find round2_baseline)/launch/simulation.launch">
     <arg name="gui" value="$(arg gui)"/>
+    <arg name="low_com" value="$(arg low_com)"/>
   </include>
   <include file="$(find round2_baseline)/launch/control.launch">
     <arg name="speed_profile" value="$(arg speed_profile)"/>
