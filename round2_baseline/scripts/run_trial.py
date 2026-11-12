@@ -12,6 +12,8 @@ import hashlib
 import shutil
 import math
 import xml.etree.ElementTree as ET
+import re
+from trial_processes import stop_processes, wait_for_ports
 
 lock_file=open('/tmp/round2_baseline_trial.lock','w')
 fcntl.flock(lock_file,fcntl.LOCK_EX)
@@ -24,6 +26,8 @@ p.add_argument('--seconds',type=int,default=600)
 p.add_argument('--cones',action='store_true')
 p.add_argument('--gui',action='store_true',help='Show Gazebo for manual-start performance regression checks')
 p.add_argument('--profile-performance',action='store_true',help='Record host thread load and simulation clock')
+p.add_argument('--startup-only',action='store_true',help='Development startup/cleanup check; no navigation or scenery randomization')
+p.add_argument('--travel-clearance',type=float,help='Development override for ordinary-stage planner clearance')
 p.add_argument('--experimental-collision-library',type=Path,help='Development-only Gazebo collision adapter; not approved for competition')
 p.add_argument('--collision-threads',type=int,default=4)
 p.add_argument('--verify-collisions',action='store_true')
@@ -62,7 +66,10 @@ def launch(command,name,env=None):
     proc=subprocess.Popen(command,stdout=f,stderr=subprocess.STDOUT,start_new_session=True,env=env)
     processes.append(proc);return proc
 result={'passed':False,'trigger':'development service','events':[], 'seed':args.seed, 'development_audit':args.audit_cones, 'speed_profile':args.speed_profile}
+class StartupComplete(Exception):pass
+startup_started=time.monotonic()
 try:
+    wait_for_ports((11321,11355))
     simulation=package/'launch/simulation.launch'
     if args.low_com:
         import rospkg
@@ -90,18 +97,21 @@ try:
         simulation=out/'debug_simulation.launch.txt';tree.write(simulation)
         result['scope']='DEBUG SINGLE STAGE, NOT A COMPETITION RUN'
     sim_env=dict(os.environ)
+    sim_env['PYTHONUNBUFFERED']='1'
     if args.experimental_collision_library:
         library=args.experimental_collision_library.resolve(strict=True)
         tree=ET.parse(simulation)
         include=tree.find('.//include[@file="$(find gazebo_ros)/launch/empty_world.launch"]')
         if include is None:raise RuntimeError('Experimental adapter requires --low-com')
-        ET.SubElement(include,'arg',name='extra_gazebo_args',value='-s '+str(library))
+        ET.SubElement(include,'arg',name='extra_gazebo_args',value='--verbose -s '+str(library))
         ET.SubElement(include,'arg',name='physics',value='round2_parallel_ode')
         simulation=out/'experimental_simulation.launch.txt';tree.write(simulation)
         sim_env['ROUND2_COLLISION_THREADS']=str(args.collision_threads)
         sim_env['OMP_WAIT_POLICY']='PASSIVE'
         sim_env['ROUND2_COLLISION_VERIFY_STRIDE']=str(args.collision_verify_stride)
         sim_env.pop('ROUND2_COLLISION_VERIFY',None)
+        sim_env.pop('ROUND2_CONTACT_AUDIT',None)
+        if args.audit_cones:sim_env['ROUND2_CONTACT_AUDIT']=str(out/'cone_contacts.jsonl')
         if args.verify_collisions:sim_env['ROUND2_COLLISION_VERIFY']='1'
         result['experimental_collision']=dict(library=str(library),sha256=hashlib.sha256(library.read_bytes()).hexdigest(),threads=args.collision_threads,verify=args.verify_collisions,verify_stride=args.collision_verify_stride)
         engine_source=library.with_name('adapter.cc')
@@ -117,7 +127,15 @@ try:
     from std_msgs.msg import String, Bool
     from std_srvs.srv import SetBool
     rospy.init_node('trial_observer',anonymous=True)
-    rospy.wait_for_message('/odom',Odometry,timeout=90)
+    odom_deadline=time.monotonic()+90
+    while True:
+        try:
+            rospy.wait_for_message('/odom',Odometry,timeout=1)
+            break
+        except rospy.ROSException:
+            log=(out/'simulation.log').read_text(errors='replace')
+            if re.search(r'\[gazebo-\d+\] process has died',log):raise RuntimeError('Gazebo exited before odometry; see simulation.log')
+            if time.monotonic()>odom_deadline:raise
     rospy.wait_for_message('/scan',LaserScan,timeout=30)
     if args.profile_performance:
         from gazebo_msgs.srv import GetPhysicsProperties
@@ -125,7 +143,15 @@ try:
         rospy.wait_for_service('/gazebo/get_physics_properties',timeout=10)
         physics=rospy.ServiceProxy('/gazebo/get_physics_properties',GetPhysicsProperties)()
         (out/'physics_properties.json').write_text(json.dumps(yaml.safe_load(str(physics)),indent=2))
-    launch(['roslaunch',str(package/'launch/control.launch'),'speed_profile:='+args.speed_profile],'control')
+    result['startup_seconds']=time.monotonic()-startup_started
+    if args.startup_only:
+        result.update(passed=True,scope='STARTUP ONLY; no route test')
+        raise StartupComplete()
+    control_args=['roslaunch',str(package/'launch/control.launch'),'speed_profile:='+args.speed_profile]
+    if args.travel_clearance is not None:
+        control_args.append('travel_clearance:='+str(args.travel_clearance))
+        result['travel_clearance']=args.travel_clearance
+    launch(control_args,'control')
     if args.profile_performance:
         launch(['python3',str(package/'scripts/profile_runtime.py'),str(out/'performance.jsonl')],'performance')
     rospy.wait_for_service('/nav_start',timeout=60)
@@ -218,20 +244,15 @@ try:
     rospy.ServiceProxy('/nav_start',SetBool)(False)
     time.sleep(2)
     (out/'poses.json').write_text(json.dumps(poses))
+except StartupComplete:
+    pass
 except Exception as exc:
     result['error']=repr(exc)
 finally:
     (out/'result.json').write_text(json.dumps(result,indent=2))
-    for proc in reversed(processes):
-        if proc.poll() is None:os.killpg(proc.pid,signal.SIGINT)
-    for proc in reversed(processes):
-        try:proc.wait(timeout=15)
-        except subprocess.TimeoutExpired:
-            os.killpg(proc.pid,signal.SIGTERM)
-            try:proc.wait(timeout=3)
-            except subprocess.TimeoutExpired:
-                os.killpg(proc.pid,signal.SIGKILL)
-                proc.wait(timeout=3)
+    result['cleanup']=stop_processes(processes)
+    if result['cleanup']['remaining']:result['passed']=False
+    (out/'result.json').write_text(json.dumps(result,indent=2))
     for f in files:f.close()
 print(json.dumps(result),flush=True)
 raise SystemExit(0 if result['passed'] else 1)

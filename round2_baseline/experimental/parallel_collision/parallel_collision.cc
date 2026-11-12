@@ -19,6 +19,8 @@
 #include <cstdlib>
 #include <cstring>
 #include <vector>
+#include <set>
+#include <string>
 
 namespace {
 using Contacts = std::array<dContactGeom, MAX_COLLIDE_RETURNS>;
@@ -37,6 +39,27 @@ thread_local Work *cached=nullptr;
 unsigned long steps=0,pairs=0,hits=0,verified=0,mismatches=0;
 double parallelSeconds=0,updateSeconds=0;
 using Clock=std::chrono::steady_clock;
+unsigned long coneCandidates=0,coneUnsupported=0,coneContactFrames=0,coneEpisodes=0;
+std::set<std::string> activeConePairs;
+FILE *contactAudit() {
+  static FILE *file=[] {
+    const char *path=std::getenv("ROUND2_CONTACT_AUDIT");
+    if(!path)return static_cast<FILE*>(nullptr);
+    FILE *opened=std::fopen(path,"w");
+    if(!opened) {std::perror("contact audit");std::abort();}
+    return opened;
+  }();
+  return file;
+}
+std::string jsonName(const std::string &name) {
+  std::string out;
+  for(unsigned char c:name) {
+    if(c=='"' || c=='\\') {out+='\\';out+=c;}
+    else if(c<32) {char escaped[7];std::snprintf(escaped,sizeof(escaped),"\\u%04x",c);out+=escaped;}
+    else out+=c;
+  }
+  return out;
+}
 bool supported(dGeomID g) {
   int type=dGeomGetClass(g);
   if (type==dPlaneClass || type==dBoxClass || type==dSphereClass ||
@@ -125,6 +148,8 @@ void gazebo::physics::ODEPhysics::UpdateCollision() {
   dSpaceCollide(this->dataPtr->spaceId,this,CollisionCallback);
   const int ordinary=this->dataPtr->collidersCount;
   const int size=ordinary+this->dataPtr->trimeshCollidersCount;
+  FILE *audit=contactAudit();
+  std::set<std::string> currentConePairs;
   auto pairAt=[&](int i) {return i<ordinary?this->dataPtr->colliders[i]:this->dataPtr->trimeshColliders[i-ordinary];};
   std::vector<Work> work(size);
   for(int i=0;i<size;++i) {
@@ -166,7 +191,35 @@ void gazebo::physics::ODEPhysics::UpdateCollision() {
     }
     this->Collide(pair.first,pair.second,this->dataPtr->contactCollisions);
     cached=nullptr;
+    if(audit) {
+      const std::string a=pair.first->GetScopedName(),b=pair.second->GetScopedName();
+      const bool target=(a.find("car3::")!=std::string::npos && b.find("construction_cone_")!=std::string::npos) ||
+        (b.find("car3::")!=std::string::npos && a.find("construction_cone_")!=std::string::npos);
+      if(target && w.a) {
+        ++coneCandidates;
+        if(!w.ca)++coneUnsupported;
+        else if(w.count && !pair.first->GetSurface()->collideWithoutContact && !pair.second->GetSurface()->collideWithoutContact) {
+          const std::string key=std::min(a,b)+" | "+std::max(a,b);
+          currentConePairs.insert(key);++coneContactFrames;
+          if(!activeConePairs.count(key)) {
+            ++coneEpisodes;
+            const auto &point=w.contacts[0];
+            std::fprintf(audit,"{\"type\":\"contact_begin\",\"sim\":%.9f,\"pair\":\"%s\",\"position\":[%.9g,%.9g,%.9g],\"depth\":%.9g}\n",
+                this->world->SimTime().Double(),jsonName(key).c_str(),point.pos[0],point.pos[1],point.pos[2],point.depth);
+          }
+        }
+      }
+    }
     if(w.ca) {dGeomDestroy(w.ca);dGeomDestroy(w.cb);}
+  }
+  if(audit) {
+    for(const auto &key:activeConePairs)if(!currentConePairs.count(key))
+      std::fprintf(audit,"{\"type\":\"contact_end\",\"sim\":%.9f,\"pair\":\"%s\"}\n",this->world->SimTime().Double(),jsonName(key).c_str());
+    activeConePairs.swap(currentConePairs);
+    if(steps%1000==0)
+      std::fprintf(audit,"{\"type\":\"summary\",\"sim\":%.9f,\"steps\":%lu,\"candidates\":%lu,\"unsupported\":%lu,\"contact_pair_frames\":%lu,\"contact_episodes\":%lu}\n",
+          this->world->SimTime().Double(),steps,coneCandidates,coneUnsupported,coneContactFrames,coneEpisodes);
+    std::fflush(audit);
   }
   updateSeconds+=std::chrono::duration<double>(Clock::now()-updateStart).count();
   if(++steps%1000==0)stats();

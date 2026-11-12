@@ -1,0 +1,212 @@
+{
+  "passed": false,
+  "trigger": "unchanged official Draw widget",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 503.366,
+      "control_only": true,
+      "wall": 8230.576808987
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend1",
+      "stamp": 509.887,
+      "control_only": true,
+      "wall": 8234.384620772
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend1",
+      "stamp": 515.33,
+      "control_only": true,
+      "wall": 8247.204649556
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend2",
+      "stamp": 515.351,
+      "control_only": true,
+      "wall": 8247.251224668
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend2",
+      "stamp": 520.638,
+      "control_only": true,
+      "wall": 8263.291359905
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend3",
+      "stamp": 520.662,
+      "control_only": true,
+      "wall": 8263.351834142
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend3",
+      "stamp": 525.713,
+      "control_only": true,
+      "wall": 8281.472646665
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend4",
+      "stamp": 525.736,
+      "control_only": true,
+      "wall": 8281.519305937
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend4",
+      "stamp": 531.461,
+      "control_only": true,
+      "wall": 8298.4923546
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5_approach",
+      "stamp": 531.484,
+      "control_only": true,
+      "wall": 8298.5396727
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend5_approach",
+      "stamp": 535.437,
+      "control_only": true,
+      "wall": 8312.511759395
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5",
+      "stamp": 535.456,
+      "control_only": true,
+      "wall": 8312.559660745
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend5",
+      "stamp": 539.682,
+      "control_only": true,
+      "wall": 8327.879196217
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend6",
+      "stamp": 539.704,
+      "control_only": true,
+      "wall": 8328.07603588
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend6",
+      "stamp": 543.557,
+      "control_only": true,
+      "wall": 8340.933364511
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend7",
+      "stamp": 543.578,
+      "control_only": true,
+      "wall": 8340.977266959
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend7",
+      "stamp": 547.923,
+      "control_only": true,
+      "wall": 8355.963382086
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend8",
+      "stamp": 547.945,
+      "control_only": true,
+      "wall": 8356.010308423
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend8",
+      "stamp": 560.534,
+      "control_only": true,
+      "wall": 8398.553148026
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_approach",
+      "stamp": 560.553,
+      "control_only": true,
+      "wall": 8398.60519483
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr_approach",
+      "stamp": 566.896,
+      "control_only": true,
+      "wall": 8417.675687552
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr",
+      "stamp": 566.918,
+      "control_only": true,
+      "wall": 8417.720755086
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr",
+      "stamp": 572.119,
+      "control_only": true,
+      "wall": 8436.116609964
+    },
+    {
+      "state": "IMAGE_SKIPPED",
+      "detail": "qr",
+      "stamp": 572.12,
+      "control_only": true,
+      "wall": 8436.119882103
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_exit",
+      "stamp": 572.142,
+      "control_only": true,
+      "wall": 8436.182292976
+    },
+    {
+      "state": "FAILED",
+      "detail": "Straight docking cancelled, stale odometry or timeout",
+      "stamp": 572.807,
+      "control_only": true,
+      "wall": 8437.657475396
+    }
+  ],
+  "seed": 42,
+  "development_audit": true,
+  "speed_profile": "fast",
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "experimental_collision": {
+    "library": "/home/keyaoersi/round2_engine_experiment/build/libround2_parallel_collision.so",
+    "sha256": "9b1660292310148e1a2843aa846ed4cbac94b8296aab6d74e8b18dd918f77e50",
+    "threads": 4,
+    "verify": true,
+    "verify_stride": 100,
+    "source_sha256": "d0bac10efac13ea3763ed0291e07fbacd2d13db3f40eed340b0db23c9a789f50"
+  },
+  "startup_seconds": 9.33628825499909,
+  "elapsed_wall": 207.2404062459991,
+  "final_status": {
+    "state": "FAILED",
+    "detail": "Straight docking cancelled, stale odometry or timeout",
+    "stamp": 572.807,
+    "control_only": true
+  },
+  "cleanup": {
+    "owned_processes": 19,
+    "remaining": []
+  }
+}

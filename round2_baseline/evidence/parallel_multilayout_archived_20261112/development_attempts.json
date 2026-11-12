@@ -1,0 +1,492 @@
+{
+  "startup_probes": [
+    {
+      "run": "00_startup_probe",
+      "scope": "startup",
+      "seed": null,
+      "exit_code": 0,
+      "startup_pass": true,
+      "startup_seconds": 6.249138759999369,
+      "cleanup": {
+        "owned_processes": 10,
+        "remaining": []
+      },
+      "result": {
+        "passed": true,
+        "trigger": "development service",
+        "events": [],
+        "seed": null,
+        "development_audit": false,
+        "speed_profile": "fast",
+        "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+        "experimental_collision": {
+          "library": "/home/keyaoersi/round2_engine_experiment/build/libround2_parallel_collision.so",
+          "sha256": "9b1660292310148e1a2843aa846ed4cbac94b8296aab6d74e8b18dd918f77e50",
+          "threads": 4,
+          "verify": true,
+          "verify_stride": 100,
+          "source_sha256": "d0bac10efac13ea3763ed0291e07fbacd2d13db3f40eed340b0db23c9a789f50"
+        },
+        "startup_seconds": 6.249138759999369,
+        "scope": "STARTUP ONLY; no route test",
+        "cleanup": {
+          "owned_processes": 10,
+          "remaining": []
+        }
+      },
+      "engine_active": true,
+      "engine_stats": [],
+      "physics": {
+        "time_step": 0.001,
+        "pause": false,
+        "max_update_rate": 1000.0,
+        "gravity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": -9.8
+        },
+        "ode_config": {
+          "auto_disable_bodies": false,
+          "sor_pgs_precon_iters": 0,
+          "sor_pgs_iters": 50,
+          "sor_pgs_w": 1.3,
+          "sor_pgs_rms_error_tol": 0.0,
+          "contact_surface_layer": 0.001,
+          "contact_max_correcting_vel": 100.0,
+          "cfm": 0.0,
+          "erp": 0.2,
+          "max_contacts": 20
+        },
+        "success": true,
+        "status_message": "GetPhysicsProperties: got properties"
+      },
+      "accepted": true
+    },
+    {
+      "run": "01_startup_probe",
+      "scope": "startup",
+      "seed": null,
+      "exit_code": 0,
+      "startup_pass": true,
+      "startup_seconds": 5.324817902000177,
+      "cleanup": {
+        "owned_processes": 10,
+        "remaining": []
+      },
+      "result": {
+        "passed": true,
+        "trigger": "development service",
+        "events": [],
+        "seed": null,
+        "development_audit": false,
+        "speed_profile": "fast",
+        "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+        "experimental_collision": {
+          "library": "/home/keyaoersi/round2_engine_experiment/build/libround2_parallel_collision.so",
+          "sha256": "9b1660292310148e1a2843aa846ed4cbac94b8296aab6d74e8b18dd918f77e50",
+          "threads": 4,
+          "verify": true,
+          "verify_stride": 100,
+          "source_sha256": "d0bac10efac13ea3763ed0291e07fbacd2d13db3f40eed340b0db23c9a789f50"
+        },
+        "startup_seconds": 5.324817902000177,
+        "scope": "STARTUP ONLY; no route test",
+        "cleanup": {
+          "owned_processes": 10,
+          "remaining": []
+        }
+      },
+      "engine_active": true,
+      "engine_stats": [],
+      "physics": {
+        "time_step": 0.001,
+        "pause": false,
+        "max_update_rate": 1000.0,
+        "gravity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": -9.8
+        },
+        "ode_config": {
+          "auto_disable_bodies": false,
+          "sor_pgs_precon_iters": 0,
+          "sor_pgs_iters": 50,
+          "sor_pgs_w": 1.3,
+          "sor_pgs_rms_error_tol": 0.0,
+          "contact_surface_layer": 0.001,
+          "contact_max_correcting_vel": 100.0,
+          "cfm": 0.0,
+          "erp": 0.2,
+          "max_contacts": 20
+        },
+        "success": true,
+        "status_message": "GetPhysicsProperties: got properties"
+      },
+      "accepted": true
+    },
+    {
+      "run": "02_startup_probe",
+      "scope": "startup",
+      "seed": null,
+      "exit_code": 0,
+      "startup_pass": true,
+      "startup_seconds": 5.280238315000133,
+      "cleanup": {
+        "owned_processes": 10,
+        "remaining": []
+      },
+      "result": {
+        "passed": true,
+        "trigger": "development service",
+        "events": [],
+        "seed": null,
+        "development_audit": false,
+        "speed_profile": "fast",
+        "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+        "experimental_collision": {
+          "library": "/home/keyaoersi/round2_engine_experiment/build/libround2_parallel_collision.so",
+          "sha256": "9b1660292310148e1a2843aa846ed4cbac94b8296aab6d74e8b18dd918f77e50",
+          "threads": 4,
+          "verify": true,
+          "verify_stride": 100,
+          "source_sha256": "d0bac10efac13ea3763ed0291e07fbacd2d13db3f40eed340b0db23c9a789f50"
+        },
+        "startup_seconds": 5.280238315000133,
+        "scope": "STARTUP ONLY; no route test",
+        "cleanup": {
+          "owned_processes": 10,
+          "remaining": []
+        }
+      },
+      "engine_active": true,
+      "engine_stats": [],
+      "physics": {
+        "time_step": 0.001,
+        "pause": false,
+        "max_update_rate": 1000.0,
+        "gravity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": -9.8
+        },
+        "ode_config": {
+          "auto_disable_bodies": false,
+          "sor_pgs_precon_iters": 0,
+          "sor_pgs_iters": 50,
+          "sor_pgs_w": 1.3,
+          "sor_pgs_rms_error_tol": 0.0,
+          "contact_surface_layer": 0.001,
+          "contact_max_correcting_vel": 100.0,
+          "cfm": 0.0,
+          "erp": 0.2,
+          "max_contacts": 20
+        },
+        "success": true,
+        "status_message": "GetPhysicsProperties: got properties"
+      },
+      "accepted": true
+    },
+    {
+      "run": "03_startup_probe",
+      "scope": "startup",
+      "seed": null,
+      "exit_code": 0,
+      "startup_pass": true,
+      "startup_seconds": 5.474588268999469,
+      "cleanup": {
+        "owned_processes": 10,
+        "remaining": []
+      },
+      "result": {
+        "passed": true,
+        "trigger": "development service",
+        "events": [],
+        "seed": null,
+        "development_audit": false,
+        "speed_profile": "fast",
+        "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+        "experimental_collision": {
+          "library": "/home/keyaoersi/round2_engine_experiment/build/libround2_parallel_collision.so",
+          "sha256": "9b1660292310148e1a2843aa846ed4cbac94b8296aab6d74e8b18dd918f77e50",
+          "threads": 4,
+          "verify": true,
+          "verify_stride": 100,
+          "source_sha256": "d0bac10efac13ea3763ed0291e07fbacd2d13db3f40eed340b0db23c9a789f50"
+        },
+        "startup_seconds": 5.474588268999469,
+        "scope": "STARTUP ONLY; no route test",
+        "cleanup": {
+          "owned_processes": 10,
+          "remaining": []
+        }
+      },
+      "engine_active": true,
+      "engine_stats": [],
+      "physics": {
+        "time_step": 0.001,
+        "pause": false,
+        "max_update_rate": 1000.0,
+        "gravity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": -9.8
+        },
+        "ode_config": {
+          "auto_disable_bodies": false,
+          "sor_pgs_precon_iters": 0,
+          "sor_pgs_iters": 50,
+          "sor_pgs_w": 1.3,
+          "sor_pgs_rms_error_tol": 0.0,
+          "contact_surface_layer": 0.001,
+          "contact_max_correcting_vel": 100.0,
+          "cfm": 0.0,
+          "erp": 0.2,
+          "max_contacts": 20
+        },
+        "success": true,
+        "status_message": "GetPhysicsProperties: got properties"
+      },
+      "accepted": true
+    },
+    {
+      "run": "04_startup_probe",
+      "scope": "startup",
+      "seed": null,
+      "exit_code": 0,
+      "startup_pass": true,
+      "startup_seconds": 5.361543882999285,
+      "cleanup": {
+        "owned_processes": 10,
+        "remaining": []
+      },
+      "result": {
+        "passed": true,
+        "trigger": "development service",
+        "events": [],
+        "seed": null,
+        "development_audit": false,
+        "speed_profile": "fast",
+        "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+        "experimental_collision": {
+          "library": "/home/keyaoersi/round2_engine_experiment/build/libround2_parallel_collision.so",
+          "sha256": "9b1660292310148e1a2843aa846ed4cbac94b8296aab6d74e8b18dd918f77e50",
+          "threads": 4,
+          "verify": true,
+          "verify_stride": 100,
+          "source_sha256": "d0bac10efac13ea3763ed0291e07fbacd2d13db3f40eed340b0db23c9a789f50"
+        },
+        "startup_seconds": 5.361543882999285,
+        "scope": "STARTUP ONLY; no route test",
+        "cleanup": {
+          "owned_processes": 10,
+          "remaining": []
+        }
+      },
+      "engine_active": true,
+      "engine_stats": [],
+      "physics": {
+        "time_step": 0.001,
+        "pause": false,
+        "max_update_rate": 1000.0,
+        "gravity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": -9.8
+        },
+        "ode_config": {
+          "auto_disable_bodies": false,
+          "sor_pgs_precon_iters": 0,
+          "sor_pgs_iters": 50,
+          "sor_pgs_w": 1.3,
+          "sor_pgs_rms_error_tol": 0.0,
+          "contact_surface_layer": 0.001,
+          "contact_max_correcting_vel": 100.0,
+          "cfm": 0.0,
+          "erp": 0.2,
+          "max_contacts": 20
+        },
+        "success": true,
+        "status_message": "GetPhysicsProperties: got properties"
+      },
+      "accepted": true
+    },
+    {
+      "run": "05_startup_probe",
+      "scope": "startup",
+      "seed": null,
+      "exit_code": 0,
+      "startup_pass": true,
+      "startup_seconds": 5.620495113000288,
+      "cleanup": {
+        "owned_processes": 10,
+        "remaining": []
+      },
+      "result": {
+        "passed": true,
+        "trigger": "development service",
+        "events": [],
+        "seed": null,
+        "development_audit": false,
+        "speed_profile": "fast",
+        "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+        "experimental_collision": {
+          "library": "/home/keyaoersi/round2_engine_experiment/build/libround2_parallel_collision.so",
+          "sha256": "9b1660292310148e1a2843aa846ed4cbac94b8296aab6d74e8b18dd918f77e50",
+          "threads": 4,
+          "verify": true,
+          "verify_stride": 100,
+          "source_sha256": "d0bac10efac13ea3763ed0291e07fbacd2d13db3f40eed340b0db23c9a789f50"
+        },
+        "startup_seconds": 5.620495113000288,
+        "scope": "STARTUP ONLY; no route test",
+        "cleanup": {
+          "owned_processes": 10,
+          "remaining": []
+        }
+      },
+      "engine_active": true,
+      "engine_stats": [],
+      "physics": {
+        "time_step": 0.001,
+        "pause": false,
+        "max_update_rate": 1000.0,
+        "gravity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": -9.8
+        },
+        "ode_config": {
+          "auto_disable_bodies": false,
+          "sor_pgs_precon_iters": 0,
+          "sor_pgs_iters": 50,
+          "sor_pgs_w": 1.3,
+          "sor_pgs_rms_error_tol": 0.0,
+          "contact_surface_layer": 0.001,
+          "contact_max_correcting_vel": 100.0,
+          "cfm": 0.0,
+          "erp": 0.2,
+          "max_contacts": 20
+        },
+        "success": true,
+        "status_message": "GetPhysicsProperties: got properties"
+      },
+      "accepted": true
+    }
+  ],
+  "failed_full_trials": [
+    {
+      "run": "06_full_42",
+      "passed": false,
+      "result": {
+        "passed": false,
+        "trigger": "unchanged official Draw widget",
+        "events": [
+          {
+            "state": "IDLE",
+            "detail": "CONTROL_ONLY: image tasks omitted",
+            "stamp": 502.841,
+            "control_only": true,
+            "wall": 6146.796251735
+          },
+          {
+            "state": "MOVING",
+            "detail": "bend1",
+            "stamp": 511.432,
+            "control_only": true,
+            "wall": 6149.785752195
+          },
+          {
+            "state": "ARRIVED",
+            "detail": "bend1",
+            "stamp": 517.271,
+            "control_only": true,
+            "wall": 6161.658142418
+          },
+          {
+            "state": "MOVING",
+            "detail": "bend2",
+            "stamp": 517.293,
+            "control_only": true,
+            "wall": 6161.710013815
+          },
+          {
+            "state": "ARRIVED",
+            "detail": "bend2",
+            "stamp": 522.73,
+            "control_only": true,
+            "wall": 6172.706047021
+          },
+          {
+            "state": "MOVING",
+            "detail": "bend3",
+            "stamp": 522.75,
+            "control_only": true,
+            "wall": 6172.752562568
+          },
+          {
+            "state": "ARRIVED",
+            "detail": "bend3",
+            "stamp": 528.013,
+            "control_only": true,
+            "wall": 6183.439592478
+          },
+          {
+            "state": "MOVING",
+            "detail": "bend4",
+            "stamp": 528.036,
+            "control_only": true,
+            "wall": 6183.48653153
+          },
+          {
+            "state": "FAILED",
+            "detail": "No measured movement for 28 seconds: bend4",
+            "stamp": 547.859,
+            "control_only": true,
+            "wall": 6224.67625272
+          }
+        ],
+        "seed": 42,
+        "development_audit": true,
+        "speed_profile": "fast",
+        "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+        "experimental_collision": {
+          "library": "/home/keyaoersi/round2_engine_experiment/build/libround2_parallel_collision.so",
+          "sha256": "9b1660292310148e1a2843aa846ed4cbac94b8296aab6d74e8b18dd918f77e50",
+          "threads": 4,
+          "verify": true,
+          "verify_stride": 100,
+          "source_sha256": "d0bac10efac13ea3763ed0291e07fbacd2d13db3f40eed340b0db23c9a789f50"
+        },
+        "startup_seconds": 5.553740846999972,
+        "elapsed_wall": 78.08365668599981,
+        "final_status": {
+          "state": "FAILED",
+          "detail": "No measured movement for 28 seconds: bend4",
+          "stamp": 547.859,
+          "control_only": true
+        },
+        "cleanup": {
+          "owned_processes": 19,
+          "remaining": []
+        }
+      },
+      "last_pose": {
+        "t": 548.8,
+        "wall": 6226.853213303,
+        "x": 1.2390651903826169,
+        "y": 1.7072491143777162,
+        "rpy": [
+          0.000543553108346247,
+          -0.0014980921346451365,
+          -1.6318259349212787
+        ],
+        "v": [
+          1.5355803551439967e-07,
+          1.5395525207258442e-07,
+          0.0
+        ]
+      },
+      "retries": 0
+    }
+  ]
+}

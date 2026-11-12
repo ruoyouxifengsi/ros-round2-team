@@ -1,5 +1,7 @@
 # 碰撞并行实验（独立分支，不作为正式比赛默认入口）
 
+> **已停用：用户于 2026-11-12 确认组委会不允许修改架构。以下构建命令仅作历史记录，不用于比赛或后续验收。** 多布局实验完成种子 42、1、2、3 四轮；第五轮按用户要求取消，第六轮未启动。记录在 `evidence/parallel_multilayout_archived_20261112`，不得把这些结果当作官方引擎的验收。
+
 本实验针对 Gazebo 11.15.1 的 ODE 碰撞计算：把互不依赖的碰撞对交给多个 CPU 线程计算，然后按原来顺序创建接触约束。它不是调整车速，也不修改碰撞网格、重力、步长、摩擦、求解迭代数或接触点上限。低质心版本仍只使用此前获准的质心改动。
 
 用户已授权尝试修改仿真架构；**组委会是否允许修改 Gazebo 碰撞执行方式尚未确认**。本分支仅供实验。系统安装的 Gazebo 和仓库原版车模均保留；不传实验参数就使用原引擎，不需要卸载或覆盖系统库。
@@ -88,3 +90,28 @@ python3 round2_baseline/scripts/analyze_trial.py \
 `--audit-cones` 另有开发专用锥桶位移观察功能，读取 Gazebo 状态并只写日志，不向导航反馈；不得带入正式比赛。它能发现可测位移，不能把零位移当作绝无接触。
 
 控制整轮仍跳过图像识别和播报，`CONTROL_ROUTE_DONE` 不代表完整比赛完赛。正式接入图像后必须重新验收全程和比赛时间预算。
+
+## 连续启停和多布局复测
+
+以下命令每次使用新的输出目录，顺序执行 6 次独立启动/关闭检查，再执行 6 轮控制路线，包含 4 种布局和 2 次重复。各轮使用官方随机布桶脚本；导航只读取现场传感器。不要同时启动其他同端口的练习程序。
+
+```bash
+source ~/round2_team_ws/devel/setup.bash
+python3 round2_baseline/experimental/parallel_collision/validate_layouts.py \
+  round2_baseline/evidence/local_parallel_layouts_mytest \
+  --startup-repeats 6 --seeds 42 1 2 3 42 3
+```
+
+`summary.json` 随每轮结束更新。`scope=startup` 只说明启动、传感器就绪和清理通过；`scope=full` 才参与整轮统计。脚本遇到失败立即停止，保留失败分母和日志，不自动覆盖或重跑。修复后换新目录开始下一批。脚本使用每轮不超过 10 条规划不可行警告作为开发质量门槛，这不是官方计分规则；还必须同时通过完整路线、停车、保护、接触、位移和清理检查。
+
+开发用 `--audit-cones` 在并行插件中记录 `cone_contacts.jsonl`：每个车体碰撞部件与锥桶的接触开始/结束、接触点、仿真时刻，以及覆盖统计。`contact_episodes` 是按碰撞部件对记录的连续接触段，不能直接等同裁判扣分次数。`unsupported>0` 或记录缺失时，不得把结果写成“0 次接触”。它仅写文件，不向控制节点提供 Gazebo 真值；正式比赛不启用该观察功能。
+
+记录器有独立的相交/分离自检，不修改官方世界文件：
+
+```bash
+python3 round2_baseline/experimental/parallel_collision/test_contact_audit.py \
+  round2_baseline/evidence/local_contact_check_mytest
+python3 round2_baseline/scripts/test_trial_processes.py
+```
+
+启动前会检查测试端口，发现已有程序占用时拒绝继续，不结束不属于本轮的程序。退出时清理本轮创建的独立子进程，按 PID 和启动时间核对归属；清理结果写进 `result.json`。若仍失败，保留该目录的 `simulation.log`，其中已启用 Gazebo 详细输出。

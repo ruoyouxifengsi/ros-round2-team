@@ -151,7 +151,8 @@ class Control:
             for name,x,y,yaw in rospy.get_param('~route'):
                 if self.cancelled.is_set():
                     raise RuntimeError('Cancelled')
-                distance = 0.08 if name in ('cone_exit','blocks','return') else 0.02
+                distance = 0.08 if name in ('cone_exit','blocks','return') else rospy.get_param('~travel_clearance',0.06)
+                if name in ('qr','qr_exit','finish'):distance=0.02
                 # The 2cm objective repeatedly proposes colliding corner trajectories.
                 if name=='bend1':distance=0.06
                 settings = dict(docking if name in ('qr','qr_exit','finish') else travel)
@@ -175,9 +176,16 @@ class Control:
                 deadline = time.monotonic()+(150 if name=='cone_exit' else 90)
                 progress_at=time.monotonic()
                 previous=self.odom.pose.pose
+                approach_released=distance<=0.02 or name in ('cone_exit','blocks','return')
                 while not self.client.wait_for_result(rospy.Duration(0.2)):
                     now=time.monotonic()
                     current=self.odom.pose.pose
+                    # Keep the original final-approach objective so a larger travel
+                    # clearance cannot prevent convergence to an existing waypoint.
+                    if not approach_released and math.hypot(current.position.x-x,current.position.y-y)<.15:
+                        planner.update_configuration({'min_obstacle_dist':0.02})
+                        approach_released=True
+                        rospy.loginfo('Final approach clearance restored for %s',name)
                     q0,q1=previous.orientation,current.orientation
                     moved=math.hypot(current.position.x-previous.position.x,current.position.y-previous.position.y)>.01
                     turned=abs(q0.x*q1.x+q0.y*q1.y+q0.z*q1.z+q0.w*q1.w)<math.cos(.02/2)
