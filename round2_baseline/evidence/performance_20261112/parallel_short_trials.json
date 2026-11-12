@@ -1,0 +1,898 @@
+[
+  {
+    "folder": "round2_baseline/evidence/local_parallel_benchmark/0_stock",
+    "metrics": {
+      "run": "0_stock",
+      "passed": true,
+      "cpus": 20,
+      "wall": 33.87020752600006,
+      "sim": 5.551000000000045,
+      "rtf": 0.1638903450986796,
+      "samples": 33,
+      "gzserver_cpu_median": 124.3014501432423,
+      "busiest_thread_median": 99.4605494171986,
+      "infeasible_warnings": 0
+    },
+    "result": {
+      "passed": true,
+      "trigger": "debug control service",
+      "events": [
+        {
+          "state": "IDLE",
+          "detail": "CONTROL_ONLY: image tasks omitted",
+          "stamp": 499.003,
+          "control_only": true,
+          "wall": 1914.746486043
+        },
+        {
+          "state": "MOVING",
+          "detail": "bend1",
+          "stamp": 500.667,
+          "control_only": true,
+          "wall": 1914.78933913
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "bend1",
+          "stamp": 506.218,
+          "control_only": true,
+          "wall": 1948.657985566
+        },
+        {
+          "state": "CONTROL_ROUTE_DONE",
+          "detail": "Not a complete competition finish; wheel placement requires verification",
+          "stamp": 506.218,
+          "control_only": true,
+          "wall": 1948.659546656
+        }
+      ],
+      "seed": 42,
+      "development_audit": false,
+      "speed_profile": "fast",
+      "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+      "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+      "elapsed_wall": 34.045044138000094,
+      "final_status": {
+        "state": "CONTROL_ROUTE_DONE",
+        "detail": "Not a complete competition finish; wheel placement requires verification",
+        "stamp": 506.218,
+        "control_only": true
+      }
+    },
+    "engine_active": false,
+    "last_engine_stats": null,
+    "contact_mismatch": false,
+    "guard_trips": 0,
+    "source_hashes": {
+      "scripts/analyze_trial.py": "a6a12c517a0407a572affd842d76b341619ef9af13e81dee28d63f24314a0371",
+      "scripts/attitude_guard.py": "9866ad33e1894652ffec69c18fdf4348049391c3b74f3265ff63e896032de4a8",
+      "scripts/audit_cones.py": "592513ef525ef6a3d98801e4969120d299a8a1db91473ca73e0dd6fdb24240ca",
+      "scripts/capture.py": "3bdd0e3abc53a7b117f104dfba4ebde9aa5398cc2b5c89580cd288dce6726142",
+      "scripts/check_snapshot_footprint.py": "74f0cd45f9344f958f9dbe90884f1b73f4849b447808fc7afe25e283b44b71ec",
+      "scripts/check_start_trial.py": "c1cada5d8b2435b2c3f66a483aea1bef3f3a093624835d5b6b0efb586483290a",
+      "scripts/compare_speed.py": "c1c0f73d7d0ac858dd28813557400b54e26ece0f8a49f464243a338713b25fd4",
+      "scripts/cone_obstacles.py": "56bea7299f3e862216b351e5ab8daa6742c5d9c9dd8c2d7f5f2bd06cd2cc378b",
+      "scripts/control.py": "bd1b4cebcaf24b7b7d1c6d51cb757e3f5c0c59426c86c6a6af27a292a569b755",
+      "scripts/measure_footprint.py": "12b4c0193601352d35b760deb98545b384a4d47f97c1d709bfeb57a7487b0962",
+      "scripts/plot_snapshot.py": "626139f13bbce913ff340a60085d0f21786cbfe9b8b0284292a1f2e66340c95e",
+      "scripts/plot_trial.py": "74b05711cedeecf40fcc1762d67dd0ad8dd75abfef9c71bdcdd4b7262c6dc584",
+      "scripts/profile_runtime.py": "9249b4dce3b815af9b47d3d287480730eeb8bf4edf6965a93e5529de5742330e",
+      "scripts/replay_clearance.py": "57fd5a9d419f7852ebada726eda4f8c7ad13f9677992bb2021756a783f13e12e",
+      "scripts/run_matrix.py": "b78e5aaf26af259641239c3ca358d6b67ef7e6d288250cf7db8d286687e936e2",
+      "scripts/run_trial.py": "8fbad805168e0c970097bd1a0d3247bfa1d7f5c3cb024874334c5c02cf8efa2a",
+      "scripts/summarize_performance.py": "c08aa1b6232c6a4e7c1331a7945a7541077d577670c268c91c7b079e548e329b",
+      "scripts/summarize_trials.py": "fb6aa0937d16fecde584d66aa02822beb07af9c6fc70c7894bcd676dba8e165c",
+      "scripts/test_cone_obstacles.py": "ab9a1f4f1ab128f760cf651069c9d3b61b654ab98045aec7778fe6724ffbc7b5",
+      "scripts/test_docking.py": "084c9f36537c02a0f48f0ca6b511f95bc5422fc64f602fbc3fa561c79a497991",
+      "scripts/test_speed_profile.py": "88dfa330f2ecc4f3a31d46c1257e44c31ebe7cf772df6628752d444038841cbf",
+      "scripts/timer_trial.py": "6d0503a077acaed11c66d78cd8fccfa0e103d16aa53a457f6cefe402719407ea",
+      "scripts/verify_assets.py": "759b41f652b76390ffa694b279c5f40cd1b68f67562938d2bc6967bf5bc07f67"
+    }
+  },
+  {
+    "folder": "round2_baseline/evidence/local_parallel_benchmark/1_1",
+    "metrics": {
+      "run": "1_1",
+      "passed": true,
+      "cpus": 20,
+      "wall": 35.86259556899995,
+      "sim": 5.748999999999967,
+      "rtf": 0.16030629988671177,
+      "samples": 35,
+      "gzserver_cpu_median": 125.24925563430546,
+      "busiest_thread_median": 99.45229581920715,
+      "infeasible_warnings": 0
+    },
+    "result": {
+      "passed": true,
+      "trigger": "debug control service",
+      "events": [
+        {
+          "state": "IDLE",
+          "detail": "CONTROL_ONLY: image tasks omitted",
+          "stamp": 499.089,
+          "control_only": true,
+          "wall": 1995.531735109
+        },
+        {
+          "state": "MOVING",
+          "detail": "bend1",
+          "stamp": 500.817,
+          "control_only": true,
+          "wall": 1995.578866352
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "bend1",
+          "stamp": 506.566,
+          "control_only": true,
+          "wall": 2031.440290276
+        },
+        {
+          "state": "CONTROL_ROUTE_DONE",
+          "detail": "Not a complete competition finish; wheel placement requires verification",
+          "stamp": 506.566,
+          "control_only": true,
+          "wall": 2031.441461921
+        }
+      ],
+      "seed": 42,
+      "development_audit": false,
+      "speed_profile": "fast",
+      "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+      "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+      "experimental_collision": {
+        "library": "/home/keyaoersi/round2_engine_experiment/build/libround2_parallel_collision.so",
+        "sha256": "1b8618fefdf6321409d63c5162632781b13c5f0a290fa4eebc989e0f763cafed",
+        "threads": 1,
+        "verify": false
+      },
+      "elapsed_wall": 36.04147139099996,
+      "final_status": {
+        "state": "CONTROL_ROUTE_DONE",
+        "detail": "Not a complete competition finish; wheel placement requires verification",
+        "stamp": 506.566,
+        "control_only": true
+      }
+    },
+    "engine_active": true,
+    "last_engine_stats": "[parallel-collision] steps=9000 pairs=52651 cache_hits=52651 verified=0 mismatches=0 parallel_seconds=45.604125 update_seconds=46.360116",
+    "contact_mismatch": false,
+    "guard_trips": 0,
+    "source_hashes": {
+      "scripts/analyze_trial.py": "a6a12c517a0407a572affd842d76b341619ef9af13e81dee28d63f24314a0371",
+      "scripts/attitude_guard.py": "9866ad33e1894652ffec69c18fdf4348049391c3b74f3265ff63e896032de4a8",
+      "scripts/audit_cones.py": "592513ef525ef6a3d98801e4969120d299a8a1db91473ca73e0dd6fdb24240ca",
+      "scripts/capture.py": "3bdd0e3abc53a7b117f104dfba4ebde9aa5398cc2b5c89580cd288dce6726142",
+      "scripts/check_snapshot_footprint.py": "74f0cd45f9344f958f9dbe90884f1b73f4849b447808fc7afe25e283b44b71ec",
+      "scripts/check_start_trial.py": "c1cada5d8b2435b2c3f66a483aea1bef3f3a093624835d5b6b0efb586483290a",
+      "scripts/compare_speed.py": "c1c0f73d7d0ac858dd28813557400b54e26ece0f8a49f464243a338713b25fd4",
+      "scripts/cone_obstacles.py": "56bea7299f3e862216b351e5ab8daa6742c5d9c9dd8c2d7f5f2bd06cd2cc378b",
+      "scripts/control.py": "bd1b4cebcaf24b7b7d1c6d51cb757e3f5c0c59426c86c6a6af27a292a569b755",
+      "scripts/measure_footprint.py": "12b4c0193601352d35b760deb98545b384a4d47f97c1d709bfeb57a7487b0962",
+      "scripts/plot_snapshot.py": "626139f13bbce913ff340a60085d0f21786cbfe9b8b0284292a1f2e66340c95e",
+      "scripts/plot_trial.py": "74b05711cedeecf40fcc1762d67dd0ad8dd75abfef9c71bdcdd4b7262c6dc584",
+      "scripts/profile_runtime.py": "9249b4dce3b815af9b47d3d287480730eeb8bf4edf6965a93e5529de5742330e",
+      "scripts/replay_clearance.py": "57fd5a9d419f7852ebada726eda4f8c7ad13f9677992bb2021756a783f13e12e",
+      "scripts/run_matrix.py": "b78e5aaf26af259641239c3ca358d6b67ef7e6d288250cf7db8d286687e936e2",
+      "scripts/run_trial.py": "0123bed95cc169b2651823b23085f48a2c070df535076559fd2b2c4e35de570f",
+      "scripts/summarize_performance.py": "c08aa1b6232c6a4e7c1331a7945a7541077d577670c268c91c7b079e548e329b",
+      "scripts/summarize_trials.py": "fb6aa0937d16fecde584d66aa02822beb07af9c6fc70c7894bcd676dba8e165c",
+      "scripts/test_cone_obstacles.py": "ab9a1f4f1ab128f760cf651069c9d3b61b654ab98045aec7778fe6724ffbc7b5",
+      "scripts/test_docking.py": "084c9f36537c02a0f48f0ca6b511f95bc5422fc64f602fbc3fa561c79a497991",
+      "scripts/test_speed_profile.py": "88dfa330f2ecc4f3a31d46c1257e44c31ebe7cf772df6628752d444038841cbf",
+      "scripts/timer_trial.py": "6d0503a077acaed11c66d78cd8fccfa0e103d16aa53a457f6cefe402719407ea",
+      "scripts/verify_assets.py": "759b41f652b76390ffa694b279c5f40cd1b68f67562938d2bc6967bf5bc07f67"
+    },
+    "physics_properties": {
+      "time_step": 0.001,
+      "pause": false,
+      "max_update_rate": 1000.0,
+      "gravity": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -9.8
+      },
+      "ode_config": {
+        "auto_disable_bodies": false,
+        "sor_pgs_precon_iters": 0,
+        "sor_pgs_iters": 50,
+        "sor_pgs_w": 1.3,
+        "sor_pgs_rms_error_tol": 0.0,
+        "contact_surface_layer": 0.001,
+        "contact_max_correcting_vel": 100.0,
+        "cfm": 0.0,
+        "erp": 0.2,
+        "max_contacts": 20
+      },
+      "success": true,
+      "status_message": "GetPhysicsProperties: got properties"
+    }
+  },
+  {
+    "folder": "round2_baseline/evidence/local_parallel_benchmark/2_4",
+    "metrics": {
+      "run": "2_4",
+      "passed": true,
+      "cpus": 20,
+      "wall": 10.069143643000189,
+      "sim": 5.807999999999993,
+      "rtf": 0.5768117136791038,
+      "samples": 10,
+      "gzserver_cpu_median": 308.85839865835015,
+      "busiest_thread_median": 85.90408242719639,
+      "infeasible_warnings": 1
+    },
+    "result": {
+      "passed": true,
+      "trigger": "debug control service",
+      "events": [
+        {
+          "state": "IDLE",
+          "detail": "CONTROL_ONLY: image tasks omitted",
+          "stamp": 500.653,
+          "control_only": true,
+          "wall": 2075.940243691
+        },
+        {
+          "state": "MOVING",
+          "detail": "bend1",
+          "stamp": 505.153,
+          "control_only": true,
+          "wall": 2076.019494879
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "bend1",
+          "stamp": 510.96,
+          "control_only": true,
+          "wall": 2086.087090926
+        },
+        {
+          "state": "CONTROL_ROUTE_DONE",
+          "detail": "Not a complete competition finish; wheel placement requires verification",
+          "stamp": 510.961,
+          "control_only": true,
+          "wall": 2086.088638522
+        }
+      ],
+      "seed": 42,
+      "development_audit": false,
+      "speed_profile": "fast",
+      "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+      "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+      "experimental_collision": {
+        "library": "/home/keyaoersi/round2_engine_experiment/build/libround2_parallel_collision.so",
+        "sha256": "1b8618fefdf6321409d63c5162632781b13c5f0a290fa4eebc989e0f763cafed",
+        "threads": 4,
+        "verify": false
+      },
+      "elapsed_wall": 11.022487609999644,
+      "final_status": {
+        "state": "CONTROL_ROUTE_DONE",
+        "detail": "Not a complete competition finish; wheel placement requires verification",
+        "stamp": 510.961,
+        "control_only": true
+      }
+    },
+    "engine_active": true,
+    "last_engine_stats": "[parallel-collision] steps=15000 pairs=79263 cache_hits=79263 verified=0 mismatches=0 parallel_seconds=21.012903 update_seconds=21.890413",
+    "contact_mismatch": false,
+    "guard_trips": 0,
+    "source_hashes": {
+      "scripts/analyze_trial.py": "a6a12c517a0407a572affd842d76b341619ef9af13e81dee28d63f24314a0371",
+      "scripts/attitude_guard.py": "9866ad33e1894652ffec69c18fdf4348049391c3b74f3265ff63e896032de4a8",
+      "scripts/audit_cones.py": "592513ef525ef6a3d98801e4969120d299a8a1db91473ca73e0dd6fdb24240ca",
+      "scripts/capture.py": "3bdd0e3abc53a7b117f104dfba4ebde9aa5398cc2b5c89580cd288dce6726142",
+      "scripts/check_snapshot_footprint.py": "74f0cd45f9344f958f9dbe90884f1b73f4849b447808fc7afe25e283b44b71ec",
+      "scripts/check_start_trial.py": "c1cada5d8b2435b2c3f66a483aea1bef3f3a093624835d5b6b0efb586483290a",
+      "scripts/compare_speed.py": "c1c0f73d7d0ac858dd28813557400b54e26ece0f8a49f464243a338713b25fd4",
+      "scripts/cone_obstacles.py": "56bea7299f3e862216b351e5ab8daa6742c5d9c9dd8c2d7f5f2bd06cd2cc378b",
+      "scripts/control.py": "bd1b4cebcaf24b7b7d1c6d51cb757e3f5c0c59426c86c6a6af27a292a569b755",
+      "scripts/measure_footprint.py": "12b4c0193601352d35b760deb98545b384a4d47f97c1d709bfeb57a7487b0962",
+      "scripts/plot_snapshot.py": "626139f13bbce913ff340a60085d0f21786cbfe9b8b0284292a1f2e66340c95e",
+      "scripts/plot_trial.py": "74b05711cedeecf40fcc1762d67dd0ad8dd75abfef9c71bdcdd4b7262c6dc584",
+      "scripts/profile_runtime.py": "9249b4dce3b815af9b47d3d287480730eeb8bf4edf6965a93e5529de5742330e",
+      "scripts/replay_clearance.py": "57fd5a9d419f7852ebada726eda4f8c7ad13f9677992bb2021756a783f13e12e",
+      "scripts/run_matrix.py": "b78e5aaf26af259641239c3ca358d6b67ef7e6d288250cf7db8d286687e936e2",
+      "scripts/run_trial.py": "0123bed95cc169b2651823b23085f48a2c070df535076559fd2b2c4e35de570f",
+      "scripts/summarize_performance.py": "c08aa1b6232c6a4e7c1331a7945a7541077d577670c268c91c7b079e548e329b",
+      "scripts/summarize_trials.py": "fb6aa0937d16fecde584d66aa02822beb07af9c6fc70c7894bcd676dba8e165c",
+      "scripts/test_cone_obstacles.py": "ab9a1f4f1ab128f760cf651069c9d3b61b654ab98045aec7778fe6724ffbc7b5",
+      "scripts/test_docking.py": "084c9f36537c02a0f48f0ca6b511f95bc5422fc64f602fbc3fa561c79a497991",
+      "scripts/test_speed_profile.py": "88dfa330f2ecc4f3a31d46c1257e44c31ebe7cf772df6628752d444038841cbf",
+      "scripts/timer_trial.py": "6d0503a077acaed11c66d78cd8fccfa0e103d16aa53a457f6cefe402719407ea",
+      "scripts/verify_assets.py": "759b41f652b76390ffa694b279c5f40cd1b68f67562938d2bc6967bf5bc07f67"
+    },
+    "physics_properties": {
+      "time_step": 0.001,
+      "pause": false,
+      "max_update_rate": 1000.0,
+      "gravity": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -9.8
+      },
+      "ode_config": {
+        "auto_disable_bodies": false,
+        "sor_pgs_precon_iters": 0,
+        "sor_pgs_iters": 50,
+        "sor_pgs_w": 1.3,
+        "sor_pgs_rms_error_tol": 0.0,
+        "contact_surface_layer": 0.001,
+        "contact_max_correcting_vel": 100.0,
+        "cfm": 0.0,
+        "erp": 0.2,
+        "max_contacts": 20
+      },
+      "success": true,
+      "status_message": "GetPhysicsProperties: got properties"
+    }
+  },
+  {
+    "folder": "round2_baseline/evidence/local_parallel_benchmark/3_8",
+    "metrics": {
+      "run": "3_8",
+      "passed": true,
+      "cpus": 20,
+      "wall": 12.298092834000272,
+      "sim": 5.831999999999994,
+      "rtf": 0.4742198712207139,
+      "samples": 12,
+      "gzserver_cpu_median": 314.5780461900014,
+      "busiest_thread_median": 48.203727405431735,
+      "infeasible_warnings": 1
+    },
+    "result": {
+      "passed": true,
+      "trigger": "debug control service",
+      "events": [
+        {
+          "state": "IDLE",
+          "detail": "CONTROL_ONLY: image tasks omitted",
+          "stamp": 501.145,
+          "control_only": true,
+          "wall": 2131.681852762
+        },
+        {
+          "state": "MOVING",
+          "detail": "bend1",
+          "stamp": 505.036,
+          "control_only": true,
+          "wall": 2131.911315897
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "bend1",
+          "stamp": 510.868,
+          "control_only": true,
+          "wall": 2144.207690191
+        },
+        {
+          "state": "CONTROL_ROUTE_DONE",
+          "detail": "Not a complete competition finish; wheel placement requires verification",
+          "stamp": 510.868,
+          "control_only": true,
+          "wall": 2144.209408731
+        }
+      ],
+      "seed": 42,
+      "development_audit": false,
+      "speed_profile": "fast",
+      "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+      "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+      "experimental_collision": {
+        "library": "/home/keyaoersi/round2_engine_experiment/build/libround2_parallel_collision.so",
+        "sha256": "1b8618fefdf6321409d63c5162632781b13c5f0a290fa4eebc989e0f763cafed",
+        "threads": 8,
+        "verify": false
+      },
+      "elapsed_wall": 13.095516620000126,
+      "final_status": {
+        "state": "CONTROL_ROUTE_DONE",
+        "detail": "Not a complete competition finish; wheel placement requires verification",
+        "stamp": 510.868,
+        "control_only": true
+      }
+    },
+    "engine_active": true,
+    "last_engine_stats": "[parallel-collision] steps=15000 pairs=79950 cache_hits=79950 verified=0 mismatches=0 parallel_seconds=23.387470 update_seconds=24.321092",
+    "contact_mismatch": false,
+    "guard_trips": 0,
+    "source_hashes": {
+      "scripts/analyze_trial.py": "a6a12c517a0407a572affd842d76b341619ef9af13e81dee28d63f24314a0371",
+      "scripts/attitude_guard.py": "9866ad33e1894652ffec69c18fdf4348049391c3b74f3265ff63e896032de4a8",
+      "scripts/audit_cones.py": "592513ef525ef6a3d98801e4969120d299a8a1db91473ca73e0dd6fdb24240ca",
+      "scripts/capture.py": "3bdd0e3abc53a7b117f104dfba4ebde9aa5398cc2b5c89580cd288dce6726142",
+      "scripts/check_snapshot_footprint.py": "74f0cd45f9344f958f9dbe90884f1b73f4849b447808fc7afe25e283b44b71ec",
+      "scripts/check_start_trial.py": "c1cada5d8b2435b2c3f66a483aea1bef3f3a093624835d5b6b0efb586483290a",
+      "scripts/compare_speed.py": "c1c0f73d7d0ac858dd28813557400b54e26ece0f8a49f464243a338713b25fd4",
+      "scripts/cone_obstacles.py": "56bea7299f3e862216b351e5ab8daa6742c5d9c9dd8c2d7f5f2bd06cd2cc378b",
+      "scripts/control.py": "bd1b4cebcaf24b7b7d1c6d51cb757e3f5c0c59426c86c6a6af27a292a569b755",
+      "scripts/measure_footprint.py": "12b4c0193601352d35b760deb98545b384a4d47f97c1d709bfeb57a7487b0962",
+      "scripts/plot_snapshot.py": "626139f13bbce913ff340a60085d0f21786cbfe9b8b0284292a1f2e66340c95e",
+      "scripts/plot_trial.py": "74b05711cedeecf40fcc1762d67dd0ad8dd75abfef9c71bdcdd4b7262c6dc584",
+      "scripts/profile_runtime.py": "9249b4dce3b815af9b47d3d287480730eeb8bf4edf6965a93e5529de5742330e",
+      "scripts/replay_clearance.py": "57fd5a9d419f7852ebada726eda4f8c7ad13f9677992bb2021756a783f13e12e",
+      "scripts/run_matrix.py": "b78e5aaf26af259641239c3ca358d6b67ef7e6d288250cf7db8d286687e936e2",
+      "scripts/run_trial.py": "0123bed95cc169b2651823b23085f48a2c070df535076559fd2b2c4e35de570f",
+      "scripts/summarize_performance.py": "c08aa1b6232c6a4e7c1331a7945a7541077d577670c268c91c7b079e548e329b",
+      "scripts/summarize_trials.py": "fb6aa0937d16fecde584d66aa02822beb07af9c6fc70c7894bcd676dba8e165c",
+      "scripts/test_cone_obstacles.py": "ab9a1f4f1ab128f760cf651069c9d3b61b654ab98045aec7778fe6724ffbc7b5",
+      "scripts/test_docking.py": "084c9f36537c02a0f48f0ca6b511f95bc5422fc64f602fbc3fa561c79a497991",
+      "scripts/test_speed_profile.py": "88dfa330f2ecc4f3a31d46c1257e44c31ebe7cf772df6628752d444038841cbf",
+      "scripts/timer_trial.py": "6d0503a077acaed11c66d78cd8fccfa0e103d16aa53a457f6cefe402719407ea",
+      "scripts/verify_assets.py": "759b41f652b76390ffa694b279c5f40cd1b68f67562938d2bc6967bf5bc07f67"
+    },
+    "physics_properties": {
+      "time_step": 0.001,
+      "pause": false,
+      "max_update_rate": 1000.0,
+      "gravity": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -9.8
+      },
+      "ode_config": {
+        "auto_disable_bodies": false,
+        "sor_pgs_precon_iters": 0,
+        "sor_pgs_iters": 50,
+        "sor_pgs_w": 1.3,
+        "sor_pgs_rms_error_tol": 0.0,
+        "contact_surface_layer": 0.001,
+        "contact_max_correcting_vel": 100.0,
+        "cfm": 0.0,
+        "erp": 0.2,
+        "max_contacts": 20
+      },
+      "success": true,
+      "status_message": "GetPhysicsProperties: got properties"
+    }
+  },
+  {
+    "folder": "round2_baseline/evidence/local_parallel_benchmark/4_stock",
+    "metrics": {
+      "run": "4_stock",
+      "passed": true,
+      "cpus": 20,
+      "wall": 37.516587010999956,
+      "sim": 5.6959999999999695,
+      "rtf": 0.1518261775339502,
+      "samples": 36,
+      "gzserver_cpu_median": 155.9032594414491,
+      "busiest_thread_median": 99.40626476016041,
+      "infeasible_warnings": 0
+    },
+    "result": {
+      "passed": true,
+      "trigger": "debug control service",
+      "events": [
+        {
+          "state": "IDLE",
+          "detail": "CONTROL_ONLY: image tasks omitted",
+          "stamp": 499.092,
+          "control_only": true,
+          "wall": 2194.483313784
+        },
+        {
+          "state": "MOVING",
+          "detail": "bend1",
+          "stamp": 500.586,
+          "control_only": true,
+          "wall": 2194.550459989
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "bend1",
+          "stamp": 506.282,
+          "control_only": true,
+          "wall": 2232.051734791
+        },
+        {
+          "state": "CONTROL_ROUTE_DONE",
+          "detail": "Not a complete competition finish; wheel placement requires verification",
+          "stamp": 506.282,
+          "control_only": true,
+          "wall": 2232.067047
+        }
+      ],
+      "seed": 42,
+      "development_audit": false,
+      "speed_profile": "fast",
+      "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+      "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+      "elapsed_wall": 38.05035335000002,
+      "final_status": {
+        "state": "CONTROL_ROUTE_DONE",
+        "detail": "Not a complete competition finish; wheel placement requires verification",
+        "stamp": 506.282,
+        "control_only": true
+      }
+    },
+    "engine_active": false,
+    "last_engine_stats": null,
+    "contact_mismatch": false,
+    "guard_trips": 0,
+    "source_hashes": {
+      "scripts/analyze_trial.py": "a6a12c517a0407a572affd842d76b341619ef9af13e81dee28d63f24314a0371",
+      "scripts/attitude_guard.py": "9866ad33e1894652ffec69c18fdf4348049391c3b74f3265ff63e896032de4a8",
+      "scripts/audit_cones.py": "592513ef525ef6a3d98801e4969120d299a8a1db91473ca73e0dd6fdb24240ca",
+      "scripts/capture.py": "3bdd0e3abc53a7b117f104dfba4ebde9aa5398cc2b5c89580cd288dce6726142",
+      "scripts/check_snapshot_footprint.py": "74f0cd45f9344f958f9dbe90884f1b73f4849b447808fc7afe25e283b44b71ec",
+      "scripts/check_start_trial.py": "c1cada5d8b2435b2c3f66a483aea1bef3f3a093624835d5b6b0efb586483290a",
+      "scripts/compare_speed.py": "c1c0f73d7d0ac858dd28813557400b54e26ece0f8a49f464243a338713b25fd4",
+      "scripts/cone_obstacles.py": "56bea7299f3e862216b351e5ab8daa6742c5d9c9dd8c2d7f5f2bd06cd2cc378b",
+      "scripts/control.py": "bd1b4cebcaf24b7b7d1c6d51cb757e3f5c0c59426c86c6a6af27a292a569b755",
+      "scripts/measure_footprint.py": "12b4c0193601352d35b760deb98545b384a4d47f97c1d709bfeb57a7487b0962",
+      "scripts/plot_snapshot.py": "626139f13bbce913ff340a60085d0f21786cbfe9b8b0284292a1f2e66340c95e",
+      "scripts/plot_trial.py": "74b05711cedeecf40fcc1762d67dd0ad8dd75abfef9c71bdcdd4b7262c6dc584",
+      "scripts/profile_runtime.py": "9249b4dce3b815af9b47d3d287480730eeb8bf4edf6965a93e5529de5742330e",
+      "scripts/replay_clearance.py": "57fd5a9d419f7852ebada726eda4f8c7ad13f9677992bb2021756a783f13e12e",
+      "scripts/run_matrix.py": "b78e5aaf26af259641239c3ca358d6b67ef7e6d288250cf7db8d286687e936e2",
+      "scripts/run_trial.py": "f1ea4674b55b368c072f7ea8d2d27733dd495891873a8f7a020c1449b6f21154",
+      "scripts/summarize_performance.py": "c08aa1b6232c6a4e7c1331a7945a7541077d577670c268c91c7b079e548e329b",
+      "scripts/summarize_trials.py": "fb6aa0937d16fecde584d66aa02822beb07af9c6fc70c7894bcd676dba8e165c",
+      "scripts/test_cone_obstacles.py": "ab9a1f4f1ab128f760cf651069c9d3b61b654ab98045aec7778fe6724ffbc7b5",
+      "scripts/test_docking.py": "084c9f36537c02a0f48f0ca6b511f95bc5422fc64f602fbc3fa561c79a497991",
+      "scripts/test_speed_profile.py": "88dfa330f2ecc4f3a31d46c1257e44c31ebe7cf772df6628752d444038841cbf",
+      "scripts/timer_trial.py": "6d0503a077acaed11c66d78cd8fccfa0e103d16aa53a457f6cefe402719407ea",
+      "scripts/verify_assets.py": "759b41f652b76390ffa694b279c5f40cd1b68f67562938d2bc6967bf5bc07f67"
+    },
+    "physics_properties": {
+      "time_step": 0.001,
+      "pause": false,
+      "max_update_rate": 1000.0,
+      "gravity": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -9.8
+      },
+      "ode_config": {
+        "auto_disable_bodies": false,
+        "sor_pgs_precon_iters": 0,
+        "sor_pgs_iters": 50,
+        "sor_pgs_w": 1.3,
+        "sor_pgs_rms_error_tol": 0.0,
+        "contact_surface_layer": 0.001,
+        "contact_max_correcting_vel": 100.0,
+        "cfm": 0.0,
+        "erp": 0.2,
+        "max_contacts": 20
+      },
+      "success": true,
+      "status_message": "GetPhysicsProperties: got properties"
+    }
+  },
+  {
+    "folder": "round2_baseline/evidence/local_parallel_repeat/0_stock",
+    "metrics": {
+      "run": "0_stock",
+      "passed": true,
+      "cpus": 20,
+      "wall": 35.205832007000026,
+      "sim": 5.545999999999992,
+      "rtf": 0.15753071817468403,
+      "samples": 34,
+      "gzserver_cpu_median": 153.62454562049032,
+      "busiest_thread_median": 99.41912639609407,
+      "infeasible_warnings": 0
+    },
+    "result": {
+      "passed": true,
+      "trigger": "debug control service",
+      "events": [
+        {
+          "state": "IDLE",
+          "detail": "CONTROL_ONLY: image tasks omitted",
+          "stamp": 498.99,
+          "control_only": true,
+          "wall": 2283.259707935
+        },
+        {
+          "state": "MOVING",
+          "detail": "bend1",
+          "stamp": 500.613,
+          "control_only": true,
+          "wall": 2283.408231849
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "bend1",
+          "stamp": 506.159,
+          "control_only": true,
+          "wall": 2318.612564964
+        },
+        {
+          "state": "CONTROL_ROUTE_DONE",
+          "detail": "Not a complete competition finish; wheel placement requires verification",
+          "stamp": 506.159,
+          "control_only": true,
+          "wall": 2318.614063856
+        }
+      ],
+      "seed": 42,
+      "development_audit": false,
+      "speed_profile": "fast",
+      "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+      "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+      "elapsed_wall": 36.093997984,
+      "final_status": {
+        "state": "CONTROL_ROUTE_DONE",
+        "detail": "Not a complete competition finish; wheel placement requires verification",
+        "stamp": 506.159,
+        "control_only": true
+      }
+    },
+    "engine_active": false,
+    "last_engine_stats": null,
+    "contact_mismatch": false,
+    "guard_trips": 0,
+    "source_hashes": {
+      "scripts/analyze_trial.py": "a6a12c517a0407a572affd842d76b341619ef9af13e81dee28d63f24314a0371",
+      "scripts/attitude_guard.py": "9866ad33e1894652ffec69c18fdf4348049391c3b74f3265ff63e896032de4a8",
+      "scripts/audit_cones.py": "592513ef525ef6a3d98801e4969120d299a8a1db91473ca73e0dd6fdb24240ca",
+      "scripts/capture.py": "3bdd0e3abc53a7b117f104dfba4ebde9aa5398cc2b5c89580cd288dce6726142",
+      "scripts/check_snapshot_footprint.py": "74f0cd45f9344f958f9dbe90884f1b73f4849b447808fc7afe25e283b44b71ec",
+      "scripts/check_start_trial.py": "c1cada5d8b2435b2c3f66a483aea1bef3f3a093624835d5b6b0efb586483290a",
+      "scripts/compare_speed.py": "c1c0f73d7d0ac858dd28813557400b54e26ece0f8a49f464243a338713b25fd4",
+      "scripts/cone_obstacles.py": "56bea7299f3e862216b351e5ab8daa6742c5d9c9dd8c2d7f5f2bd06cd2cc378b",
+      "scripts/control.py": "bd1b4cebcaf24b7b7d1c6d51cb757e3f5c0c59426c86c6a6af27a292a569b755",
+      "scripts/measure_footprint.py": "12b4c0193601352d35b760deb98545b384a4d47f97c1d709bfeb57a7487b0962",
+      "scripts/plot_snapshot.py": "626139f13bbce913ff340a60085d0f21786cbfe9b8b0284292a1f2e66340c95e",
+      "scripts/plot_trial.py": "74b05711cedeecf40fcc1762d67dd0ad8dd75abfef9c71bdcdd4b7262c6dc584",
+      "scripts/profile_runtime.py": "9249b4dce3b815af9b47d3d287480730eeb8bf4edf6965a93e5529de5742330e",
+      "scripts/replay_clearance.py": "57fd5a9d419f7852ebada726eda4f8c7ad13f9677992bb2021756a783f13e12e",
+      "scripts/run_matrix.py": "b78e5aaf26af259641239c3ca358d6b67ef7e6d288250cf7db8d286687e936e2",
+      "scripts/run_trial.py": "f1ea4674b55b368c072f7ea8d2d27733dd495891873a8f7a020c1449b6f21154",
+      "scripts/summarize_performance.py": "c08aa1b6232c6a4e7c1331a7945a7541077d577670c268c91c7b079e548e329b",
+      "scripts/summarize_trials.py": "fb6aa0937d16fecde584d66aa02822beb07af9c6fc70c7894bcd676dba8e165c",
+      "scripts/test_cone_obstacles.py": "ab9a1f4f1ab128f760cf651069c9d3b61b654ab98045aec7778fe6724ffbc7b5",
+      "scripts/test_docking.py": "084c9f36537c02a0f48f0ca6b511f95bc5422fc64f602fbc3fa561c79a497991",
+      "scripts/test_speed_profile.py": "88dfa330f2ecc4f3a31d46c1257e44c31ebe7cf772df6628752d444038841cbf",
+      "scripts/timer_trial.py": "6d0503a077acaed11c66d78cd8fccfa0e103d16aa53a457f6cefe402719407ea",
+      "scripts/verify_assets.py": "759b41f652b76390ffa694b279c5f40cd1b68f67562938d2bc6967bf5bc07f67"
+    },
+    "physics_properties": {
+      "time_step": 0.001,
+      "pause": false,
+      "max_update_rate": 1000.0,
+      "gravity": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -9.8
+      },
+      "ode_config": {
+        "auto_disable_bodies": false,
+        "sor_pgs_precon_iters": 0,
+        "sor_pgs_iters": 50,
+        "sor_pgs_w": 1.3,
+        "sor_pgs_rms_error_tol": 0.0,
+        "contact_surface_layer": 0.001,
+        "contact_max_correcting_vel": 100.0,
+        "cfm": 0.0,
+        "erp": 0.2,
+        "max_contacts": 20
+      },
+      "success": true,
+      "status_message": "GetPhysicsProperties: got properties"
+    }
+  },
+  {
+    "folder": "round2_baseline/evidence/local_parallel_all_verify4",
+    "metrics": {
+      "run": "local_parallel_all_verify4",
+      "passed": true,
+      "cpus": 20,
+      "wall": 36.291093936999914,
+      "sim": 5.5020000000000095,
+      "rtf": 0.15160744422726113,
+      "samples": 36,
+      "gzserver_cpu_median": 423.3730170738497,
+      "busiest_thread_median": 100.44979353965786,
+      "infeasible_warnings": 0
+    },
+    "result": {
+      "passed": true,
+      "trigger": "debug control service",
+      "events": [
+        {
+          "state": "IDLE",
+          "detail": "CONTROL_ONLY: image tasks omitted",
+          "stamp": 498.436,
+          "control_only": true,
+          "wall": 1802.32727734
+        },
+        {
+          "state": "MOVING",
+          "detail": "bend1",
+          "stamp": 499.772,
+          "control_only": true,
+          "wall": 1802.394045098
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "bend1",
+          "stamp": 505.274,
+          "control_only": true,
+          "wall": 1838.684180155
+        },
+        {
+          "state": "CONTROL_ROUTE_DONE",
+          "detail": "Not a complete competition finish; wheel placement requires verification",
+          "stamp": 505.274,
+          "control_only": true,
+          "wall": 1838.685139035
+        }
+      ],
+      "seed": 42,
+      "development_audit": false,
+      "speed_profile": "fast",
+      "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+      "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+      "experimental_collision": {
+        "library": "/home/keyaoersi/round2_engine_experiment/build/libround2_parallel_collision.so",
+        "sha256": "aed4a08fbc792cd9a885670f49bd1b7ddb5e96bd6d64c2663d29f2c5b2740416",
+        "threads": 4,
+        "verify": true
+      },
+      "elapsed_wall": 37.041777980999996,
+      "final_status": {
+        "state": "CONTROL_ROUTE_DONE",
+        "detail": "Not a complete competition finish; wheel placement requires verification",
+        "stamp": 505.274,
+        "control_only": true
+      }
+    },
+    "engine_active": true,
+    "last_engine_stats": "[parallel-collision] steps=8000 pairs=48757 cache_hits=48757 verified=48757 mismatches=0",
+    "contact_mismatch": false,
+    "guard_trips": 0,
+    "source_hashes": {
+      "scripts/analyze_trial.py": "a6a12c517a0407a572affd842d76b341619ef9af13e81dee28d63f24314a0371",
+      "scripts/attitude_guard.py": "9866ad33e1894652ffec69c18fdf4348049391c3b74f3265ff63e896032de4a8",
+      "scripts/audit_cones.py": "592513ef525ef6a3d98801e4969120d299a8a1db91473ca73e0dd6fdb24240ca",
+      "scripts/capture.py": "3bdd0e3abc53a7b117f104dfba4ebde9aa5398cc2b5c89580cd288dce6726142",
+      "scripts/check_snapshot_footprint.py": "74f0cd45f9344f958f9dbe90884f1b73f4849b447808fc7afe25e283b44b71ec",
+      "scripts/check_start_trial.py": "c1cada5d8b2435b2c3f66a483aea1bef3f3a093624835d5b6b0efb586483290a",
+      "scripts/compare_speed.py": "c1c0f73d7d0ac858dd28813557400b54e26ece0f8a49f464243a338713b25fd4",
+      "scripts/cone_obstacles.py": "56bea7299f3e862216b351e5ab8daa6742c5d9c9dd8c2d7f5f2bd06cd2cc378b",
+      "scripts/control.py": "bd1b4cebcaf24b7b7d1c6d51cb757e3f5c0c59426c86c6a6af27a292a569b755",
+      "scripts/measure_footprint.py": "12b4c0193601352d35b760deb98545b384a4d47f97c1d709bfeb57a7487b0962",
+      "scripts/plot_snapshot.py": "626139f13bbce913ff340a60085d0f21786cbfe9b8b0284292a1f2e66340c95e",
+      "scripts/plot_trial.py": "74b05711cedeecf40fcc1762d67dd0ad8dd75abfef9c71bdcdd4b7262c6dc584",
+      "scripts/profile_runtime.py": "9249b4dce3b815af9b47d3d287480730eeb8bf4edf6965a93e5529de5742330e",
+      "scripts/replay_clearance.py": "57fd5a9d419f7852ebada726eda4f8c7ad13f9677992bb2021756a783f13e12e",
+      "scripts/run_matrix.py": "b78e5aaf26af259641239c3ca358d6b67ef7e6d288250cf7db8d286687e936e2",
+      "scripts/run_trial.py": "97fb8da2163651fef931e196e0f6eee272c9d7171bc1748bdaf88a30aa1d6a95",
+      "scripts/summarize_performance.py": "c08aa1b6232c6a4e7c1331a7945a7541077d577670c268c91c7b079e548e329b",
+      "scripts/summarize_trials.py": "fb6aa0937d16fecde584d66aa02822beb07af9c6fc70c7894bcd676dba8e165c",
+      "scripts/test_cone_obstacles.py": "ab9a1f4f1ab128f760cf651069c9d3b61b654ab98045aec7778fe6724ffbc7b5",
+      "scripts/test_docking.py": "084c9f36537c02a0f48f0ca6b511f95bc5422fc64f602fbc3fa561c79a497991",
+      "scripts/test_speed_profile.py": "88dfa330f2ecc4f3a31d46c1257e44c31ebe7cf772df6628752d444038841cbf",
+      "scripts/timer_trial.py": "6d0503a077acaed11c66d78cd8fccfa0e103d16aa53a457f6cefe402719407ea",
+      "scripts/verify_assets.py": "759b41f652b76390ffa694b279c5f40cd1b68f67562938d2bc6967bf5bc07f67"
+    }
+  },
+  {
+    "folder": "round2_baseline/evidence/local_parallel_final/0_4",
+    "metrics": {
+      "run": "0_4",
+      "passed": true,
+      "cpus": 20,
+      "wall": 9.555990027999997,
+      "sim": 5.91700000000003,
+      "rtf": 0.6191927767465887,
+      "samples": 9,
+      "gzserver_cpu_median": 316.82363013099774,
+      "busiest_thread_median": 88.39279962902442,
+      "infeasible_warnings": 0
+    },
+    "result": {
+      "passed": true,
+      "trigger": "debug control service",
+      "events": [
+        {
+          "state": "IDLE",
+          "detail": "CONTROL_ONLY: image tasks omitted",
+          "stamp": 502.236,
+          "control_only": true,
+          "wall": 2956.41690047
+        },
+        {
+          "state": "MOVING",
+          "detail": "bend1",
+          "stamp": 507.615,
+          "control_only": true,
+          "wall": 2956.477192452
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "bend1",
+          "stamp": 513.531,
+          "control_only": true,
+          "wall": 2966.031344732
+        },
+        {
+          "state": "CONTROL_ROUTE_DONE",
+          "detail": "Not a complete competition finish; wheel placement requires verification",
+          "stamp": 513.532,
+          "control_only": true,
+          "wall": 2966.03318248
+        }
+      ],
+      "seed": 42,
+      "development_audit": false,
+      "speed_profile": "fast",
+      "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+      "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+      "experimental_collision": {
+        "library": "/home/keyaoersi/round2_engine_experiment/build/libround2_parallel_collision.so",
+        "sha256": "ec8e713a906744822611bfd2bbbdd3a7f8bf28c0d9b960ad9ad908c1e35b97e0",
+        "threads": 4,
+        "verify": false,
+        "verify_stride": 1,
+        "source_sha256": "2e54ebb69613d1d469206cb1165e47de0ebece1278de743e5ea0892cd05ae064"
+      },
+      "elapsed_wall": 10.013485445999777,
+      "final_status": {
+        "state": "CONTROL_ROUTE_DONE",
+        "detail": "Not a complete competition finish; wheel placement requires verification",
+        "stamp": 513.532,
+        "control_only": true
+      }
+    },
+    "engine_active": true,
+    "last_engine_stats": "[parallel-collision] steps=17000 pairs=87998 cache_hits=87998 verified=0 mismatches=0 parallel_seconds=20.868235 update_seconds=21.711617",
+    "contact_mismatch": false,
+    "guard_trips": 0,
+    "source_hashes": {
+      "scripts/analyze_trial.py": "a6a12c517a0407a572affd842d76b341619ef9af13e81dee28d63f24314a0371",
+      "scripts/attitude_guard.py": "9866ad33e1894652ffec69c18fdf4348049391c3b74f3265ff63e896032de4a8",
+      "scripts/audit_cones.py": "592513ef525ef6a3d98801e4969120d299a8a1db91473ca73e0dd6fdb24240ca",
+      "scripts/capture.py": "3bdd0e3abc53a7b117f104dfba4ebde9aa5398cc2b5c89580cd288dce6726142",
+      "scripts/check_snapshot_footprint.py": "74f0cd45f9344f958f9dbe90884f1b73f4849b447808fc7afe25e283b44b71ec",
+      "scripts/check_start_trial.py": "c1cada5d8b2435b2c3f66a483aea1bef3f3a093624835d5b6b0efb586483290a",
+      "scripts/compare_speed.py": "c1c0f73d7d0ac858dd28813557400b54e26ece0f8a49f464243a338713b25fd4",
+      "scripts/cone_obstacles.py": "56bea7299f3e862216b351e5ab8daa6742c5d9c9dd8c2d7f5f2bd06cd2cc378b",
+      "scripts/control.py": "bd1b4cebcaf24b7b7d1c6d51cb757e3f5c0c59426c86c6a6af27a292a569b755",
+      "scripts/measure_footprint.py": "12b4c0193601352d35b760deb98545b384a4d47f97c1d709bfeb57a7487b0962",
+      "scripts/plot_snapshot.py": "626139f13bbce913ff340a60085d0f21786cbfe9b8b0284292a1f2e66340c95e",
+      "scripts/plot_trial.py": "74b05711cedeecf40fcc1762d67dd0ad8dd75abfef9c71bdcdd4b7262c6dc584",
+      "scripts/profile_runtime.py": "9249b4dce3b815af9b47d3d287480730eeb8bf4edf6965a93e5529de5742330e",
+      "scripts/replay_clearance.py": "57fd5a9d419f7852ebada726eda4f8c7ad13f9677992bb2021756a783f13e12e",
+      "scripts/run_matrix.py": "b78e5aaf26af259641239c3ca358d6b67ef7e6d288250cf7db8d286687e936e2",
+      "scripts/run_trial.py": "d37717666690b79ed1cf27807f922059d1e8fd23d6accaa516d5347e8bedf11f",
+      "scripts/summarize_performance.py": "c08aa1b6232c6a4e7c1331a7945a7541077d577670c268c91c7b079e548e329b",
+      "scripts/summarize_trials.py": "fb6aa0937d16fecde584d66aa02822beb07af9c6fc70c7894bcd676dba8e165c",
+      "scripts/test_cone_obstacles.py": "ab9a1f4f1ab128f760cf651069c9d3b61b654ab98045aec7778fe6724ffbc7b5",
+      "scripts/test_docking.py": "084c9f36537c02a0f48f0ca6b511f95bc5422fc64f602fbc3fa561c79a497991",
+      "scripts/test_speed_profile.py": "88dfa330f2ecc4f3a31d46c1257e44c31ebe7cf772df6628752d444038841cbf",
+      "scripts/timer_trial.py": "6d0503a077acaed11c66d78cd8fccfa0e103d16aa53a457f6cefe402719407ea",
+      "scripts/verify_assets.py": "759b41f652b76390ffa694b279c5f40cd1b68f67562938d2bc6967bf5bc07f67"
+    },
+    "physics_properties": {
+      "time_step": 0.001,
+      "pause": false,
+      "max_update_rate": 1000.0,
+      "gravity": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -9.8
+      },
+      "ode_config": {
+        "auto_disable_bodies": false,
+        "sor_pgs_precon_iters": 0,
+        "sor_pgs_iters": 50,
+        "sor_pgs_w": 1.3,
+        "sor_pgs_rms_error_tol": 0.0,
+        "contact_surface_layer": 0.001,
+        "contact_max_correcting_vel": 100.0,
+        "cfm": 0.0,
+        "erp": 0.2,
+        "max_contacts": 20
+      },
+      "success": true,
+      "status_message": "GetPhysicsProperties: got properties"
+    }
+  }
+]

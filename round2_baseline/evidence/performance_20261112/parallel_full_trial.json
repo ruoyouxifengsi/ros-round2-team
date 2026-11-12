@@ -1,0 +1,768 @@
+[
+  {
+    "folder": "round2_baseline/evidence/local_parallel_full4",
+    "metrics": {
+      "run": "local_parallel_full4",
+      "passed": true,
+      "cpus": 20,
+      "wall": 357.8050023259998,
+      "sim": 126.77600000000007,
+      "rtf": 0.3543158960211885,
+      "samples": 347,
+      "gzserver_cpu_median": 320.61706559991114,
+      "busiest_thread_median": 87.4106534241077,
+      "infeasible_warnings": 81
+    },
+    "result": {
+      "passed": true,
+      "trigger": "unchanged official Draw widget",
+      "events": [
+        {
+          "state": "IDLE",
+          "detail": "CONTROL_ONLY: image tasks omitted",
+          "stamp": 501.76,
+          "control_only": true,
+          "wall": 2478.929818173
+        },
+        {
+          "state": "MOVING",
+          "detail": "bend1",
+          "stamp": 509.977,
+          "control_only": true,
+          "wall": 2481.892968388
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "bend1",
+          "stamp": 515.63,
+          "control_only": true,
+          "wall": 2493.530925895
+        },
+        {
+          "state": "MOVING",
+          "detail": "bend2",
+          "stamp": 515.649,
+          "control_only": true,
+          "wall": 2493.576625456
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "bend2",
+          "stamp": 521.173,
+          "control_only": true,
+          "wall": 2504.908192195
+        },
+        {
+          "state": "MOVING",
+          "detail": "bend3",
+          "stamp": 521.195,
+          "control_only": true,
+          "wall": 2504.957165307
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "bend3",
+          "stamp": 527.611,
+          "control_only": true,
+          "wall": 2518.054805665
+        },
+        {
+          "state": "MOVING",
+          "detail": "bend4",
+          "stamp": 527.632,
+          "control_only": true,
+          "wall": 2518.101524037
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "bend4",
+          "stamp": 532.98,
+          "control_only": true,
+          "wall": 2529.525174785
+        },
+        {
+          "state": "MOVING",
+          "detail": "bend5_approach",
+          "stamp": 533.002,
+          "control_only": true,
+          "wall": 2529.575047535
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "bend5_approach",
+          "stamp": 538.695,
+          "control_only": true,
+          "wall": 2541.561300483
+        },
+        {
+          "state": "MOVING",
+          "detail": "bend5",
+          "stamp": 538.718,
+          "control_only": true,
+          "wall": 2541.611110391
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "bend5",
+          "stamp": 543.054,
+          "control_only": true,
+          "wall": 2550.880148395
+        },
+        {
+          "state": "MOVING",
+          "detail": "bend6",
+          "stamp": 543.076,
+          "control_only": true,
+          "wall": 2550.928491094
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "bend6",
+          "stamp": 546.915,
+          "control_only": true,
+          "wall": 2561.701902182
+        },
+        {
+          "state": "MOVING",
+          "detail": "bend7",
+          "stamp": 546.937,
+          "control_only": true,
+          "wall": 2561.753806435
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "bend7",
+          "stamp": 551.939,
+          "control_only": true,
+          "wall": 2580.113146482
+        },
+        {
+          "state": "MOVING",
+          "detail": "bend8",
+          "stamp": 551.959,
+          "control_only": true,
+          "wall": 2580.162763138
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "bend8",
+          "stamp": 565.43,
+          "control_only": true,
+          "wall": 2616.904446732
+        },
+        {
+          "state": "MOVING",
+          "detail": "qr_approach",
+          "stamp": 565.452,
+          "control_only": true,
+          "wall": 2617.457047023
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "qr_approach",
+          "stamp": 584.375,
+          "control_only": true,
+          "wall": 2670.432871066
+        },
+        {
+          "state": "MOVING",
+          "detail": "qr",
+          "stamp": 584.4,
+          "control_only": true,
+          "wall": 2670.976511341
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "qr",
+          "stamp": 589.796,
+          "control_only": true,
+          "wall": 2690.143131037
+        },
+        {
+          "state": "IMAGE_SKIPPED",
+          "detail": "qr",
+          "stamp": 589.798,
+          "control_only": true,
+          "wall": 2690.145475096
+        },
+        {
+          "state": "MOVING",
+          "detail": "qr_exit",
+          "stamp": 589.819,
+          "control_only": true,
+          "wall": 2690.194655763
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "qr_exit",
+          "stamp": 593.412,
+          "control_only": true,
+          "wall": 2697.990810914
+        },
+        {
+          "state": "MOVING",
+          "detail": "cone_entry",
+          "stamp": 593.435,
+          "control_only": true,
+          "wall": 2698.535302703
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "cone_entry",
+          "stamp": 605.68,
+          "control_only": true,
+          "wall": 2736.969383934
+        },
+        {
+          "state": "MOVING",
+          "detail": "cone_exit",
+          "stamp": 605.702,
+          "control_only": true,
+          "wall": 2737.016639492
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "cone_exit",
+          "stamp": 614.194,
+          "control_only": true,
+          "wall": 2763.134686931
+        },
+        {
+          "state": "MOVING",
+          "detail": "blocks",
+          "stamp": 614.215,
+          "control_only": true,
+          "wall": 2763.179803941
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "blocks",
+          "stamp": 614.642,
+          "control_only": true,
+          "wall": 2764.092259615
+        },
+        {
+          "state": "IMAGE_SKIPPED",
+          "detail": "blocks",
+          "stamp": 614.643,
+          "control_only": true,
+          "wall": 2764.093657
+        },
+        {
+          "state": "MOVING",
+          "detail": "return",
+          "stamp": 614.661,
+          "control_only": true,
+          "wall": 2764.142282005
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "return",
+          "stamp": 625.668,
+          "control_only": true,
+          "wall": 2802.786926109
+        },
+        {
+          "state": "MOVING",
+          "detail": "finish_approach",
+          "stamp": 625.692,
+          "control_only": true,
+          "wall": 2803.329056589
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "finish_approach",
+          "stamp": 629.545,
+          "control_only": true,
+          "wall": 2816.542888752
+        },
+        {
+          "state": "MOVING",
+          "detail": "finish",
+          "stamp": 629.565,
+          "control_only": true,
+          "wall": 2816.59095039
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "finish",
+          "stamp": 636.753,
+          "control_only": true,
+          "wall": 2839.696640507
+        },
+        {
+          "state": "CONTROL_ROUTE_DONE",
+          "detail": "Not a complete competition finish; wheel placement requires verification",
+          "stamp": 636.753,
+          "control_only": true,
+          "wall": 2839.697970714
+        }
+      ],
+      "seed": 42,
+      "development_audit": true,
+      "speed_profile": "fast",
+      "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+      "experimental_collision": {
+        "library": "/home/keyaoersi/round2_engine_experiment/build/libround2_parallel_collision.so",
+        "sha256": "ec8e713a906744822611bfd2bbbdd3a7f8bf28c0d9b960ad9ad908c1e35b97e0",
+        "threads": 4,
+        "verify": true,
+        "verify_stride": 100,
+        "source_sha256": "d9d347989ace714352b7c7dd8bdb25541dae3c33e079ef17b2e8ba6f08b70564"
+      },
+      "elapsed_wall": 361.41242904699993,
+      "final_status": {
+        "state": "CONTROL_ROUTE_DONE",
+        "detail": "Not a complete competition finish; wheel placement requires verification",
+        "stamp": 636.753,
+        "control_only": true
+      }
+    },
+    "engine_active": true,
+    "last_engine_stats": "[parallel-collision] steps=140000 pairs=595829 cache_hits=595829 verified=5962 mismatches=0 parallel_seconds=270.137856 update_seconds=289.159993",
+    "contact_mismatch": false,
+    "guard_trips": 0,
+    "source_hashes": {
+      "scripts/analyze_trial.py": "a6a12c517a0407a572affd842d76b341619ef9af13e81dee28d63f24314a0371",
+      "scripts/attitude_guard.py": "9866ad33e1894652ffec69c18fdf4348049391c3b74f3265ff63e896032de4a8",
+      "scripts/audit_cones.py": "592513ef525ef6a3d98801e4969120d299a8a1db91473ca73e0dd6fdb24240ca",
+      "scripts/capture.py": "3bdd0e3abc53a7b117f104dfba4ebde9aa5398cc2b5c89580cd288dce6726142",
+      "scripts/check_snapshot_footprint.py": "74f0cd45f9344f958f9dbe90884f1b73f4849b447808fc7afe25e283b44b71ec",
+      "scripts/check_start_trial.py": "c1cada5d8b2435b2c3f66a483aea1bef3f3a093624835d5b6b0efb586483290a",
+      "scripts/compare_speed.py": "c1c0f73d7d0ac858dd28813557400b54e26ece0f8a49f464243a338713b25fd4",
+      "scripts/cone_obstacles.py": "56bea7299f3e862216b351e5ab8daa6742c5d9c9dd8c2d7f5f2bd06cd2cc378b",
+      "scripts/control.py": "bd1b4cebcaf24b7b7d1c6d51cb757e3f5c0c59426c86c6a6af27a292a569b755",
+      "scripts/measure_footprint.py": "12b4c0193601352d35b760deb98545b384a4d47f97c1d709bfeb57a7487b0962",
+      "scripts/plot_snapshot.py": "626139f13bbce913ff340a60085d0f21786cbfe9b8b0284292a1f2e66340c95e",
+      "scripts/plot_trial.py": "74b05711cedeecf40fcc1762d67dd0ad8dd75abfef9c71bdcdd4b7262c6dc584",
+      "scripts/profile_runtime.py": "9249b4dce3b815af9b47d3d287480730eeb8bf4edf6965a93e5529de5742330e",
+      "scripts/replay_clearance.py": "57fd5a9d419f7852ebada726eda4f8c7ad13f9677992bb2021756a783f13e12e",
+      "scripts/run_matrix.py": "b78e5aaf26af259641239c3ca358d6b67ef7e6d288250cf7db8d286687e936e2",
+      "scripts/run_trial.py": "d37717666690b79ed1cf27807f922059d1e8fd23d6accaa516d5347e8bedf11f",
+      "scripts/summarize_performance.py": "c08aa1b6232c6a4e7c1331a7945a7541077d577670c268c91c7b079e548e329b",
+      "scripts/summarize_trials.py": "fb6aa0937d16fecde584d66aa02822beb07af9c6fc70c7894bcd676dba8e165c",
+      "scripts/test_cone_obstacles.py": "ab9a1f4f1ab128f760cf651069c9d3b61b654ab98045aec7778fe6724ffbc7b5",
+      "scripts/test_docking.py": "084c9f36537c02a0f48f0ca6b511f95bc5422fc64f602fbc3fa561c79a497991",
+      "scripts/test_speed_profile.py": "88dfa330f2ecc4f3a31d46c1257e44c31ebe7cf772df6628752d444038841cbf",
+      "scripts/timer_trial.py": "6d0503a077acaed11c66d78cd8fccfa0e103d16aa53a457f6cefe402719407ea",
+      "scripts/verify_assets.py": "759b41f652b76390ffa694b279c5f40cd1b68f67562938d2bc6967bf5bc07f67"
+    },
+    "physics_properties": {
+      "time_step": 0.001,
+      "pause": false,
+      "max_update_rate": 1000.0,
+      "gravity": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -9.8
+      },
+      "ode_config": {
+        "auto_disable_bodies": false,
+        "sor_pgs_precon_iters": 0,
+        "sor_pgs_iters": 50,
+        "sor_pgs_w": 1.3,
+        "sor_pgs_rms_error_tol": 0.0,
+        "contact_surface_layer": 0.001,
+        "contact_max_correcting_vel": 100.0,
+        "cfm": 0.0,
+        "erp": 0.2,
+        "max_contacts": 20
+      },
+      "success": true,
+      "status_message": "GetPhysicsProperties: got properties"
+    },
+    "analysis": {
+      "control_done": true,
+      "ordered_stages_pass": true,
+      "expected_stages": [
+        "bend1",
+        "bend2",
+        "bend3",
+        "bend4",
+        "bend5_approach",
+        "bend5",
+        "bend6",
+        "bend7",
+        "bend8",
+        "qr_approach",
+        "qr",
+        "qr_exit",
+        "cone_entry",
+        "cone_exit",
+        "blocks",
+        "return",
+        "finish_approach",
+        "finish"
+      ],
+      "arrivals": {
+        "bend1": {
+          "pose": [
+            -0.6744763286654587,
+            2.6758649703630133,
+            0.06740040880180369
+          ],
+          "body_bounds": [
+            -0.8501265576071911,
+            -0.4751613378282611,
+            2.5309742204683032,
+            2.820685697797826
+          ],
+          "stopped": true
+        },
+        "bend2": {
+          "pose": [
+            0.25132497797213493,
+            2.6868709169885854,
+            -1.5512542711382775
+          ],
+          "body_bounds": [
+            0.1129012487334145,
+            0.38972838761998163,
+            2.4910816954776602,
+            2.8577008398299744
+          ],
+          "stopped": true
+        },
+        "bend3": {
+          "pose": [
+            0.25867693990705504,
+            1.7452810632540183,
+            -0.014307979686499704
+          ],
+          "body_bounds": [
+            0.08839887037647189,
+            0.45404472038673444,
+            1.6075904960529364,
+            1.8829787495798707
+          ],
+          "stopped": true
+        },
+        "bend4": {
+          "pose": [
+            1.2456249221180649,
+            1.7329826215930082,
+            -1.5526511004805896
+          ],
+          "body_bounds": [
+            1.1073947788784635,
+            1.3838361976841242,
+            1.5373030815595963,
+            1.9036659240053166
+          ],
+          "stopped": true
+        },
+        "bend5_approach": {
+          "pose": [
+            1.2608586727086688,
+            0.7101348935190772,
+            -1.5964344165792996
+          ],
+          "body_bounds": [
+            1.121604706094762,
+            1.4001253985120734,
+            0.5138866830588438,
+            0.8815994706798085
+          ],
+          "stopped": true
+        },
+        "bend5": {
+          "pose": [
+            1.1173105764796107,
+            0.759158336694666,
+            -3.1247633214973676
+          ],
+          "body_bounds": [
+            0.9217347120149983,
+            1.2878554493019219,
+            0.6211283092626888,
+            0.8972058639761579
+          ],
+          "stopped": true
+        },
+        "bend6": {
+          "pose": [
+            0.7603813427104564,
+            0.7657274797660578,
+            1.800990491215417
+          ],
+          "body_bounds": [
+            0.5962961642487197,
+            0.9247037327028602,
+            0.5767504638252873,
+            0.9735788594788765
+          ],
+          "stopped": true
+        },
+        "bend7": {
+          "pose": [
+            0.7293441167214204,
+            1.2481423529897224,
+            3.1066946692977133
+          ],
+          "body_bounds": [
+            0.5323950499847142,
+            0.9017620663022443,
+            1.1076065467441472,
+            1.3886607917062725
+          ],
+          "stopped": true
+        },
+        "bend8": {
+          "pose": [
+            -0.24715904430777091,
+            1.246330019953527,
+            -1.3590519103134278
+          ],
+          "body_bounds": [
+            -0.4094889126545157,
+            -0.08504767337175786,
+            1.039172877833055,
+            1.4340423247258713
+          ],
+          "stopped": true
+        },
+        "qr_approach": {
+          "pose": [
+            -0.24046194882437852,
+            0.2598231477401935,
+            -0.08548232795178684
+          ],
+          "body_bounds": [
+            -0.4178248660608812,
+            -0.03998389551703654,
+            0.11261271586450652,
+            0.4070760846237369
+          ],
+          "stopped": true
+        },
+        "qr": {
+          "pose": [
+            0.19798788704408596,
+            0.2517825855075968,
+            -0.010734243863481608
+          ],
+          "body_bounds": [
+            0.028088606913354398,
+            0.393072754620118,
+            0.11458882110341331,
+            0.38898168982720194
+          ],
+          "stopped": true,
+          "body_in_region": true
+        },
+        "qr_exit": {
+          "pose": [
+            -0.22172909639109845,
+            0.2518438192038715,
+            -0.01006798242561763
+          ],
+          "body_bounds": [
+            -0.3915575176445446,
+            -0.026697248709689623,
+            0.11474286908996018,
+            0.38894977752206866
+          ],
+          "stopped": true
+        },
+        "cone_entry": {
+          "pose": [
+            -0.2509265689705126,
+            0.33282389810456,
+            1.5977495764984786
+          ],
+          "body_bounds": [
+            -0.39034486312770794,
+            -0.11148025247782897,
+            0.16122162996454842,
+            0.5291886640392618
+          ],
+          "stopped": true
+        },
+        "cone_exit": {
+          "pose": [
+            -1.7678516691601618,
+            2.2204782991853502,
+            1.6043028962169905
+          ],
+          "body_bounds": [
+            -1.9081609934795882,
+            -1.627507512651679,
+            2.0482009383082374,
+            2.417343004042831
+          ],
+          "stopped": true
+        },
+        "blocks": {
+          "pose": [
+            -1.7678516677166263,
+            2.2204782981313724,
+            1.6043028961847805
+          ],
+          "body_bounds": [
+            -1.9081609920316878,
+            -1.6275075112125414,
+            2.04820093725756,
+            2.4173430029864167
+          ],
+          "stopped": true
+        },
+        "return": {
+          "pose": [
+            -0.7240542017584298,
+            1.22849262640968,
+            -0.0152407157622796
+          ],
+          "body_bounds": [
+            -0.8944307766979741,
+            -0.5286129921746215,
+            1.0906726840498844,
+            1.366320152249377
+          ],
+          "stopped": true
+        },
+        "finish_approach": {
+          "pose": [
+            -0.2605571666801747,
+            1.2659677922246757,
+            1.337738414857366
+          ],
+          "body_bounds": [
+            -0.42519572848986764,
+            -0.09603359151550062,
+            1.0768121220585019,
+            1.4737835811376063
+          ],
+          "stopped": true
+        },
+        "finish": {
+          "pose": [
+            -0.2337474692614546,
+            2.181657442217123,
+            1.5960983782121696
+          ],
+          "body_bounds": [
+            -0.3729403103391677,
+            -0.09452832188505755,
+            2.0102264364156492,
+            2.377894910768896
+          ],
+          "stopped": true,
+          "body_in_region": true
+        }
+      },
+      "elapsed_wall": 361.41242904699993,
+      "max_tilt_deg": 0.434768201059803,
+      "scope": "Odometry and official URDF geometry; not Gazebo truth or a collision-free certificate",
+      "official_start": true,
+      "random_scene_prepared": true,
+      "within_10_min_after_trigger": true,
+      "control_baseline_pass": true
+    },
+    "cone_audit": {
+      "scope": "DEVELOPMENT ONLY; never consumed by navigation; displacement is not contact count",
+      "samples": 77767,
+      "baseline": {
+        "construction_cone_0": [
+          -2.2499999998608,
+          1.750000000054202,
+          -1.4248779457578315e-06
+        ],
+        "construction_cone_1": [
+          -1.74999999991835,
+          1.750000000016187,
+          -6.512004892707049e-07
+        ],
+        "construction_cone_2": [
+          -1.7499999999262625,
+          1.2500000000129539,
+          -2.843762627319222e-06
+        ],
+        "construction_cone_3": [
+          -0.2499999999001292,
+          0.7500000000305358,
+          -3.2071172763112183e-06
+        ],
+        "construction_cone_4": [
+          -2.2499999999806453,
+          0.25000000000735,
+          -8.177147382545822e-06
+        ]
+      },
+      "latest": {
+        "construction_cone_0": [
+          -2.2499999998608,
+          1.750000000054202,
+          -1.4248779457578315e-06
+        ],
+        "construction_cone_1": [
+          -1.74999999991835,
+          1.750000000016187,
+          -6.512004892707049e-07
+        ],
+        "construction_cone_2": [
+          -1.7499999999262625,
+          1.2500000000129539,
+          -2.843762627319222e-06
+        ],
+        "construction_cone_3": [
+          -0.2499999999001292,
+          0.7500000000305358,
+          -3.2071172763112183e-06
+        ],
+        "construction_cone_4": [
+          -2.2499999999806453,
+          0.25000000000735,
+          -8.177147382545822e-06
+        ]
+      },
+      "peaks": {
+        "construction_cone_0": {
+          "displacement_m": 0.0,
+          "sim_time": 507.554,
+          "position": [
+            -2.2499999998608,
+            1.750000000054202,
+            -1.4248779457578315e-06
+          ]
+        },
+        "construction_cone_1": {
+          "displacement_m": 0.0,
+          "sim_time": 507.554,
+          "position": [
+            -1.74999999991835,
+            1.750000000016187,
+            -6.512004892707049e-07
+          ]
+        },
+        "construction_cone_2": {
+          "displacement_m": 0.0,
+          "sim_time": 507.554,
+          "position": [
+            -1.7499999999262625,
+            1.2500000000129539,
+            -2.843762627319222e-06
+          ]
+        },
+        "construction_cone_3": {
+          "displacement_m": 0.0,
+          "sim_time": 507.554,
+          "position": [
+            -0.2499999999001292,
+            0.7500000000305358,
+            -3.2071172763112183e-06
+          ]
+        },
+        "construction_cone_4": {
+          "displacement_m": 0.0,
+          "sim_time": 507.554,
+          "position": [
+            -2.2499999999806453,
+            0.25000000000735,
+            -8.177147382545822e-06
+          ]
+        }
+      },
+      "moved_over_5mm": []
+    }
+  }
+]

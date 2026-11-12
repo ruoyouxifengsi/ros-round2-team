@@ -1,5 +1,7 @@
 # 第二轮 ROS 智能车：控制 baseline 与图像协作入口
 
+> 当前 `experiment/parallel-collision` 分支含可选的 Gazebo 碰撞并行实验。原引擎仍为默认，原版与低质心车模均保留。实验架构能否用于比赛尚待组委会确认；构建、复测与回退步骤见 [并行实验说明](round2_baseline/experimental/parallel_collision/README.md)。不要将该分支的实验结果视为主分支或完整图像比赛的验收。
+
 这是供队内协作的 ROS Noetic 项目。控制部分已在 WSL Ubuntu 20.04 跑通连续弯道、QR 停靠、五桶区域、物块停靠和终点停车。**图像识别、语音播报、相机观察姿态尚未完成**；请不要把 `CONTROL_ROUTE_DONE` 当成完整比赛完赛。
 
 ## 2026-11-11 提速更新

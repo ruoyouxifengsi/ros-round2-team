@@ -1,0 +1,19 @@
+{
+  "passed": false,
+  "trigger": "development service",
+  "events": [],
+  "seed": 42,
+  "development_audit": false,
+  "speed_profile": "fast",
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+  "experimental_collision": {
+    "library": "/home/keyaoersi/round2_engine_experiment/build/libround2_parallel_collision.so",
+    "sha256": "ec8e713a906744822611bfd2bbbdd3a7f8bf28c0d9b960ad9ad908c1e35b97e0",
+    "threads": 4,
+    "verify": false,
+    "verify_stride": 1,
+    "source_sha256": "d9d347989ace714352b7c7dd8bdb25541dae3c33e079ef17b2e8ba6f08b70564"
+  },
+  "error": "ROSException('timeout exceeded while waiting for message on topic /odom')"
+}

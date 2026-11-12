@@ -1,0 +1,50 @@
+[
+  {
+    "run": "local_perf12_a",
+    "passed": true,
+    "cpus": 12,
+    "wall": 35.50517168799706,
+    "sim": 5.533999999999992,
+    "rtf": 0.15586461737546886,
+    "samples": 35,
+    "gzserver_cpu_median": 155.7999881508242,
+    "busiest_thread_median": 98.33147556707797,
+    "infeasible_warnings": 0
+  },
+  {
+    "run": "local_perf12_fresh",
+    "passed": true,
+    "cpus": 12,
+    "wall": 36.574159349000006,
+    "sim": 5.5540000000000305,
+    "rtf": 0.15185584846947098,
+    "samples": 36,
+    "gzserver_cpu_median": 162.47305728200908,
+    "busiest_thread_median": 99.42258597291008,
+    "infeasible_warnings": 0
+  },
+  {
+    "run": "local_perf20_fresh",
+    "passed": true,
+    "cpus": 20,
+    "wall": 36.22812871000001,
+    "sim": 5.706000000000017,
+    "rtf": 0.15750192469712068,
+    "samples": 36,
+    "gzserver_cpu_median": 124.20268523499536,
+    "busiest_thread_median": 99.17649056044348,
+    "infeasible_warnings": 0
+  },
+  {
+    "run": "local_perf20_power",
+    "passed": true,
+    "cpus": 20,
+    "wall": 36.912239642,
+    "sim": 5.7450000000000045,
+    "rtf": 0.15563943168225283,
+    "samples": 36,
+    "gzserver_cpu_median": 153.42142141887916,
+    "busiest_thread_median": 99.42911448266665,
+    "infeasible_warnings": 0
+  }
+]

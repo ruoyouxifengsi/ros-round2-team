@@ -23,6 +23,11 @@ p.add_argument('output')
 p.add_argument('--seconds',type=int,default=600)
 p.add_argument('--cones',action='store_true')
 p.add_argument('--gui',action='store_true',help='Show Gazebo for manual-start performance regression checks')
+p.add_argument('--profile-performance',action='store_true',help='Record host thread load and simulation clock')
+p.add_argument('--experimental-collision-library',type=Path,help='Development-only Gazebo collision adapter; not approved for competition')
+p.add_argument('--collision-threads',type=int,default=4)
+p.add_argument('--verify-collisions',action='store_true')
+p.add_argument('--collision-verify-stride',type=int,default=1,help='Verify every N physics updates; default verifies all')
 p.add_argument('--seed',type=int)
 p.add_argument('--timer',action='store_true')
 p.add_argument('--low-com',action='store_true',help='Experimental base_link COM z=0.02; official assets remain unchanged')
@@ -37,6 +42,9 @@ p.add_argument('--debug-control',action='store_true')
 p.add_argument('--debug-tail',action='store_true')
 p.add_argument('--debug-stage',default='qr_exit')
 args=p.parse_args()
+if not 1<=args.collision_threads<=20:p.error('Collision threads must be between 1 and 20')
+if args.collision_verify_stride<1:p.error('Collision verification stride must be positive')
+if args.verify_collisions and not args.experimental_collision_library:p.error('Collision verification requires the experimental library')
 if bool(args.debug_pose)!=bool(args.debug_goal):p.error('Both debug pose and goal are required')
 out=Path(args.output).resolve();out.mkdir(parents=True,exist_ok=False)
 package=Path(__file__).resolve().parents[1]
@@ -49,9 +57,9 @@ for directory in ('config','launch'):
 for source in package.joinpath('scripts').glob('*.py'):
     shutil.copyfile(source,out/'source'/(source.name+'.txt'))
 processes=[];files=[]
-def launch(command,name):
+def launch(command,name,env=None):
     f=(out/(name+'.log')).open('w');files.append(f)
-    proc=subprocess.Popen(command,stdout=f,stderr=subprocess.STDOUT,start_new_session=True)
+    proc=subprocess.Popen(command,stdout=f,stderr=subprocess.STDOUT,start_new_session=True,env=env)
     processes.append(proc);return proc
 result={'passed':False,'trigger':'development service','events':[], 'seed':args.seed, 'development_audit':args.audit_cones, 'speed_profile':args.speed_profile}
 try:
@@ -81,7 +89,26 @@ try:
         os.environ['GAZEBO_MODEL_PATH']=str(car)+':'+str(car/'models')+':'+str(Path.home()/'.gazebo/models')
         simulation=out/'debug_simulation.launch.txt';tree.write(simulation)
         result['scope']='DEBUG SINGLE STAGE, NOT A COMPETITION RUN'
-    sim=launch(['roslaunch',str(simulation),'gui:='+str(args.gui).lower()],'simulation')
+    sim_env=dict(os.environ)
+    if args.experimental_collision_library:
+        library=args.experimental_collision_library.resolve(strict=True)
+        tree=ET.parse(simulation)
+        include=tree.find('.//include[@file="$(find gazebo_ros)/launch/empty_world.launch"]')
+        if include is None:raise RuntimeError('Experimental adapter requires --low-com')
+        ET.SubElement(include,'arg',name='extra_gazebo_args',value='-s '+str(library))
+        ET.SubElement(include,'arg',name='physics',value='round2_parallel_ode')
+        simulation=out/'experimental_simulation.launch.txt';tree.write(simulation)
+        sim_env['ROUND2_COLLISION_THREADS']=str(args.collision_threads)
+        sim_env['OMP_WAIT_POLICY']='PASSIVE'
+        sim_env['ROUND2_COLLISION_VERIFY_STRIDE']=str(args.collision_verify_stride)
+        sim_env.pop('ROUND2_COLLISION_VERIFY',None)
+        if args.verify_collisions:sim_env['ROUND2_COLLISION_VERIFY']='1'
+        result['experimental_collision']=dict(library=str(library),sha256=hashlib.sha256(library.read_bytes()).hexdigest(),threads=args.collision_threads,verify=args.verify_collisions,verify_stride=args.collision_verify_stride)
+        engine_source=library.with_name('adapter.cc')
+        if engine_source.exists():
+            shutil.copyfile(engine_source,out/'engine_source.cc.txt')
+            result['experimental_collision']['source_sha256']=hashlib.sha256(engine_source.read_bytes()).hexdigest()
+    sim=launch(['roslaunch',str(simulation),'gui:='+str(args.gui).lower()],'simulation',env=sim_env)
     time.sleep(2)
     if sim.poll() is not None:raise RuntimeError('Simulation launch failed before ROS startup')
     import rospy
@@ -92,7 +119,15 @@ try:
     rospy.init_node('trial_observer',anonymous=True)
     rospy.wait_for_message('/odom',Odometry,timeout=90)
     rospy.wait_for_message('/scan',LaserScan,timeout=30)
+    if args.profile_performance:
+        from gazebo_msgs.srv import GetPhysicsProperties
+        import yaml
+        rospy.wait_for_service('/gazebo/get_physics_properties',timeout=10)
+        physics=rospy.ServiceProxy('/gazebo/get_physics_properties',GetPhysicsProperties)()
+        (out/'physics_properties.json').write_text(json.dumps(yaml.safe_load(str(physics)),indent=2))
     launch(['roslaunch',str(package/'launch/control.launch'),'speed_profile:='+args.speed_profile],'control')
+    if args.profile_performance:
+        launch(['python3',str(package/'scripts/profile_runtime.py'),str(out/'performance.jsonl')],'performance')
     rospy.wait_for_service('/nav_start',timeout=60)
     ready_deadline=time.monotonic()+30
     if not args.debug_pose:
