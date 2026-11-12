@@ -1,0 +1,11 @@
+{
+  "passed": false,
+  "trigger": "development service",
+  "events": [],
+  "seed": 42,
+  "development_audit": false,
+  "speed_profile": "fast",
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+  "error": "ROSException('timeout exceeded while waiting for message on topic /odom')"
+}

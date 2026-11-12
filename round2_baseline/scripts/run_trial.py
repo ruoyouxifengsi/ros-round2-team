@@ -22,6 +22,7 @@ p=argparse.ArgumentParser()
 p.add_argument('output')
 p.add_argument('--seconds',type=int,default=600)
 p.add_argument('--cones',action='store_true')
+p.add_argument('--gui',action='store_true',help='Show Gazebo for manual-start performance regression checks')
 p.add_argument('--seed',type=int)
 p.add_argument('--timer',action='store_true')
 p.add_argument('--low-com',action='store_true',help='Experimental base_link COM z=0.02; official assets remain unchanged')
@@ -80,7 +81,7 @@ try:
         os.environ['GAZEBO_MODEL_PATH']=str(car)+':'+str(car/'models')+':'+str(Path.home()/'.gazebo/models')
         simulation=out/'debug_simulation.launch.txt';tree.write(simulation)
         result['scope']='DEBUG SINGLE STAGE, NOT A COMPETITION RUN'
-    sim=launch(['roslaunch',str(simulation)],'simulation')
+    sim=launch(['roslaunch',str(simulation),'gui:='+str(args.gui).lower()],'simulation')
     time.sleep(2)
     if sim.poll() is not None:raise RuntimeError('Simulation launch failed before ROS startup')
     import rospy

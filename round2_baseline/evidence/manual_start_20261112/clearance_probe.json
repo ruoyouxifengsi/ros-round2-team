@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "trigger": "debug action goal",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 498.331,
+      "control_only": true,
+      "wall": 59421.11526559
+    }
+  ],
+  "seed": 42,
+  "development_audit": false,
+  "speed_profile": "stable",
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+  "debug_obstacle_distance": 0.06,
+  "debug_goals": [
+    [
+      -0.7,
+      2.67,
+      0.0
+    ]
+  ],
+  "debug_arrivals": [
+    {
+      "t": 506.361,
+      "wall": 59460.740490615
+    }
+  ],
+  "action_state": 3,
+  "elapsed_wall": 39.63830778100237,
+  "final_status": {
+    "state": "IDLE",
+    "detail": "CONTROL_ONLY: image tasks omitted",
+    "stamp": 498.331,
+    "control_only": true
+  }
+}

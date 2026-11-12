@@ -152,6 +152,8 @@ class Control:
                 if self.cancelled.is_set():
                     raise RuntimeError('Cancelled')
                 distance = 0.08 if name in ('cone_exit','blocks','return') else 0.02
+                # The 2cm objective repeatedly proposes colliding corner trajectories.
+                if name=='bend1':distance=0.06
                 settings = dict(docking if name in ('qr','qr_exit','finish') else travel)
                 settings['min_obstacle_dist'] = distance
                 if name in ('cone_exit','blocks'):settings['xy_goal_tolerance']=.05

@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "trigger": "debug control service",
+  "events": [
+    {
+      "state": "IDLE",
+      "detail": "CONTROL_ONLY: image tasks omitted",
+      "stamp": 498.465,
+      "control_only": true,
+      "wall": 59324.479022881
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend1",
+      "stamp": 499.991,
+      "control_only": true,
+      "wall": 59324.536962603
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend1",
+      "stamp": 507.31,
+      "control_only": true,
+      "wall": 59369.354659546
+    },
+    {
+      "state": "CONTROL_ROUTE_DONE",
+      "detail": "Not a complete competition finish; wheel placement requires verification",
+      "stamp": 507.31,
+      "control_only": true,
+      "wall": 59369.370863799
+    }
+  ],
+  "seed": 42,
+  "development_audit": false,
+  "speed_profile": "stable",
+  "model_variant": "low COM 0.02; user confirmed permitted 2026-11-11",
+  "scope": "DEBUG SINGLE STAGE, NOT A COMPETITION RUN",
+  "elapsed_wall": 45.05435356700036,
+  "final_status": {
+    "state": "CONTROL_ROUTE_DONE",
+    "detail": "Not a complete competition finish; wheel placement requires verification",
+    "stamp": 507.31,
+    "control_only": true
+  }
+}

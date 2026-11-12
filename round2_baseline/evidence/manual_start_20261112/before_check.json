@@ -1,0 +1,7 @@
+{
+  "first_corner_pass": false,
+  "wall_seconds": 81.64384077000432,
+  "infeasible_warnings": 57,
+  "guard_trips": 0,
+  "scope": "First corner only; 60s is a development regression budget, not an official rule"
+}
