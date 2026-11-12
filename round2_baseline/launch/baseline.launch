@@ -1,9 +1,14 @@
 <launch>
   <arg name="gui" default="true"/>
   <arg name="timer" default="true"/>
+  <arg name="speed_profile" default="stable"/>
+  <arg name="timeout_clock" default="wall"/>
   <include file="$(find round2_baseline)/launch/simulation.launch">
     <arg name="gui" value="$(arg gui)"/>
   </include>
-  <include file="$(find round2_baseline)/launch/control.launch"/>
+  <include file="$(find round2_baseline)/launch/control.launch">
+    <arg name="speed_profile" value="$(arg speed_profile)"/>
+    <arg name="timeout_clock" value="$(eval 'wall' if arg('timer') else arg('timeout_clock'))"/>
+  </include>
   <include if="$(arg timer)" file="$(find ucar_accumtimer)/launch/AccumTimer.launch"/>
 </launch>

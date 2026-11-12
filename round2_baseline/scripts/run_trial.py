@@ -12,6 +12,8 @@ import hashlib
 import shutil
 import math
 import xml.etree.ElementTree as ET
+import re
+from trial_processes import stop_processes, wait_for_ports
 
 lock_file=open('/tmp/round2_baseline_trial.lock','w')
 fcntl.flock(lock_file,fcntl.LOCK_EX)
@@ -23,6 +25,10 @@ p.add_argument('output')
 p.add_argument('--seconds',type=int,default=600)
 p.add_argument('--cones',action='store_true')
 p.add_argument('--gui',action='store_true',help='Show Gazebo for manual-start performance regression checks')
+p.add_argument('--profile-performance',action='store_true',help='Record host thread load and simulation clock')
+p.add_argument('--startup-only',action='store_true',help='Development startup/cleanup check; no navigation or scenery randomization')
+p.add_argument('--travel-clearance',type=float,help='Development override for ordinary-stage planner clearance')
+p.add_argument('--timeout-clock',choices=['wall','sim'],default='wall',help='sim is for untimed local practice only; official timer requires wall')
 p.add_argument('--seed',type=int)
 p.add_argument('--timer',action='store_true')
 p.add_argument('--low-com',action='store_true',help='Experimental base_link COM z=0.02; official assets remain unchanged')
@@ -37,6 +43,7 @@ p.add_argument('--debug-control',action='store_true')
 p.add_argument('--debug-tail',action='store_true')
 p.add_argument('--debug-stage',default='qr_exit')
 args=p.parse_args()
+if args.timer and args.timeout_clock!='wall':p.error('Official timer runs require wall-clock timeouts')
 if bool(args.debug_pose)!=bool(args.debug_goal):p.error('Both debug pose and goal are required')
 out=Path(args.output).resolve();out.mkdir(parents=True,exist_ok=False)
 package=Path(__file__).resolve().parents[1]
@@ -49,12 +56,15 @@ for directory in ('config','launch'):
 for source in package.joinpath('scripts').glob('*.py'):
     shutil.copyfile(source,out/'source'/(source.name+'.txt'))
 processes=[];files=[]
-def launch(command,name):
+def launch(command,name,env=None):
     f=(out/(name+'.log')).open('w');files.append(f)
-    proc=subprocess.Popen(command,stdout=f,stderr=subprocess.STDOUT,start_new_session=True)
+    proc=subprocess.Popen(command,stdout=f,stderr=subprocess.STDOUT,start_new_session=True,env=env)
     processes.append(proc);return proc
-result={'passed':False,'trigger':'development service','events':[], 'seed':args.seed, 'development_audit':args.audit_cones, 'speed_profile':args.speed_profile}
+result={'passed':False,'trigger':'development service','events':[], 'seed':args.seed, 'development_audit':args.audit_cones, 'speed_profile':args.speed_profile,'timeout_clock':args.timeout_clock,'simulation_engine':'official ode'}
+class StartupComplete(Exception):pass
+startup_started=time.monotonic()
 try:
+    wait_for_ports((11321,11355))
     simulation=package/'launch/simulation.launch'
     if args.low_com:
         import rospkg
@@ -81,7 +91,11 @@ try:
         os.environ['GAZEBO_MODEL_PATH']=str(car)+':'+str(car/'models')+':'+str(Path.home()/'.gazebo/models')
         simulation=out/'debug_simulation.launch.txt';tree.write(simulation)
         result['scope']='DEBUG SINGLE STAGE, NOT A COMPETITION RUN'
-    sim=launch(['roslaunch',str(simulation),'gui:='+str(args.gui).lower()],'simulation')
+    sim_env=dict(os.environ)
+    sim_env['PYTHONUNBUFFERED']='1'
+    for key in tuple(sim_env):
+        if key.startswith('ROUND2_COLLISION_') or key=='ROUND2_CONTACT_AUDIT':sim_env.pop(key)
+    sim=launch(['roslaunch',str(simulation),'gui:='+str(args.gui).lower()],'simulation',env=sim_env)
     time.sleep(2)
     if sim.poll() is not None:raise RuntimeError('Simulation launch failed before ROS startup')
     import rospy
@@ -90,9 +104,33 @@ try:
     from std_msgs.msg import String, Bool
     from std_srvs.srv import SetBool
     rospy.init_node('trial_observer',anonymous=True)
-    rospy.wait_for_message('/odom',Odometry,timeout=90)
+    odom_deadline=time.monotonic()+90
+    while True:
+        try:
+            rospy.wait_for_message('/odom',Odometry,timeout=1)
+            break
+        except rospy.ROSException:
+            log=(out/'simulation.log').read_text(errors='replace')
+            if re.search(r'\[gazebo-\d+\] process has died',log):raise RuntimeError('Gazebo exited before odometry; see simulation.log')
+            if time.monotonic()>odom_deadline:raise
     rospy.wait_for_message('/scan',LaserScan,timeout=30)
-    launch(['roslaunch',str(package/'launch/control.launch'),'speed_profile:='+args.speed_profile],'control')
+    if args.profile_performance:
+        from gazebo_msgs.srv import GetPhysicsProperties
+        import yaml
+        rospy.wait_for_service('/gazebo/get_physics_properties',timeout=10)
+        physics=rospy.ServiceProxy('/gazebo/get_physics_properties',GetPhysicsProperties)()
+        (out/'physics_properties.json').write_text(json.dumps(yaml.safe_load(str(physics)),indent=2))
+    result['startup_seconds']=time.monotonic()-startup_started
+    if args.startup_only:
+        result.update(passed=True,scope='STARTUP ONLY; no route test')
+        raise StartupComplete()
+    control_args=['roslaunch',str(package/'launch/control.launch'),'speed_profile:='+args.speed_profile,'timeout_clock:='+args.timeout_clock]
+    if args.travel_clearance is not None:
+        control_args.append('travel_clearance:='+str(args.travel_clearance))
+        result['travel_clearance']=args.travel_clearance
+    launch(control_args,'control')
+    if args.profile_performance:
+        launch(['python3',str(package/'scripts/profile_runtime.py'),str(out/'performance.jsonl')],'performance')
     rospy.wait_for_service('/nav_start',timeout=60)
     ready_deadline=time.monotonic()+30
     if not args.debug_pose:
@@ -125,6 +163,7 @@ try:
     rospy.Subscriber('/odom',Odometry,odom,queue_size=10)
     launch(['python3',str(Path(__file__).with_name('capture.py')),str(out/'snapshots'),str(args.seconds)],'capture')
     start=time.monotonic()
+    sim_start=rospy.get_time();last_clock=sim_start;clock_progress=time.monotonic()
     debug_client=None
     if args.debug_control:
         if not args.debug_pose:raise RuntimeError('Debug control requires a debug spawn')
@@ -164,7 +203,10 @@ try:
     else:
         response=rospy.ServiceProxy('/nav_start',SetBool)(True)
         if not response.success:raise RuntimeError(response.message)
-    while time.monotonic()-start<args.seconds:
+    while (rospy.get_time()-sim_start if args.timeout_clock=='sim' else time.monotonic()-start)<args.seconds:
+        current_clock=rospy.get_time()
+        if current_clock>last_clock:clock_progress=time.monotonic();last_clock=current_clock
+        if time.monotonic()-clock_progress>5:raise RuntimeError('Simulation clock stopped advancing')
         if debug_client and debug_client.get_state() in (2,3,4,5,8,9):
             if debug_client.get_state()==3:
                 result['debug_arrivals'].append(dict(t=rospy.Time.now().to_sec(),wall=time.monotonic()))
@@ -179,24 +221,20 @@ try:
         if any(v.poll() is not None for v in processes[:2]):raise RuntimeError('Launch process exited')
         time.sleep(1)
     result['elapsed_wall']=time.monotonic()-start
+    result['elapsed_sim']=rospy.get_time()-sim_start
     result['final_status']=dict(status)
     rospy.ServiceProxy('/nav_start',SetBool)(False)
     time.sleep(2)
     (out/'poses.json').write_text(json.dumps(poses))
+except StartupComplete:
+    pass
 except Exception as exc:
     result['error']=repr(exc)
 finally:
     (out/'result.json').write_text(json.dumps(result,indent=2))
-    for proc in reversed(processes):
-        if proc.poll() is None:os.killpg(proc.pid,signal.SIGINT)
-    for proc in reversed(processes):
-        try:proc.wait(timeout=15)
-        except subprocess.TimeoutExpired:
-            os.killpg(proc.pid,signal.SIGTERM)
-            try:proc.wait(timeout=3)
-            except subprocess.TimeoutExpired:
-                os.killpg(proc.pid,signal.SIGKILL)
-                proc.wait(timeout=3)
+    result['cleanup']=stop_processes(processes)
+    if result['cleanup']['remaining']:result['passed']=False
+    (out/'result.json').write_text(json.dumps(result,indent=2))
     for f in files:f.close()
 print(json.dumps(result),flush=True)
 raise SystemExit(0 if result['passed'] else 1)

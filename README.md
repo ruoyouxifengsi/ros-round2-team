@@ -1,5 +1,37 @@
 # 第二轮 ROS 智能车：控制 baseline 与图像协作入口
 
+## 2026-11-12 当前交付：官方引擎加速控制
+
+**请使用 `official/fast-control` 分支。组委会不允许修改仿真架构，并行碰撞实验已停用并归档，不能参赛。** 此分支从官方引擎代码建立，不包含并行插件或其加载入口；`main` 保留此前版本。
+
+本机不打开官方计时器的低质心练习，在 WSL、仓库根目录运行：
+
+```bash
+source ~/round2_team_ws/devel/setup.bash
+python3 round2_baseline/scripts/run_trial.py \
+  round2_baseline/evidence/local_official_practice_01 \
+  --low-com --cones --seed 42 --speed-profile fast \
+  --timeout-clock sim --gui --seconds 600
+```
+
+每次更换输出目录。程序准备场景后通过 `/nav_start` 自动发车；不需要点击 Draw。`--timeout-clock sim` 只把练习用的路线、阶段和无进展预算按仿真秒计算，不改变 Gazebo 物理步长、重力或时钟速度。传感器过期、时钟冻结和姿态保护仍保留。
+
+加速档沿用：前进上限 **0.40 m/s**、倒车 **0.18 m/s**、侧向 **0.22 m/s**、平移加速度上限 **0.50 m/s²**。弯道按曲率限速，停车阶段单独减速。控制修复增大行驶中的规划净空，并在目标附近恢复原来的接近设置，降低停停走走的重规划。
+
+原引擎无计时局部复核：首弯 **5.454 仿真秒**、实测峰值速度 **0.399 m/s**、重试 0；二维码入口 **6.977 仿真秒**、重试 2。两段保护均为 0，最大倾角低于 0.1°。这是两段复核，**本次新控制版本尚未在官方引擎下重新完成整轮验收**；不能把归档并行引擎的四布局结果当作其证明。证据见 [运动测量](round2_baseline/evidence/official_fast_20261112/motion.json)。
+
+队友在自己的电脑整轮验收时，使用官方计时器和真实时间预算：
+
+```bash
+python3 round2_baseline/scripts/run_trial.py \
+  round2_baseline/evidence/local_teammate_full_01 \
+  --low-com --cones --seed 42 --speed-profile fast --timer
+python3 round2_baseline/scripts/analyze_trial.py \
+  round2_baseline/evidence/local_teammate_full_01
+```
+
+以上固定种子只用于测试，正式比赛按规则随机布景。测试器拒绝 `--timer --timeout-clock sim` 的组合。完整获取步骤、手动入口和回退说明见 [操作记录](round2_baseline/操作记录.md)。以下 2026-11-11 的整轮结果属于历史版本。
+
 这是供队内协作的 ROS Noetic 项目。控制部分已在 WSL Ubuntu 20.04 跑通连续弯道、QR 停靠、五桶区域、物块停靠和终点停车。**图像识别、语音播报、相机观察姿态尚未完成**；请不要把 `CONTROL_ROUTE_DONE` 当成完整比赛完赛。
 
 ## 2026-11-11 提速更新
@@ -25,7 +57,7 @@
 本仓库已公开，队友和 agent 无需登录即可读取与克隆。直接推送仍需仓库写入权限；没有写入权限时可 fork 后提交 PR。不要把 token 写进代码或聊天。
 
 ```bash
-git clone https://github.com/ruoyouxifengsi/ros-round2-team.git
+git clone --branch official/fast-control https://github.com/ruoyouxifengsi/ros-round2-team.git
 cd ros-round2-team
 git switch -c feature/vision-integration
 ```
