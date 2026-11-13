@@ -1,0 +1,189 @@
+{
+  "scope": "BENDS ONLY, existing official engine and cone layout; no official timer",
+  "cones_before": {
+    "construction_cone_0": [
+      -2.249999999871654,
+      1.7500000000529874,
+      -6.156637013922849e-06
+    ],
+    "construction_cone_1": [
+      -1.249999999932911,
+      1.7500000000100604,
+      -6.637808719279216e-06
+    ],
+    "construction_cone_2": [
+      -1.7499999999631268,
+      0.7500000000117999,
+      -8.19164542482223e-06
+    ],
+    "construction_cone_3": [
+      -0.24999999990261856,
+      0.7500000000304502,
+      -3.1772570543216937e-06
+    ],
+    "construction_cone_4": [
+      -2.2499999999806453,
+      0.25000000000735,
+      -8.177147382545822e-06
+    ]
+  },
+  "passed": false,
+  "events": [
+    {
+      "state": "MOVING",
+      "detail": "bend1",
+      "stamp": 581.752,
+      "control_only": true,
+      "wall": 8071.771856568
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend1",
+      "stamp": 582.997,
+      "control_only": true,
+      "wall": 8083.526991738
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend2",
+      "stamp": 582.998,
+      "control_only": true,
+      "wall": 8083.529235521
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend2",
+      "stamp": 584.855,
+      "control_only": true,
+      "wall": 8104.515327116
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend3",
+      "stamp": 584.855,
+      "control_only": true,
+      "wall": 8104.517177888
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend3",
+      "stamp": 586.598,
+      "control_only": true,
+      "wall": 8125.18195395
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend4",
+      "stamp": 586.598,
+      "control_only": true,
+      "wall": 8125.184349247
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend4",
+      "stamp": 588.094,
+      "control_only": true,
+      "wall": 8142.028360775
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5_approach",
+      "stamp": 588.094,
+      "control_only": true,
+      "wall": 8142.030746516
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5_approach",
+      "stamp": 589.622,
+      "control_only": true,
+      "wall": 8157.339185482
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5",
+      "stamp": 589.623,
+      "control_only": true,
+      "wall": 8157.341833784
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5",
+      "stamp": 589.828,
+      "control_only": true,
+      "wall": 8159.312672779
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend6",
+      "stamp": 589.829,
+      "control_only": true,
+      "wall": 8159.314843406
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend6",
+      "stamp": 590.576,
+      "control_only": true,
+      "wall": 8167.052332865
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend7",
+      "stamp": 590.577,
+      "control_only": true,
+      "wall": 8167.054280161
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend7",
+      "stamp": 591.528,
+      "control_only": true,
+      "wall": 8177.790549543
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend8",
+      "stamp": 591.528,
+      "control_only": true,
+      "wall": 8177.801915387
+    },
+    {
+      "state": "FAILED",
+      "detail": "Fresh costmap unavailable; vehicle held stopped",
+      "stamp": 593.341,
+      "control_only": true,
+      "wall": 8196.538530674
+    }
+  ],
+  "route_done": false,
+  "sim_seconds": 11.589000000000055,
+  "wall_seconds": 124.76667410600112,
+  "final_sample": [
+    8197.158953272,
+    593.464,
+    0.41353703117961416,
+    1.2564114206241783,
+    -0.0004727292001929202,
+    -2.170338140089651e-05,
+    -0.9991150277016322,
+    0.04205873841228982,
+    -9.394030874176875e-09,
+    -7.69584640440992e-09,
+    0.0
+  ],
+  "error": "'>' not supported between instances of 'float' and 'NoneType'",
+  "cleanup": {
+    "owned_processes": 6,
+    "remaining": []
+  },
+  "contacts": {
+    "type": "summary",
+    "messages": 11973,
+    "all_contacts": 143676,
+    "cone_contact_events": 0,
+    "wall_contact_events": 0,
+    "sim": 593.476
+  },
+  "contact_coverage": 11.951000000000022
+}

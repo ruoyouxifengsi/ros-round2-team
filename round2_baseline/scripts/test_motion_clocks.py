@@ -10,15 +10,20 @@ import control as m
 
 
 class MotionClockTest(unittest.TestCase):
-    def run_bends(self, *, rate=.12, run_limit=540., moving=True, stale=False, target=2.):
-        wall=[100.];sim=[1000.];commands=[];events=[];config=[]
+    def run_bends(self, *, rate=.12, run_limit=540., moving=True, stale=False, target=2., map_hold=False):
+        wall=[100.];sim=[1000.];commands=[];events=[];config=[];tracking_positions=[];held=[False]
         c=m.Control.__new__(m.Control)
         c.sim_timeouts=False;c.cancelled=threading.Event();c.received=wall[0]
         c.client=NS(cancel_all_goals=lambda:None)
         pose=NS(position=NS(x=0.,y=0.),orientation=NS(x=0.,y=0.,z=0.,w=1.))
         c.odom=NS(pose=NS(pose=pose),twist=NS(twist=NS(linear=NS(x=.14,y=0.),angular=NS(z=0.))))
         c.costmap=NS(info=NS(resolution=.01))
-        c.fresh_costmap=lambda deadline:c.costmap
+        def fresh_costmap(deadline):
+            if map_hold and not held[0]:
+                # A stopped-command wait can still allow some measured braking motion.
+                pose.position=NS(x=.3,y=0.);held[0]=True
+            return c.costmap
+        c.fresh_costmap=fresh_costmap
         c.stopped=lambda:True;c.rotate_short=lambda *args:None
         c.report=lambda state,detail:events.append((state,detail))
         c.velocity=NS(publish=lambda msg:commands.append((msg.linear.x,msg.angular.z)))
@@ -27,6 +32,8 @@ class MotionClockTest(unittest.TestCase):
         params={'~bend_settings':tuning,'/move_base/local_costmap/footprint':[],
                 '/move_base/local_costmap/footprint_padding':.005}
         client=NS(get_configuration=lambda:{'resolution':.025},update_configuration=config.append)
+        def path_command(*args):
+            tracking_positions.append(args[2]);return .14,0.,0
         def sleep(dt):
             wall[0]+=1.;sim[0]+=rate
             if not stale:c.received=wall[0]
@@ -41,7 +48,7 @@ class MotionClockTest(unittest.TestCase):
                 (m.rospy,'is_shutdown',dict(return_value=False)),
                 (m.rospy,'get_param',dict(side_effect=lambda key:params[key])),
                 (m,'Client',dict(return_value=client)),
-                (bend_path,'path_command',dict(return_value=(.14,0.,0))),
+                (bend_path,'path_command',dict(side_effect=path_command)),
                 (bend_path,'braking_clear',dict(return_value=True)),
             ]:stack.enter_context(patch.object(owner,name,**kw))
             try:c.follow_bends([('bend8',target,0.,0.)],wall[0]+run_limit,
@@ -49,7 +56,12 @@ class MotionClockTest(unittest.TestCase):
             except RuntimeError as exc:error=str(exc)
         self.assertEqual(commands[-1],(0.,0.))
         self.assertEqual(config[-1],{'resolution':.025})
+        if map_hold:self.assertAlmostEqual(tracking_positions[0],.3)
         return error,wall[0]-100.,sim[0]-1000.,events
+
+    def test_bends_refresh_pose_after_map_hold(self):
+        error,_,_,_=self.run_bends(map_hold=True)
+        self.assertIsNone(error)
 
     def test_slow_simulation_completes_after_sixty_wall_seconds(self):
         error,wall,sim,events=self.run_bends()

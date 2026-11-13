@@ -314,6 +314,7 @@ class Control:
             index=0;progress=0;deadline=rospy.get_time()+60
             last_progress=rospy.get_time();previous=p
             while not rospy.is_shutdown():
+                grid=self.fresh_costmap(run_deadline)
                 now=time.monotonic();pose=self.odom.pose.pose;position=pose.position;q=pose.orientation
                 if self.cancelled.is_set():raise RuntimeError('Continuous bend path cancelled')
                 if now-self.received>2:raise RuntimeError('Continuous bend path odometry stale for 2 wall seconds')
@@ -329,7 +330,6 @@ class Control:
                 angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
                 vx,omega,progress=path_command(path,progress,position.x,position.y,angle,
                     tuning['max_speed'],tuning['acceleration'],tuning['max_yaw_rate'])
-                grid=self.fresh_costmap(run_deadline)
                 measured=self.odom.twist.twist
                 safe=braking_clear(lambda px,py,pa:footprint_clear(grid,px,py,pa,polygon,padding),
                     position.x,position.y,angle,(measured.linear.x,measured.linear.y,measured.angular.z),
@@ -353,14 +353,18 @@ class Control:
             wall=time.monotonic();grid=self.costmap
             if grid is not None and grid.header.frame_id.lstrip('/')!=self.navigation_frame:
                 raise RuntimeError('Costmap frame differs from the navigation frame')
-            if grid is not None and wall-self.map_received<=2:
-                if waiting:rospy.loginfo('Costmap recovered; resuming checked motion')
+            if self.cancelled.is_set():raise RuntimeError('Cancelled while checking navigation data')
+            if self.budget_time()>deadline:raise RuntimeError('Whole-run time budget exceeded while checking navigation data')
+            map_age=wall-self.map_received;odom_age=wall-self.received
+            if grid is not None and map_age<=2 and odom_age<=2:
+                if waiting:rospy.loginfo('Navigation data recovered; resuming checked motion')
                 return grid
             self.velocity.publish(Twist())
-            if self.navigation_frame!='map' or self.cancelled.is_set() or wall-self.received>2 or self.budget_time()>deadline or wall-started>=5:
-                raise RuntimeError('Fresh costmap unavailable; vehicle held stopped')
+            if wall-started>=5:
+                raise RuntimeError('Navigation data unavailable after 5 wall seconds; vehicle held stopped '
+                                   '(map age %.3fs, odometry age %.3fs)'%(map_age,odom_age))
             if not waiting:
-                rospy.logwarn('Costmap stale: holding zero velocity until fresh data')
+                rospy.logwarn('Navigation data stale: holding zero velocity (map age %.3fs, odometry age %.3fs)',map_age,odom_age)
                 waiting=True
             time.sleep(.05)
         raise RuntimeError('Shutdown while waiting for a fresh costmap')
@@ -378,10 +382,10 @@ class Control:
         deadline=rospy.get_time()+10
         try:
             while not rospy.is_shutdown():
+                grid=self.fresh_costmap(run_deadline)
                 wall=time.monotonic()
                 if self.cancelled.is_set() or rospy.get_time()>deadline or self.budget_time()>run_deadline or wall-self.received>2:
                     raise RuntimeError('Entry translation cancelled, stale odometry or timeout')
-                grid=self.fresh_costmap(run_deadline)
                 p=self.odom.pose.pose;q=p.orientation
                 angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
                 vx,vy,omega,distance=entry_velocity(p.position.x,p.position.y,angle,x,y,heading)
@@ -410,10 +414,10 @@ class Control:
         deadline=rospy.get_time()+15
         try:
             while not rospy.is_shutdown():
+                grid=self.fresh_costmap(run_deadline)
                 wall=time.monotonic()
                 if self.cancelled.is_set() or rospy.get_time()>deadline or self.budget_time()>run_deadline or wall-self.received>2:
                     raise RuntimeError('Entry rotation cancelled, stale odometry or timeout')
-                grid=self.fresh_costmap(run_deadline)
                 pose=self.odom.pose.pose;q=pose.orientation
                 angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
                 omega=short_turn_command(grid,pose.position.x,pose.position.y,angle,target,polygon,padding,angular_limit,tolerance)
@@ -433,10 +437,10 @@ class Control:
         progress_at=rospy.get_time();previous=self.odom.pose.pose.position
         try:
             while not rospy.is_shutdown():
+                grid=self.fresh_costmap(run_deadline)
                 now=rospy.get_time();wall_now=time.monotonic()
                 if self.cancelled.is_set() or now>deadline or self.budget_time()>run_deadline or wall_now-self.received>2:
                     raise RuntimeError('Straight docking cancelled, stale odometry or timeout')
-                grid=self.fresh_costmap(run_deadline)
                 pose=self.odom.pose.pose;q=pose.orientation;p=pose.position
                 angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
                 dx,dy=x-p.x,y-p.y;distance=math.hypot(dx,dy)
