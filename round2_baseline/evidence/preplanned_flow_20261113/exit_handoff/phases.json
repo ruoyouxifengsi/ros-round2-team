@@ -1,0 +1,26 @@
+[
+  {
+    "phase": "follow_bends",
+    "start": 1154.93,
+    "sim": 11.625,
+    "wall": 81.042
+  },
+  {
+    "phase": "straight_move",
+    "start": 1170.022,
+    "sim": 0.616,
+    "wall": 3.841
+  },
+  {
+    "phase": "stopped",
+    "start": 1170.638,
+    "sim": 0.104,
+    "wall": 0.502
+  },
+  {
+    "phase": "navigate",
+    "start": 1166.555,
+    "sim": 4.188,
+    "wall": 28.347
+  }
+]

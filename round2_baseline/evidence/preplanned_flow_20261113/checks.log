@@ -1,0 +1,35 @@
+test_preplanned_path.py
+PASS: cached envelope follows an obstacle-free geometric fixture in 14.19s; collision safety requires the integration checks
+PASS: ready cache reused and invalidated; fixed bends hand off before random cones, including the approach to QR
+test_entry_handoff.py
+PASS: aligned entry stops once, retains its map, and performs no turn
+PASS: live moving gate checks its braking envelope and passes without a stop dwell
+test_route_flow.py
+PASS: forward-only staging curve; QR precision; reverse departure; cone/blocks share goal; return passes; image-task boundaries retained
+test_finish_region.py
+PASS: full region containment, stopping envelope, post-brake recheck, heading-gated handoff and task sequencing
+test_bend_path.py
+PASS: dense path, ordered gate proximity, acceleration-limited tracking, braking collision checks, invalid geometry
+test_motion_clocks.py
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 0.954s
+
+OK
+test_manual_supervision.py
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.033s
+
+OK
+test_slow_sim_freshness.py
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.004s
+
+OK
+test_map_recovery.py
+PASS: real docking holds zero during stale map, resumes after recovery, aborts a permanent outage
+test_turn_profile.py
+rotation loop: legacy 2.600s, profiled 1.900s
+PASS: faster half turn, bounded command acceleration, both turn directions

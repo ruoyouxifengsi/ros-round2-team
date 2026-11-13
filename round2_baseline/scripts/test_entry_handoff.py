@@ -22,3 +22,14 @@ with patch.object(m,'Client',return_value=N(get_configuration=lambda:{'resolutio
 assert len(stops)==1,stops
 assert not updates,updates
 print('PASS: aligned entry stops once, retains its map, and performs no turn')
+
+# A moving pass-through gate hands off safely without a new standstill dwell.
+grid.info.width=100;grid.info.height=100;grid.info.origin=N(position=N(x=-.5,y=-.5));grid.data=[0]*10000
+c.odom.twist.twist.linear.x=.15
+stops.clear();events=[];c.report=lambda *event:events.append(event)
+with patch.object(m,'Client',return_value=N(get_configuration=lambda:{'resolution':.01},update_configuration=lambda value:updates.append(value))), \
+     patch.object(m.rospy,'get_param',side_effect=lambda key,default=None:params.get(key,default)), \
+     patch.object(m.rospy,'get_time',return_value=1.),patch.object(m.rospy,'is_shutdown',return_value=False):
+    c.follow_bends([['cone_entry',0.,0.,0.]],100.,path_override=[[0.,0.,0.]],handoff=True)
+assert not stops and events==[('MOVING','cone_entry'),('PASSED','cone_entry')],(stops,events)
+print('PASS: live moving gate checks its braking envelope and passes without a stop dwell')

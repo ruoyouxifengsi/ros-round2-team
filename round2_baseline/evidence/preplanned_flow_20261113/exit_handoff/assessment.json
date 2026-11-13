@@ -1,0 +1,38 @@
+{
+  "name": "exit_handoff",
+  "accepted": true,
+  "checks": {
+    "completed": true,
+    "contacts": true,
+    "coverage": true,
+    "qr_contained": true,
+    "qr_pose": true,
+    "stopped": true,
+    "order": true,
+    "lateral": true,
+    "cleanup": true
+  },
+  "sim_seconds": 15.810999999999922,
+  "wall_seconds": 109.26993459799996,
+  "max_tilt_deg": 0.09201207535544215,
+  "contacts": {
+    "type": "summary",
+    "messages": 16099,
+    "all_contacts": 193180,
+    "cone_contact_events": 0,
+    "wall_contact_events": 0,
+    "sim": 1170.971
+  },
+  "final_pose": {
+    "t": 1170.938,
+    "wall": 41710.037587164,
+    "x": 0.19118509003247755,
+    "y": 0.2515458217764588,
+    "yaw": -0.017047401802380742,
+    "v": [
+      -1.074656084802578e-08,
+      -6.0645555742668486e-09,
+      0.0
+    ]
+  }
+}

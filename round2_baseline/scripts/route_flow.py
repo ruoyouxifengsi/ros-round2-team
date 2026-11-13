@@ -32,6 +32,26 @@ def entry_curve(start,end,heading):
         path.append(p+[math.atan2(d[1],d[0])])
     return path
 
+
+def prepare_fixed_paths(route,cfg,tuning,start):
+    from bend_path import PreparedPath,rounded_path
+    prefix=[]
+    for point in route:
+        if point[0].startswith('bend'):prefix.append(point)
+        else:break
+    limits=(tuning['max_speed'],tuning['acceleration'],tuning['max_yaw_rate'])
+    plans={'prefix_route':prefix}
+    if prefix:
+        points=[tuple(start)]+[(x,2.72 if name in ('bend1','bend2') else y) for name,x,y,_ in prefix]
+        handoff=len(route)>len(prefix) and route[len(prefix)][0]=='qr_approach'
+        # This continuation shapes the exit tangent; tracking hands off at bend8 before entering random-cone space.
+        if handoff:points.append(tuple(route[len(prefix)][1:3]))
+        plans['prefix']=PreparedPath(rounded_path(points),*limits,end_speed=.2 if handoff else 0.)
+        plans['handoff_prefix']=handoff
+    staging=cfg['staging']
+    plans['entry']=PreparedPath(entry_curve(staging['qr_exit'][:2],staging['cone_entry'],staging['qr_exit'][2]),*limits,end_speed=.15)
+    return plans
+
 def navigate(control,planner,route,deadline,settings,pass_last=False,announce=True):
     values=dict(settings,free_goal_vel=pass_last)
     if pass_last and route[-1][0]!='finish_approach':values['yaw_goal_tolerance']=math.pi
@@ -59,6 +79,12 @@ def navigate(control,planner,route,deadline,settings,pass_last=False,announce=Tr
         reached_via=via_reached(route[index],p.x,p.y)
         if index<len(route)-1 and reached_via:
             control.report('PASSED',route[index][0]);index+=1;control.report('MOVING',route[index][0])
+        if name=='qr' and index==len(route)-1 and control.qr_ready_to_stop((x,y,yaw),deadline):
+            control.client.cancel_all_goals()
+            if not control.stopped():raise RuntimeError('QR region did not stop')
+            if control.qr_ready_to_stop((x,y,yaw),deadline):
+                control.report('ARRIVED',name);return
+            control.client.send_goal(goal);continue
         if name=='qr' and index==len(route)-1 and ready_to_dock(pose,(x,y,yaw)):
             control.straight_move(x,y,yaw,deadline,1,.0095)
             if not control.stopped():raise RuntimeError('QR final docking did not stop')
@@ -85,12 +111,17 @@ def run_flow(control,planner,route,deadline):
         route=[[name,x,2.25 if name=='finish' else y,yaw] for name,x,y,yaw in route]
     rospy.set_param('~finish_region_mode',continuous_regions)
     rospy.set_param('~executed_route',route)
+    plans=control.fixed_plans() if cfg.get('preplanned_fixed',False) else {}
     prefix=[]
     for point in route:
         if point[0].startswith('bend'):prefix.append(point)
         else:break
     if prefix:
-        control.follow_bends(prefix,deadline)
+        if plans:
+            handoff=plans['handoff_prefix']
+            control.follow_bends(prefix,deadline,prepared=plans['prefix'],position_tolerance=.10 if handoff else .023,
+                                 yaw_tolerance=math.pi if handoff else .12,handoff=handoff)
+        else:control.follow_bends(prefix,deadline)
         route=route[len(prefix):]
     i=0
     while i<len(route):
@@ -110,12 +141,15 @@ def run_flow(control,planner,route,deadline):
             if not control.stopped():raise RuntimeError('Task straight motion failed to stop: '+name)
             control.report('ARRIVED',name)
         elif name=='cone_entry':
-            p=control.odom.pose.pose;q=p.orientation
-            heading=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
-            curve=entry_curve((p.position.x,p.position.y),(x,y,yaw),heading)
-            control.follow_bends([route[i]],deadline,path_override=curve,
-                                 position_tolerance=.04 if continuous_regions else .015,
-                                 yaw_tolerance=.25 if continuous_regions else .08)
+            if plans:
+                control.follow_bends([route[i]],deadline,prepared=plans['entry'],position_tolerance=.02,yaw_tolerance=.25,handoff=True)
+            else:
+                p=control.odom.pose.pose;q=p.orientation
+                heading=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
+                curve=entry_curve((p.position.x,p.position.y),(x,y,yaw),heading)
+                control.follow_bends([route[i]],deadline,path_override=curve,
+                                     position_tolerance=.04 if continuous_regions else .015,
+                                     yaw_tolerance=.25 if continuous_regions else .08)
         elif name=='cone_exit' and i+1<len(route) and route[i+1][0]=='blocks':
             navigate(control,planner,route[i:i+2],deadline,cfg['navigation'])
             control.report('IMAGE_SKIPPED','blocks');i+=1

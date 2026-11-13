@@ -19,6 +19,7 @@ assert not can_stop_inside(-.25,2.21,math.pi/2,(float('nan'),0.,0.),polygon)
 
 # Exercise the coordinator, preserving task stops while removing staging stops.
 cfg=yaml.safe_load((Path(__file__).resolve().parents[1]/'config/route_flow.yaml').read_text());cfg['continuous_regions']=True
+cfg['preplanned_fixed']=False
 calls=[];events=[]
 control=NS(report=lambda *event:events.append(event),stopped=lambda:True,
     straight_move=lambda *args,**kw:calls.append(('straight',args,kw)),rotate_short=lambda *args,**kw:calls.append(('turn',args,kw)),

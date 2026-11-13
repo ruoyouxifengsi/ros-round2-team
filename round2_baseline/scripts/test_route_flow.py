@@ -9,6 +9,7 @@ from bend_path import path_command
 
 cfg=yaml.safe_load((Path(__file__).parents[1]/'config/route_flow.yaml').read_text())
 cfg['continuous_regions']=False
+cfg['preplanned_fixed']=False
 pose=lambda x,y,a:N(position=N(x=x,y=y),orientation=N(x=0.,y=0.,z=math.sin(a/2),w=math.cos(a/2)))
 assert m.ready_to_dock(pose(.1691,.2486,-.0311),(.2,.25,0.))
 assert m.ready_to_dock(pose(.195,.25,0.),(.2,.25,0.))

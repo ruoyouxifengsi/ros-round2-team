@@ -114,6 +114,7 @@ class Control:
         self.costmap = None
         self.map_received = 0
         self.scan_received = self.scan_stamp = 0.
+        self.prepared_cache = None
         self.velocity = rospy.Publisher('/nav_cmd_vel',Twist,queue_size=1)
         self.status = rospy.Publisher('/baseline/status', String, queue_size=10, latch=True)
         self.ready = rospy.Publisher('/baseline/ready', Bool, queue_size=1, latch=True)
@@ -162,7 +163,19 @@ class Control:
         v=self.odom.twist.twist
         if math.hypot(v.linear.x,v.linear.y)>.02 or abs(v.angular.z)>.05:
             return 'Vehicle has not stopped'
+        if rospy.get_param('~route_flow',False) and rospy.get_param('~flow_settings/preplanned_fixed',False):
+            self.fixed_plans()
         return None
+
+    def fixed_plans(self):
+        from route_flow import prepare_fixed_paths
+        route=rospy.get_param('~route');cfg=rospy.get_param('~flow_settings')
+        tuning=rospy.get_param('~bend_settings');start=rospy.get_param('~start_position',[-.75,1.75])
+        key=json.dumps([route,cfg,tuning,start],sort_keys=True)
+        cached=getattr(self,'prepared_cache',None)
+        if cached is None or cached[0]!=key:
+            cached=(key,prepare_fixed_paths(route,cfg,tuning,start));self.prepared_cache=cached
+        return cached[1]
 
     def observe(self, msg):
         self.odom = msg
@@ -333,14 +346,14 @@ class Control:
             with self.lock:
                 self.running = False
 
-    def follow_bends(self,route,run_deadline,path_override=None,position_tolerance=.023,yaw_tolerance=.12):
+    def follow_bends(self,route,run_deadline,path_override=None,position_tolerance=.023,yaw_tolerance=.12,prepared=None,handoff=False):
         import sys
         from pathlib import Path
         if str(Path(__file__).parent) not in sys.path:sys.path.insert(0,str(Path(__file__).parent))
         from bend_path import rounded_path
         p=self.odom.pose.pose.position
         vertices=[(p.x,p.y)]+[(x,2.72 if name in ('bend1','bend2') else y) for name,x,y,_ in route]
-        path=path_override if path_override is not None else rounded_path(vertices)
+        path=prepared.path if prepared else (path_override if path_override is not None else rounded_path(vertices))
         from bend_path import path_command, braking_clear, validate_settings
         tuning=rospy.get_param('~bend_settings')
         validate_settings(tuning)
@@ -378,11 +391,19 @@ class Control:
                 if index<len(route)-1 and math.hypot(position.x-route[index][1],position.y-route[index][2])<.10:
                     self.report('PASSED',route[index][0]);index+=1
                     self.report('MOVING',route[index][0])
-                if math.hypot(position.x-x,position.y-y)<position_tolerance:break
                 angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
-                vx,omega,progress=path_command(path,progress,position.x,position.y,angle,
-                    tuning['max_speed'],tuning['acceleration'],tuning['max_yaw_rate'])
                 measured=self.odom.twist.twist
+                if math.hypot(position.x-x,position.y-y)<position_tolerance:
+                    if handoff and abs(math.atan2(math.sin(angle-yaw),math.cos(angle-yaw)))<yaw_tolerance:
+                        if braking_clear(lambda px,py,pa:footprint_clear(grid,px,py,pa,polygon,padding),
+                            position.x,position.y,angle,(measured.linear.x,measured.linear.y,measured.angular.z),(0.,0.,0.),tuning['output_acceleration']):
+                            self.report('PASSED',route[-1][0]);return
+                    break
+                if prepared:
+                    vx,omega,progress=prepared.command(progress,position.x,position.y,angle,measured.linear.x)
+                else:
+                    vx,omega,progress=path_command(path,progress,position.x,position.y,angle,
+                        tuning['max_speed'],tuning['acceleration'],tuning['max_yaw_rate'])
                 safe=braking_clear(lambda px,py,pa:footprint_clear(grid,px,py,pa,polygon,padding),
                     position.x,position.y,angle,(measured.linear.x,measured.linear.y,measured.angular.z),
                     (vx,0.,omega),tuning['output_acceleration'])
@@ -462,6 +483,18 @@ class Control:
                 self.velocity.publish(msg);time.sleep(.05)
         finally:
             self.velocity.publish(Twist())
+
+    def qr_ready_to_stop(self,target,run_deadline):
+        from finish_region import can_stop_inside
+        self.fresh_costmap(run_deadline)
+        pose=self.odom.pose.pose;p=pose.position;q=pose.orientation
+        angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
+        if math.hypot(p.x-target[0],p.y-target[1])>=.02 or abs(math.atan2(math.sin(angle-target[2]),math.cos(angle-target[2])))>=.08:
+            return False
+        polygon=rospy.get_param('/move_base/local_costmap/footprint')
+        if isinstance(polygon,str):polygon=ast.literal_eval(polygon)
+        v=self.odom.twist.twist
+        return can_stop_inside(p.x,p.y,angle,(v.linear.x,v.linear.y,v.angular.z),polygon,box=(0.,.5,0.,.5))
 
     def can_rotate(self,target,run_deadline):
         grid=self.fresh_costmap(run_deadline)

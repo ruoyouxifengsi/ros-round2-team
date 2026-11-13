@@ -1,0 +1,14 @@
+[
+  {
+    "phase": "follow_bends",
+    "start": 1103.803,
+    "sim": 30.065,
+    "wall": 210.577
+  },
+  {
+    "phase": "stopped",
+    "start": 1133.868,
+    "sim": 0.0,
+    "wall": 0.0
+  }
+]

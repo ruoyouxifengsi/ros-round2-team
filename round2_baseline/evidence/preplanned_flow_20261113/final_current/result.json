@@ -1,0 +1,363 @@
+{
+  "scope": "FULL CONTROL ROUTE; no recognition or official timer",
+  "candidate": true,
+  "passed": true,
+  "cones_before": {
+    "construction_cone_0": [
+      -2.2499999998229074,
+      1.7500000000748401,
+      1.9193736431080374e-08
+    ],
+    "construction_cone_1": [
+      -1.2499999998263136,
+      1.7500000000484393,
+      -4.634213461661487e-07
+    ],
+    "construction_cone_2": [
+      -1.7499999999068334,
+      0.7500000000227344,
+      9.582501319730531e-08
+    ],
+    "construction_cone_3": [
+      -0.24999999979193696,
+      0.7500000000674812,
+      4.647846862856872e-07
+    ],
+    "construction_cone_4": [
+      -2.2499999999006826,
+      0.2500000000290843,
+      -2.556263192884983e-06
+    ]
+  },
+  "events": [
+    {
+      "state": "MOVING",
+      "detail": "bend1",
+      "stamp": 1357.486,
+      "control_only": true,
+      "wall": 42919.77990736
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend1",
+      "stamp": 1358.827,
+      "control_only": true,
+      "wall": 42928.469618358
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend2",
+      "stamp": 1358.827,
+      "control_only": true,
+      "wall": 42928.470591166
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend2",
+      "stamp": 1360.492,
+      "control_only": true,
+      "wall": 42940.294255793
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend3",
+      "stamp": 1360.492,
+      "control_only": true,
+      "wall": 42940.296177513
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend3",
+      "stamp": 1362.055,
+      "control_only": true,
+      "wall": 42951.326890118
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend4",
+      "stamp": 1362.056,
+      "control_only": true,
+      "wall": 42951.329503337
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend4",
+      "stamp": 1363.622,
+      "control_only": true,
+      "wall": 42963.141693923
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5_approach",
+      "stamp": 1363.623,
+      "control_only": true,
+      "wall": 42963.143183538
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5_approach",
+      "stamp": 1365.18,
+      "control_only": true,
+      "wall": 42975.005243289
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5",
+      "stamp": 1365.18,
+      "control_only": true,
+      "wall": 42975.006938497
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5",
+      "stamp": 1365.388,
+      "control_only": true,
+      "wall": 42975.890869011
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend6",
+      "stamp": 1365.388,
+      "control_only": true,
+      "wall": 42975.892384588
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend6",
+      "stamp": 1366.168,
+      "control_only": true,
+      "wall": 42981.758160186
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend7",
+      "stamp": 1366.168,
+      "control_only": true,
+      "wall": 42981.759376225
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend7",
+      "stamp": 1367.156,
+      "control_only": true,
+      "wall": 42988.409273242
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend8",
+      "stamp": 1367.157,
+      "control_only": true,
+      "wall": 42988.410910534
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend8",
+      "stamp": 1369.126,
+      "control_only": true,
+      "wall": 43001.751178597
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_approach",
+      "stamp": 1369.134,
+      "control_only": true,
+      "wall": 43001.780183287
+    },
+    {
+      "state": "PASSED",
+      "detail": "qr_approach",
+      "stamp": 1371.776,
+      "control_only": true,
+      "wall": 43020.623598674
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr",
+      "stamp": 1371.776,
+      "control_only": true,
+      "wall": 43020.63981962
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr",
+      "stamp": 1373.194,
+      "control_only": true,
+      "wall": 43030.062282255
+    },
+    {
+      "state": "IMAGE_SKIPPED",
+      "detail": "qr",
+      "stamp": 1373.195,
+      "control_only": true,
+      "wall": 43030.063139722
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_exit",
+      "stamp": 1373.195,
+      "control_only": true,
+      "wall": 43030.064324927
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr_exit",
+      "stamp": 1375.547,
+      "control_only": true,
+      "wall": 43045.195142534
+    },
+    {
+      "state": "MOVING",
+      "detail": "cone_entry",
+      "stamp": 1375.548,
+      "control_only": true,
+      "wall": 43045.199913037
+    },
+    {
+      "state": "PASSED",
+      "detail": "cone_entry",
+      "stamp": 1376.302,
+      "control_only": true,
+      "wall": 43050.89223217
+    },
+    {
+      "state": "MOVING",
+      "detail": "cone_exit",
+      "stamp": 1376.31,
+      "control_only": true,
+      "wall": 43050.921380845
+    },
+    {
+      "state": "PASSED",
+      "detail": "cone_exit",
+      "stamp": 1381.399,
+      "control_only": true,
+      "wall": 43086.369879321
+    },
+    {
+      "state": "MOVING",
+      "detail": "blocks",
+      "stamp": 1381.4,
+      "control_only": true,
+      "wall": 43086.370682856
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "blocks",
+      "stamp": 1381.998,
+      "control_only": true,
+      "wall": 43089.793581735
+    },
+    {
+      "state": "IMAGE_SKIPPED",
+      "detail": "blocks",
+      "stamp": 1381.999,
+      "control_only": true,
+      "wall": 43089.795544794
+    },
+    {
+      "state": "MOVING",
+      "detail": "return",
+      "stamp": 1381.999,
+      "control_only": true,
+      "wall": 43089.797055105
+    },
+    {
+      "state": "PASSED",
+      "detail": "return",
+      "stamp": 1388.164,
+      "control_only": true,
+      "wall": 43132.887072769
+    },
+    {
+      "state": "MOVING",
+      "detail": "finish_approach",
+      "stamp": 1388.164,
+      "control_only": true,
+      "wall": 43132.889302561
+    },
+    {
+      "state": "PASSED",
+      "detail": "finish_approach",
+      "stamp": 1389.495,
+      "control_only": true,
+      "wall": 43140.914675021
+    },
+    {
+      "state": "MOVING",
+      "detail": "finish",
+      "stamp": 1389.495,
+      "control_only": true,
+      "wall": 43140.916623379
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "finish",
+      "stamp": 1391.727,
+      "control_only": true,
+      "wall": 43155.29379536
+    },
+    {
+      "state": "CONTROL_ROUTE_DONE",
+      "detail": "CONTROL ONLY: image recognition and its processing time omitted",
+      "stamp": 1391.728,
+      "control_only": true,
+      "wall": 43155.295163278
+    }
+  ],
+  "route_done": true,
+  "sim_seconds": 34.24199999999996,
+  "wall_seconds": 235.51525591799873,
+  "final_pose": {
+    "t": 1391.972,
+    "wall": 43156.223788928,
+    "x": -0.243138388479162,
+    "y": 2.192099057164022,
+    "yaw": 1.5919587263670225,
+    "v": [
+      -2.1247270397968205e-06,
+      8.735483425658391e-06,
+      0.0
+    ]
+  },
+  "max_tilt_deg": 0.2230055969517125,
+  "cones_after": {
+    "construction_cone_0": [
+      -2.2499999998172804,
+      1.7500000000812401,
+      -1.7956349540833465e-06
+    ],
+    "construction_cone_1": [
+      -1.2499999997573685,
+      1.7500000000589244,
+      -5.656505530977838e-06
+    ],
+    "construction_cone_2": [
+      -1.749999999790934,
+      0.7500000000756706,
+      -1.1267253814799274e-06
+    ],
+    "construction_cone_3": [
+      -0.2499999997200985,
+      0.7500000000887092,
+      -6.844810564820634e-06
+    ],
+    "construction_cone_4": [
+      -2.24999999984898,
+      0.2500000000407895,
+      -2.5745709575057963e-06
+    ]
+  },
+  "max_lateral_command": 0.0,
+  "cleanup": {
+    "owned_processes": 6,
+    "remaining": []
+  },
+  "contacts": {
+    "type": "summary",
+    "messages": 34690,
+    "all_contacts": 415668,
+    "cone_contact_events": 0,
+    "wall_contact_events": 0,
+    "sim": 1392.039
+  }
+}

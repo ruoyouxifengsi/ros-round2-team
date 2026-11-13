@@ -1,5 +1,6 @@
 """Build a dense rounded reference from the public course waypoints, not simulator geometry."""
 import math
+import bisect
 
 def validate_settings(settings):
     keys=('max_speed','acceleration','max_yaw_rate','output_speed','output_acceleration','output_yaw_rate')
@@ -37,6 +38,53 @@ def rounded_path(points, radius=.16, spacing=.025):
         samples.extend((center[0]+actual*math.cos(start+sign*angle*j/count),center[1]+actual*math.sin(start+sign*angle*j/count)) for j in range(1,count+1))
     line(vertices[-1])
     return [[float(p[0]),float(p[1]),math.atan2(samples[min(i+1,len(samples)-1)][1]-samples[max(i-1,0)][1],samples[min(i+1,len(samples)-1)][0]-samples[max(i-1,0)][0])] for i,p in enumerate(samples)]
+
+class PreparedPath:
+    """Cache curvature limits and forward/backward speed reachability along arc length."""
+    def __init__(self,path,max_speed,acceleration,max_yaw_rate,end_speed=0.):
+        if len(path)<2 or not all(math.isfinite(v) for p in path for v in p):
+            raise ValueError('A prepared path needs at least two finite poses')
+        if not all(math.isfinite(v) and v>0 for v in (max_speed,acceleration,max_yaw_rate)) or not 0<=end_speed<=max_speed:
+            raise ValueError('Invalid prepared path limits')
+        self.path=path;self.acceleration=acceleration;self.max_yaw_rate=max_yaw_rate;self.end_speed=end_speed
+        self.steps=[math.dist(a[:2],b[:2]) for a,b in zip(path,path[1:])]
+        if min(self.steps)<=1e-9:raise ValueError('Repeated prepared path positions')
+        self.arc=[0.]
+        for ds in self.steps:self.arc.append(self.arc[-1]+ds)
+        self.speeds=[max_speed]*len(path)
+        for i,ds in enumerate(self.steps):
+            curvature=abs(math.atan2(math.sin(path[i+1][2]-path[i][2]),math.cos(path[i+1][2]-path[i][2])))/ds
+            limit=min(max_speed,math.sqrt(acceleration/max(curvature,1e-9)),max_yaw_rate/max(curvature,1e-9))
+            self.speeds[i]=min(self.speeds[i],limit);self.speeds[i+1]=min(self.speeds[i+1],limit)
+        self.speeds[0]=0.;self.speeds[-1]=end_speed
+        for i,ds in enumerate(self.steps):
+            self.speeds[i+1]=min(self.speeds[i+1],math.sqrt(self.speeds[i]**2+2*acceleration*ds))
+        for i in range(len(path)-2,-1,-1):
+            self.speeds[i]=min(self.speeds[i],math.sqrt(self.speeds[i+1]**2+2*acceleration*self.steps[i]))
+
+    def command(self,progress,x,y,yaw,measured_speed):
+        path=self.path;distance=lambda p:math.hypot(p[0]-x,p[1]-y)
+        progress=min(range(progress,min(len(path),progress+30)),key=lambda i:distance(path[i]))
+        if distance(path[progress])>.20:raise RuntimeError('Vehicle departed the prepared reference')
+        target=min(len(path)-1,progress+6)
+        dx,dy=path[target][0]-x,path[target][1]-y;length=math.hypot(dx,dy)
+        forward=dx*math.cos(yaw)+dy*math.sin(yaw)
+        if forward<0:raise RuntimeError('Forward tracker passed its prepared lookahead')
+        lateral=-dx*math.sin(yaw)+dy*math.cos(yaw)
+        curvature=2*lateral/max(length*length,1e-9)
+        s=min(self.arc[-1],self.arc[progress]+.015+abs(measured_speed)*.08)
+        i=min(len(path)-2,bisect.bisect_right(self.arc,s)-1)
+        f=(s-self.arc[i])/self.steps[i]
+        speed=math.sqrt(max(0.,(1-f)*self.speeds[i]**2+f*self.speeds[i+1]**2))
+        remaining=max(distance(path[-1]),self.arc[-1]-self.arc[progress])
+        speed=min(speed,math.sqrt(self.end_speed**2+2*self.acceleration*remaining))
+        if not self.end_speed:
+            # The nearest discrete sample may already be the endpoint while the car is still approaching.
+            if s>=self.arc[-1]:speed=min(2.5*distance(path[-1]),math.sqrt(2*self.acceleration*distance(path[-1])))
+            else:speed=min(speed,2.5*distance(path[-1]))
+        speed=min(speed,self.max_yaw_rate/max(abs(curvature),1e-9),math.sqrt(self.acceleration/max(abs(curvature),1e-9)))
+        return speed,speed*curvature,progress
+
 
 def path_command(path,progress,x,y,yaw,max_speed,acceleration,max_yaw_rate):
     distance=lambda p:math.hypot(p[0]-x,p[1]-y)

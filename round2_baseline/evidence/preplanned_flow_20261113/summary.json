@@ -1,0 +1,534 @@
+{
+  "scope": "Official ODE, approved low COM; complete control route, excluding recognition, broadcasts and official timer.",
+  "original_commit": "42e7741",
+  "original_tag": "fixed-trajectory-before-v1",
+  "paired_prefix": {
+    "before": {
+      "name": "baseline",
+      "accepted": true,
+      "checks": {
+        "completed": true,
+        "contacts": true,
+        "coverage": true,
+        "qr_contained": true,
+        "qr_pose": true,
+        "stopped": true,
+        "order": true,
+        "lateral": true,
+        "cleanup": true
+      },
+      "sim_seconds": 17.807999999999993,
+      "wall_seconds": 119.31275304000155,
+      "max_tilt_deg": 0.06546455263235247,
+      "contacts": {
+        "type": "summary",
+        "messages": 18090,
+        "all_contacts": 217071,
+        "cone_contact_events": 0,
+        "wall_contact_events": 0,
+        "sim": 1084.42
+      },
+      "final_pose": {
+        "t": 1084.305,
+        "wall": 41138.227115896,
+        "x": 0.19103411405936974,
+        "y": 0.25100317653655013,
+        "yaw": -0.013153367915978247,
+        "v": [
+          -2.052774710895508e-08,
+          -1.2048157246284451e-08,
+          0.0
+        ]
+      }
+    },
+    "after": {
+      "name": "exit_handoff",
+      "accepted": true,
+      "checks": {
+        "completed": true,
+        "contacts": true,
+        "coverage": true,
+        "qr_contained": true,
+        "qr_pose": true,
+        "stopped": true,
+        "order": true,
+        "lateral": true,
+        "cleanup": true
+      },
+      "sim_seconds": 15.810999999999922,
+      "wall_seconds": 109.26993459799996,
+      "max_tilt_deg": 0.09201207535544215,
+      "contacts": {
+        "type": "summary",
+        "messages": 16099,
+        "all_contacts": 193180,
+        "cone_contact_events": 0,
+        "wall_contact_events": 0,
+        "sim": 1170.971
+      },
+      "final_pose": {
+        "t": 1170.938,
+        "wall": 41710.037587164,
+        "x": 0.19118509003247755,
+        "y": 0.2515458217764588,
+        "yaw": -0.017047401802380742,
+        "v": [
+          -1.074656084802578e-08,
+          -6.0645555742668486e-09,
+          0.0
+        ]
+      }
+    }
+  },
+  "previous_full_baseline": {
+    "path": "../turn_flow_20261113/full_current/assessment.json",
+    "assessment": {
+      "name": "full_current",
+      "accepted": true,
+      "checks": {
+        "completed": true,
+        "contact_coverage": true,
+        "zero_contacts": true,
+        "no_tilt": true,
+        "zero_lateral": true,
+        "cones_unchanged": true,
+        "finish_contained": true,
+        "finish_stopped": true,
+        "blocks_stopped": true,
+        "blocks_pose": true,
+        "cleanup": true,
+        "qr_contained": true,
+        "qr_stopped": true,
+        "under_600_wall": true,
+        "ordered_route": true
+      },
+      "sim_seconds": 36.39199999999994,
+      "wall_seconds": 248.60571098100627,
+      "stages": {
+        "bend1": 1.251,
+        "bend2": 1.559,
+        "bend3": 1.465,
+        "bend4": 1.495,
+        "bend5_approach": 1.498,
+        "bend5": 0.171,
+        "bend6": 0.748,
+        "bend7": 0.948,
+        "bend8": 3.912,
+        "qr_approach": 3.228,
+        "qr": 1.128,
+        "qr_exit": 2.296,
+        "cone_entry": 1.432,
+        "cone_exit": 5.103,
+        "blocks": 0.531,
+        "return": 6.136,
+        "finish_approach": 1.255,
+        "finish": 2.236
+      },
+      "max_cone_displacement": 0.0,
+      "max_tilt_deg": 0.3887479814514629,
+      "contacts": {
+        "type": "summary",
+        "messages": 36776,
+        "all_contacts": 440580,
+        "cone_contact_events": 0,
+        "wall_contact_events": 0,
+        "sim": 835.024
+      },
+      "final_pose": {
+        "t": 834.916,
+        "wall": 39557.237677941,
+        "x": -0.24374967210574577,
+        "y": 2.1930890021505403,
+        "yaw": 1.5971293935880397,
+        "v": [
+          -9.120948471076367e-07,
+          8.775121044574884e-06,
+          -3.5061555750229778e-06
+        ]
+      }
+    },
+    "provenance": "Previous-turn full validation, same scene and cone coordinates; not a new paired full baseline run."
+  },
+  "final_full_runs": [
+    {
+      "name": "final_seed_1",
+      "accepted": true,
+      "checks": {
+        "completed": true,
+        "contact_coverage": true,
+        "zero_contacts": true,
+        "no_tilt": true,
+        "zero_lateral": true,
+        "cones_unchanged": true,
+        "finish_contained": true,
+        "finish_stopped": true,
+        "blocks_stopped": true,
+        "blocks_pose": true,
+        "cleanup": true,
+        "qr_contained": true,
+        "qr_stopped": true,
+        "qr_viewpoint": true,
+        "under_600_wall": true,
+        "ordered_route": true
+      },
+      "sim_seconds": 36.641000000000076,
+      "wall_seconds": 249.8016647330005,
+      "stages": {
+        "bend1": 1.323,
+        "bend2": 1.668,
+        "bend3": 1.559,
+        "bend4": 1.566,
+        "bend5_approach": 1.599,
+        "bend5": 0.168,
+        "bend6": 0.821,
+        "bend7": 0.982,
+        "bend8": 1.811,
+        "qr_approach": 1.761,
+        "qr": 1.273,
+        "qr_exit": 2.352,
+        "cone_entry": 0.766,
+        "cone_exit": 6.656,
+        "blocks": 1.408,
+        "return": 7.639,
+        "finish_approach": 1.491,
+        "finish": 1.798
+      },
+      "max_cone_displacement": 5.4158053657487674e-11,
+      "max_tilt_deg": 0.15390253128967168,
+      "contacts": {
+        "type": "summary",
+        "messages": 36926,
+        "all_contacts": 442567,
+        "cone_contact_events": 0,
+        "wall_contact_events": 0,
+        "sim": 1349.186
+      },
+      "final_pose": {
+        "t": 1349.132,
+        "wall": 42870.204544922,
+        "x": -0.25222831376440524,
+        "y": 2.1940169318487177,
+        "yaw": 1.561335922951678,
+        "v": [
+          -1.6687641133193934e-06,
+          9.274980295945614e-06,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "final_current",
+      "accepted": true,
+      "checks": {
+        "completed": true,
+        "contact_coverage": true,
+        "zero_contacts": true,
+        "no_tilt": true,
+        "zero_lateral": true,
+        "cones_unchanged": true,
+        "finish_contained": true,
+        "finish_stopped": true,
+        "blocks_stopped": true,
+        "blocks_pose": true,
+        "cleanup": true,
+        "qr_contained": true,
+        "qr_stopped": true,
+        "qr_viewpoint": true,
+        "under_600_wall": true,
+        "ordered_route": true
+      },
+      "sim_seconds": 34.24199999999996,
+      "wall_seconds": 235.51525591799873,
+      "stages": {
+        "bend1": 1.341,
+        "bend2": 1.665,
+        "bend3": 1.564,
+        "bend4": 1.567,
+        "bend5_approach": 1.557,
+        "bend5": 0.208,
+        "bend6": 0.78,
+        "bend7": 0.989,
+        "bend8": 1.977,
+        "qr_approach": 2.642,
+        "qr": 1.419,
+        "qr_exit": 2.353,
+        "cone_entry": 0.762,
+        "cone_exit": 5.09,
+        "blocks": 0.599,
+        "return": 6.165,
+        "finish_approach": 1.331,
+        "finish": 2.233
+      },
+      "max_cone_displacement": 1.274164014651617e-10,
+      "max_tilt_deg": 0.2230055969517125,
+      "contacts": {
+        "type": "summary",
+        "messages": 34690,
+        "all_contacts": 415668,
+        "cone_contact_events": 0,
+        "wall_contact_events": 0,
+        "sim": 1392.039
+      },
+      "final_pose": {
+        "t": 1391.972,
+        "wall": 43156.223788928,
+        "x": -0.243138388479162,
+        "y": 2.192099057164022,
+        "yaw": 1.5919587263670225,
+        "v": [
+          -2.1247270397968205e-06,
+          8.735483425658391e-06,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "final_seed_42",
+      "accepted": true,
+      "checks": {
+        "completed": true,
+        "contact_coverage": true,
+        "zero_contacts": true,
+        "no_tilt": true,
+        "zero_lateral": true,
+        "cones_unchanged": true,
+        "finish_contained": true,
+        "finish_stopped": true,
+        "blocks_stopped": true,
+        "blocks_pose": true,
+        "cleanup": true,
+        "qr_contained": true,
+        "qr_stopped": true,
+        "qr_viewpoint": true,
+        "under_600_wall": true,
+        "ordered_route": true
+      },
+      "sim_seconds": 35.909999999999854,
+      "wall_seconds": 251.17842070099869,
+      "stages": {
+        "bend1": 1.332,
+        "bend2": 1.667,
+        "bend3": 1.561,
+        "bend4": 1.563,
+        "bend5_approach": 1.565,
+        "bend5": 0.205,
+        "bend6": 0.779,
+        "bend7": 0.988,
+        "bend8": 1.984,
+        "qr_approach": 2.74,
+        "qr": 1.329,
+        "qr_exit": 2.282,
+        "cone_entry": 0.754,
+        "cone_exit": 5.193,
+        "blocks": 1.413,
+        "return": 6.983,
+        "finish_approach": 1.293,
+        "finish": 2.279
+      },
+      "max_cone_displacement": 1.1943365389889756e-10,
+      "max_tilt_deg": 0.22133715637319334,
+      "contacts": {
+        "type": "summary",
+        "messages": 36119,
+        "all_contacts": 432936,
+        "cone_contact_events": 0,
+        "wall_contact_events": 0,
+        "sim": 1436.249
+      },
+      "final_pose": {
+        "t": 1436.206,
+        "wall": 43459.550908321,
+        "x": -0.24651104429269557,
+        "y": 2.1967884532803104,
+        "yaw": 1.5896863916709072,
+        "v": [
+          -9.430088690799973e-07,
+          8.763671151314307e-06,
+          0.0
+        ]
+      }
+    }
+  ],
+  "logs": {
+    "baseline": {
+      "data_waits": 0,
+      "planner_resets": 1,
+      "goal_retries": 0,
+      "guard_samples_after_first_command": {
+        "passing bounded navigation command": 235
+      }
+    },
+    "joined_prefix": {
+      "data_waits": 0,
+      "planner_resets": 0,
+      "goal_retries": 0,
+      "guard_samples_after_first_command": {
+        "passing bounded navigation command": 413
+      }
+    },
+    "exit_handoff": {
+      "data_waits": 0,
+      "planner_resets": 1,
+      "goal_retries": 0,
+      "guard_samples_after_first_command": {
+        "passing bounded navigation command": 215
+      }
+    },
+    "full_current": {
+      "data_waits": 0,
+      "planner_resets": 2,
+      "goal_retries": 0,
+      "guard_samples_after_first_command": {
+        "passing bounded navigation command": 460
+      }
+    },
+    "full_seed_1": {
+      "data_waits": 0,
+      "planner_resets": 1,
+      "goal_retries": 0,
+      "guard_samples_after_first_command": {
+        "passing bounded navigation command": 424
+      }
+    },
+    "final_seed_1": {
+      "data_waits": 0,
+      "planner_resets": 1,
+      "goal_retries": 0,
+      "guard_samples_after_first_command": {
+        "passing bounded navigation command": 490
+      }
+    },
+    "final_current": {
+      "data_waits": 0,
+      "planner_resets": 3,
+      "goal_retries": 0,
+      "guard_samples_after_first_command": {
+        "passing bounded navigation command": 461
+      }
+    },
+    "final_seed_42": {
+      "data_waits": 0,
+      "planner_resets": 1,
+      "goal_retries": 0,
+      "guard_samples_after_first_command": {
+        "passing bounded navigation command": 492
+      }
+    }
+  },
+  "source_sha256_lf": {
+    "baseline": {
+      "attitude_guard.py.txt": "698c75b718ab89521db306632c885d5d61988b1366e8cd68e074ff35558653ed",
+      "bend_path.py.txt": "04d983bc174a5dfe82f55d6d11b1e92f94f947d7520a9bd029a80fac683b1bb6",
+      "control.launch.txt": "f7911e0cff5c080bee9d22a052e142e865b649c4dbb008ef176777afba1e9abc",
+      "control.py.txt": "491837992d72a22015ae7a18ad5b7a59f2b420f37941d149376201d974f0e7db",
+      "finish_region.py.txt": "ac570e87fa80d45115997c0ece3ff5a75a123fdec991a2be7196a63737679438",
+      "route_flow.py.txt": "b25bdf7b33449ccb016984ad25325a67be9f5eb99941352cfc11729ee41807f2",
+      "route_flow.yaml.txt": "cc4551edad206141a84fb2a7ce38776e82c977c175a2760c4c86947dfdcbc04e"
+    },
+    "joined_prefix": {
+      "attitude_guard.py.txt": "698c75b718ab89521db306632c885d5d61988b1366e8cd68e074ff35558653ed",
+      "bend_path.py.txt": "165ecdcf04f04d49a554b787be12ebc12db146e588d6b8ccc9f8aada893f57a7",
+      "control.launch.txt": "6c920de891963437d256d72dd4177ec53a96719110c84a702f4621218ce832e2",
+      "control.py.txt": "5c38cc5d9db9eb1af870c9485997633845b9c7ad8ca1b07a7c818eb1d448ba59",
+      "finish_region.py.txt": "ac570e87fa80d45115997c0ece3ff5a75a123fdec991a2be7196a63737679438",
+      "route_flow.py.txt": "085d962b09ce067f7b024b1b3f85401b922276833d973054e41191defe8d4230",
+      "route_flow.yaml.txt": "e07b706d30a4ccd4c18fd257b9cd62dd3ab81eebc90d867c634ec9054e9ce198"
+    },
+    "exit_handoff": {
+      "attitude_guard.py.txt": "698c75b718ab89521db306632c885d5d61988b1366e8cd68e074ff35558653ed",
+      "bend_path.py.txt": "165ecdcf04f04d49a554b787be12ebc12db146e588d6b8ccc9f8aada893f57a7",
+      "control.launch.txt": "6c920de891963437d256d72dd4177ec53a96719110c84a702f4621218ce832e2",
+      "control.py.txt": "5c38cc5d9db9eb1af870c9485997633845b9c7ad8ca1b07a7c818eb1d448ba59",
+      "finish_region.py.txt": "ac570e87fa80d45115997c0ece3ff5a75a123fdec991a2be7196a63737679438",
+      "route_flow.py.txt": "4de226d824825db34e33ea808e3b41e290f15225a5382f02600830b5c9115e25",
+      "route_flow.yaml.txt": "e07b706d30a4ccd4c18fd257b9cd62dd3ab81eebc90d867c634ec9054e9ce198"
+    },
+    "full_current": {
+      "attitude_guard.py.txt": "698c75b718ab89521db306632c885d5d61988b1366e8cd68e074ff35558653ed",
+      "bend_path.py.txt": "165ecdcf04f04d49a554b787be12ebc12db146e588d6b8ccc9f8aada893f57a7",
+      "control.launch.txt": "6c920de891963437d256d72dd4177ec53a96719110c84a702f4621218ce832e2",
+      "control.py.txt": "5c38cc5d9db9eb1af870c9485997633845b9c7ad8ca1b07a7c818eb1d448ba59",
+      "finish_region.py.txt": "ac570e87fa80d45115997c0ece3ff5a75a123fdec991a2be7196a63737679438",
+      "route_flow.py.txt": "4de226d824825db34e33ea808e3b41e290f15225a5382f02600830b5c9115e25",
+      "route_flow.yaml.txt": "e07b706d30a4ccd4c18fd257b9cd62dd3ab81eebc90d867c634ec9054e9ce198"
+    },
+    "full_seed_1": {
+      "attitude_guard.py.txt": "698c75b718ab89521db306632c885d5d61988b1366e8cd68e074ff35558653ed",
+      "bend_path.py.txt": "165ecdcf04f04d49a554b787be12ebc12db146e588d6b8ccc9f8aada893f57a7",
+      "control.launch.txt": "6c920de891963437d256d72dd4177ec53a96719110c84a702f4621218ce832e2",
+      "control.py.txt": "5c38cc5d9db9eb1af870c9485997633845b9c7ad8ca1b07a7c818eb1d448ba59",
+      "finish_region.py.txt": "ac570e87fa80d45115997c0ece3ff5a75a123fdec991a2be7196a63737679438",
+      "route_flow.py.txt": "4de226d824825db34e33ea808e3b41e290f15225a5382f02600830b5c9115e25",
+      "route_flow.yaml.txt": "e07b706d30a4ccd4c18fd257b9cd62dd3ab81eebc90d867c634ec9054e9ce198"
+    },
+    "final_seed_1": {
+      "attitude_guard.py.txt": "698c75b718ab89521db306632c885d5d61988b1366e8cd68e074ff35558653ed",
+      "bend_path.py.txt": "165ecdcf04f04d49a554b787be12ebc12db146e588d6b8ccc9f8aada893f57a7",
+      "control.launch.txt": "6c920de891963437d256d72dd4177ec53a96719110c84a702f4621218ce832e2",
+      "control.py.txt": "35ac7ae748d5c04816c99905b819965ed8669b4d3ac98bf4372885c24d0d20c6",
+      "finish_region.py.txt": "e331fffdac6809a86436745a0d2a0875fe0e5e1a024619b3ffd61f2ee61532a4",
+      "route_flow.py.txt": "69591e666ab47e3c77bb967da0931709037d7e1d1e5c849e20b2acb73ff1afcf",
+      "route_flow.yaml.txt": "e07b706d30a4ccd4c18fd257b9cd62dd3ab81eebc90d867c634ec9054e9ce198"
+    },
+    "final_current": {
+      "attitude_guard.py.txt": "698c75b718ab89521db306632c885d5d61988b1366e8cd68e074ff35558653ed",
+      "bend_path.py.txt": "165ecdcf04f04d49a554b787be12ebc12db146e588d6b8ccc9f8aada893f57a7",
+      "control.launch.txt": "6c920de891963437d256d72dd4177ec53a96719110c84a702f4621218ce832e2",
+      "control.py.txt": "35ac7ae748d5c04816c99905b819965ed8669b4d3ac98bf4372885c24d0d20c6",
+      "finish_region.py.txt": "e331fffdac6809a86436745a0d2a0875fe0e5e1a024619b3ffd61f2ee61532a4",
+      "route_flow.py.txt": "69591e666ab47e3c77bb967da0931709037d7e1d1e5c849e20b2acb73ff1afcf",
+      "route_flow.yaml.txt": "e07b706d30a4ccd4c18fd257b9cd62dd3ab81eebc90d867c634ec9054e9ce198"
+    },
+    "final_seed_42": {
+      "attitude_guard.py.txt": "698c75b718ab89521db306632c885d5d61988b1366e8cd68e074ff35558653ed",
+      "bend_path.py.txt": "165ecdcf04f04d49a554b787be12ebc12db146e588d6b8ccc9f8aada893f57a7",
+      "control.launch.txt": "6c920de891963437d256d72dd4177ec53a96719110c84a702f4621218ce832e2",
+      "control.py.txt": "35ac7ae748d5c04816c99905b819965ed8669b4d3ac98bf4372885c24d0d20c6",
+      "finish_region.py.txt": "e331fffdac6809a86436745a0d2a0875fe0e5e1a024619b3ffd61f2ee61532a4",
+      "route_flow.py.txt": "69591e666ab47e3c77bb967da0931709037d7e1d1e5c849e20b2acb73ff1afcf",
+      "route_flow.yaml.txt": "e07b706d30a4ccd4c18fd257b9cd62dd3ab81eebc90d867c634ec9054e9ce198"
+    }
+  },
+  "same_layout_stages": {
+    "before": {
+      "fixed_bends": 13.047,
+      "qr": 4.356,
+      "qr_exit": 2.296,
+      "entry": 1.432,
+      "cones_and_blocks": 5.634,
+      "return_to_finish_entry": 7.391,
+      "finish": 2.236
+    },
+    "after": {
+      "fixed_bends": 11.648,
+      "qr": 4.061,
+      "qr_exit": 2.353,
+      "entry": 0.762,
+      "cones_and_blocks": 5.689,
+      "return_to_finish_entry": 7.496,
+      "finish": 2.233
+    }
+  },
+  "rejected": [
+    {
+      "name": "joined_prefix",
+      "reason": "Attempted fixed tracking through QR approach; live swept-footprint check held before official cone at (-0.25,0.75), manually cancelled. No collision. Final design hands off at bend8 before random-cone space."
+    },
+    {
+      "name": "full_seed_1",
+      "reason": "Pre-fix QR point docking stalled 11.5mm from target with negligible measured motion; manually cancelled. Final QR acceptance requires <=2cm viewpoint error, <0.08rad heading error, entire braking sweep inside the QR box and post-stop confirmation."
+    }
+  ],
+  "earlier_candidate": {
+    "name": "full_current",
+    "sim_seconds": 33.93900000000008,
+    "note": "Passed original layout before QR deadlock correction. Excluded from final three-layout pass rate."
+  },
+  "limitations": [
+    "Three full-route layout samples; no claim for all layouts or global time optimality.",
+    "Precomputed geometry uses public fixed waypoints; no new SLAM map or AMCL mode enabled.",
+    "Planner frequency 5 to 1 Hz concerns global replanning; local TEB remains 10 Hz.",
+    "Handoff removes stop confirmation and forced heading alignment, but still publishes zero while switching controllers.",
+    "Guard reason totals are sampled status counts, not stop-event counts or durations."
+  ]
+}

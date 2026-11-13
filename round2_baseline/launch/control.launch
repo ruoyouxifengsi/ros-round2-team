@@ -29,6 +29,7 @@
     <rosparam if="$(eval arg('map_file') != '')" file="$(find round2_baseline)/config/premapped_navigation.yaml"/>
     <param if="$(arg route_flow)" name="TebLocalPlannerROS/min_resolution_collision_check_angular" value="0.05"/>
     <param if="$(arg route_flow)" name="local_costmap/resolution" value="$(arg flow_costmap_resolution)"/>
+    <param if="$(arg route_flow)" name="planner_frequency" value="1.0"/>
   </node>
   <node pkg="round2_baseline" type="attitude_guard.py" name="attitude_guard" output="screen">
     <param name="manual_supervision" value="$(arg manual_supervision)"/>

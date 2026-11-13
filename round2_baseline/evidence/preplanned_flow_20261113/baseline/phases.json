@@ -1,0 +1,44 @@
+[
+  {
+    "phase": "stopped",
+    "start": 1077.882,
+    "sim": 0.12,
+    "wall": 0.759
+  },
+  {
+    "phase": "rotate_short",
+    "start": 1078.002,
+    "sim": 1.342,
+    "wall": 9.736
+  },
+  {
+    "phase": "stopped",
+    "start": 1079.344,
+    "sim": 0.187,
+    "wall": 0.804
+  },
+  {
+    "phase": "follow_bends",
+    "start": 1066.459,
+    "sim": 13.073,
+    "wall": 87.144
+  },
+  {
+    "phase": "straight_move",
+    "start": 1083.457,
+    "sim": 0.682,
+    "wall": 5.413
+  },
+  {
+    "phase": "stopped",
+    "start": 1084.139,
+    "sim": 0.13,
+    "wall": 0.502
+  },
+  {
+    "phase": "navigate",
+    "start": 1079.532,
+    "sim": 4.738,
+    "wall": 32.425
+  }
+]

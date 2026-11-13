@@ -1,4 +1,5 @@
 continuous_regions: true
+preplanned_fixed: true
 adaptive_departure: true
 profiled_turns: true
 staging:
