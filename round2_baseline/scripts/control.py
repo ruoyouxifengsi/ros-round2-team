@@ -5,6 +5,10 @@ import time
 import math
 import ast
 import traceback
+import sys
+from pathlib import Path
+if str(Path(__file__).parent) not in sys.path:sys.path.insert(0,str(Path(__file__).parent))
+from navigation_freshness import navigation_data_fresh
 import rospy
 import actionlib
 from dynamic_reconfigure.client import Client
@@ -95,6 +99,7 @@ class Control:
         self.navigation_frame = rospy.get_param('~navigation_frame','odom')
         self.sim_timeouts = rospy.get_param('~timeout_clock','wall')=='sim'
         self.manual_supervision = rospy.get_param('~manual_supervision',False)
+        self.simulated_time = rospy.get_param('/use_sim_time',False)
         self.cancelled = threading.Event()
         self.odom = None
         self.received = 0
@@ -396,12 +401,13 @@ class Control:
             if self.cancelled.is_set():raise RuntimeError('Cancelled while checking navigation data')
             if self.expired(self.budget_time(),deadline):raise RuntimeError('Whole-run time budget exceeded while checking navigation data')
             map_age=wall-self.map_received;odom_age=wall-self.received
-            sensors_fresh=True
+            sensors_fresh=True;map_fresh=map_age<=2
             if self.manual_supervision:
                 sim=rospy.get_time()
-                sensors_fresh=(wall-self.scan_received<=2 and 0<=sim-self.scan_stamp<=.5 and
-                               grid is not None and 0<=sim-grid.header.stamp.to_sec()<=.5)
-            if grid is not None and map_age<=2 and odom_age<=2 and sensors_fresh:
+                simulated=getattr(self,'simulated_time',False)
+                sensors_fresh=navigation_data_fresh(sim,wall,self.scan_stamp,self.scan_received,simulated)
+                map_fresh=grid is not None and navigation_data_fresh(sim,wall,grid.header.stamp.to_sec(),self.map_received,simulated)
+            if grid is not None and map_fresh and odom_age<=2 and sensors_fresh:
                 if waiting:rospy.loginfo('Navigation data recovered; resuming checked motion')
                 return grid
             self.velocity.publish(Twist())

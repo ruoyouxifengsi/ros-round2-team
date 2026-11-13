@@ -7,6 +7,9 @@ import math
 import sys
 import threading
 import time
+from pathlib import Path
+if str(Path(__file__).parent) not in sys.path:sys.path.insert(0,str(Path(__file__).parent))
+from navigation_freshness import navigation_data_fresh
 
 
 def tilt_degrees(q):
@@ -39,7 +42,7 @@ class YawFeedback:
 
 
 class Guard:
-    def __init__(self, max_speed=.12, linear_accel=.2, hold_tilt_deg=1.0, angular_feedback=False, curvature_accel=0., attitude_protection=True, manual_supervision=False):
+    def __init__(self, max_speed=.12, linear_accel=.2, hold_tilt_deg=1.0, angular_feedback=False, curvature_accel=0., attitude_protection=True, manual_supervision=False, simulated_time=False):
         if not all(math.isfinite(v) and v > 0 for v in (max_speed,linear_accel)):
             raise ValueError('velocity and acceleration limits must be positive and finite')
         if (isinstance(hold_tilt_deg,bool) or not isinstance(hold_tilt_deg,(int,float)) or
@@ -51,6 +54,7 @@ class Guard:
         self.curvature_accel = curvature_accel
         self.attitude_protection = attitude_protection
         self.manual_supervision = manual_supervision
+        self.simulated_time = simulated_time
         self.navigation_data = {}
         self.hold_tilt_deg = float(hold_tilt_deg)
         self.mode, self.reason = 'BLOCKED', 'waiting for odometry'
@@ -147,7 +151,7 @@ class Guard:
         if self.manual_supervision:
             for name in ('map','scan'):
                 value=self.navigation_data.get(name)
-                if value is None or not (0<=sim-value[0]<=.5 and 0<=wall-value[1]<=2.):
+                if value is None or not navigation_data_fresh(sim,wall,value[0],value[1],self.simulated_time):
                     return self.zero('waiting for fresh navigation '+name,True)
         stamp, _, tilt = self.odom
         if self.attitude_protection and tilt >= 8.:
@@ -344,7 +348,7 @@ def main():
     rospy.init_node('attitude_guard')
     guard = Guard(rospy.get_param('~max_linear_speed',.12),rospy.get_param('~linear_acceleration',.2),
                   rospy.get_param('~hold_tilt_deg',1.0),rospy.get_param('~angular_feedback',False),rospy.get_param('~curvature_accel',0.),
-                  rospy.get_param('~attitude_protection',True),rospy.get_param('~manual_supervision',False))
+                  rospy.get_param('~attitude_protection',True),rospy.get_param('~manual_supervision',False),rospy.get_param('/use_sim_time',False))
     lock = threading.RLock()
     bend_settings=rospy.get_param('~bend_settings',{})
     whole_route=rospy.get_param('~route_flow',False)

@@ -1,0 +1,36 @@
+{
+  "scope": "One full control route on unchanged user scene, official ODE and low COM; image processing omitted; no new official Draw timer record.",
+  "original_commit": "bf3c884",
+  "before_wall": 707.897,
+  "after_wall": 391.7913058970007,
+  "before_sim": 72.803,
+  "after_sim": 39.66100000000006,
+  "before_reported_holds": 140,
+  "after_reported_holds": 0,
+  "before_reported_hold_wall": 83.04099999999998,
+  "after_reported_hold_wall": 0,
+  "accepted": true,
+  "checks": {
+    "completed": true,
+    "contact_coverage": true,
+    "zero_contacts": true,
+    "no_tilt": true,
+    "zero_lateral": true,
+    "cones_unchanged": true,
+    "finish_contained": true,
+    "finish_stopped": true,
+    "blocks_stopped": true,
+    "blocks_pose": true,
+    "cleanup": true,
+    "qr_contained": true,
+    "qr_stopped": true,
+    "under_600_wall": true,
+    "ordered_route": true
+  },
+  "limitations": [
+    "One full run, not a guarantee for all machines or layouts.",
+    "Before-run log does not contain collision observation.",
+    "Controller-reported hold count does not include all independent guard pauses."
+  ],
+  "startup_failure": "First development launch failed to import the shared helper through catkin wrappers; source-path resolution was fixed before the measured run."
+}
