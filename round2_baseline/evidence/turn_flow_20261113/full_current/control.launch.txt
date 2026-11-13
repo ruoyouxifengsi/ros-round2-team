@@ -1,0 +1,61 @@
+<launch>
+  <arg name="speed_profile" default="stable"/>
+  <arg name="timeout_clock" default="wall"/>
+  <arg name="manual_supervision" default="false"/>
+  <arg name="travel_clearance" default="0.06"/>
+  <arg name="continuous_bends" default="false"/>
+  <arg name="bend_path" default="false"/>
+  <arg name="route_flow" default="false"/>
+  <arg name="flow_costmap_resolution" default="0.01"/>
+  <arg name="efficient_approach" default="false"/>
+  <arg name="map_file" default=""/>
+  <arg name="attitude_protection" default="false"/>
+  <group if="$(eval arg('map_file') != '')">
+    <node pkg="map_server" type="map_server" name="map_server" args="$(arg map_file)" output="screen" required="true"/>
+    <node pkg="amcl" type="amcl" name="amcl" output="screen" required="true">
+      <rosparam file="$(find round2_baseline)/config/amcl.yaml"/>
+      <remap from="scan" to="/nav_scan"/>
+    </node>
+    <node pkg="round2_baseline" type="localized_odometry.py" name="localized_odometry" output="screen" required="true"/>
+  </group>
+  <node pkg="round2_baseline" type="cone_obstacles.py" name="cone_obstacles" output="screen">
+    <param name="navigation_frame" value="$(eval 'map' if arg('map_file') else 'odom')"/>
+  </node>
+  <node pkg="move_base" type="move_base" name="move_base" output="screen" clear_params="true">
+    <remap from="cmd_vel" to="nav_cmd_vel"/>
+    <rosparam file="$(find round2_baseline)/config/navigation.yaml"/>
+    <rosparam if="$(eval arg('speed_profile') == 'fast')" file="$(find round2_baseline)/config/speed_fast.yaml"/>
+    <rosparam if="$(eval arg('speed_profile') == 'sprint')" file="$(find round2_baseline)/config/speed_sprint.yaml"/>
+    <rosparam if="$(eval arg('map_file') != '')" file="$(find round2_baseline)/config/premapped_navigation.yaml"/>
+    <param if="$(arg route_flow)" name="TebLocalPlannerROS/min_resolution_collision_check_angular" value="0.05"/>
+    <param if="$(arg route_flow)" name="local_costmap/resolution" value="$(arg flow_costmap_resolution)"/>
+  </node>
+  <node pkg="round2_baseline" type="attitude_guard.py" name="attitude_guard" output="screen">
+    <param name="manual_supervision" value="$(arg manual_supervision)"/>
+    <rosparam if="$(eval arg('bend_path') or arg('route_flow'))" param="bend_settings" file="$(find round2_baseline)/config/bend_tracking.yaml"/>
+    <param name="route_flow" value="$(arg route_flow)"/>
+    <param name="attitude_protection" value="$(arg attitude_protection)"/>
+    <param name="max_linear_speed" value="$(eval 0.55 if arg('speed_profile') == 'sprint' else (0.45 if arg('speed_profile') == 'fast' else 0.3))"/>
+    <param name="curvature_accel" value="$(eval 0.18 if arg('speed_profile') == 'sprint' else (0.12 if arg('speed_profile') == 'fast' else 0.0))"/>
+    <param name="linear_acceleration" value="$(eval 0.65 if arg('speed_profile') == 'sprint' else 0.5)"/>
+    <param name="hold_tilt_deg" value="3.0"/>
+    <param name="angular_feedback" value="true"/>
+  </node>
+  <node pkg="round2_baseline" type="control.py" name="round2_control" output="screen">
+    <param name="manual_supervision" value="$(arg manual_supervision)"/>
+    <param name="navigation_frame" value="$(eval 'map' if arg('map_file') else 'odom')"/>
+    <param name="pose_topic" value="$(eval '/localized_odom' if arg('map_file') else '/odom')"/>
+    <param name="docking_inset" value="$(eval 0.03 if arg('map_file') else 0.0)"/>
+    <param name="continuous_bends" value="$(arg continuous_bends)"/>
+    <param name="bend_path" value="$(arg bend_path)"/>
+    <param name="route_flow" value="$(arg route_flow)"/>
+    <rosparam param="flow_settings" file="$(find round2_baseline)/config/route_flow.yaml"/>
+    <rosparam param="bend_settings" file="$(find round2_baseline)/config/bend_tracking.yaml"/>
+    <param name="efficient_approach" value="$(arg efficient_approach)"/>
+    <param name="timeout_clock" value="$(arg timeout_clock)"/>
+    <param name="speed_profile" value="$(arg speed_profile)"/>
+    <param name="travel_clearance" value="$(arg travel_clearance)"/>
+    <rosparam param="docking_settings" file="$(find round2_baseline)/config/docking.yaml"/>
+    <rosparam param="route">[[bend1,-0.70,2.67,0.0],[bend2,0.25,2.7,-1.57],[bend3,0.25,1.75,0.0],[bend4,1.25,1.75,-1.57],[bend5_approach,1.25,0.75,-1.57],[bend5,1.10,0.75,-3.14],[bend6,0.75,0.75,1.57],[bend7,0.75,1.25,3.14],[bend8,-0.25,1.25,-1.57],[qr_approach,-0.25,0.25,0.0],[qr,0.20,0.25,0.0],[qr_exit,-0.25,0.25,0.0],[cone_entry,-0.25,0.35,1.57],[cone_exit,-1.75,2.20,1.57],[blocks,-1.75,2.25,1.57],[return,-0.70,1.20,0.0],[finish_approach,-0.25,1.25,1.57],[finish,-0.25,2.20,1.57]]</rosparam>
+  </node>
+</launch>

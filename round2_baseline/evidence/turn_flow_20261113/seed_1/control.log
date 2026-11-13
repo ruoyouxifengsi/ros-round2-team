@@ -1,0 +1,251 @@
+... logging to /home/keyaoersi/.ros/log/143de52a-df4e-11f1-9afc-27d20d234e40/roslaunch-LIAM-PC-75864.log
+Checking log directory for disk usage. This may take a while.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+]2;/mnt/d/ros智能车/round2-team/round2_baseline/evidence/local_turn_flow_20261113/instrumented.launch
+[1mstarted roslaunch server http://LIAM-PC:42109/[0m
+
+SUMMARY
+========
+
+CLEAR PARAMETERS
+ * /move_base/
+
+PARAMETERS
+ * /attitude_guard/angular_feedback: True
+ * /attitude_guard/attitude_protection: False
+ * /attitude_guard/bend_settings/acceleration: 1.4
+ * /attitude_guard/bend_settings/max_speed: 1.0
+ * /attitude_guard/bend_settings/max_yaw_rate: 2.4
+ * /attitude_guard/bend_settings/output_acceleration: 1.6
+ * /attitude_guard/bend_settings/output_speed: 1.05
+ * /attitude_guard/bend_settings/output_yaw_rate: 2.8
+ * /attitude_guard/curvature_accel: 0.18
+ * /attitude_guard/hold_tilt_deg: 3.0
+ * /attitude_guard/linear_acceleration: 0.65
+ * /attitude_guard/manual_supervision: True
+ * /attitude_guard/max_linear_speed: 0.55
+ * /attitude_guard/route_flow: True
+ * /cone_obstacles/navigation_frame: odom
+ * /move_base/TebLocalPlannerROS/acc_lim_theta: 1.0
+ * /move_base/TebLocalPlannerROS/acc_lim_x: 0.65
+ * /move_base/TebLocalPlannerROS/acc_lim_y: 0.65
+ * /move_base/TebLocalPlannerROS/allow_init_with_backwards_motion: True
+ * /move_base/TebLocalPlannerROS/costmap_obstacles_behind_robot_dist: 1.5
+ * /move_base/TebLocalPlannerROS/dt_hysteresis: 0.05
+ * /move_base/TebLocalPlannerROS/dt_ref: 0.25
+ * /move_base/TebLocalPlannerROS/enable_homotopy_class_planning: False
+ * /move_base/TebLocalPlannerROS/feasibility_check_no_poses: 5
+ * /move_base/TebLocalPlannerROS/footprint_model/type: polygon
+ * /move_base/TebLocalPlannerROS/footprint_model/vertices: [[0.1942201304435...
+ * /move_base/TebLocalPlannerROS/force_reinit_new_goal_dist: 0.1
+ * /move_base/TebLocalPlannerROS/free_goal_vel: False
+ * /move_base/TebLocalPlannerROS/global_plan_overwrite_orientation: True
+ * /move_base/TebLocalPlannerROS/include_costmap_obstacles: True
+ * /move_base/TebLocalPlannerROS/inflation_dist: 0.12
+ * /move_base/TebLocalPlannerROS/map_frame: odom
+ * /move_base/TebLocalPlannerROS/max_global_plan_lookahead_dist: 1.5
+ * /move_base/TebLocalPlannerROS/max_samples: 80
+ * /move_base/TebLocalPlannerROS/max_vel_theta: 0.6
+ * /move_base/TebLocalPlannerROS/max_vel_x: 0.5
+ * /move_base/TebLocalPlannerROS/max_vel_x_backwards: 0.18
+ * /move_base/TebLocalPlannerROS/max_vel_y: 0.25
+ * /move_base/TebLocalPlannerROS/min_obstacle_dist: 0.02
+ * /move_base/TebLocalPlannerROS/min_resolution_collision_check_angular: 0.05
+ * /move_base/TebLocalPlannerROS/min_samples: 5
+ * /move_base/TebLocalPlannerROS/odom_topic: /odom
+ * /move_base/TebLocalPlannerROS/penalty_epsilon: 0.005
+ * /move_base/TebLocalPlannerROS/publish_feedback: True
+ * /move_base/TebLocalPlannerROS/weight_inflation: 0.1
+ * /move_base/TebLocalPlannerROS/weight_kinematics_forward_drive: 1.0
+ * /move_base/TebLocalPlannerROS/weight_kinematics_nh: 1.0
+ * /move_base/TebLocalPlannerROS/weight_obstacle: 500.0
+ * /move_base/TebLocalPlannerROS/weight_optimaltime: 10.0
+ * /move_base/TebLocalPlannerROS/xy_goal_tolerance: 0.03
+ * /move_base/TebLocalPlannerROS/yaw_goal_tolerance: 0.25
+ * /move_base/base_local_planner: teb_local_planner...
+ * /move_base/conservative_reset_dist: 3.0
+ * /move_base/controller_frequency: 10.0
+ * /move_base/controller_patience: 15.0
+ * /move_base/global_costmap/cone_layer/cones/clearing: False
+ * /move_base/global_costmap/cone_layer/cones/data_type: PointCloud2
+ * /move_base/global_costmap/cone_layer/cones/marking: True
+ * /move_base/global_costmap/cone_layer/cones/max_obstacle_height: 1.0
+ * /move_base/global_costmap/cone_layer/cones/min_obstacle_height: 0.0
+ * /move_base/global_costmap/cone_layer/cones/obstacle_range: 10.0
+ * /move_base/global_costmap/cone_layer/cones/topic: /cone_footprints
+ * /move_base/global_costmap/cone_layer/observation_sources: cones
+ * /move_base/global_costmap/footprint: [[0.1942201304435...
+ * /move_base/global_costmap/footprint_padding: 0.005
+ * /move_base/global_costmap/global_frame: odom
+ * /move_base/global_costmap/height: 10
+ * /move_base/global_costmap/inflation_layer/cost_scaling_factor: 3.0
+ * /move_base/global_costmap/inflation_layer/inflation_radius: 1.0
+ * /move_base/global_costmap/map_type: costmap
+ * /move_base/global_costmap/obstacle_layer/observation_sources: scan
+ * /move_base/global_costmap/obstacle_layer/obstacle_range: 2.5
+ * /move_base/global_costmap/obstacle_layer/raytrace_range: 3.0
+ * /move_base/global_costmap/obstacle_layer/scan/clearing: True
+ * /move_base/global_costmap/obstacle_layer/scan/data_type: LaserScan
+ * /move_base/global_costmap/obstacle_layer/scan/marking: True
+ * /move_base/global_costmap/obstacle_layer/scan/sensor_frame: laser_link
+ * /move_base/global_costmap/obstacle_layer/scan/topic: /nav_scan
+ * /move_base/global_costmap/plugins: [{'name': 'obstac...
+ * /move_base/global_costmap/publish_frequency: 10.0
+ * /move_base/global_costmap/resolution: 0.025
+ * /move_base/global_costmap/robot_base_frame: base_footprint
+ * /move_base/global_costmap/rolling_window: True
+ * /move_base/global_costmap/static_map: False
+ * /move_base/global_costmap/transform_tolerance: 0.5
+ * /move_base/global_costmap/update_frequency: 10.0
+ * /move_base/global_costmap/width: 10
+ * /move_base/local_costmap/always_send_full_costmap: True
+ * /move_base/local_costmap/cone_layer/cones/clearing: False
+ * /move_base/local_costmap/cone_layer/cones/data_type: PointCloud2
+ * /move_base/local_costmap/cone_layer/cones/marking: True
+ * /move_base/local_costmap/cone_layer/cones/max_obstacle_height: 1.0
+ * /move_base/local_costmap/cone_layer/cones/min_obstacle_height: 0.0
+ * /move_base/local_costmap/cone_layer/cones/obstacle_range: 10.0
+ * /move_base/local_costmap/cone_layer/cones/topic: /cone_footprints
+ * /move_base/local_costmap/cone_layer/observation_sources: cones
+ * /move_base/local_costmap/footprint: [[0.1942201304435...
+ * /move_base/local_costmap/footprint_padding: 0.005
+ * /move_base/local_costmap/global_frame: odom
+ * /move_base/local_costmap/height: 3
+ * /move_base/local_costmap/inflation_layer/cost_scaling_factor: 3.0
+ * /move_base/local_costmap/inflation_layer/inflation_radius: 1.0
+ * /move_base/local_costmap/map_type: costmap
+ * /move_base/local_costmap/obstacle_layer/observation_sources: scan
+ * /move_base/local_costmap/obstacle_layer/obstacle_range: 2.5
+ * /move_base/local_costmap/obstacle_layer/raytrace_range: 3.0
+ * /move_base/local_costmap/obstacle_layer/scan/clearing: True
+ * /move_base/local_costmap/obstacle_layer/scan/data_type: LaserScan
+ * /move_base/local_costmap/obstacle_layer/scan/marking: True
+ * /move_base/local_costmap/obstacle_layer/scan/sensor_frame: laser_link
+ * /move_base/local_costmap/obstacle_layer/scan/topic: /nav_scan
+ * /move_base/local_costmap/plugins: [{'name': 'obstac...
+ * /move_base/local_costmap/publish_frequency: 10.0
+ * /move_base/local_costmap/resolution: 0.01
+ * /move_base/local_costmap/robot_base_frame: base_footprint
+ * /move_base/local_costmap/rolling_window: True
+ * /move_base/local_costmap/static_map: False
+ * /move_base/local_costmap/transform_tolerance: 0.5
+ * /move_base/local_costmap/update_frequency: 10.0
+ * /move_base/local_costmap/width: 3
+ * /move_base/oscillation_distance: 0.2
+ * /move_base/oscillation_timeout: 30.0
+ * /move_base/planner_frequency: 5.0
+ * /move_base/planner_patience: 5.0
+ * /move_base/shutdown_costmaps: False
+ * /rosdistro: noetic
+ * /rosversion: 1.17.4
+ * /round2_control/bend_path: False
+ * /round2_control/bend_settings/acceleration: 1.4
+ * /round2_control/bend_settings/max_speed: 1.0
+ * /round2_control/bend_settings/max_yaw_rate: 2.4
+ * /round2_control/bend_settings/output_acceleration: 1.6
+ * /round2_control/bend_settings/output_speed: 1.05
+ * /round2_control/bend_settings/output_yaw_rate: 2.8
+ * /round2_control/continuous_bends: True
+ * /round2_control/docking_inset: 0.0
+ * /round2_control/docking_settings/max_vel_x: 0.1
+ * /round2_control/docking_settings/max_vel_x_backwards: 0.08
+ * /round2_control/docking_settings/max_vel_y: 0.0
+ * /round2_control/docking_settings/weight_kinematics_forward_drive: 0.0
+ * /round2_control/docking_settings/weight_kinematics_nh: 1000.0
+ * /round2_control/docking_settings/xy_goal_tolerance: 0.01
+ * /round2_control/docking_settings/yaw_goal_tolerance: 0.08
+ * /round2_control/efficient_approach: True
+ * /round2_control/flow_settings/adaptive_departure: True
+ * /round2_control/flow_settings/continuous_regions: True
+ * /round2_control/flow_settings/navigation/acc_lim_theta: 1.5
+ * /round2_control/flow_settings/navigation/acc_lim_x: 1.0
+ * /round2_control/flow_settings/navigation/allow_init_with_backwards_motion: False
+ * /round2_control/flow_settings/navigation/max_vel_theta: 1.2
+ * /round2_control/flow_settings/navigation/max_vel_x: 0.65
+ * /round2_control/flow_settings/navigation/max_vel_x_backwards: 0.2
+ * /round2_control/flow_settings/navigation/max_vel_y: 0.0
+ * /round2_control/flow_settings/navigation/min_obstacle_dist: 0.08
+ * /round2_control/flow_settings/navigation/weight_kinematics_forward_drive: 10.0
+ * /round2_control/flow_settings/navigation/weight_kinematics_nh: 1000.0
+ * /round2_control/flow_settings/navigation/xy_goal_tolerance: 0.03
+ * /round2_control/flow_settings/navigation/yaw_goal_tolerance: 0.25
+ * /round2_control/flow_settings/profiled_turns: True
+ * /round2_control/flow_settings/staging/cone_entry: [-0.25, 0.37, 1.57]
+ * /round2_control/flow_settings/staging/qr_exit: [-0.37, 0.25, 0.0]
+ * /round2_control/flow_settings/staging/return: [-0.7, 1.2, 0.0]
+ * /round2_control/manual_supervision: True
+ * /round2_control/navigation_frame: odom
+ * /round2_control/pose_topic: /odom
+ * /round2_control/route: [['bend1', -0.7, ...
+ * /round2_control/route_flow: True
+ * /round2_control/speed_profile: sprint
+ * /round2_control/timeout_clock: wall
+ * /round2_control/travel_clearance: 0.06
+
+NODES
+  /
+    attitude_guard (round2_baseline/attitude_guard.py)
+    cone_obstacles (round2_baseline/cone_obstacles.py)
+    move_base (move_base/move_base)
+    round2_control (round2_baseline/control.py)
+[33m[WARN] [1794568523.687800222, 842.800000000]: Timed out waiting for transform from base_footprint to odom to become available before running costmap, tf error: canTransform: target_frame odom does not exist.. canTransform returned after 842.8 timeout was 0.1.[0m
+[33m[WARN] [1794568523.705826412, 842.804000000]: global_costmap: Pre-Hydro parameter "static_map" unused since "plugins" is provided[0m
+[33m[WARN] [1794568523.707182102, 842.804000000]: global_costmap: Pre-Hydro parameter "map_type" unused since "plugins" is provided[0m
+[33m[WARN] [1794568523.784010230, 842.822000000]: local_costmap: Pre-Hydro parameter "static_map" unused since "plugins" is provided[0m
+[33m[WARN] [1794568523.785565028, 842.822000000]: local_costmap: Pre-Hydro parameter "map_type" unused since "plugins" is provided[0m
+[33m[WARN] [1794568599.970686295, 852.882000000]: TebLocalPlannerROS: trajectory is not feasible. Resetting planner...[0m
+[INFO] [1794568546.164370, 845.977000]: {"state": "IDLE", "detail": "CONTROL_ONLY: image tasks omitted", "stamp": 845.977, "control_only": true}
+[INFO] [1794568551.093001, 846.667000]: {"state": "MOVING", "detail": "qr_exit", "stamp": 846.667, "control_only": true}
+[INFO] [1794568570.200031, 848.902000]: {"state": "ARRIVED", "detail": "qr_exit", "stamp": 848.902, "control_only": true}
+[INFO] [1794568570.462237, 848.906000]: {"state": "MOVING", "detail": "cone_entry", "stamp": 848.906, "control_only": true}
+[INFO] [1794568580.320746, 850.274000]: {"state": "ARRIVED", "detail": "cone_entry", "stamp": 850.274, "control_only": true}
+[INFO] [1794568580.347829, 850.281000]: {"state": "MOVING", "detail": "cone_exit", "stamp": 850.281, "control_only": true}
+[INFO] [1794568632.467758, 857.188000]: {"state": "PASSED", "detail": "cone_exit", "stamp": 857.188, "control_only": true}
+[INFO] [1794568632.469731, 857.189000]: {"state": "MOVING", "detail": "blocks", "stamp": 857.189, "control_only": true}
+[INFO] [1794568644.088649, 858.810000]: {"state": "ARRIVED", "detail": "blocks", "stamp": 858.81, "control_only": true}
+[INFO] [1794568644.089973, 858.810000]: {"state": "IMAGE_SKIPPED", "detail": "blocks", "stamp": 858.81, "control_only": true}
+[INFO] [1794568644.091151, 858.811000]: {"state": "MOVING", "detail": "return", "stamp": 858.811, "control_only": true}
+[INFO] [1794568703.169366, 866.437000]: {"state": "PASSED", "detail": "return", "stamp": 866.437, "control_only": true}
+[INFO] [1794568703.170751, 866.437000]: {"state": "MOVING", "detail": "finish_approach", "stamp": 866.437, "control_only": true}
+[INFO] [1794568712.560527, 867.965000]: {"state": "PASSED", "detail": "finish_approach", "stamp": 867.965, "control_only": true}
+[INFO] [1794568712.561885, 867.965000]: {"state": "MOVING", "detail": "finish", "stamp": 867.965, "control_only": true}
+[INFO] [1794568724.921764, 869.847000]: {"state": "ARRIVED", "detail": "finish", "stamp": 869.847, "control_only": true}
+[INFO] [1794568724.923635, 869.847000]: {"state": "CONTROL_ROUTE_DONE", "detail": "CONTROL ONLY: image recognition and its processing time omitted", "stamp": 869.847, "control_only": true}
+[0m[INFO] [1794568523.709268777, 842.805000000]: global_costmap: Using plugin "obstacle_layer"[0m
+[0m[INFO] [1794568523.714206117, 842.806000000]:     Subscribed to Topics: scan[0m
+[0m[INFO] [1794568523.728495330, 842.809000000]: global_costmap: Using plugin "cone_layer"[0m
+[0m[INFO] [1794568523.730392228, 842.809000000]:     Subscribed to Topics: cones[0m
+[0m[INFO] [1794568523.742973816, 842.812000000]: global_costmap: Using plugin "inflation_layer"[0m
+[0m[INFO] [1794568523.787340908, 842.822000000]: local_costmap: Using plugin "obstacle_layer"[0m
+[0m[INFO] [1794568523.790659678, 842.823000000]:     Subscribed to Topics: scan[0m
+[0m[INFO] [1794568523.804518062, 842.826000000]: local_costmap: Using plugin "cone_layer"[0m
+[0m[INFO] [1794568523.807285041, 842.827000000]:     Subscribed to Topics: cones[0m
+[0m[INFO] [1794568523.820089191, 842.830000000]: local_costmap: Using plugin "inflation_layer"[0m
+[0m[INFO] [1794568523.852495021, 842.836000000]: Created local_planner teb_local_planner/TebLocalPlannerROS[0m
+[0m[INFO] [1794568523.904177618, 842.848000000]: Footprint model 'polygon' loaded for trajectory optimization.[0m
+[0m[INFO] [1794568523.904377924, 842.848000000]: Parallel planning in distinctive topologies disabled.[0m
+[0m[INFO] [1794568523.904416493, 842.848000000]: No costmap conversion plugin specified. All occupied costmap cells are treaten as point obstacles.[0m
+[0m[INFO] [1794568525.260352190, 842.940000000]: Recovery behavior will clear layer 'obstacles'[0m
+[0m[INFO] [1794568525.265403604, 842.941000000]: Recovery behavior will clear layer 'obstacles'[0m
+[0m[INFO] [1794568525.297864316, 842.947000000]: odom received![0m
+[0m[INFO] [1794568643.578893683, 858.681000000]: GOAL Reached![0m
+[INFO] [1794568575.360835, 849.582000]: Laser-confirmed cone footprint at -0.75 0.75
+[INFO] [1794568586.272318, 850.972000]: Laser-confirmed cone footprint at -1.75 0.25
+[INFO] [1794568587.486626, 851.173000]: Laser-confirmed cone footprint at -1.75 1.25
+[INFO] [1794568594.634226, 852.266000]: Laser-confirmed cone footprint at -1.75 1.75
+[INFO] [1794568598.045364, 852.635000]: Laser-confirmed cone footprint at -1.25 1.75
+
+[1mROS_MASTER_URI=http://localhost:11311[0m
+]2;/mnt/d/ros智能车/round2-team/round2_baseline/evidence/local_turn_flow_20261113/instrumented.launch http://localhost:11311
+[1mprocess[cone_obstacles-1]: started with pid [75898][0m
+[1mprocess[move_base-2]: started with pid [75899][0m
+[1mprocess[attitude_guard-3]: started with pid [75937][0m
+[1mprocess[round2_control-4]: started with pid [75987][0m
+[round2_control-4] killing on exit
+[attitude_guard-3] killing on exit
+[move_base-2] killing on exit
+[cone_obstacles-1] killing on exit
+shutting down processing monitor...
+... shutting down processing monitor complete
+[1mdone[0m

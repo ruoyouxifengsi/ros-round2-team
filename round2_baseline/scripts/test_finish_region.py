@@ -21,7 +21,8 @@ assert not can_stop_inside(-.25,2.21,math.pi/2,(float('nan'),0.,0.),polygon)
 cfg=yaml.safe_load((Path(__file__).resolve().parents[1]/'config/route_flow.yaml').read_text());cfg['continuous_regions']=True
 calls=[];events=[]
 control=NS(report=lambda *event:events.append(event),stopped=lambda:True,
-    straight_move=lambda *args,**kw:calls.append(('straight',args,kw)),rotate_short=lambda *args:calls.append(('turn',args)),
+    straight_move=lambda *args,**kw:calls.append(('straight',args,kw)),rotate_short=lambda *args,**kw:calls.append(('turn',args,kw)),
+    can_rotate=lambda *args:False,
     follow_bends=lambda route,*args,**kw:calls.append(('entry',route,kw)),
     odom=NS(pose=NS(pose=NS(position=NS(x=-1.75,y=2.25),orientation=NS(x=0.,y=0.,z=1.,w=0.)))),
     velocity=NS(publish=lambda msg:None))
@@ -36,6 +37,15 @@ assert calls[2][0]=='straight' and calls[3][0]=='turn'
 assert calls[4][1]==['return','finish_approach'] and calls[4][2]['pass_last']
 assert calls[5][0]=='straight' and calls[5][2]['finish_region']
 assert events.count(('IMAGE_SKIPPED','blocks'))==1
+
+# Clear turning space skips the retreat; a blocked sweep above retained it.
+calls.clear();control.can_rotate=lambda *args:True
+with patch.object(route_flow.rospy,'get_param',return_value=cfg),patch.object(route_flow.rospy,'set_param'), \
+     patch.object(route_flow,'navigate',side_effect=lambda c,p,r,d,s,**kw:calls.append(('navigate',[point[0] for point in r],kw))):
+    route_flow.run_flow(control,None,route[3:],100.)
+assert calls[0][0]=='turn' and calls[0][2]['already_stopped']
+assert calls[1][0]=='navigate' and calls[1][2]['pass_last']
+assert len([c for c in calls if c[0]=='straight'])==1,'Only the final finish motion remains'
 
 # Actual straight controller accepts a stopped region pose 7cm from the nominal goal.
 pose=NS(position=NS(x=-.25,y=2.18),orientation=NS(x=0.,y=0.,z=math.sin(math.pi/4),w=math.cos(math.pi/4)))

@@ -1,0 +1,202 @@
+{
+  "scope": "DEVELOPMENT TAIL ONLY: QR departure through finish; no recognition or official timer",
+  "candidate": true,
+  "passed": true,
+  "cones_before": {
+    "construction_cone_0": [
+      -2.24999999999451,
+      1.749999999999331,
+      6.14355862263546e-08
+    ],
+    "construction_cone_1": [
+      -1.7499999999946194,
+      1.7499999999994662,
+      -6.488490956541863e-06
+    ],
+    "construction_cone_2": [
+      -1.7499999999946194,
+      1.2499999999994662,
+      -6.488490956541863e-06
+    ],
+    "construction_cone_3": [
+      -0.24999999999137626,
+      0.7500000000026525,
+      7.017061242450612e-08
+    ],
+    "construction_cone_4": [
+      -2.2499999999908966,
+      0.2500000000012104,
+      -7.256165686760654e-06
+    ]
+  },
+  "events": [
+    {
+      "state": "MOVING",
+      "detail": "qr_exit",
+      "stamp": 877.502,
+      "control_only": true,
+      "wall": 39858.718544403
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr_exit",
+      "stamp": 879.838,
+      "control_only": true,
+      "wall": 39875.876481747
+    },
+    {
+      "state": "MOVING",
+      "detail": "cone_entry",
+      "stamp": 879.843,
+      "control_only": true,
+      "wall": 39875.897457947
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "cone_entry",
+      "stamp": 881.177,
+      "control_only": true,
+      "wall": 39886.249133074
+    },
+    {
+      "state": "MOVING",
+      "detail": "cone_exit",
+      "stamp": 881.184,
+      "control_only": true,
+      "wall": 39886.277807296
+    },
+    {
+      "state": "PASSED",
+      "detail": "cone_exit",
+      "stamp": 886.563,
+      "control_only": true,
+      "wall": 39925.801372866
+    },
+    {
+      "state": "MOVING",
+      "detail": "blocks",
+      "stamp": 886.563,
+      "control_only": true,
+      "wall": 39925.802992914
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "blocks",
+      "stamp": 888.02,
+      "control_only": true,
+      "wall": 39936.288613192
+    },
+    {
+      "state": "IMAGE_SKIPPED",
+      "detail": "blocks",
+      "stamp": 888.02,
+      "control_only": true,
+      "wall": 39936.299208413
+    },
+    {
+      "state": "MOVING",
+      "detail": "return",
+      "stamp": 888.02,
+      "control_only": true,
+      "wall": 39936.312737788
+    },
+    {
+      "state": "PASSED",
+      "detail": "return",
+      "stamp": 895.334,
+      "control_only": true,
+      "wall": 39988.34182515
+    },
+    {
+      "state": "MOVING",
+      "detail": "finish_approach",
+      "stamp": 895.334,
+      "control_only": true,
+      "wall": 39988.342740481
+    },
+    {
+      "state": "PASSED",
+      "detail": "finish_approach",
+      "stamp": 896.595,
+      "control_only": true,
+      "wall": 39997.851461484
+    },
+    {
+      "state": "MOVING",
+      "detail": "finish",
+      "stamp": 896.595,
+      "control_only": true,
+      "wall": 39997.852939571
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "finish",
+      "stamp": 898.834,
+      "control_only": true,
+      "wall": 40011.902771192
+    },
+    {
+      "state": "CONTROL_ROUTE_DONE",
+      "detail": "CONTROL ONLY: image recognition and its processing time omitted",
+      "stamp": 898.834,
+      "control_only": true,
+      "wall": 40011.904227372
+    }
+  ],
+  "route_done": true,
+  "sim_seconds": 21.331999999999994,
+  "wall_seconds": 153.18568296900048,
+  "final_pose": {
+    "t": 898.87,
+    "wall": 40012.961982355,
+    "x": -0.24628080794167892,
+    "y": 2.1957536262670416,
+    "yaw": 1.5872627336205016,
+    "v": [
+      -8.166093007348448e-07,
+      9.032771756144315e-06,
+      0.0
+    ]
+  },
+  "max_tilt_deg": 0.5234865252524822,
+  "cones_after": {
+    "construction_cone_0": [
+      -2.249999999884827,
+      1.7500000000468603,
+      -6.122354809799603e-06
+    ],
+    "construction_cone_1": [
+      -1.749999999936405,
+      1.7500000000096705,
+      -2.280760434960177e-06
+    ],
+    "construction_cone_2": [
+      -1.749999999936405,
+      1.2500000000096705,
+      -2.280760434960177e-06
+    ],
+    "construction_cone_3": [
+      -0.24999999990507962,
+      0.7500000000302064,
+      -6.722770450997061e-06
+    ],
+    "construction_cone_4": [
+      -2.2499999999806453,
+      0.25000000000735,
+      -8.177147382545822e-06
+    ]
+  },
+  "max_lateral_command": 0.0,
+  "cleanup": {
+    "owned_processes": 6,
+    "remaining": []
+  },
+  "contacts": {
+    "type": "summary",
+    "messages": 21524,
+    "all_contacts": 257722,
+    "cone_contact_events": 0,
+    "wall_contact_events": 0,
+    "sim": 898.935
+  }
+}

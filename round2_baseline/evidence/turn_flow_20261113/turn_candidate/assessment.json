@@ -1,0 +1,50 @@
+{
+  "name": "turn_candidate",
+  "accepted": true,
+  "checks": {
+    "completed": true,
+    "contact_coverage": true,
+    "zero_contacts": true,
+    "no_tilt": true,
+    "zero_lateral": true,
+    "cones_unchanged": true,
+    "finish_contained": true,
+    "finish_stopped": true,
+    "blocks_stopped": true,
+    "blocks_pose": true,
+    "cleanup": true
+  },
+  "sim_seconds": 19.55200000000002,
+  "wall_seconds": 130.3555114970004,
+  "stages": {
+    "qr_exit": 2.35,
+    "cone_entry": 1.501,
+    "cone_exit": 5.031,
+    "blocks": 0.706,
+    "return": 6.435,
+    "finish_approach": 1.226,
+    "finish": 2.303
+  },
+  "max_cone_displacement": 0.0,
+  "max_tilt_deg": 0.13992613512121516,
+  "contacts": {
+    "type": "summary",
+    "messages": 19892,
+    "all_contacts": 238342,
+    "cone_contact_events": 0,
+    "wall_contact_events": 0,
+    "sim": 750.261
+  },
+  "final_pose": {
+    "t": 750.187,
+    "wall": 39001.005816423,
+    "x": -0.24395559192812602,
+    "y": 2.194417118899509,
+    "yaw": 1.5885836245477616,
+    "v": [
+      -9.681618750101798e-07,
+      8.761705855192085e-06,
+      -3.5061555750229778e-06
+    ]
+  }
+}

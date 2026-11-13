@@ -1,0 +1,50 @@
+{
+  "name": "fine_map_candidate",
+  "accepted": true,
+  "checks": {
+    "completed": true,
+    "contact_coverage": true,
+    "zero_contacts": true,
+    "no_tilt": true,
+    "zero_lateral": true,
+    "cones_unchanged": true,
+    "finish_contained": true,
+    "finish_stopped": true,
+    "blocks_stopped": true,
+    "blocks_pose": true,
+    "cleanup": true
+  },
+  "sim_seconds": 18.899,
+  "wall_seconds": 127.1268651959981,
+  "stages": {
+    "qr_exit": 2.267,
+    "cone_entry": 1.393,
+    "cone_exit": 5.077,
+    "blocks": 0.637,
+    "return": 6.126,
+    "finish_approach": 1.297,
+    "finish": 2.102
+  },
+  "max_cone_displacement": 0.0,
+  "max_tilt_deg": 0.1951083576110312,
+  "contacts": {
+    "type": "summary",
+    "messages": 19286,
+    "all_contacts": 230989,
+    "cone_contact_events": 0,
+    "wall_contact_events": 0,
+    "sim": 787.556
+  },
+  "final_pose": {
+    "t": 787.486,
+    "wall": 39241.657076724,
+    "x": -0.24594102262212267,
+    "y": 2.1920952505264535,
+    "yaw": 1.5901187897550575,
+    "v": [
+      -9.680643603934498e-07,
+      8.762582157772303e-06,
+      0.0
+    ]
+  }
+}

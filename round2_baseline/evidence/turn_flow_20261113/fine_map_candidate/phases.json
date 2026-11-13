@@ -1,0 +1,80 @@
+[
+  {
+    "phase": "straight_move",
+    "start": 768.416,
+    "sim": 2.18,
+    "wall": 13.227
+  },
+  {
+    "phase": "stopped",
+    "start": 770.596,
+    "sim": 0.083,
+    "wall": 0.613
+  },
+  {
+    "phase": "stopped",
+    "start": 771.512,
+    "sim": 0.199,
+    "wall": 0.753
+  },
+  {
+    "phase": "rotate_short",
+    "start": 771.711,
+    "sim": 0.204,
+    "wall": 1.697
+  },
+  {
+    "phase": "stopped",
+    "start": 771.915,
+    "sim": 0.151,
+    "wall": 0.758
+  },
+  {
+    "phase": "follow_bends",
+    "start": 770.679,
+    "sim": 1.388,
+    "wall": 8.973
+  },
+  {
+    "phase": "stopped",
+    "start": 777.676,
+    "sim": 0.113,
+    "wall": 0.505
+  },
+  {
+    "phase": "navigate",
+    "start": 772.067,
+    "sim": 5.723,
+    "wall": 39.604
+  },
+  {
+    "phase": "rotate_short",
+    "start": 777.792,
+    "sim": 1.979,
+    "wall": 14.086
+  },
+  {
+    "phase": "stopped",
+    "start": 779.771,
+    "sim": 0.167,
+    "wall": 0.756
+  },
+  {
+    "phase": "navigate",
+    "start": 779.938,
+    "sim": 5.275,
+    "wall": 35.12
+  },
+  {
+    "phase": "stopped",
+    "start": 787.148,
+    "sim": 0.167,
+    "wall": 1.061
+  },
+  {
+    "phase": "straight_move",
+    "start": 785.213,
+    "sim": 2.102,
+    "wall": 14.691
+  }
+]

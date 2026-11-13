@@ -1,4 +1,6 @@
 continuous_regions: true
+adaptive_departure: true
+profiled_turns: true
 staging:
   qr_exit: [-0.37, 0.25, 0.0]
   cone_entry: [-0.25, 0.37, 1.57]

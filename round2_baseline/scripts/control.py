@@ -62,6 +62,12 @@ def short_turn_command(grid,x,y,angle,target,polygon,padding,angular_limit=.5,to
     return max(-angular_limit,min(angular_limit,1.6*error))
 
 
+def profiled_turn_velocity(error,previous,dt,limit,tolerance,acceleration=3.):
+    speed=min(limit,math.sqrt(2*acceleration*max(0.,abs(error)-tolerance*.5)))
+    target=math.copysign(speed,error)
+    return previous+max(-acceleration*dt,min(acceleration*dt,target-previous))
+
+
 def entry_velocity(px,py,angle,x,y,heading):
     dx,dy=x-px,y-py;distance=math.hypot(dx,dy)
     gain=min(1.6,.12/max(distance,1e-9))
@@ -340,12 +346,13 @@ class Control:
         validate_settings(tuning)
         costmap_client=Client('/move_base/local_costmap',timeout=None if self.manual_supervision else 5)
         old_resolution=costmap_client.get_configuration()['resolution']
+        change_resolution=abs(old_resolution-.01)>1e-6
         polygon=rospy.get_param('/move_base/local_costmap/footprint')
         if isinstance(polygon,str):polygon=ast.literal_eval(polygon)
         padding=rospy.get_param('/move_base/local_costmap/footprint_padding')
         self.client.cancel_all_goals()
         try:
-            costmap_client.update_configuration({'resolution':.01})
+            if change_resolution:costmap_client.update_configuration({'resolution':.01})
             ready=time.monotonic()+5
             while self.costmap is None or abs(self.costmap.info.resolution-.01)>1e-6:
                 self.velocity.publish(Twist())
@@ -385,12 +392,12 @@ class Control:
             self.velocity.publish(Twist())
             if index!=len(route)-1 or not self.stopped():
                 raise RuntimeError('Continuous bend path failed or missed a waypoint: '+route[index][0])
-            self.rotate_short(yaw,run_deadline,tuning['max_yaw_rate'],yaw_tolerance)
-            if not self.stopped():raise RuntimeError('Bend exit rotation did not stop')
+            turned=self.rotate_short(yaw,run_deadline,tuning['max_yaw_rate'],yaw_tolerance,already_stopped=True)
+            if turned and not self.stopped():raise RuntimeError('Bend exit rotation did not stop')
             self.report('ARRIVED',route[-1][0])
         finally:
             self.velocity.publish(Twist())
-            costmap_client.update_configuration({'resolution':old_resolution})
+            if change_resolution:costmap_client.update_configuration({'resolution':old_resolution})
 
     def fresh_costmap(self,deadline):
         started=time.monotonic();waiting=False
@@ -456,13 +463,27 @@ class Control:
         finally:
             self.velocity.publish(Twist())
 
-    def rotate_short(self,target,run_deadline,angular_limit=.5,tolerance=.12):
+    def can_rotate(self,target,run_deadline):
+        grid=self.fresh_costmap(run_deadline)
+        polygon=rospy.get_param('/move_base/local_costmap/footprint')
+        if isinstance(polygon,str):polygon=ast.literal_eval(polygon)
+        padding=rospy.get_param('/move_base/local_costmap/footprint_padding')
+        pose=self.odom.pose.pose;q=pose.orientation
+        angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
+        return short_turn_command(grid,pose.position.x,pose.position.y,angle,target,polygon,padding) is not None
+
+    def rotate_short(self,target,run_deadline,angular_limit=.5,tolerance=.12,already_stopped=False):
         self.client.cancel_all_goals()
-        if not self.stopped():raise RuntimeError('Entry rotation requires a stopped vehicle')
+        if already_stopped:
+            v=self.odom.twist.twist
+            already_stopped=time.monotonic()-self.received<1 and math.hypot(v.linear.x,v.linear.y)<.02 and abs(v.angular.z)<.05
+        if not already_stopped and not self.stopped():raise RuntimeError('Entry rotation requires a stopped vehicle')
         polygon=rospy.get_param('/move_base/local_costmap/footprint')
         if isinstance(polygon,str):polygon=ast.literal_eval(polygon)
         padding=rospy.get_param('/move_base/local_costmap/footprint_padding')
         deadline=rospy.get_time()+15
+        profiled=rospy.get_param('~flow_settings/profiled_turns',False)
+        previous=0.;last_time=rospy.get_time();turned=False;large_turn=None
         try:
             while not rospy.is_shutdown():
                 grid=self.fresh_costmap(run_deadline)
@@ -473,8 +494,15 @@ class Control:
                 angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
                 omega=short_turn_command(grid,pose.position.x,pose.position.y,angle,target,polygon,padding,angular_limit,tolerance)
                 if omega is None:raise RuntimeError('Shortest entry rotation intersects occupied or unknown space')
-                if omega==0:return
+                if omega==0:return turned
+                error=math.atan2(math.sin(target-angle),math.cos(target-angle))
+                if large_turn is None:large_turn=abs(error)>.35
+                if profiled and large_turn:
+                    now=rospy.get_time();dt=max(0.,min(.1,now-last_time));last_time=now
+                    omega=profiled_turn_velocity(error,previous,dt,angular_limit,tolerance)
+                    previous=omega
                 msg=Twist();msg.angular.z=omega;self.velocity.publish(msg)
+                turned|=abs(omega)>0
                 time.sleep(.05)
         finally:
             self.velocity.publish(Twist())

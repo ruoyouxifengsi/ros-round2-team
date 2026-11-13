@@ -1,0 +1,362 @@
+{
+  "scope": "Official ODE and approved low COM, image tasks omitted; no official timer measurements.",
+  "original_commit": "a319367",
+  "original_tag": "turn-flow-before-v1",
+  "paired_tail": {
+    "before": {
+      "name": "baseline",
+      "accepted": true,
+      "checks": {
+        "completed": true,
+        "contact_coverage": true,
+        "zero_contacts": true,
+        "no_tilt": true,
+        "zero_lateral": true,
+        "cones_unchanged": true,
+        "finish_contained": true,
+        "finish_stopped": true,
+        "blocks_stopped": true,
+        "blocks_pose": true,
+        "cleanup": true
+      },
+      "sim_seconds": 20.840000000000032,
+      "wall_seconds": 139.1753131200021,
+      "stages": {
+        "qr_exit": 2.374,
+        "cone_entry": 1.304,
+        "cone_exit": 4.958,
+        "blocks": 0.543,
+        "return": 8.125,
+        "finish_approach": 1.261,
+        "finish": 2.275
+      },
+      "max_cone_displacement": 0.0,
+      "max_tilt_deg": 0.1360059120488172,
+      "contacts": {
+        "type": "summary",
+        "messages": 21254,
+        "all_contacts": 254517,
+        "cone_contact_events": 0,
+        "wall_contact_events": 0,
+        "sim": 709.935
+      },
+      "final_pose": {
+        "t": 709.863,
+        "wall": 38743.626637448,
+        "x": -0.24633815609828077,
+        "y": 2.193124237426944,
+        "yaw": 1.5891266909502415,
+        "v": [
+          -9.696092011320188e-07,
+          8.766120394743136e-06,
+          0.0
+        ]
+      }
+    },
+    "after": {
+      "name": "fine_map_candidate",
+      "accepted": true,
+      "checks": {
+        "completed": true,
+        "contact_coverage": true,
+        "zero_contacts": true,
+        "no_tilt": true,
+        "zero_lateral": true,
+        "cones_unchanged": true,
+        "finish_contained": true,
+        "finish_stopped": true,
+        "blocks_stopped": true,
+        "blocks_pose": true,
+        "cleanup": true
+      },
+      "sim_seconds": 18.899,
+      "wall_seconds": 127.1268651959981,
+      "stages": {
+        "qr_exit": 2.267,
+        "cone_entry": 1.393,
+        "cone_exit": 5.077,
+        "blocks": 0.637,
+        "return": 6.126,
+        "finish_approach": 1.297,
+        "finish": 2.102
+      },
+      "max_cone_displacement": 0.0,
+      "max_tilt_deg": 0.1951083576110312,
+      "contacts": {
+        "type": "summary",
+        "messages": 19286,
+        "all_contacts": 230989,
+        "cone_contact_events": 0,
+        "wall_contact_events": 0,
+        "sim": 787.556
+      },
+      "final_pose": {
+        "t": 787.486,
+        "wall": 39241.657076724,
+        "x": -0.24594102262212267,
+        "y": 2.1920952505264535,
+        "yaw": 1.5901187897550575,
+        "v": [
+          -9.680643603934498e-07,
+          8.762582157772303e-06,
+          0.0
+        ]
+      }
+    }
+  },
+  "final_three_layouts": [
+    {
+      "name": "fine_map_candidate",
+      "accepted": true,
+      "checks": {
+        "completed": true,
+        "contact_coverage": true,
+        "zero_contacts": true,
+        "no_tilt": true,
+        "zero_lateral": true,
+        "cones_unchanged": true,
+        "finish_contained": true,
+        "finish_stopped": true,
+        "blocks_stopped": true,
+        "blocks_pose": true,
+        "cleanup": true
+      },
+      "sim_seconds": 18.899,
+      "wall_seconds": 127.1268651959981,
+      "stages": {
+        "qr_exit": 2.267,
+        "cone_entry": 1.393,
+        "cone_exit": 5.077,
+        "blocks": 0.637,
+        "return": 6.126,
+        "finish_approach": 1.297,
+        "finish": 2.102
+      },
+      "max_cone_displacement": 0.0,
+      "max_tilt_deg": 0.1951083576110312,
+      "contacts": {
+        "type": "summary",
+        "messages": 19286,
+        "all_contacts": 230989,
+        "cone_contact_events": 0,
+        "wall_contact_events": 0,
+        "sim": 787.556
+      },
+      "final_pose": {
+        "t": 787.486,
+        "wall": 39241.657076724,
+        "x": -0.24594102262212267,
+        "y": 2.1920952505264535,
+        "yaw": 1.5901187897550575,
+        "v": [
+          -9.680643603934498e-07,
+          8.762582157772303e-06,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "seed_1",
+      "accepted": true,
+      "checks": {
+        "completed": true,
+        "contact_coverage": true,
+        "zero_contacts": true,
+        "no_tilt": true,
+        "zero_lateral": true,
+        "cones_unchanged": true,
+        "finish_contained": true,
+        "finish_stopped": true,
+        "blocks_stopped": true,
+        "blocks_pose": true,
+        "cleanup": true
+      },
+      "sim_seconds": 23.17999999999995,
+      "wall_seconds": 173.83031108300202,
+      "stages": {
+        "qr_exit": 2.239,
+        "cone_entry": 1.375,
+        "cone_exit": 6.908,
+        "blocks": 1.622,
+        "return": 7.626,
+        "finish_approach": 1.528,
+        "finish": 1.882
+      },
+      "max_cone_displacement": 5.6352060241024215e-11,
+      "max_tilt_deg": 0.11634204484636386,
+      "contacts": {
+        "type": "summary",
+        "messages": 23612,
+        "all_contacts": 282849,
+        "cone_contact_events": 0,
+        "wall_contact_events": 0,
+        "sim": 870.162
+      },
+      "final_pose": {
+        "t": 870.106,
+        "wall": 39806.563825175,
+        "x": -0.25444038537588026,
+        "y": 2.191756379606205,
+        "yaw": 1.5610386893843509,
+        "v": [
+          -1.7313424389330214e-06,
+          9.176541563931788e-06,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "seed_42",
+      "accepted": true,
+      "checks": {
+        "completed": true,
+        "contact_coverage": true,
+        "zero_contacts": true,
+        "no_tilt": true,
+        "zero_lateral": true,
+        "cones_unchanged": true,
+        "finish_contained": true,
+        "finish_stopped": true,
+        "blocks_stopped": true,
+        "blocks_pose": true,
+        "cleanup": true
+      },
+      "sim_seconds": 21.331999999999994,
+      "wall_seconds": 153.18568296900048,
+      "stages": {
+        "qr_exit": 2.341,
+        "cone_entry": 1.341,
+        "cone_exit": 5.379,
+        "blocks": 1.457,
+        "return": 7.314,
+        "finish_approach": 1.261,
+        "finish": 2.239
+      },
+      "max_cone_displacement": 1.195386050329152e-10,
+      "max_tilt_deg": 0.5234865252524822,
+      "contacts": {
+        "type": "summary",
+        "messages": 21524,
+        "all_contacts": 257722,
+        "cone_contact_events": 0,
+        "wall_contact_events": 0,
+        "sim": 898.935
+      },
+      "final_pose": {
+        "t": 898.87,
+        "wall": 40012.961982355,
+        "x": -0.24628080794167892,
+        "y": 2.1957536262670416,
+        "yaw": 1.5872627336205016,
+        "v": [
+          -8.166093007348448e-07,
+          9.032771756144315e-06,
+          0.0
+        ]
+      }
+    }
+  ],
+  "full_route": {
+    "name": "full_current",
+    "accepted": true,
+    "checks": {
+      "completed": true,
+      "contact_coverage": true,
+      "zero_contacts": true,
+      "no_tilt": true,
+      "zero_lateral": true,
+      "cones_unchanged": true,
+      "finish_contained": true,
+      "finish_stopped": true,
+      "blocks_stopped": true,
+      "blocks_pose": true,
+      "cleanup": true,
+      "qr_contained": true,
+      "qr_stopped": true,
+      "under_600_wall": true,
+      "ordered_route": true
+    },
+    "sim_seconds": 36.39199999999994,
+    "wall_seconds": 248.60571098100627,
+    "stages": {
+      "bend1": 1.251,
+      "bend2": 1.559,
+      "bend3": 1.465,
+      "bend4": 1.495,
+      "bend5_approach": 1.498,
+      "bend5": 0.171,
+      "bend6": 0.748,
+      "bend7": 0.948,
+      "bend8": 3.912,
+      "qr_approach": 3.228,
+      "qr": 1.128,
+      "qr_exit": 2.296,
+      "cone_entry": 1.432,
+      "cone_exit": 5.103,
+      "blocks": 0.531,
+      "return": 6.136,
+      "finish_approach": 1.255,
+      "finish": 2.236
+    },
+    "max_cone_displacement": 0.0,
+    "max_tilt_deg": 0.3887479814514629,
+    "contacts": {
+      "type": "summary",
+      "messages": 36776,
+      "all_contacts": 440580,
+      "cone_contact_events": 0,
+      "wall_contact_events": 0,
+      "sim": 835.024
+    },
+    "final_pose": {
+      "t": 834.916,
+      "wall": 39557.237677941,
+      "x": -0.24374967210574577,
+      "y": 2.1930890021505403,
+      "yaw": 1.5971293935880397,
+      "v": [
+        -9.120948471076367e-07,
+        8.775121044574884e-06,
+        -3.5061555750229778e-06
+      ]
+    }
+  },
+  "logs": {
+    "baseline": {
+      "data_waits": 0,
+      "planner_resets": 3,
+      "goal_retries": 0
+    },
+    "turn_candidate": {
+      "data_waits": 0,
+      "planner_resets": 4,
+      "goal_retries": 0
+    },
+    "fine_map_candidate": {
+      "data_waits": 0,
+      "planner_resets": 1,
+      "goal_retries": 0
+    },
+    "full_current": {
+      "data_waits": 0,
+      "planner_resets": 1,
+      "goal_retries": 0
+    },
+    "seed_1": {
+      "data_waits": 0,
+      "planner_resets": 1,
+      "goal_retries": 0
+    },
+    "seed_42": {
+      "data_waits": 0,
+      "planner_resets": 4,
+      "goal_retries": 0
+    }
+  },
+  "limitations": [
+    "Three distinct layout samples, not all possible layouts.",
+    "Three-layout check covers QR departure through finish; one additional full-route validation.",
+    "Entry time did not improve in the paired sample, despite fewer stop confirmations and map reconfigurations.",
+    "Remaining planner feasibility resets are counted; a reset log does not measure the duration of a full stop."
+  ]
+}

@@ -25,7 +25,7 @@ class MotionClockTest(unittest.TestCase):
                 pose.position=NS(x=.3,y=0.);held[0]=True
             return c.costmap
         c.fresh_costmap=fresh_costmap
-        c.stopped=lambda:True;c.rotate_short=lambda *args:None
+        c.stopped=lambda:True;c.rotate_short=lambda *args,**kwargs:False
         c.report=lambda state,detail:events.append((state,detail))
         c.velocity=NS(publish=lambda msg:commands.append((msg.linear.x,msg.angular.z)))
         tuning=dict(max_speed=1.,acceleration=1.4,max_yaw_rate=2.4,

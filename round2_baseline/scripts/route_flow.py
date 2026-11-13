@@ -123,9 +123,12 @@ def run_flow(control,planner,route,deadline):
             control.report('MOVING',name)
             pose=control.odom.pose.pose;q=pose.orientation
             heading=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
-            control.straight_move(pose.position.x-.08*math.cos(heading),pose.position.y-.08*math.sin(heading),heading,deadline,-1,.008)
-            if not control.stopped():raise RuntimeError('Recognition-area departure did not stop')
-            control.rotate_short(-math.pi/2,deadline,2.4,.12)
+            smooth=continuous_regions and cfg.get('adaptive_departure',False)
+            if not smooth or not control.can_rotate(-math.pi/2,deadline):
+                control.straight_move(pose.position.x-.08*math.cos(heading),pose.position.y-.08*math.sin(heading),heading,deadline,-1,.008)
+                if not control.stopped():raise RuntimeError('Recognition-area departure did not stop')
+            if smooth:control.rotate_short(-math.pi/2,deadline,2.4,.12,already_stopped=True)
+            else:control.rotate_short(-math.pi/2,deadline,2.4,.12)
             if not control.stopped():raise RuntimeError('Recognition-area departure turn did not stop')
             values=dict(cfg['navigation'],xy_goal_tolerance=.06,yaw_goal_tolerance=.12)
             if continuous_regions and i+2<len(route) and route[i+2][0]=='finish':
