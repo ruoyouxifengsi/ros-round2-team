@@ -10,9 +10,10 @@ import control as m
 
 
 class MotionClockTest(unittest.TestCase):
-    def run_bends(self, *, rate=.12, run_limit=540., moving=True, stale=False, target=2., map_hold=False):
+    def run_bends(self, *, rate=.12, run_limit=540., moving=True, stale=False, target=2., map_hold=False, manual=False, pause_for=0.):
         wall=[100.];sim=[1000.];commands=[];events=[];config=[];tracking_positions=[];held=[False]
         c=m.Control.__new__(m.Control)
+        c.manual_supervision=manual
         c.sim_timeouts=False;c.cancelled=threading.Event();c.received=wall[0]
         c.client=NS(cancel_all_goals=lambda:None)
         pose=NS(position=NS(x=0.,y=0.),orientation=NS(x=0.,y=0.,z=0.,w=1.))
@@ -37,7 +38,7 @@ class MotionClockTest(unittest.TestCase):
         def sleep(dt):
             wall[0]+=1.;sim[0]+=rate
             if not stale:c.received=wall[0]
-            if moving:pose.position=NS(x=pose.position.x+.14*rate,y=0.)
+            if moving and wall[0]>100.+pause_for:pose.position=NS(x=pose.position.x+.14*rate,y=0.)
             if wall[0]>10000:raise AssertionError('Watchdog did not terminate')
         error=None
         with ExitStack() as stack:
@@ -62,6 +63,12 @@ class MotionClockTest(unittest.TestCase):
     def test_bends_refresh_pose_after_map_hold(self):
         error,_,_,_=self.run_bends(map_hold=True)
         self.assertIsNone(error)
+
+    def test_manual_wait_survives_run_stage_and_progress_limits(self):
+        error,wall,sim,events=self.run_bends(rate=1.,run_limit=40.,manual=True,pause_for=70.,target=1.96)
+        self.assertIsNone(error)
+        self.assertGreater(wall,70.)
+        self.assertIn(('ARRIVED','bend8'),events)
 
     def test_slow_simulation_completes_after_sixty_wall_seconds(self):
         error,wall,sim,events=self.run_bends()

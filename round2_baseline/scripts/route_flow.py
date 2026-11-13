@@ -45,14 +45,15 @@ def navigate(control,planner,route,deadline,settings,pass_last=False,announce=Tr
     control.client.send_goal(goal)
     index=0;last_progress=rospy.get_time();previous=control.odom.pose.pose;approach=False
     while not rospy.is_shutdown():
+        if control.manual_supervision:control.fresh_costmap(deadline)
         pose=control.odom.pose.pose;p=pose.position
-        if control.cancelled.is_set() or time.monotonic()-control.received>2 or control.budget_time()>deadline:
+        if control.cancelled.is_set() or (not control.manual_supervision and time.monotonic()-control.received>2) or control.expired(control.budget_time(),deadline):
             raise RuntimeError('Route navigation cancelled, stale or timed out: '+name)
         moved=math.hypot(p.x-previous.position.x,p.y-previous.position.y)>.01
         a,b=previous.orientation,pose.orientation
         turned=abs(a.x*b.x+a.y*b.y+a.z*b.z+a.w*b.w)<math.cos(.02/2)
         if moved or turned:previous=pose;last_progress=rospy.get_time()
-        if rospy.get_time()-last_progress>28:raise RuntimeError('Route navigation made no progress for 28 simulation seconds: '+name)
+        if control.expired(rospy.get_time(),last_progress+28):raise RuntimeError('Route navigation made no progress for 28 simulation seconds: '+name)
         if name=='qr' and not approach and math.hypot(p.x-x,p.y-y)<.15:
             planner.update_configuration(dict(max_vel_x=.20,min_obstacle_dist=.02));approach=True
         reached_via=via_reached(route[index],p.x,p.y)
@@ -66,6 +67,8 @@ def navigate(control,planner,route,deadline,settings,pass_last=False,announce=Tr
             control.report('PASSED',name);return
         state=control.client.get_state()
         if state in (2,3,4,5,8,9):
+            if state!=3 and control.manual_supervision:
+                control.retry_goal(goal);continue
             if state!=3 or index!=len(route)-1 or not control.stopped():raise RuntimeError('Route goal failed: '+name)
             control.report('ARRIVED',name);return
         time.sleep(.02)

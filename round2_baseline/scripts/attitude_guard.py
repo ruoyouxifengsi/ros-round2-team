@@ -39,7 +39,7 @@ class YawFeedback:
 
 
 class Guard:
-    def __init__(self, max_speed=.12, linear_accel=.2, hold_tilt_deg=1.0, angular_feedback=False, curvature_accel=0., attitude_protection=True):
+    def __init__(self, max_speed=.12, linear_accel=.2, hold_tilt_deg=1.0, angular_feedback=False, curvature_accel=0., attitude_protection=True, manual_supervision=False):
         if not all(math.isfinite(v) and v > 0 for v in (max_speed,linear_accel)):
             raise ValueError('velocity and acceleration limits must be positive and finite')
         if (isinstance(hold_tilt_deg,bool) or not isinstance(hold_tilt_deg,(int,float)) or
@@ -50,6 +50,8 @@ class Guard:
         if not math.isfinite(curvature_accel) or curvature_accel<0:raise ValueError('invalid curvature acceleration')
         self.curvature_accel = curvature_accel
         self.attitude_protection = attitude_protection
+        self.manual_supervision = manual_supervision
+        self.navigation_data = {}
         self.hold_tilt_deg = float(hold_tilt_deg)
         self.mode, self.reason = 'BLOCKED', 'waiting for odometry'
         self.odom = self.cmd = self.level_since = self.last_clock = None
@@ -79,6 +81,13 @@ class Guard:
             return
         self.serial += 1
         self.cmd = (velocity, sim, wall, self.serial)
+
+    def observe_navigation_data(self, name, stamp, wall):
+        if not math.isfinite(stamp) or stamp<=0:
+            self.navigation_data.pop(name,None);return
+        previous=self.navigation_data.get(name)
+        if previous and previous[0]==stamp:return
+        self.navigation_data[name]=(stamp,wall)
 
     def observe(self, stamp, wall, q, yaw_rate=0.):
         try:
@@ -133,8 +142,13 @@ class Guard:
             self.clock_progress_wall = wall
         if wall-self.clock_progress_wall > 3.:
             return self.zero('simulation clock is not advancing', True)
-        if self.odom is None or not (-.1 <= sim-self.odom[0] <= .5) or not (0. <= wall-self.odom[1] <= 3.):
+        if self.odom is None or not (-.1 <= sim-self.odom[0] <= .5) or not (0. <= wall-self.odom[1] <= (2. if self.manual_supervision else 3.)):
             return self.zero('stale or invalid odometry', True)
+        if self.manual_supervision:
+            for name in ('map','scan'):
+                value=self.navigation_data.get(name)
+                if value is None or not (0<=sim-value[0]<=.5 and 0<=wall-value[1]<=2.):
+                    return self.zero('waiting for fresh navigation '+name,True)
         stamp, _, tilt = self.odom
         if self.attitude_protection and tilt >= 8.:
             self.mode = 'FAULT'
@@ -324,13 +338,13 @@ def main():
     import rospy
     from actionlib_msgs.msg import GoalID
     from geometry_msgs.msg import Twist
-    from nav_msgs.msg import Odometry
+    from nav_msgs.msg import Odometry, OccupancyGrid
     from sensor_msgs.msg import LaserScan
     from std_msgs.msg import String
     rospy.init_node('attitude_guard')
     guard = Guard(rospy.get_param('~max_linear_speed',.12),rospy.get_param('~linear_acceleration',.2),
                   rospy.get_param('~hold_tilt_deg',1.0),rospy.get_param('~angular_feedback',False),rospy.get_param('~curvature_accel',0.),
-                  rospy.get_param('~attitude_protection',True))
+                  rospy.get_param('~attitude_protection',True),rospy.get_param('~manual_supervision',False))
     lock = threading.RLock()
     bend_settings=rospy.get_param('~bend_settings',{})
     whole_route=rospy.get_param('~route_flow',False)
@@ -362,9 +376,14 @@ def main():
     def receive_scan(m):
         with lock:
             scans.append((m,time.monotonic()))
+    def receive_map(m):
+        with lock:
+            guard.observe_navigation_data('map',m.header.stamp.to_sec(),time.monotonic())
     rospy.Subscriber('/odom',Odometry,receive_odom,queue_size=30)
     rospy.Subscriber('/nav_cmd_vel',Twist,receive_cmd,queue_size=1)
     rospy.Subscriber('/scan',LaserScan,receive_scan,queue_size=10)
+    if guard.manual_supervision:
+        rospy.Subscriber('/move_base/local_costmap/costmap',OccupancyGrid,receive_map,queue_size=1)
     rospy.on_shutdown(lambda: output.publish(Twist()))
     last_status=0.;cancelled=False
     try:
@@ -386,10 +405,11 @@ def main():
                     idx=bisect.bisect_left(stamps,stamp)
                     pair=list(history)[max(0,idx-1):idx+1]
                     if guard.scan_is_level(pair,stamp,sim,wall):
+                        guard.observe_navigation_data('scan',stamp,wall)
                         scan_output.publish(scan);stats['scan_passed']+=1
                     else:stats['scan_dropped']+=1
                 if wall-last_status>=.5:
-                    data=dict(stats,mode=guard.mode,reason=guard.reason,trips=guard.trips,attitude_protection=guard.attitude_protection,
+                    data=dict(stats,mode=guard.mode,reason=guard.reason,trips=guard.trips,attitude_protection=guard.attitude_protection,manual_supervision=guard.manual_supervision,
                               tilt_deg=guard.odom[2] if guard.odom else None,
                               hold_tilt_deg=guard.hold_tilt_deg,
                               hold_seconds=guard.hold_seconds,output=velocity)

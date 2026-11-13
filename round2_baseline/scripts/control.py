@@ -14,6 +14,7 @@ from std_msgs.msg import String, Bool
 from nav_msgs.msg import Odometry
 from nav_msgs.msg import OccupancyGrid
 from geometry_msgs.msg import Twist
+from sensor_msgs.msg import LaserScan
 
 
 def footprint_clear(grid, x, y, yaw, polygon, padding):
@@ -82,6 +83,8 @@ def straight_velocity(px,py,angle,x,y,yaw,direction,fast=False,efficient=False,f
 
 
 class Control:
+    manual_supervision = False
+
     def __init__(self):
         self.client = actionlib.SimpleActionClient('/move_base', MoveBaseAction)
         self.lock = threading.Lock()
@@ -91,6 +94,7 @@ class Control:
         self.efficient = rospy.get_param('~efficient_approach',False)
         self.navigation_frame = rospy.get_param('~navigation_frame','odom')
         self.sim_timeouts = rospy.get_param('~timeout_clock','wall')=='sim'
+        self.manual_supervision = rospy.get_param('~manual_supervision',False)
         self.cancelled = threading.Event()
         self.odom = None
         self.received = 0
@@ -98,12 +102,15 @@ class Control:
         self.guard_received = 0
         self.costmap = None
         self.map_received = 0
+        self.scan_received = self.scan_stamp = 0.
         self.velocity = rospy.Publisher('/nav_cmd_vel',Twist,queue_size=1)
         self.status = rospy.Publisher('/baseline/status', String, queue_size=10, latch=True)
         self.ready = rospy.Publisher('/baseline/ready', Bool, queue_size=1, latch=True)
         rospy.Subscriber(rospy.get_param('~pose_topic','/odom'), Odometry, self.observe)
         rospy.Subscriber('/attitude_guard/status', String, self.observe_guard)
         rospy.Subscriber('/move_base/local_costmap/costmap',OccupancyGrid,self.observe_map,queue_size=1)
+        if self.manual_supervision:
+            rospy.Subscriber('/nav_scan',LaserScan,self.observe_scan,queue_size=1)
         rospy.Service('/nav_start', SetBool, self.start)
         rospy.Timer(rospy.Duration(.5),lambda _:self.ready.publish(Bool(data=self.preflight() is None)))
         self.report('IDLE', 'CONTROL_ONLY: image tasks omitted')
@@ -114,6 +121,23 @@ class Control:
 
     def observe_map(self, msg):
         self.costmap=msg;self.map_received=time.monotonic()
+
+    def observe_scan(self, msg):
+        self.scan_stamp=msg.header.stamp.to_sec();self.scan_received=time.monotonic()
+
+    def expired(self, now, deadline):
+        return not self.manual_supervision and now>deadline
+
+    def retry_goal(self, goal):
+        self.velocity.publish(Twist())
+        rospy.logwarn_throttle(5.,'Navigation goal interrupted; supervised mode will retry until cancelled')
+        until=time.monotonic()+1.
+        while time.monotonic()<until:
+            if self.cancelled.is_set() or rospy.is_shutdown():raise RuntimeError('Cancelled')
+            time.sleep(.05)
+        self.fresh_costmap(float('inf'))
+        goal.target_pose.header.stamp=rospy.Time.now()
+        self.client.send_goal(goal)
 
     def preflight(self):
         if self.running or self.odom is None or time.monotonic()-self.received>2:
@@ -147,6 +171,7 @@ class Control:
             if not req.data:
                 self.cancelled.set()
                 self.client.cancel_all_goals()
+                self.velocity.publish(Twist())
                 return SetBoolResponse(True, 'Cancellation requested')
             reason=self.preflight()
             if reason:
@@ -158,10 +183,12 @@ class Control:
             threading.Thread(target=self.run, daemon=True).start()
             return SetBoolResponse(True, 'Control-only run started')
 
-    def stopped(self):
-        deadline = time.monotonic()+5
+    def stopped(self, timeout=None):
+        deadline = time.monotonic()+(timeout if timeout is not None else 5)
         stable = None
-        while time.monotonic() < deadline and not rospy.is_shutdown():
+        while not rospy.is_shutdown() and not self.cancelled.is_set():
+            if (timeout is not None or not self.manual_supervision) and time.monotonic()>=deadline:break
+            self.velocity.publish(Twist())
             v = self.odom.twist.twist
             if time.monotonic()-self.received < 1 and math.hypot(v.linear.x,v.linear.y)<0.02 and abs(v.angular.z)<0.05:
                 stable = stable or time.monotonic()
@@ -174,7 +201,7 @@ class Control:
 
     def run(self):
         try:
-            planner = Client('/move_base/TebLocalPlannerROS', timeout=5)
+            planner = Client('/move_base/TebLocalPlannerROS', timeout=None if self.manual_supervision else 5)
             docking = rospy.get_param('~docking_settings', {})
             travel = {k:rospy.get_param('/move_base/TebLocalPlannerROS/'+k) for k in docking}
             run_deadline = self.budget_time()+rospy.get_param('~run_timeout', 540.0)
@@ -244,7 +271,16 @@ class Control:
                 previous=self.odom.pose.pose
                 approach_released=distance<=0.02 or name in ('cone_exit','blocks','return')
                 passed=False
-                while not self.client.wait_for_result(rospy.Duration(0.05 if passing else 0.2)):
+                while True:
+                    if self.manual_supervision:
+                        self.fresh_costmap(run_deadline)
+                        state=self.client.get_state()
+                        if state==3:break
+                        if state in (2,4,5,8,9):
+                            self.retry_goal(g);continue
+                        time.sleep(.02)
+                    elif self.client.wait_for_result(rospy.Duration(0.05 if passing else 0.2)):
+                        break
                     now=rospy.get_time();wall_now=time.monotonic()
                     current=self.odom.pose.pose
                     if docking_cruise and math.hypot(current.position.x-x,current.position.y-y)<.12:
@@ -264,9 +300,9 @@ class Control:
                     turned=abs(q0.x*q1.x+q0.y*q1.y+q0.z*q1.z+q0.w*q1.w)<math.cos(.02/2)
                     if moved or turned:
                         previous=current;progress_at=now
-                    if now-progress_at>28:
+                    if self.expired(now,progress_at+28):
                         raise RuntimeError('No measured movement for 28 simulation seconds: '+name)
-                    if self.cancelled.is_set() or now>deadline or self.budget_time()>run_deadline or wall_now-self.received>2:
+                    if self.cancelled.is_set() or self.expired(now,deadline) or self.expired(self.budget_time(),run_deadline) or (not self.manual_supervision and wall_now-self.received>2):
                         raise RuntimeError('Cancelled, stale odometry or stage timeout: '+name)
                 if passed:
                     self.report('PASSED',name)
@@ -278,10 +314,10 @@ class Control:
                     self.report('IMAGE_SKIPPED', name)
             self.report('CONTROL_ROUTE_DONE','Not a complete competition finish; wheel placement requires verification')
         except Exception as exc:
-            traceback.print_exc()
+            if not self.cancelled.is_set():traceback.print_exc()
             self.client.cancel_all_goals()
-            self.stopped()
-            self.report('FAILED',str(exc))
+            self.stopped(timeout=5)
+            self.report('CANCELLED' if self.cancelled.is_set() else 'FAILED',str(exc))
         finally:
             with self.lock:
                 self.running = False
@@ -297,7 +333,7 @@ class Control:
         from bend_path import path_command, braking_clear, validate_settings
         tuning=rospy.get_param('~bend_settings')
         validate_settings(tuning)
-        costmap_client=Client('/move_base/local_costmap',timeout=5)
+        costmap_client=Client('/move_base/local_costmap',timeout=None if self.manual_supervision else 5)
         old_resolution=costmap_client.get_configuration()['resolution']
         polygon=rospy.get_param('/move_base/local_costmap/footprint')
         if isinstance(polygon,str):polygon=ast.literal_eval(polygon)
@@ -307,7 +343,9 @@ class Control:
             costmap_client.update_configuration({'resolution':.01})
             ready=time.monotonic()+5
             while self.costmap is None or abs(self.costmap.info.resolution-.01)>1e-6:
-                if time.monotonic()>ready:raise RuntimeError('Bend costmap resolution update timed out')
+                self.velocity.publish(Twist())
+                if self.cancelled.is_set() or rospy.is_shutdown():raise RuntimeError('Cancelled')
+                if self.expired(time.monotonic(),ready):raise RuntimeError('Bend costmap resolution update timed out')
                 time.sleep(.02)
             name,x,y,yaw=route[-1]
             self.report('MOVING',route[0][0])
@@ -317,12 +355,14 @@ class Control:
                 grid=self.fresh_costmap(run_deadline)
                 now=time.monotonic();pose=self.odom.pose.pose;position=pose.position;q=pose.orientation
                 if self.cancelled.is_set():raise RuntimeError('Continuous bend path cancelled')
-                if now-self.received>2:raise RuntimeError('Continuous bend path odometry stale for 2 wall seconds')
-                if self.budget_time()>run_deadline:raise RuntimeError('Whole-run time budget exceeded during bends')
-                if rospy.get_time()>deadline:raise RuntimeError('Continuous bend path exceeded 60 simulation seconds')
+                if now-self.received>2:
+                    if not self.manual_supervision:raise RuntimeError('Continuous bend path odometry stale for 2 wall seconds')
+                    self.velocity.publish(Twist());continue
+                if self.expired(self.budget_time(),run_deadline):raise RuntimeError('Whole-run time budget exceeded during bends')
+                if self.expired(rospy.get_time(),deadline):raise RuntimeError('Continuous bend path exceeded 60 simulation seconds')
                 if math.hypot(position.x-previous.x,position.y-previous.y)>.01:
                     last_progress=rospy.get_time();previous=position
-                if rospy.get_time()-last_progress>5:raise RuntimeError('Continuous bend path made no measured progress for 5 simulation seconds')
+                if self.expired(rospy.get_time(),last_progress+5):raise RuntimeError('Continuous bend path made no measured progress for 5 simulation seconds')
                 if index<len(route)-1 and math.hypot(position.x-route[index][1],position.y-route[index][2])<.10:
                     self.report('PASSED',route[index][0]);index+=1
                     self.report('MOVING',route[index][0])
@@ -354,17 +394,22 @@ class Control:
             if grid is not None and grid.header.frame_id.lstrip('/')!=self.navigation_frame:
                 raise RuntimeError('Costmap frame differs from the navigation frame')
             if self.cancelled.is_set():raise RuntimeError('Cancelled while checking navigation data')
-            if self.budget_time()>deadline:raise RuntimeError('Whole-run time budget exceeded while checking navigation data')
+            if self.expired(self.budget_time(),deadline):raise RuntimeError('Whole-run time budget exceeded while checking navigation data')
             map_age=wall-self.map_received;odom_age=wall-self.received
-            if grid is not None and map_age<=2 and odom_age<=2:
+            sensors_fresh=True
+            if self.manual_supervision:
+                sim=rospy.get_time()
+                sensors_fresh=(wall-self.scan_received<=2 and 0<=sim-self.scan_stamp<=.5 and
+                               grid is not None and 0<=sim-grid.header.stamp.to_sec()<=.5)
+            if grid is not None and map_age<=2 and odom_age<=2 and sensors_fresh:
                 if waiting:rospy.loginfo('Navigation data recovered; resuming checked motion')
                 return grid
             self.velocity.publish(Twist())
-            if wall-started>=5:
+            if self.expired(wall,started+5):
                 raise RuntimeError('Navigation data unavailable after 5 wall seconds; vehicle held stopped '
                                    '(map age %.3fs, odometry age %.3fs)'%(map_age,odom_age))
             if not waiting:
-                rospy.logwarn('Navigation data stale: holding zero velocity (map age %.3fs, odometry age %.3fs)',map_age,odom_age)
+                rospy.logwarn('Navigation data stale: holding zero velocity (map age %.3fs, odometry age %.3fs, sensors fresh %s)',map_age,odom_age,sensors_fresh)
                 waiting=True
             time.sleep(.05)
         raise RuntimeError('Shutdown while waiting for a fresh costmap')
@@ -384,7 +429,7 @@ class Control:
             while not rospy.is_shutdown():
                 grid=self.fresh_costmap(run_deadline)
                 wall=time.monotonic()
-                if self.cancelled.is_set() or rospy.get_time()>deadline or self.budget_time()>run_deadline or wall-self.received>2:
+                if self.cancelled.is_set() or self.expired(rospy.get_time(),deadline) or self.expired(self.budget_time(),run_deadline):
                     raise RuntimeError('Entry translation cancelled, stale odometry or timeout')
                 p=self.odom.pose.pose;q=p.orientation
                 angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
@@ -416,7 +461,7 @@ class Control:
             while not rospy.is_shutdown():
                 grid=self.fresh_costmap(run_deadline)
                 wall=time.monotonic()
-                if self.cancelled.is_set() or rospy.get_time()>deadline or self.budget_time()>run_deadline or wall-self.received>2:
+                if self.cancelled.is_set() or self.expired(rospy.get_time(),deadline) or self.expired(self.budget_time(),run_deadline):
                     raise RuntimeError('Entry rotation cancelled, stale odometry or timeout')
                 pose=self.odom.pose.pose;q=pose.orientation
                 angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
@@ -439,7 +484,7 @@ class Control:
             while not rospy.is_shutdown():
                 grid=self.fresh_costmap(run_deadline)
                 now=rospy.get_time();wall_now=time.monotonic()
-                if self.cancelled.is_set() or now>deadline or self.budget_time()>run_deadline or wall_now-self.received>2:
+                if self.cancelled.is_set() or self.expired(now,deadline) or self.expired(self.budget_time(),run_deadline):
                     raise RuntimeError('Straight docking cancelled, stale odometry or timeout')
                 pose=self.odom.pose.pose;q=pose.orientation;p=pose.position
                 angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
@@ -447,7 +492,7 @@ class Control:
                 if distance<tolerance:return
                 if math.hypot(p.x-previous.x,p.y-previous.y)>.005:
                     progress_at=now;previous=p
-                if now-progress_at>28:raise RuntimeError('Straight docking made no progress')
+                if self.expired(now,progress_at+28):raise RuntimeError('Straight docking made no progress')
                 heading_error=math.atan2(math.sin(angle-yaw),math.cos(angle-yaw))
                 if abs(heading_error)>.3:raise RuntimeError('Straight docking heading left the corridor')
                 v,omega,remaining=straight_velocity(p.x,p.y,angle,x,y,yaw,direction,self.fast,self.efficient,rospy.get_param('~route_flow',False))

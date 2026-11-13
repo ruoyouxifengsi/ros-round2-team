@@ -41,6 +41,14 @@ assert flow['/round2_control/flow_settings/navigation/max_vel_y']==0.
 assert flow['/attitude_guard/bend_settings/output_speed']==1.05
 assert params['/round2_control/route_flow'] is False
 print('PASS: route-flow bounds enabled explicitly; lateral planning disabled; old mode preserved')
+supervised=yaml.safe_load(subprocess.check_output(['roslaunch','--dump-params','round2_baseline','baseline.launch',
+    'timer:=true','manual_supervision:=true','timeout_clock:=sim']))
+assert supervised['/round2_control/manual_supervision'] is True
+assert supervised['/attitude_guard/manual_supervision'] is True
+assert supervised['/round2_control/timeout_clock']=='wall'
+assert flow['/round2_control/manual_supervision'] is False
+assert flow['/attitude_guard/manual_supervision'] is False
+print('PASS: supervised controller and output guard enabled together; timer entry unchanged; automatic default retained')
 original=ET.fromstring(params['/robot_description'])
 manual=yaml.safe_load(subprocess.check_output(['roslaunch','--dump-params','round2_baseline','baseline.launch',
     'timer:=true','low_com:=true','speed_profile:=sprint','continuous_bends:=true','efficient_approach:=true']))

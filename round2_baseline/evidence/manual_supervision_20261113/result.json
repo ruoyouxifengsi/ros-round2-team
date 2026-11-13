@@ -1,0 +1,59 @@
+{
+  "scope": "short straight motion only; pause/resume data and manual cancel; official timer not launched",
+  "passed": true,
+  "cases": [
+    {
+      "cancel": false,
+      "events": [
+        {
+          "state": "MOVING",
+          "detail": "finish",
+          "stamp": 745.179,
+          "control_only": true,
+          "wall": 9316.445202167
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "finish",
+          "stamp": 746.617,
+          "control_only": true,
+          "wall": 9333.179600657
+        },
+        {
+          "state": "CONTROL_ROUTE_DONE",
+          "detail": "CONTROL ONLY: image recognition and its processing time omitted",
+          "stamp": 746.617,
+          "control_only": true,
+          "wall": 9333.180964576
+        }
+      ],
+      "pause_to_terminal_wall_seconds": 16.73894796499917,
+      "deliberate_pause_wall_seconds": 8
+    },
+    {
+      "cancel": true,
+      "events": [
+        {
+          "state": "MOVING",
+          "detail": "finish",
+          "stamp": 746.987,
+          "control_only": true,
+          "wall": 9335.276306214
+        },
+        {
+          "state": "CANCELLED",
+          "detail": "Cancelled while checking navigation data",
+          "stamp": 747.017,
+          "control_only": true,
+          "wall": 9343.438326335
+        }
+      ],
+      "pause_to_terminal_wall_seconds": 8.111215756000092,
+      "deliberate_pause_wall_seconds": 8
+    }
+  ],
+  "cleanup": {
+    "owned_processes": 5,
+    "remaining": []
+  }
+}
