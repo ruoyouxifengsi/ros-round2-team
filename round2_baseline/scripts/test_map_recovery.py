@@ -22,7 +22,8 @@ def run(recover):
         if recover and clock[0]>=10.2:c.map_received=clock[0]
     params={'/move_base/local_costmap/footprint':[[.2,.1],[-.2,.1],[-.2,-.1],[.2,-.1]],'/move_base/local_costmap/footprint_padding':.005}
     with patch.object(m.time,'monotonic',side_effect=lambda:clock[0]),patch.object(m.time,'sleep',side_effect=sleep), \
-         patch.object(m.rospy,'is_shutdown',return_value=False),patch.object(m.rospy,'get_param',side_effect=lambda key:params[key]), \
+         patch.object(m.rospy,'get_time',side_effect=lambda:clock[0]), \
+         patch.object(m.rospy,'is_shutdown',return_value=False),patch.object(m.rospy,'get_param',side_effect=lambda key,default=None:params.get(key,default)), \
          patch.object(m.rospy,'logwarn'),patch.object(m.rospy,'loginfo'):
         if recover:
             c.straight_move(.3,0.,0.,40.,1,.025)

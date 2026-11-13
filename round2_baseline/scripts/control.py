@@ -134,6 +134,7 @@ class Control:
         self.received = time.monotonic()
 
     def budget_time(self):
+        # Only the whole-run budget follows timeout_clock; motion watchdogs use ROS time.
         return rospy.get_time() if self.sim_timeouts else time.monotonic()
 
     def report(self, state, detail):
@@ -238,13 +239,13 @@ class Control:
                 g.target_pose.pose.orientation.z = math.sin(yaw/2)
                 g.target_pose.pose.orientation.w = math.cos(yaw/2)
                 self.client.send_goal(g)
-                deadline = self.budget_time()+(150 if name=='cone_exit' else 90)
-                progress_at=self.budget_time()
+                deadline = rospy.get_time()+(150 if name=='cone_exit' else 90)
+                progress_at=rospy.get_time()
                 previous=self.odom.pose.pose
                 approach_released=distance<=0.02 or name in ('cone_exit','blocks','return')
                 passed=False
                 while not self.client.wait_for_result(rospy.Duration(0.05 if passing else 0.2)):
-                    now=self.budget_time();wall_now=time.monotonic()
+                    now=rospy.get_time();wall_now=time.monotonic()
                     current=self.odom.pose.pose
                     if docking_cruise and math.hypot(current.position.x-x,current.position.y-y)<.12:
                         planner.update_configuration({'max_vel_x':docking['max_vel_x']})
@@ -264,8 +265,8 @@ class Control:
                     if moved or turned:
                         previous=current;progress_at=now
                     if now-progress_at>28:
-                        raise RuntimeError('No measured movement for 28 budget seconds: '+name)
-                    if self.cancelled.is_set() or now>deadline or now>run_deadline or wall_now-self.received>2:
+                        raise RuntimeError('No measured movement for 28 simulation seconds: '+name)
+                    if self.cancelled.is_set() or now>deadline or self.budget_time()>run_deadline or wall_now-self.received>2:
                         raise RuntimeError('Cancelled, stale odometry or stage timeout: '+name)
                 if passed:
                     self.report('PASSED',name)
@@ -310,15 +311,17 @@ class Control:
                 time.sleep(.02)
             name,x,y,yaw=route[-1]
             self.report('MOVING',route[0][0])
-            index=0;progress=0;deadline=min(run_deadline,self.budget_time()+60)
-            last_progress=self.budget_time();previous=p
+            index=0;progress=0;deadline=rospy.get_time()+60
+            last_progress=rospy.get_time();previous=p
             while not rospy.is_shutdown():
                 now=time.monotonic();pose=self.odom.pose.pose;position=pose.position;q=pose.orientation
-                if self.cancelled.is_set() or now-self.received>2 or self.budget_time()>deadline:
-                    raise RuntimeError('Continuous bend path cancelled, stale or timed out')
+                if self.cancelled.is_set():raise RuntimeError('Continuous bend path cancelled')
+                if now-self.received>2:raise RuntimeError('Continuous bend path odometry stale for 2 wall seconds')
+                if self.budget_time()>run_deadline:raise RuntimeError('Whole-run time budget exceeded during bends')
+                if rospy.get_time()>deadline:raise RuntimeError('Continuous bend path exceeded 60 simulation seconds')
                 if math.hypot(position.x-previous.x,position.y-previous.y)>.01:
-                    last_progress=self.budget_time();previous=position
-                if self.budget_time()-last_progress>5:raise RuntimeError('Continuous bend path made no measured progress')
+                    last_progress=rospy.get_time();previous=position
+                if rospy.get_time()-last_progress>5:raise RuntimeError('Continuous bend path made no measured progress for 5 simulation seconds')
                 if index<len(route)-1 and math.hypot(position.x-route[index][1],position.y-route[index][2])<.10:
                     self.report('PASSED',route[index][0]);index+=1
                     self.report('MOVING',route[index][0])
@@ -326,7 +329,7 @@ class Control:
                 angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
                 vx,omega,progress=path_command(path,progress,position.x,position.y,angle,
                     tuning['max_speed'],tuning['acceleration'],tuning['max_yaw_rate'])
-                grid=self.fresh_costmap(deadline)
+                grid=self.fresh_costmap(run_deadline)
                 measured=self.odom.twist.twist
                 safe=braking_clear(lambda px,py,pa:footprint_clear(grid,px,py,pa,polygon,padding),
                     position.x,position.y,angle,(measured.linear.x,measured.linear.y,measured.angular.z),
@@ -372,13 +375,13 @@ class Control:
         if math.hypot(p.position.x-x,p.position.y-y)>.25:
             raise RuntimeError('Entry translation is only permitted near its waypoint')
         q=p.orientation;heading=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
-        deadline=min(run_deadline,self.budget_time()+10)
+        deadline=rospy.get_time()+10
         try:
             while not rospy.is_shutdown():
                 wall=time.monotonic()
-                if self.cancelled.is_set() or self.budget_time()>deadline or wall-self.received>2:
+                if self.cancelled.is_set() or rospy.get_time()>deadline or self.budget_time()>run_deadline or wall-self.received>2:
                     raise RuntimeError('Entry translation cancelled, stale odometry or timeout')
-                grid=self.fresh_costmap(deadline)
+                grid=self.fresh_costmap(run_deadline)
                 p=self.odom.pose.pose;q=p.orientation
                 angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
                 vx,vy,omega,distance=entry_velocity(p.position.x,p.position.y,angle,x,y,heading)
@@ -404,13 +407,13 @@ class Control:
         polygon=rospy.get_param('/move_base/local_costmap/footprint')
         if isinstance(polygon,str):polygon=ast.literal_eval(polygon)
         padding=rospy.get_param('/move_base/local_costmap/footprint_padding')
-        deadline=min(run_deadline,self.budget_time()+15)
+        deadline=rospy.get_time()+15
         try:
             while not rospy.is_shutdown():
                 wall=time.monotonic()
-                if self.cancelled.is_set() or self.budget_time()>deadline or wall-self.received>2:
+                if self.cancelled.is_set() or rospy.get_time()>deadline or self.budget_time()>run_deadline or wall-self.received>2:
                     raise RuntimeError('Entry rotation cancelled, stale odometry or timeout')
-                grid=self.fresh_costmap(deadline)
+                grid=self.fresh_costmap(run_deadline)
                 pose=self.odom.pose.pose;q=pose.orientation
                 angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
                 omega=short_turn_command(grid,pose.position.x,pose.position.y,angle,target,polygon,padding,angular_limit,tolerance)
@@ -426,14 +429,14 @@ class Control:
         polygon=rospy.get_param('/move_base/local_costmap/footprint')
         if isinstance(polygon,str):polygon=ast.literal_eval(polygon)
         padding=rospy.get_param('/move_base/local_costmap/footprint_padding')
-        deadline=min(run_deadline,self.budget_time()+90)
-        progress_at=self.budget_time();previous=self.odom.pose.pose.position
+        deadline=rospy.get_time()+90
+        progress_at=rospy.get_time();previous=self.odom.pose.pose.position
         try:
             while not rospy.is_shutdown():
-                now=self.budget_time();wall_now=time.monotonic()
-                if self.cancelled.is_set() or now>deadline or wall_now-self.received>2:
+                now=rospy.get_time();wall_now=time.monotonic()
+                if self.cancelled.is_set() or now>deadline or self.budget_time()>run_deadline or wall_now-self.received>2:
                     raise RuntimeError('Straight docking cancelled, stale odometry or timeout')
-                grid=self.fresh_costmap(deadline)
+                grid=self.fresh_costmap(run_deadline)
                 pose=self.odom.pose.pose;q=pose.orientation;p=pose.position
                 angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
                 dx,dy=x-p.x,y-p.y;distance=math.hypot(dx,dy)

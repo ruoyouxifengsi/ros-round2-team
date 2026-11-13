@@ -43,7 +43,7 @@ def navigate(control,planner,route,deadline,settings,pass_last=False,announce=Tr
     goal.target_pose.pose.orientation.z=math.sin(yaw/2);goal.target_pose.pose.orientation.w=math.cos(yaw/2)
     if announce:control.report('MOVING',route[0][0])
     control.client.send_goal(goal)
-    index=0;last_progress=control.budget_time();previous=control.odom.pose.pose;approach=False
+    index=0;last_progress=rospy.get_time();previous=control.odom.pose.pose;approach=False
     while not rospy.is_shutdown():
         pose=control.odom.pose.pose;p=pose.position
         if control.cancelled.is_set() or time.monotonic()-control.received>2 or control.budget_time()>deadline:
@@ -51,8 +51,8 @@ def navigate(control,planner,route,deadline,settings,pass_last=False,announce=Tr
         moved=math.hypot(p.x-previous.position.x,p.y-previous.position.y)>.01
         a,b=previous.orientation,pose.orientation
         turned=abs(a.x*b.x+a.y*b.y+a.z*b.z+a.w*b.w)<math.cos(.02/2)
-        if moved or turned:previous=pose;last_progress=control.budget_time()
-        if control.budget_time()-last_progress>28:raise RuntimeError('Route navigation made no progress: '+name)
+        if moved or turned:previous=pose;last_progress=rospy.get_time()
+        if rospy.get_time()-last_progress>28:raise RuntimeError('Route navigation made no progress for 28 simulation seconds: '+name)
         if name=='qr' and not approach and math.hypot(p.x-x,p.y-y)<.15:
             planner.update_configuration(dict(max_vel_x=.20,min_obstacle_dist=.02));approach=True
         reached_via=via_reached(route[index],p.x,p.y)
