@@ -473,11 +473,13 @@ class Control:
         finally:
             self.velocity.publish(Twist())
 
-    def straight_move(self, x, y, yaw, run_deadline, direction, tolerance):
+    def straight_move(self, x, y, yaw, run_deadline, direction, tolerance, finish_region=False):
         self.client.cancel_all_goals()
         polygon=rospy.get_param('/move_base/local_costmap/footprint')
         if isinstance(polygon,str):polygon=ast.literal_eval(polygon)
         padding=rospy.get_param('/move_base/local_costmap/footprint_padding')
+        if finish_region:
+            from finish_region import contained,can_stop_inside
         deadline=rospy.get_time()+90
         progress_at=rospy.get_time();previous=self.odom.pose.pose.position
         try:
@@ -489,7 +491,15 @@ class Control:
                 pose=self.odom.pose.pose;q=pose.orientation;p=pose.position
                 angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
                 dx,dy=x-p.x,y-p.y;distance=math.hypot(dx,dy)
-                if distance<tolerance:return
+                if finish_region:
+                    v=self.odom.twist.twist
+                    if can_stop_inside(p.x,p.y,angle,(v.linear.x,v.linear.y,v.angular.z),polygon):
+                        if not self.stopped():raise RuntimeError('Finish region did not stop')
+                        pose=self.odom.pose.pose;p=pose.position;q=pose.orientation
+                        angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
+                        if contained(p.x,p.y,angle,polygon):return
+                        continue
+                elif distance<tolerance:return
                 if math.hypot(p.x-previous.x,p.y-previous.y)>.005:
                     progress_at=now;previous=p
                 if self.expired(now,progress_at+28):raise RuntimeError('Straight docking made no progress')

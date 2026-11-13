@@ -1,0 +1,50 @@
+{
+  "name": "final_current",
+  "accepted": true,
+  "checks": {
+    "completed": true,
+    "contact_coverage": true,
+    "zero_contacts": true,
+    "no_tilt": true,
+    "zero_lateral": true,
+    "cones_unchanged": true,
+    "finish_contained": true,
+    "finish_stopped": true,
+    "blocks_stopped": true,
+    "blocks_pose": true,
+    "cleanup": true
+  },
+  "sim_seconds": 25.4079999999999,
+  "wall_seconds": 229.93326779400013,
+  "stages": {
+    "qr_exit": 2.787,
+    "cone_entry": 1.702,
+    "cone_exit": 6.629,
+    "blocks": 0.863,
+    "return": 9.442,
+    "finish_approach": 1.562,
+    "finish": 2.423
+  },
+  "max_cone_displacement": 0.0,
+  "max_tilt_deg": 0.42026468436472014,
+  "contacts": {
+    "type": "summary",
+    "messages": 25782,
+    "all_contacts": 308918,
+    "cone_contact_events": 0,
+    "wall_contact_events": 0,
+    "sim": 1243.966
+  },
+  "final_pose": {
+    "t": 1243.951,
+    "wall": 13305.959339011,
+    "x": -0.24522988407593013,
+    "y": 2.192901523267707,
+    "yaw": 1.5899140158825804,
+    "v": [
+      -9.090483119523713e-07,
+      8.774984322486391e-06,
+      -3.5061555750229778e-06
+    ]
+  }
+}

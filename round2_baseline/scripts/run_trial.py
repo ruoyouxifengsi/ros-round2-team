@@ -308,6 +308,7 @@ try:
     result['elapsed_sim']=rospy.get_time()-sim_start
     result['final_status']=dict(status)
     result['executed_route']=rospy.get_param('/round2_control/executed_route',rospy.get_param('/round2_control/route'))
+    result['continuous_regions']=rospy.get_param('/round2_control/finish_region_mode',False)
     rospy.ServiceProxy('/nav_start',SetBool)(False)
     time.sleep(2)
     (out/'poses.json').write_text(json.dumps(poses))

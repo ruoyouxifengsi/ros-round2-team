@@ -34,7 +34,7 @@ def entry_curve(start,end,heading):
 
 def navigate(control,planner,route,deadline,settings,pass_last=False,announce=True):
     values=dict(settings,free_goal_vel=pass_last)
-    if pass_last:values['yaw_goal_tolerance']=math.pi
+    if pass_last and route[-1][0]!='finish_approach':values['yaw_goal_tolerance']=math.pi
     planner.update_configuration(values)
     name,x,y,yaw=route[-1]
     goal=MoveBaseGoal();goal.target_pose.header.frame_id=control.navigation_frame
@@ -63,7 +63,10 @@ def navigate(control,planner,route,deadline,settings,pass_last=False,announce=Tr
             control.straight_move(x,y,yaw,deadline,1,.0095)
             if not control.stopped():raise RuntimeError('QR final docking did not stop')
             control.report('ARRIVED',name);return
-        if pass_last and index==len(route)-1 and math.hypot(p.x-x,p.y-y)<.10:
+        q=pose.orientation
+        angle=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
+        aligned=name!='finish_approach' or abs(math.atan2(math.sin(angle-yaw),math.cos(angle-yaw)))<.25
+        if pass_last and index==len(route)-1 and math.hypot(p.x-x,p.y-y)<.10 and aligned:
             control.report('PASSED',name);return
         state=control.client.get_state()
         if state in (2,3,4,5,8,9):
@@ -76,7 +79,11 @@ def navigate(control,planner,route,deadline,settings,pass_last=False,announce=Tr
 
 def run_flow(control,planner,route,deadline):
     cfg=rospy.get_param('~flow_settings')
+    continuous_regions=cfg.get('continuous_regions',False)
     route=[[name,*cfg['staging'].get(name,[x,y,yaw])] for name,x,y,yaw in route]
+    if continuous_regions:
+        route=[[name,x,2.25 if name=='finish' else y,yaw] for name,x,y,yaw in route]
+    rospy.set_param('~finish_region_mode',continuous_regions)
     rospy.set_param('~executed_route',route)
     prefix=[]
     for point in route:
@@ -92,6 +99,11 @@ def run_flow(control,planner,route,deadline):
             values=dict(cfg['navigation'],xy_goal_tolerance=.01,yaw_goal_tolerance=.08,min_obstacle_dist=.06)
             navigate(control,planner,route[i:i+2],deadline,values)
             control.report('IMAGE_SKIPPED','qr');i+=1
+        elif name=='finish' and continuous_regions:
+            control.report('MOVING',name)
+            # Arrival is geometric; this tolerance only bounds collision lookahead before braking.
+            control.straight_move(x,y,yaw,deadline,1,.07,finish_region=True)
+            control.report('ARRIVED',name)
         elif name in ('qr_exit','finish'):
             control.report('MOVING',name)
             control.straight_move(x,y,yaw,deadline,-1 if name=='qr_exit' else 1,.012 if name=='qr_exit' else .025)
@@ -101,7 +113,9 @@ def run_flow(control,planner,route,deadline):
             p=control.odom.pose.pose;q=p.orientation
             heading=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
             curve=entry_curve((p.position.x,p.position.y),(x,y,yaw),heading)
-            control.follow_bends([route[i]],deadline,path_override=curve,position_tolerance=.015,yaw_tolerance=.08)
+            control.follow_bends([route[i]],deadline,path_override=curve,
+                                 position_tolerance=.04 if continuous_regions else .015,
+                                 yaw_tolerance=.25 if continuous_regions else .08)
         elif name=='cone_exit' and i+1<len(route) and route[i+1][0]=='blocks':
             navigate(control,planner,route[i:i+2],deadline,cfg['navigation'])
             control.report('IMAGE_SKIPPED','blocks');i+=1
@@ -114,7 +128,11 @@ def run_flow(control,planner,route,deadline):
             control.rotate_short(-math.pi/2,deadline,2.4,.12)
             if not control.stopped():raise RuntimeError('Recognition-area departure turn did not stop')
             values=dict(cfg['navigation'],xy_goal_tolerance=.06,yaw_goal_tolerance=.12)
-            navigate(control,planner,route[i:i+2],deadline,values,announce=False);i+=1
+            if continuous_regions and i+2<len(route) and route[i+2][0]=='finish':
+                navigate(control,planner,route[i:i+2],deadline,values,announce=False,pass_last=True)
+                i+=1
+            else:
+                navigate(control,planner,route[i:i+2],deadline,values,announce=False);i+=1
         else:
             navigate(control,planner,[route[i]],deadline,cfg['navigation'],pass_last=name=='return' and i+1<len(route))
             if name=='blocks':control.report('IMAGE_SKIPPED','blocks')

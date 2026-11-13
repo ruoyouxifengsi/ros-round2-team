@@ -1,0 +1,744 @@
+[
+  {
+    "name": "candidate1",
+    "reason": "Direct TEB cone entry touched Wall_43; cancelled and rejected.",
+    "result": {
+      "scope": "DEVELOPMENT TAIL ONLY: QR departure through finish; no recognition or official timer",
+      "candidate": true,
+      "passed": false,
+      "cones_before": {
+        "construction_cone_0": [
+          -2.249999999871654,
+          1.7500000000529874,
+          -6.156637013922849e-06
+        ],
+        "construction_cone_1": [
+          -1.249999999932911,
+          1.7500000000100604,
+          -6.637808719279216e-06
+        ],
+        "construction_cone_2": [
+          -1.7499999999631268,
+          0.7500000000117999,
+          -8.19164542482223e-06
+        ],
+        "construction_cone_3": [
+          -0.24999999990261856,
+          0.7500000000304502,
+          -3.1772570543216937e-06
+        ],
+        "construction_cone_4": [
+          -2.2499999999806453,
+          0.25000000000735,
+          -8.177147382545822e-06
+        ]
+      },
+      "events": [
+        {
+          "state": "MOVING",
+          "detail": "qr_exit",
+          "stamp": 1033.468,
+          "control_only": true,
+          "wall": 11513.983584782
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "qr_exit",
+          "stamp": 1035.801,
+          "control_only": true,
+          "wall": 11532.95232971
+        },
+        {
+          "state": "MOVING",
+          "detail": "cone_entry",
+          "stamp": 1035.809,
+          "control_only": true,
+          "wall": 11532.99879494
+        },
+        {
+          "state": "PASSED",
+          "detail": "cone_entry",
+          "stamp": 1037.3,
+          "control_only": true,
+          "wall": 11547.073900483
+        },
+        {
+          "state": "MOVING",
+          "detail": "cone_exit",
+          "stamp": 1037.3,
+          "control_only": true,
+          "wall": 11547.085169187
+        },
+        {
+          "state": "CANCELLED",
+          "detail": "Cancelled while checking navigation data",
+          "stamp": 1044.141,
+          "control_only": true,
+          "wall": 11611.402228765
+        }
+      ],
+      "route_done": false,
+      "sim_seconds": 10.673000000000002,
+      "wall_seconds": 97.41864398300095,
+      "final_pose": {
+        "t": 1044.27,
+        "wall": 11612.089743227,
+        "x": -1.6989600156833962,
+        "y": 1.95054354686988,
+        "yaw": 1.8441483791563527,
+        "v": [
+          0.2901128880375309,
+          -0.006808479381040525,
+          0.002524432014016544
+        ]
+      },
+      "max_tilt_deg": 0.10201903984319936,
+      "cones_after": {
+        "construction_cone_0": [
+          -2.249999999871654,
+          1.7500000000529874,
+          -6.156637013922849e-06
+        ],
+        "construction_cone_1": [
+          -1.249999999932911,
+          1.7500000000100604,
+          -6.637808719279216e-06
+        ],
+        "construction_cone_2": [
+          -1.7499999999631268,
+          0.7500000000117999,
+          -8.19164542482223e-06
+        ],
+        "construction_cone_3": [
+          -0.24999999990261856,
+          0.7500000000304502,
+          -3.1772570543216937e-06
+        ],
+        "construction_cone_4": [
+          -2.2499999999806453,
+          0.25000000000735,
+          -8.177147382545822e-06
+        ]
+      },
+      "max_lateral_command": 0.0,
+      "cleanup": {
+        "owned_processes": 6,
+        "remaining": []
+      },
+      "contacts": {
+        "type": "summary",
+        "messages": 10898,
+        "all_contacts": 132327,
+        "cone_contact_events": 0,
+        "wall_contact_events": 2,
+        "sim": 1044.281
+      }
+    },
+    "contact_events": [
+      {
+        "type": "contact_begin",
+        "sim": 1036.702,
+        "kind": "wall",
+        "a": "car3::base_footprint::base_footprint_fixed_joint_lump__wheel_lb_link_collision_4",
+        "b": "round2_map::Wall_43::Wall_43_Collision"
+      },
+      {
+        "type": "contact_begin",
+        "sim": 1037.547,
+        "kind": "wall",
+        "a": "car3::base_footprint::base_footprint_fixed_joint_lump__base_link_collision",
+        "b": "round2_map::Wall_43::Wall_43_Collision"
+      }
+    ]
+  },
+  {
+    "name": "candidate2",
+    "reason": "Direct goal from blocks to finish repeatedly turned near the blocks exit; cancelled and rejected.",
+    "result": {
+      "scope": "DEVELOPMENT TAIL ONLY: QR departure through finish; no recognition or official timer",
+      "candidate": true,
+      "passed": false,
+      "cones_before": {
+        "construction_cone_0": [
+          -2.249999999871654,
+          1.7500000000529874,
+          -6.156637013922849e-06
+        ],
+        "construction_cone_1": [
+          -1.249999999932911,
+          1.7500000000100604,
+          -6.637808719279216e-06
+        ],
+        "construction_cone_2": [
+          -1.7499999999631268,
+          0.7500000000117999,
+          -8.19164542482223e-06
+        ],
+        "construction_cone_3": [
+          -0.24999999990261856,
+          0.7500000000304502,
+          -3.1772570543216937e-06
+        ],
+        "construction_cone_4": [
+          -2.2499999999806453,
+          0.25000000000735,
+          -8.177147382545822e-06
+        ]
+      },
+      "events": [
+        {
+          "state": "MOVING",
+          "detail": "qr_exit",
+          "stamp": 1063.058,
+          "control_only": true,
+          "wall": 11753.39865028
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "qr_exit",
+          "stamp": 1066.316,
+          "control_only": true,
+          "wall": 11784.181162727
+        },
+        {
+          "state": "MOVING",
+          "detail": "cone_entry",
+          "stamp": 1066.354,
+          "control_only": true,
+          "wall": 11785.128984237
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "cone_entry",
+          "stamp": 1068.014,
+          "control_only": true,
+          "wall": 11800.067273073
+        },
+        {
+          "state": "MOVING",
+          "detail": "cone_exit",
+          "stamp": 1068.058,
+          "control_only": true,
+          "wall": 11800.959027124
+        },
+        {
+          "state": "PASSED",
+          "detail": "cone_exit",
+          "stamp": 1074.396,
+          "control_only": true,
+          "wall": 11856.922673781
+        },
+        {
+          "state": "MOVING",
+          "detail": "blocks",
+          "stamp": 1074.396,
+          "control_only": true,
+          "wall": 11856.924439749
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "blocks",
+          "stamp": 1074.873,
+          "control_only": true,
+          "wall": 11861.380538733
+        },
+        {
+          "state": "IMAGE_SKIPPED",
+          "detail": "blocks",
+          "stamp": 1074.873,
+          "control_only": true,
+          "wall": 11861.39514784
+        },
+        {
+          "state": "MOVING",
+          "detail": "return",
+          "stamp": 1074.873,
+          "control_only": true,
+          "wall": 11861.409386388
+        },
+        {
+          "state": "CANCELLED",
+          "detail": "Cancelled while checking navigation data",
+          "stamp": 1092.471,
+          "control_only": true,
+          "wall": 12025.437345849
+        }
+      ],
+      "route_done": false,
+      "sim_seconds": 29.41300000000001,
+      "wall_seconds": 272.038695569001,
+      "final_pose": {
+        "t": 1092.516,
+        "wall": 12025.648639061,
+        "x": -1.7445513233384093,
+        "y": 2.1443743070743615,
+        "yaw": 1.6997480887448093,
+        "v": [
+          5.0465434914687415e-06,
+          1.325898281706924e-06,
+          0.0
+        ]
+      },
+      "max_tilt_deg": 0.09951188462266813,
+      "cones_after": {
+        "construction_cone_0": [
+          -2.249999999871654,
+          1.7500000000529874,
+          -6.156637013922849e-06
+        ],
+        "construction_cone_1": [
+          -1.249999999932911,
+          1.7500000000100604,
+          -6.637808719279216e-06
+        ],
+        "construction_cone_2": [
+          -1.7499999999631268,
+          0.7500000000117999,
+          -8.19164542482223e-06
+        ],
+        "construction_cone_3": [
+          -0.24999999990261856,
+          0.7500000000304502,
+          -3.1772570543216937e-06
+        ],
+        "construction_cone_4": [
+          -2.2499999999806453,
+          0.25000000000735,
+          -8.177147382545822e-06
+        ]
+      },
+      "max_lateral_command": 0.0,
+      "cleanup": {
+        "owned_processes": 6,
+        "remaining": []
+      },
+      "contacts": {
+        "type": "summary",
+        "messages": 29673,
+        "all_contacts": 356066,
+        "cone_contact_events": 0,
+        "wall_contact_events": 0,
+        "sim": 1092.594
+      }
+    },
+    "contact_events": []
+  },
+  {
+    "name": "candidate3",
+    "reason": "Entry/return passed, but TEB finish stalled; cancelled and rejected.",
+    "result": {
+      "scope": "DEVELOPMENT TAIL ONLY: QR departure through finish; no recognition or official timer",
+      "candidate": true,
+      "passed": false,
+      "cones_before": {
+        "construction_cone_0": [
+          -2.249999999871654,
+          1.7500000000529874,
+          -6.156637013922849e-06
+        ],
+        "construction_cone_1": [
+          -1.249999999932911,
+          1.7500000000100604,
+          -6.637808719279216e-06
+        ],
+        "construction_cone_2": [
+          -1.7499999999631268,
+          0.7500000000117999,
+          -8.19164542482223e-06
+        ],
+        "construction_cone_3": [
+          -0.24999999990261856,
+          0.7500000000304502,
+          -3.1772570543216937e-06
+        ],
+        "construction_cone_4": [
+          -2.2499999999806453,
+          0.25000000000735,
+          -8.177147382545822e-06
+        ]
+      },
+      "events": [
+        {
+          "state": "MOVING",
+          "detail": "qr_exit",
+          "stamp": 1104.43,
+          "control_only": true,
+          "wall": 12121.384552628
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "qr_exit",
+          "stamp": 1106.785,
+          "control_only": true,
+          "wall": 12140.706620575
+        },
+        {
+          "state": "MOVING",
+          "detail": "cone_entry",
+          "stamp": 1106.832,
+          "control_only": true,
+          "wall": 12140.917441018
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "cone_entry",
+          "stamp": 1108.403,
+          "control_only": true,
+          "wall": 12158.046003526
+        },
+        {
+          "state": "MOVING",
+          "detail": "cone_exit",
+          "stamp": 1108.434,
+          "control_only": true,
+          "wall": 12158.310268841
+        },
+        {
+          "state": "PASSED",
+          "detail": "cone_exit",
+          "stamp": 1114.141,
+          "control_only": true,
+          "wall": 12207.149286618
+        },
+        {
+          "state": "MOVING",
+          "detail": "blocks",
+          "stamp": 1114.142,
+          "control_only": true,
+          "wall": 12207.150517917
+        },
+        {
+          "state": "ARRIVED",
+          "detail": "blocks",
+          "stamp": 1114.746,
+          "control_only": true,
+          "wall": 12211.667935283
+        },
+        {
+          "state": "IMAGE_SKIPPED",
+          "detail": "blocks",
+          "stamp": 1114.747,
+          "control_only": true,
+          "wall": 12211.669110946
+        },
+        {
+          "state": "MOVING",
+          "detail": "return",
+          "stamp": 1114.747,
+          "control_only": true,
+          "wall": 12211.670424419
+        },
+        {
+          "state": "PASSED",
+          "detail": "return",
+          "stamp": 1126.008,
+          "control_only": true,
+          "wall": 12316.351045652
+        },
+        {
+          "state": "MOVING",
+          "detail": "finish_approach",
+          "stamp": 1126.008,
+          "control_only": true,
+          "wall": 12316.352816443
+        },
+        {
+          "state": "PASSED",
+          "detail": "finish_approach",
+          "stamp": 1126.791,
+          "control_only": true,
+          "wall": 12322.725116047
+        },
+        {
+          "state": "MOVING",
+          "detail": "finish",
+          "stamp": 1126.799,
+          "control_only": true,
+          "wall": 12322.762032843
+        },
+        {
+          "state": "CANCELLED",
+          "detail": "Cancelled while checking navigation data",
+          "stamp": 1138.065,
+          "control_only": true,
+          "wall": 12425.450570088
+        }
+      ],
+      "route_done": false,
+      "sim_seconds": 33.63499999999999,
+      "wall_seconds": 304.0660174599998,
+      "final_pose": {
+        "t": 1138.144,
+        "wall": 12426.474229795,
+        "x": -0.24194646611707,
+        "y": 1.3116494957753473,
+        "yaw": 1.590752890235355,
+        "v": [
+          1.4822880848011878e-07,
+          1.4311977388082985e-07,
+          0.0
+        ]
+      },
+      "max_tilt_deg": 0.09921906537970002,
+      "cones_after": {
+        "construction_cone_0": [
+          -2.249999999871654,
+          1.7500000000529874,
+          -6.156637013922849e-06
+        ],
+        "construction_cone_1": [
+          -1.249999999932911,
+          1.7500000000100604,
+          -6.637808719279216e-06
+        ],
+        "construction_cone_2": [
+          -1.7499999999631268,
+          0.7500000000117999,
+          -8.19164542482223e-06
+        ],
+        "construction_cone_3": [
+          -0.24999999990261856,
+          0.7500000000304502,
+          -3.1772570543216937e-06
+        ],
+        "construction_cone_4": [
+          -2.2499999999806453,
+          0.25000000000735,
+          -8.177147382545822e-06
+        ]
+      },
+      "max_lateral_command": 0.0,
+      "cleanup": {
+        "owned_processes": 6,
+        "remaining": []
+      },
+      "contacts": {
+        "type": "summary",
+        "messages": 33935,
+        "all_contacts": 407212,
+        "cone_contact_events": 0,
+        "wall_contact_events": 0,
+        "sim": 1138.229
+      }
+    },
+    "contact_events": []
+  },
+  {
+    "name": "finish4",
+    "reason": "Reducing TEB clearance did not resolve trajectory infeasibility; cancelled and rejected.",
+    "result": {
+      "scope": "DEVELOPMENT FINISH ONLY; no recognition or official timer",
+      "candidate": true,
+      "passed": false,
+      "cones_before": {
+        "construction_cone_0": [
+          -2.249999999871654,
+          1.7500000000529874,
+          -6.156637013922849e-06
+        ],
+        "construction_cone_1": [
+          -1.249999999932911,
+          1.7500000000100604,
+          -6.637808719279216e-06
+        ],
+        "construction_cone_2": [
+          -1.7499999999631268,
+          0.7500000000117999,
+          -8.19164542482223e-06
+        ],
+        "construction_cone_3": [
+          -0.24999999990261856,
+          0.7500000000304502,
+          -3.1772570543216937e-06
+        ],
+        "construction_cone_4": [
+          -2.2499999999806453,
+          0.25000000000735,
+          -8.177147382545822e-06
+        ]
+      },
+      "events": [
+        {
+          "state": "MOVING",
+          "detail": "finish",
+          "stamp": 1152.769,
+          "control_only": true,
+          "wall": 12538.459468363
+        },
+        {
+          "state": "CANCELLED",
+          "detail": "Cancelled while checking navigation data",
+          "stamp": 1161.209,
+          "control_only": true,
+          "wall": 12615.670375038
+        }
+      ],
+      "route_done": false,
+      "sim_seconds": 8.440000000000055,
+      "wall_seconds": 77.21090667499993,
+      "final_pose": {
+        "t": 1161.331,
+        "wall": 12616.80843726,
+        "x": -0.24877329395024528,
+        "y": 1.2900476872904665,
+        "yaw": 1.594350640585453,
+        "v": [
+          1.1033780026926793e-13,
+          -3.036269463721181e-14,
+          0.0
+        ]
+      },
+      "max_tilt_deg": 0.054241557115673404,
+      "cones_after": {
+        "construction_cone_0": [
+          -2.249999999871654,
+          1.7500000000529874,
+          -6.156637013922849e-06
+        ],
+        "construction_cone_1": [
+          -1.249999999932911,
+          1.7500000000100604,
+          -6.637808719279216e-06
+        ],
+        "construction_cone_2": [
+          -1.7499999999631268,
+          0.7500000000117999,
+          -8.19164542482223e-06
+        ],
+        "construction_cone_3": [
+          -0.24999999990261856,
+          0.7500000000304502,
+          -3.1772570543216937e-06
+        ],
+        "construction_cone_4": [
+          -2.2499999999806453,
+          0.25000000000735,
+          -8.177147382545822e-06
+        ]
+      },
+      "max_lateral_command": 0.0,
+      "cleanup": {
+        "owned_processes": 6,
+        "remaining": []
+      },
+      "contacts": {
+        "type": "summary",
+        "messages": 8608,
+        "all_contacts": 103285,
+        "cone_contact_events": 0,
+        "wall_contact_events": 0,
+        "sim": 1161.346
+      }
+    },
+    "contact_events": []
+  },
+  {
+    "name": "finish5",
+    "reason": "Straight prediction extended beyond the required stopping area and held zero; cancelled and rejected.",
+    "result": {
+      "scope": "DEVELOPMENT FINISH ONLY; no recognition or official timer",
+      "candidate": true,
+      "passed": false,
+      "cones_before": {
+        "construction_cone_0": [
+          -2.249999999871654,
+          1.7500000000529874,
+          -6.156637013922849e-06
+        ],
+        "construction_cone_1": [
+          -1.249999999932911,
+          1.7500000000100604,
+          -6.637808719279216e-06
+        ],
+        "construction_cone_2": [
+          -1.7499999999631268,
+          0.7500000000117999,
+          -8.19164542482223e-06
+        ],
+        "construction_cone_3": [
+          -0.24999999990261856,
+          0.7500000000304502,
+          -3.1772570543216937e-06
+        ],
+        "construction_cone_4": [
+          -2.2499999999806453,
+          0.25000000000735,
+          -8.177147382545822e-06
+        ]
+      },
+      "events": [
+        {
+          "state": "MOVING",
+          "detail": "finish",
+          "stamp": 1180.448,
+          "control_only": true,
+          "wall": 12760.380984963
+        },
+        {
+          "state": "CANCELLED",
+          "detail": "Cancelled while checking navigation data",
+          "stamp": 1193.426,
+          "control_only": true,
+          "wall": 12876.688474632
+        }
+      ],
+      "route_done": false,
+      "sim_seconds": 12.977999999999838,
+      "wall_seconds": 116.30748966899955,
+      "final_pose": {
+        "t": 1193.53,
+        "wall": 12877.172781263,
+        "x": -0.2499992437338719,
+        "y": 1.6646736795095987,
+        "yaw": 1.5708007882738846,
+        "v": [
+          1.1102211700857434e-13,
+          -4.163385796728683e-14,
+          0.0
+        ]
+      },
+      "max_tilt_deg": 0.054241557203024184,
+      "cones_after": {
+        "construction_cone_0": [
+          -2.249999999871654,
+          1.7500000000529874,
+          -6.156637013922849e-06
+        ],
+        "construction_cone_1": [
+          -1.249999999932911,
+          1.7500000000100604,
+          -6.637808719279216e-06
+        ],
+        "construction_cone_2": [
+          -1.7499999999631268,
+          0.7500000000117999,
+          -8.19164542482223e-06
+        ],
+        "construction_cone_3": [
+          -0.24999999990261856,
+          0.7500000000304502,
+          -3.1772570543216937e-06
+        ],
+        "construction_cone_4": [
+          -2.2499999999806453,
+          0.25000000000735,
+          -8.177147382545822e-06
+        ]
+      },
+      "max_lateral_command": 0.0,
+      "cleanup": {
+        "owned_processes": 6,
+        "remaining": []
+      },
+      "contacts": {
+        "type": "summary",
+        "messages": 13249,
+        "all_contacts": 158979,
+        "cone_contact_events": 0,
+        "wall_contact_events": 0,
+        "sim": 1193.553
+      }
+    },
+    "contact_events": []
+  }
+]

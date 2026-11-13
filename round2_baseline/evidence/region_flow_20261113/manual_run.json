@@ -1,0 +1,372 @@
+{
+  "scope": "User manual full control run; extracted ROS event timing, not an exported official timer record",
+  "events": [
+    {
+      "state": "MOVING",
+      "detail": "bend1",
+      "stamp": 838.286,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:00:31,177"
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend1",
+      "stamp": 839.526,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:00:41,301"
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend2",
+      "stamp": 839.526,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:00:41,303"
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend2",
+      "stamp": 841.088,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:00:54,082"
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend3",
+      "stamp": 841.089,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:00:54,084"
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend3",
+      "stamp": 842.553,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:01:06,585"
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend4",
+      "stamp": 842.553,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:01:06,587"
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend4",
+      "stamp": 844.048,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:01:19,228"
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5_approach",
+      "stamp": 844.049,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:01:19,231"
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5_approach",
+      "stamp": 845.541,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:01:32,554"
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend5",
+      "stamp": 845.541,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:01:32,556"
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend5",
+      "stamp": 845.711,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:01:33,300"
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend6",
+      "stamp": 845.711,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:01:33,302"
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend6",
+      "stamp": 846.459,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:01:39,318"
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend7",
+      "stamp": 846.459,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:01:39,320"
+    },
+    {
+      "state": "PASSED",
+      "detail": "bend7",
+      "stamp": 847.41,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:01:47,215"
+    },
+    {
+      "state": "MOVING",
+      "detail": "bend8",
+      "stamp": 847.411,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:01:47,217"
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "bend8",
+      "stamp": 852.535,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:02:27,743"
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_approach",
+      "stamp": 852.589,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:02:27,976"
+    },
+    {
+      "state": "PASSED",
+      "detail": "qr_approach",
+      "stamp": 856.116,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:02:56,716"
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr",
+      "stamp": 856.116,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:02:56,719"
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr",
+      "stamp": 858.012,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:03:12,145"
+    },
+    {
+      "state": "IMAGE_SKIPPED",
+      "detail": "qr",
+      "stamp": 858.013,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:03:12,146"
+    },
+    {
+      "state": "MOVING",
+      "detail": "qr_exit",
+      "stamp": 858.013,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:03:12,147"
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "qr_exit",
+      "stamp": 860.34,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:03:30,951"
+    },
+    {
+      "state": "MOVING",
+      "detail": "cone_entry",
+      "stamp": 860.386,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:03:32,801"
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "cone_entry",
+      "stamp": 864.775,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:04:08,283"
+    },
+    {
+      "state": "MOVING",
+      "detail": "cone_exit",
+      "stamp": 864.792,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:04:09,137"
+    },
+    {
+      "state": "PASSED",
+      "detail": "cone_exit",
+      "stamp": 870.67,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:04:58,933"
+    },
+    {
+      "state": "MOVING",
+      "detail": "blocks",
+      "stamp": 870.67,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:04:58,935"
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "blocks",
+      "stamp": 871.382,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:05:05,188"
+    },
+    {
+      "state": "IMAGE_SKIPPED",
+      "detail": "blocks",
+      "stamp": 871.383,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:05:05,209"
+    },
+    {
+      "state": "MOVING",
+      "detail": "return",
+      "stamp": 871.383,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:05:05,240"
+    },
+    {
+      "state": "PASSED",
+      "detail": "return",
+      "stamp": 882.194,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:06:40,123"
+    },
+    {
+      "state": "MOVING",
+      "detail": "finish_approach",
+      "stamp": 882.194,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:06:40,125"
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "finish_approach",
+      "stamp": 884.7,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:07:00,979"
+    },
+    {
+      "state": "MOVING",
+      "detail": "finish",
+      "stamp": 884.701,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:07:00,981"
+    },
+    {
+      "state": "ARRIVED",
+      "detail": "finish",
+      "stamp": 887.66,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:07:26,757"
+    },
+    {
+      "state": "CONTROL_ROUTE_DONE",
+      "detail": "CONTROL ONLY: image recognition and its processing time omitted",
+      "stamp": 887.66,
+      "control_only": true,
+      "wall_time": "2026-11-13 11:07:26,776"
+    }
+  ],
+  "stages": [
+    {
+      "stage": "bend1",
+      "sim_seconds": 1.24,
+      "wall_seconds": 10.126
+    },
+    {
+      "stage": "bend2",
+      "sim_seconds": 1.563,
+      "wall_seconds": 12.781
+    },
+    {
+      "stage": "bend3",
+      "sim_seconds": 1.464,
+      "wall_seconds": 12.503
+    },
+    {
+      "stage": "bend4",
+      "sim_seconds": 1.496,
+      "wall_seconds": 12.644
+    },
+    {
+      "stage": "bend5_approach",
+      "sim_seconds": 1.492,
+      "wall_seconds": 13.325
+    },
+    {
+      "stage": "bend5",
+      "sim_seconds": 0.17,
+      "wall_seconds": 0.746
+    },
+    {
+      "stage": "bend6",
+      "sim_seconds": 0.748,
+      "wall_seconds": 6.018
+    },
+    {
+      "stage": "bend7",
+      "sim_seconds": 0.952,
+      "wall_seconds": 7.897
+    },
+    {
+      "stage": "bend8",
+      "sim_seconds": 5.178,
+      "wall_seconds": 40.759
+    },
+    {
+      "stage": "qr_approach",
+      "sim_seconds": 3.527,
+      "wall_seconds": 28.743
+    },
+    {
+      "stage": "qr",
+      "sim_seconds": 1.897,
+      "wall_seconds": 15.428
+    },
+    {
+      "stage": "qr_exit",
+      "sim_seconds": 2.373,
+      "wall_seconds": 20.654
+    },
+    {
+      "stage": "cone_entry",
+      "sim_seconds": 4.406,
+      "wall_seconds": 36.336
+    },
+    {
+      "stage": "cone_exit",
+      "sim_seconds": 5.878,
+      "wall_seconds": 49.798
+    },
+    {
+      "stage": "blocks",
+      "sim_seconds": 0.713,
+      "wall_seconds": 6.305
+    },
+    {
+      "stage": "return",
+      "sim_seconds": 10.811,
+      "wall_seconds": 94.885
+    },
+    {
+      "stage": "finish_approach",
+      "sim_seconds": 2.507,
+      "wall_seconds": 20.856
+    },
+    {
+      "stage": "finish",
+      "sim_seconds": 2.959,
+      "wall_seconds": 25.795
+    }
+  ],
+  "sim_seconds": 49.374,
+  "wall_seconds": 415.599
+}

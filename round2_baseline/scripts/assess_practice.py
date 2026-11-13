@@ -35,6 +35,9 @@ if r.get('route_flow'):
     targets={name:(x,y,yaw) for name,x,y,yaw in r['executed_route']}
     task_checks={}
     for name,position_tolerance,yaw_tolerance in (('qr',.01,.08),('blocks',.03,.25),('finish',.025,.15)):
+        if name=='finish' and r.get('continuous_regions'):
+            task_checks[name]=bool(a['arrivals'].get(name,{}).get('body_in_region') and a['arrivals'].get(name,{}).get('stopped'))
+            continue
         pose=a['arrivals'].get(name,{}).get('pose')
         target=targets[name]
         task_checks[name]=bool(pose and math.hypot(pose[0]-target[0],pose[1]-target[1])<=position_tolerance+.0001 and
