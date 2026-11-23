@@ -1,3 +1,34 @@
+# 第二轮 ROS 智能车
+
+本分支在原控制基线上接入二维码识别、物块确认、语音播报和机械臂复位。航点集中在 [route.yaml](round2_baseline/config/route.yaml)，运行节点在 `round2_baseline/scripts/` 和 `round2_vision/scripts/`，试跑工具与回归测试分别在 `round2_baseline/tools/` 和 `round2_baseline/tests/`。
+
+## 运行整轮
+
+在 ROS Noetic 环境准备 Gazebo、TEB、OpenCV 和 cv_bridge。视觉节点还需要 Python 的 pyzbar、系统 ZBar 库、espeak-ng 和 ALSA 的 aplay。Gazebo 渲染需要可用的显示服务。默认播报设备为 `plughw:1,0`，手动启动时可通过 `vision_audio_device` 设置本机设备。
+
+从仓库根目录执行：
+
+```bash
+bash round2_baseline/tools/setup_wsl.sh
+source "${ROUND2_WORKSPACE:-$HOME/round2_team_ws}/devel/setup.bash"
+bash round2_baseline/tests/run_tests.sh
+bash _dev/full_run.sh --gui --timer --timeout-clock wall --seconds 175 --layout-seed 8
+```
+
+试跑脚本自动布景并调用官方 Draw。默认锥桶种子为 42，可用 `--seed` 更换。省略 `--layout-seed` 时，二维码和物块由官方布景脚本随机生成。默认日志目录为 `~/trials`，可用 `ROUND2_TRIALS` 修改。整轮通过应同时出现 `CONTROL_ROUTE_DONE` 和计时器成绩。
+
+正式手动发车入口：
+
+```bash
+roslaunch round2_baseline baseline.launch gui:=true timer:=true low_com:=true speed_profile:=sprint efficient_approach:=true
+```
+
+等待就绪后按裁判流程布景，再使用官方计时器的 Draw。
+
+## 控制基线历史
+
+下方为原控制版本的历史记录。里面的启动参数和脚本路径对应当时的版本。
+
 # 第二轮 ROS 智能车：控制 baseline 与图像协作入口
 
 **2026-11-13 最新：固定路径与速度曲线提前规划。** `route_flow:=true` 现在在发车前缓存固定弯道和锥桶入口曲线，减少出口/入口的重复停稳；随机锥桶仍现场激光感知、TEB 避障，二维码接近段也保留实时避障。全局周期重规划由 5 Hz 降到 1 Hz，局部控制仍为 10 Hz。针对二维码附近“相差约 1.15 厘米却一直微速不动”的复现，增加了目标附近、朝向合格、完整车身可在框内制动且最终停稳的区域判定。官方引擎、计时器及人工看守的数据失效停车不变。旧命令重启控制后生效；完整原版保留于 `42e7741` / `fixed-trajectory-before-v1`。[实现与操作说明](round2_baseline/操作记录.md#固定路径与速度提前规划随机锥桶现场避障2026-11-13)。

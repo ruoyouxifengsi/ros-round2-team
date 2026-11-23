@@ -351,11 +351,10 @@ def main():
                   rospy.get_param('~attitude_protection',True),rospy.get_param('~manual_supervision',False),rospy.get_param('/use_sim_time',False))
     lock = threading.RLock()
     bend_settings=rospy.get_param('~bend_settings',{})
-    whole_route=rospy.get_param('~route_flow',False)
     def route_state(message):
         state=json.loads(message.data)
         with lock:
-            guard.route_limits(state,bend_settings,whole_route)
+            guard.route_limits(state,bend_settings,whole_route=True)
     rospy.Subscriber('/baseline/status',String,route_state,queue_size=10)
     history, scans = deque(maxlen=300), deque(maxlen=100)
     stats = {'scan_passed': 0, 'scan_dropped': 0}

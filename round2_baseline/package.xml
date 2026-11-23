@@ -12,5 +12,6 @@
   <exec_depend>move_base</exec_depend><exec_depend>teb_local_planner</exec_depend>
   <exec_depend>dynamic_reconfigure</exec_depend>
   <exec_depend>slam_toolbox</exec_depend><exec_depend>map_server</exec_depend><exec_depend>amcl</exec_depend>
+  <exec_depend>round2_vision</exec_depend>
   <exec_depend>car3</exec_depend><exec_depend>ucar_accumtimer</exec_depend>
 </package>
