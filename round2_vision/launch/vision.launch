@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="audio_device" default="plughw:1,0"/>
+  <arg name="play_audio" default="true"/>
+  <arg name="evidence_root" default="$(env HOME)/vision_evidence"/>
+  <node pkg="round2_vision" type="vision_server.py" name="round2_vision" output="screen">
+    <param name="image_topic" value="/camera/rgb/image_raw"/>
+    <param name="arm_topic" value="/arm_control/move_to_pose"/>
+    <rosparam param="qr_poses">
+      - [0.0, -1.0, 0.25, 2.85, 0.0]
+      - [0.0, -1.25, 0.50, 2.75, 0.0]
+      - [0.0, -0.75, 0.0, 2.95, 0.0]
+    </rosparam>
+    <rosparam param="block_poses">
+      - [0.0, 1.25, 0.75, 0.25, 0.0]
+      - [1.23, 1.0, 0.75, 0.45, 0.0]
+      - [-1.23, 1.0, 0.75, 0.45, 0.0]
+    </rosparam>
+    <!-- Public fixed placement slots in odom coordinates, in block_poses order. -->
+    <rosparam param="block_targets">
+      - [-1.75, 2.80]
+      - [-2.30, 2.50]
+      - [-1.20, 2.50]
+    </rosparam>
+    <rosparam param="stow_pose">[0.0, -0.785, 1.57, 1.57, 0.0]</rosparam>
+    <param name="voice" value="cmn"/>
+    <param name="voice_rate" value="175"/>
+    <param name="audio_device" value="$(arg audio_device)"/>
+    <param name="play_audio" value="$(arg play_audio)"/>
+    <param name="evidence_root" value="$(arg evidence_root)"/>
+    <param name="min_block_score" value="0.50"/>
+  </node>
+</launch>

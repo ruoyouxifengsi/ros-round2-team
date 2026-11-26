@@ -1,0 +1,12 @@
+# 识别任务：二维码读取 或 物块识别，识别完成后播报
+string stage        # "qr" 或 "block"
+string expected     # block 阶段用：二维码给出的任务名称（如"日用品"）；qr 阶段留空
+float32 timeout     # 本次识别允许的最长秒数
+---
+bool success        # 是否成功识别并播报
+string task_label   # 识别结果（日用品 / 电子产品 / 食品）
+string utterance    # 实际播报的句子
+string evidence_dir # 证据目录（截图、音频、json）
+string detail       # 失败原因或补充说明
+---
+string progress     # 进度提示

@@ -1,6 +1,39 @@
+corner_radius: 0.16  # metres; race baseline
 max_speed: 1.00
 acceleration: 1.40
 max_yaw_rate: 2.40
 output_speed: 1.05
 output_acceleration: 1.60
 output_yaw_rate: 2.80
+
+# The continuous bend section uses the measured fast reference.
+fixed_prefix_braking_check: false
+fixed_prefix_limits:
+  max_speed: 1.05
+  acceleration: 1.60
+  max_yaw_rate: 2.80
+join_bend5_corners: true
+reference_corner_radii:
+  bend1: 0.28
+  bend2: 0.28
+  bend3: 0.28
+  bend4: 0.28
+  bend5_approach: 0.25
+  bend6: 0.20
+  bend7: 0.20
+reference_x_offsets:
+  bend1: 0.04
+  bend2: -0.04
+  bend3: 0.04
+  bend4: -0.04
+  bend5_approach: -0.04
+  bend6: 0.04
+  bend7: -0.04
+reference_y_offsets:
+  bend1: -0.04
+  bend2: -0.04
+  bend3: 0.04
+  bend4: -0.04
+  bend5_approach: 0.04
+  bend6: 0.04
+  bend7: 0.03
