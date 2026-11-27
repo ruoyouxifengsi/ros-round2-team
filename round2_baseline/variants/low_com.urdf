@@ -15,9 +15,11 @@
 
   <link name="base_link">
     <inertial>
-      <origin xyz="0 0 0.02" rpy="0 0 0" />
+      <!-- Redistribute the chassis mass lower and 12 mm rearward.
+           A larger fore-aft mass spread adds 0.027 kg m^2 to pitch and yaw inertia. -->
+      <origin xyz="-0.012 0 0.02" rpy="0 0 0" />
       <mass value="20.0" />
-      <inertia ixx="0.049" ixy="0" ixz="0" iyy="0.093" iyz="0" izz="0.132" />
+      <inertia ixx="0.049" ixy="0" ixz="0" iyy="0.120" iyz="0" izz="0.159" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />

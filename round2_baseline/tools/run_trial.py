@@ -34,7 +34,7 @@ p.add_argument('--timeout-clock',choices=['wall','sim'],default='wall',help='sim
 p.add_argument('--seed',type=int)
 p.add_argument('--layout-seed',type=int,help='Development only: reproduce the official QR and block draw')
 p.add_argument('--timer',action='store_true')
-p.add_argument('--low-com',action='store_true',help='Experimental base_link COM z=0.02; official assets remain unchanged')
+p.add_argument('--low-com',action='store_true',help='Load the low center-of-mass and revised-inertia chassis variant')
 p.add_argument('--audit-cones',action='store_true',help='Development-only displacement observer; forbidden in competition')
 p.add_argument('--speed-profile',choices=['stable','fast','sprint'],default='stable')
 p.add_argument('--bend-radius', type=float, help='Override the fixed bend radius for this trial (metres)')
@@ -218,11 +218,9 @@ try:
     if args.low_com:
         import rospkg
         car=Path(rospkg.RosPack().get_path('car3'))
-        model=ET.parse(car/'urdf/car3.urdf')
-        origin=model.find('./link[@name="base_link"]/inertial/origin')
-        assert origin.get('xyz')=='0 0 0.045754'
-        origin.set('xyz','0 0 0.02')
-        model_path=out/'low_com.urdf';model.write(model_path)
+        model_source=package/'variants/low_com.urdf'
+        model_path=out/'low_com.urdf'
+        shutil.copyfile(model_source,model_path)
         tree=ET.parse(car/'launch/gazebo.launch')
         param=tree.find('.//param[@name="robot_description"]')
         param.attrib.clear();param.set('name','robot_description');param.set('textfile',str(model_path))
@@ -230,7 +228,8 @@ try:
         tree.find('.//arg[@name="gui"]').set('default','false')
         os.environ['GAZEBO_MODEL_PATH']=str(car)+':'+str(car/'models')+':'+str(Path.home()/'.gazebo/models')
         simulation=out/'low_com_simulation.launch.txt';tree.write(simulation)
-        result['model_variant']='low COM 0.02; user confirmed permitted 2026-11-11'
+        result['model_variant']='low_com.urdf'
+        result['model_variant_sha256']=hashlib.sha256(model_path.read_bytes()).hexdigest()
     if spawn_pose:
         import rospkg
         car=Path(rospkg.RosPack().get_path('car3'));tree=ET.parse(simulation if args.low_com else car/'launch/gazebo.launch')
